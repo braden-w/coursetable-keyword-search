@@ -2,9 +2,9 @@
 
 <div class="hero bg-base-100 text-base-content">
 	<div class="hero-overlay h-screen bg-opacity-60" />
-	<div class="hero-content px-4 text-center md:px-0">
+	<div class="hero-content">
 		<div>
-			<h2 class="mt-32 mb-2 text-4xl font-extrabold md:text-6xl">Yale Course Keyword Search</h2>
+			<h2 class="mb-2 text-4xl font-extrabold md:text-6xl">Yale Course Keyword Search</h2>
 			<h3 class="mb-5 text-3xl font-bold">
 				A search box that allows you to search coursetable reviews by keyword
 			</h3>
