@@ -6,7 +6,7 @@
 		<div>
 			<h2 class="mb-2 text-4xl font-extrabold md:text-6xl">Yale Course Keyword Search</h2>
 			<h3 class="mb-5 text-3xl font-bold">
-				A search box that allows you to search coursetable reviews by keyword
+				A search box that allows you to search CourseTable reviews by keyword
 			</h3>
 			<p class="mx-auto w-full max-w-xl">Start by typing in this box:</p>
 			<div class="form-control">
