@@ -131,7 +131,6 @@
 								</MenuItem>
 								<MenuItem let:active>
 									<button
-										on:click={signOut}
 										class:bg-gray-100={active}
 										class="block px-4 py-2 text-sm text-gray-700">Sign out</button
 									>
