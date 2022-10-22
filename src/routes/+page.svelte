@@ -1,5 +1,4 @@
 <script lang="ts">
-  import SignInGoogleButton from './SignInGoogleButton.svelte';
   const photoNames = [
     'LocationsTable.png',
     'LocationsList.png',
@@ -10,8 +9,6 @@
     'New Haven In.png',
   ];
 
-  const photoFilePaths = photoNames.map((name) => `/photos/${name}`);
-  const albumURL = 'https://imgur.com/a/vSfU9c6';
   const photoURLs = [
     'https://i.imgur.com/O7KS8N5.png',
     'https://i.imgur.com/8VIWiMd.png',
@@ -87,7 +84,6 @@
         </div>
       </section>
       <div class="mb-36 flex w-full justify-center">
-        <SignInGoogleButton {loading} />
       </div>
     </div>
   </div>
