@@ -1,6 +1,6 @@
 <script lang="ts"></script>
 
-<div class="min-h-screen-nav hero mx-auto max-w-md bg-base-100 text-base-content md:max-w-full">
+<div class="hero bg-base-100 text-base-content">
 	<div class="hero-overlay h-screen bg-opacity-60" />
 	<div class="hero-content px-4 text-center md:px-0">
 		<div>
