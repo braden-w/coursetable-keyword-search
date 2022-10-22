@@ -8,7 +8,7 @@
 			<h3 class="mb-5 text-3xl font-bold">
 				A search box that allows you to search CourseTable reviews by keyword
 			</h3>
-			<p class="mx-auto w-full max-w-xl">Start by typing in this box:</p>
+			<p class="w-full max-w-xl">Start by typing in this box:</p>
 			<div class="form-control">
 				<div class="input-group">
 					<input type="text" placeholder="Search…" class="input input-bordered" />
