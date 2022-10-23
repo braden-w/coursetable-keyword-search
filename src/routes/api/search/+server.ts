@@ -2,7 +2,7 @@ import type { SearchResponse } from '../../search/[keyword]/[course_keyword]/typ
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/public';
 
-const options = ({ keyword, course_keyword }: { keyword: string; course_keyword: string }) => ({
+const query = ({ keyword, course_keyword }: { keyword: string; course_keyword: string }) => ({
 	method: 'POST',
 	headers: {
 		Cookie: env.PUBLIC_COURSETABLE_COOKIE,
@@ -73,11 +73,10 @@ const options = ({ keyword, course_keyword }: { keyword: string; course_keyword:
 export const GET: RequestHandler = async ({url}: {url: URL}) => {
 	const keyword = url.searchParams.get('keyword') ?? '%';
 	const course_keyword = url.searchParams.get('course_keyword') ?? '%';
-	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options({keyword, course_keyword}));
+	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', query({keyword, course_keyword}));
 	const response = await res.json() as SearchResponse;
 	console.log("🚀 ~ file: +server.ts ~ line 78 ~ constGET:RequestHandler= ~ response", response)
-	const blob = new Blob([JSON.stringify(response, null, 2)], { type: 'application/json' });
+	const blob = new Blob([JSON.stringify(response)], { type: 'application/json' });
 	const options = { status: 200, statusText: 'OK' };
 	return new Response(blob, options)
-
 };
