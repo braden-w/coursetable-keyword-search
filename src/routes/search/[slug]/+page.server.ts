@@ -10,9 +10,29 @@ const options = {
 		'Content-Type': 'application/json'
 	},
 	body: JSON.stringify({
-		query: `
-        query {
-	courses (limit:10)
+		query: `query searchCoursesByKeyword ($keyword: String!, $course_keyword: String!) {
+	courses (
+		where: {
+			_and: [
+				{
+					evaluation_narratives: {
+						comment: {
+							_ilike: $keyword
+						}
+					}
+			},
+			{
+				course: {
+					computed_listing_infos: {
+						course_code: {
+							_ilike: $course_keyword
+						}
+					}
+				}
+			}
+			]
+		}
+	)
 	{
 		description
 		title
@@ -41,13 +61,16 @@ const options = {
 		}
 	}
 }
-      `,
-		variables: {}
+`,
+		variables: {
+			keyword: '%favorite%',
+			course_keyword: 'EP&E%'
+		}
 	})
 };
 
 export const load: PageServerLoad = async () => {
-	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options)
+	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options);
 	const response = await res.json();
-	return {response}
-}
+	return { response };
+};
