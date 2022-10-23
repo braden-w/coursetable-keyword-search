@@ -1,17 +1,21 @@
 <script lang="ts">
-	import {goto} from "$app/navigation";
-	let keyword = ''
-	let courseKeyword = ''
-	
-	$: keywordWithPercents = `%${keyword}%`
-	$: courseKeywordWithPercents = `%${courseKeyword}%`
+	import { MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	let keyword = '';
+	let courseKeyword = '';
 
-	const onSubmit = async () =>
-	{
+	$: keywordWithPercents = `%${keyword}%`;
+	$: courseKeywordWithPercents = `%${courseKeyword}%`;
+
+	const onSubmit = async () => {
 		// Send api request to search passing {keyword: keywordWithPercents, courseKeyword: courseKeywordWithPercents}
-		const response = await fetch(`/api/search?keyword=${encodeURIComponent(keywordWithPercents)}&courseKeyword=${encodeURIComponent(courseKeywordWithPercents)}`)
-		const data = await response.json()
-	}
+		const response = await fetch(
+			`/api/search?keyword=${encodeURIComponent(
+				keywordWithPercents
+			)}&courseKeyword=${encodeURIComponent(courseKeywordWithPercents)}`
+		);
+		const data = await response.json();
+	};
 </script>
 
 <div class="hero bg-base-100 text-base-content">
