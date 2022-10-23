@@ -1,3 +1,4 @@
+import type { SearchResponse } from './types';
 import type { PageServerLoad } from '../../../../../.svelte-kit/types/src/routes/search/[keyword]/$types';
 import { env } from '$env/dynamic/public';
 
@@ -71,6 +72,6 @@ const options = ({ keyword, course_keyword }: { keyword: string; course_keyword:
 
 export const load: PageServerLoad = async ({params: {keyword, course_keyword}}) => {
 	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options({keyword, course_keyword}));
-	const response = await res.json();
+	const response = await res.json() as SearchResponse;
 	return { response };
 };
