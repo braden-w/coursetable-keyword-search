@@ -6,9 +6,11 @@
 	$: keywordWithPercents = `%${keyword}%`
 	$: courseKeywordWithPercents = `%${courseKeyword}%`
 
-	const onSubmit = () =>
+	const onSubmit = async () =>
 	{
-		goto('/search/' + encodeURIComponent(keywordWithPercents) + '/' + encodeURIComponent(courseKeywordWithPercents))
+		// Send api request to search passing {keyword: keywordWithPercents, courseKeyword: courseKeywordWithPercents}
+		const response = await fetch(`/api/search?keyword=${encodeURIComponent(keywordWithPercents)}&courseKeyword=${encodeURIComponent(courseKeywordWithPercents)}`)
+		const data = await response.json()
 	}
 </script>
 
