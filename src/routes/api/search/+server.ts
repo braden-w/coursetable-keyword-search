@@ -71,8 +71,8 @@ const options = ({ keyword, course_keyword }: { keyword: string; course_keyword:
 });
 
 export const GET: RequestHandler = async ({url}: {url: URL}) => {
-	const keyword = url.searchParams.get('keyword') ?? '';
-	const course_keyword = url.searchParams.get('course_keyword') ?? '';
+	const keyword = url.searchParams.get('keyword') ?? '%';
+	const course_keyword = url.searchParams.get('course_keyword') ?? '%';
 	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options({keyword, course_keyword}));
 	const response = await res.json() as SearchResponse;
 	console.log("🚀 ~ file: +server.ts ~ line 78 ~ constGET:RequestHandler= ~ response", response)
