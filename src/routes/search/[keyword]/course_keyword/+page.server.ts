@@ -1,4 +1,4 @@
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad } from '../../../../../.svelte-kit/types/src/routes/search/[keyword]/$types';
 import { env } from '$env/dynamic/public';
 
 const options = {
