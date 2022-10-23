@@ -27,29 +27,19 @@
 				A search box that allows you to search CourseTable reviews by keyword
 			</h3>
 			<!-- <p class="">Start by typing in this box:</p> -->
-			<div class="form-control">
-				<div class="input-group">
-					<span>Search course reviews with</span>
-					<input type="text" placeholder="Keyword..." class="input input-bordered" bind:value={keyword}/>
-					<span>for courses that start with</span>
-					<input type="text" placeholder="ECON, CPSC, PLSC..." class="input input-bordered" bind:value={courseKeyword}/>
-					<button class="btn" on:click={onSubmit}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/>
-						</svg>
-						Search
-					</button>
+			<div class="w-full">
+				<label for="search" class="sr-only">Search</label>
+				<div class="relative">
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+						<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					</div>
+					<input
+						id="search"
+						name="search"
+						class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-indigo-500 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+						placeholder="Search"
+						type="search"
+					/>
 				</div>
 			</div>
 		</div>
