@@ -18,8 +18,8 @@
 	};
 </script>
 
-<div class="hero bg-base-100 text-base-content">
-	<div class="hero-overlay h-screen bg-opacity-60" />
+<div class="hero bg-base-100 text-base-content min-h-screen">
+<!-- <div class="hero-overlay bg-opacity-60"></div> -->
 	<div class="hero-content">
 		<div>
 			<h2 class="mb-2 text-4xl font-extrabold md:text-6xl">Yale Course Keyword Search</h2>
@@ -37,7 +37,7 @@
 						id="search"
 						name="search"
 						class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-indigo-500 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-						placeholder="Search"
+						placeholder="Search by course keyword..."
 						type="search"
 					/>
 				</div>
