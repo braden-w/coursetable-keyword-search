@@ -1,5 +1,15 @@
-<script lang="ts"></script>
+<script lang="ts">
+	import {goto} from "$app/navigation";
+	let keyword = ''
+	let course_keyword = ''
 
+	const onSubmit = () =>
+	{
+		goto('/search/' + encodeURIComponent(keyword) + '/' + encodeURIComponent(course_keyword))
+	}
+</script>
+
+<!-- svelte-ignore missing-declaration -->
 <div class="hero bg-base-100 text-base-content">
 	<div class="hero-overlay h-screen bg-opacity-60" />
 	<div class="hero-content">
@@ -12,10 +22,10 @@
 			<div class="form-control">
 				<div class="input-group">
 					<span>Search course reviews with</span>
-					<input type="text" placeholder="Keyword..." class="input input-bordered" />
+					<input type="text" placeholder="Keyword..." class="input input-bordered" bind:value={keyword}/>
 					<span>for courses that start with</span>
-					<input type="text" placeholder="ECON, CPSC, PLSC..." class="input input-bordered" />
-					<button class="btn">
+					<input type="text" placeholder="ECON, CPSC, PLSC..." class="input input-bordered" bind:value={course_keyword}/>
+					<button class="btn" on:click={onSubmit}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="h-6 w-6"
