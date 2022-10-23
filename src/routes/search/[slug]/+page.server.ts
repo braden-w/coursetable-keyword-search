@@ -1,3 +1,4 @@
+import type { PageServerLoad } from './$types';
 import { env } from '$env/dynamic/public';
 
 const options = {
@@ -45,7 +46,8 @@ const options = {
 	})
 };
 
-fetch('https://api.coursetable.com/ferry/v1/graphql?=', options)
-	.then((response) => response.json())
-	.then((response) => console.log(response))
-	.catch((err) => console.error(err));
+export const load: PageServerLoad = async () => {
+	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options)
+	const response = await res.json();
+	return {response}
+}
