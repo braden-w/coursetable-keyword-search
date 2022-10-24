@@ -2,15 +2,24 @@
 	import QueryButton from './QueryButton.svelte';
 	const queries = [
 		{
-			keyword: 'Favorite'
+			title: '"Favorite" courses',
+			keyword: 'favorite',
+			course_keyword: '',
+			count: '1000'
 		},
 		{
-			keyword: 'Best'
+			title: '"Best" courses',
+			keyword: 'best',
+			course_keyword: '',
+			count: '1000'
 		},
 		{
-			keyword: 'Quintessential'
-		},
-	]
+			title: '"Quintessential" history courses',
+			keyword: 'quintessential',
+			course_keyword: 'HIST',
+			count: '18'
+		}
+	];
 </script>
 
 <div class="relative">
@@ -28,7 +37,12 @@
 
 				<div class="flex flex-wrap gap-2">
 					{#each queries as query}
-						<a href="/search?{new URLSearchParams({ keyword: query.keyword.toLowerCase() })}">
+						<a
+							href="/search?{new URLSearchParams({
+								keyword: query.keyword,
+								course_keyword: query.course_keyword
+							})}"
+						>
 							<QueryButton {...query} />
 						</a>
 					{/each}
