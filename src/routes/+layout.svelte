@@ -6,8 +6,8 @@
 
 <!-- TODO: Update Head -->
 <svelte:head>
-	<title>Yale MealMatch</title>
-	<meta name="description" content="Find Yalies to grab a meal with!" />
+	<title>CourseTable Review Search</title>
+	<meta name="description" content="Search CourseTable courses by review" />
 	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
