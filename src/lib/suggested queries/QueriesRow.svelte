@@ -45,27 +45,54 @@
 			keyword: 'quintessential',
 			course_keyword: 'HIST',
 			count: '18'
+		},
+		{
+			title: '"Quintessential" history courses',
+			keyword: 'quintessential',
+			course_keyword: 'HIST',
+			count: '18'
+		},
+		{
+			title: '"Quintessential" history courses',
+			keyword: 'quintessential',
+			areas_skills_keyword: 'Hu',
+			count: '18'
 		}
 	];
 </script>
 
-<span class="isolate inline-flex rounded-md shadow-sm">
-	<button
-		type="button"
-		class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+<span class="flex overflow-x-auto rounded-md shadow-sm">
+	<a
+		href="/search?{new URLSearchParams({
+			keyword: queries[0].keyword ?? '',
+			course_keyword: queries[0].course_keyword ?? '',
+			areas_skills_keyword: queries[0].areas_skills_keyword ?? ''
+		})}"
 	>
-		Years
-	</button>
+		<button
+			type="button"
+			class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+		>
+			{queries[0].title}
+		</button>
+	</a>
 
 	{#each queries.slice(1, -1) as query}
-
-	<QueryButton {...query} />
-
+		<QueryButton {...query} />
 	{/each}
-			<button
+
+	<a
+		href="/search?{new URLSearchParams({
+			keyword: queries[queries.length - 1].keyword ?? '',
+			course_keyword: queries[queries.length - 1].course_keyword ?? '',
+			areas_skills_keyword: queries[queries.length - 1].areas_skills_keyword ?? ''
+		})}"
+	>
+		<button
 			type="button"
 			class="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-			>Days</button
 		>
-
+			{queries[queries.length - 1].title}
+		</button>
+	</a>
 </span>
