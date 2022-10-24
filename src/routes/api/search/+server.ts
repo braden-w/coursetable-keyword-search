@@ -17,6 +17,11 @@ export const queryCourseTable = async ({
 	// Add a % to the end of the keyword to make it a prefix search if it's not already
 	keyword = keyword.endsWith('%') ? keyword : `${keyword}%`;
 	course_keyword = course_keyword.endsWith('%') ? course_keyword : `${course_keyword}%`;
+	
+	// Lowercase both keywords
+	keyword = keyword.toLowerCase();
+	course_keyword = course_keyword.toLowerCase();
+
 	console.log("🚀 ~ file: +server.ts ~ line 19 ~ keyword", keyword)
 	console.log("🚀 ~ file: +server.ts ~ line 21 ~ course_keyword", course_keyword)
 	
