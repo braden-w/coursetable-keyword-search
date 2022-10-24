@@ -10,7 +10,7 @@
 	<span
 		class="-mr-px rounded-l-md border border-gray-300 bg-white px-3 py-2 pr-6 font-medium text-gray-700"
 	>
-		All messages
+		{keyword}
 	</span>
 	<span class="rounded-r-md border border-gray-300 bg-white px-2 py-2">
 		<p>100</p>
