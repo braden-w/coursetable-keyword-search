@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Calendar, ChevronRight, MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { ChevronRight, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from 'src/routes/search/[keyword]/[course_keyword]/types';
 	let keyword = '';
@@ -154,7 +154,6 @@
 </script>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-	<h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">Search</h1>
 	<h2 class="mb-2 text-4xl font-extrabold md:text-6xl">Yale Course Keyword Search</h2>
 	<h3 class="mb-4 text-3xl font-bold">
 		A search box that allows you to search CourseTable reviews by keyword
@@ -177,50 +176,48 @@
 			/>
 		</div>
 	</div>
-</div>
-
-<div class="overflow-hidden bg-white shadow sm:rounded-md">
-	<ul role="list" class="divide-y divide-gray-200">
-		{#each courses as course}
-			<li>
-				<a href="#" class="block hover:bg-gray-50">
-					<div class="flex items-center px-4 py-4 sm:px-6">
-						<div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-							<div>
-								<div class="flex text-sm">
-									<p class="truncate font-medium text-indigo-600">
-										{course.computed_listing_infos_aggregate.nodes[0].all_course_codes}
-										{course.title}
-									</p>
-									<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
-										<!-- in {course.description} -->
-									</p>
+	<div class="overflow-hidden bg-white shadow sm:rounded-md">
+		<ul role="list" class="divide-y divide-gray-200">
+			{#each courses as course}
+				<li>
+					<a href="#" class="block hover:bg-gray-50">
+						<div class="flex items-center px-4 py-4 sm:px-6">
+							<div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+								<div>
+									<div class="flex text-sm">
+										<p class="truncate font-medium text-indigo-600">
+											{course.computed_listing_infos_aggregate.nodes[0].all_course_codes}
+											{course.title}
+										</p>
+										<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
+											<!-- in {course.description} -->
+										</p>
+									</div>
+									<div class="mt-2 flex">
+										<div class="flex items-center text-sm text-gray-500">
+											{course.description}
+										</div>
+									</div>
 								</div>
-								<div class="mt-2 flex">
-									<div class="flex items-center text-sm text-gray-500">
-										{course.description}
+								<div class="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
+									<div class="flex -space-x-1 overflow-hidden">
+										<!-- <img v-for="applicant in position.applicants" :key="applicant.email" class="inline-block h-6 w-6 rounded-full ring-2 ring-white" :src="applicant.imageUrl" :alt="applicant.name" /> -->
 									</div>
 								</div>
 							</div>
-							<div class="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
-								<div class="flex -space-x-1 overflow-hidden">
-									<!-- <img v-for="applicant in position.applicants" :key="applicant.email" class="inline-block h-6 w-6 rounded-full ring-2 ring-white" :src="applicant.imageUrl" :alt="applicant.name" /> -->
-								</div>
+							<div class="ml-5 flex-shrink-0">
+								<Icon src={ChevronRight} class="h-5 w-5 text-gray-400" aria-hidden="true" />
 							</div>
 						</div>
-						<div class="ml-5 flex-shrink-0">
-							<Icon src={ChevronRight} class="h-5 w-5 text-gray-400" aria-hidden="true" />
-						</div>
-					</div>
-				</a>
-			</li>
-			{#each course.evaluation_narratives as review}
-				<p class="card-text">{review.comment}</p>
+					</a>
+				</li>
+				{#each course.evaluation_narratives as review}
+					<p>{review.comment}</p>
+				{/each}
 			{/each}
-		{/each}
-	</ul>
+		</ul>
+	</div>
 </div>
 
 <div class="min-h-screen text-base-content">
-	<!-- <div class="hero-overlay bg-opacity-60"></div> -->
 </div>
