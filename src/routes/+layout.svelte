@@ -16,7 +16,7 @@
 </svelte:head>
 <Header />
 
-<main class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+<main>
 	<QueryClientProvider client={queryClient}>
 		<slot />
 	</QueryClientProvider>
