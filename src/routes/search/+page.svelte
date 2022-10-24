@@ -101,6 +101,7 @@
 			</div>
 		</div>
 	{/if}
+	{#if coursesSortedByCount.length !== 0}
 	<div class="overflow-hidden bg-white shadow sm:rounded-md">
 		<ul class="divide-y divide-gray-200">
 			{#each coursesSortedByCount as course}
@@ -108,4 +109,9 @@
 			{/each}
 		</ul>
 	</div>
+	{:else}
+		<div class="mt-4">
+			<p class="text-center text-gray-500">No results yet</p>
+		</div>
+	{/if}
 </div>
