@@ -10,6 +10,15 @@ export const queryCourseTable = async ({
 	keyword: string;
 	course_keyword: string;
 }) => {
+	// Add a % to the beginning of the keyword to make it a prefix search if it's not already
+	keyword = keyword.startsWith('%') ? keyword : `%${keyword}`;
+	course_keyword = course_keyword.startsWith('%') ? course_keyword : `%${course_keyword}`;
+
+	// Add a % to the end of the keyword to make it a prefix search if it's not already
+	keyword = keyword.endsWith('%') ? keyword : `${keyword}%`;
+	course_keyword = course_keyword.endsWith('%') ? course_keyword : `${course_keyword}%`;
+	console.log("🚀 ~ file: +server.ts ~ line 19 ~ keyword", keyword)
+	console.log("🚀 ~ file: +server.ts ~ line 21 ~ course_keyword", course_keyword)
 	
 	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options({ keyword, course_keyword }));
 	const response = (await res.json()) as SearchResponse;

@@ -4,7 +4,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
-	export let keyword: string;
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
 </script>

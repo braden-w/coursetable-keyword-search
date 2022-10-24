@@ -4,23 +4,23 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import type { PageData } from './$types';
-	import {onMount} from 'svelte';
-	import {goto} from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 	let keyword = data.keyword ?? '';
 	let courseKeyword = data.course_keyword ?? '';
 
-	$: keywordWithPercents = `%${keyword}%`;
-	$: courseKeywordWithPercents = `%${courseKeyword}%`;
-
-	const onKeydown = (e: KeyboardEvent) => (e.key === 'Enter' ? goto( '/search?' +
-				new URLSearchParams({
-					keyword: keywordWithPercents,
-					course_keyword: courseKeywordWithPercents
-				})
-		
-) : null);
+	const onKeydown = (e: KeyboardEvent) =>
+		e.key === 'Enter'
+			? goto(
+					'/search?' +
+						new URLSearchParams({
+							keyword,
+							course_keyword: courseKeyword
+						})
+			  )
+			: null;
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [
 		{
@@ -84,12 +84,12 @@
 	];
 
 	const runQuery = async () => {
-		// Send api request to search passing {keyword: keywordWithPercents, courseKeyword: courseKeywordWithPercents}
+		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
 		const response = await fetch(
 			'/api/search?' +
 				new URLSearchParams({
-					keyword: keywordWithPercents,
-					course_keyword: courseKeywordWithPercents
+					keyword: keyword,
+					course_keyword: courseKeyword
 				})
 		);
 		const data = (await response.json()) as SearchResponse;
