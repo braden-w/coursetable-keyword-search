@@ -13,13 +13,7 @@
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter')
-			goto(
-					'/search?' +
-						new URLSearchParams({
-							keyword,
-							course_keyword: courseKeyword
-						})
-					)
+			goto(`/search?${new URLSearchParams({ keyword, course_keyword: courseKeyword })}`);
 	};
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
