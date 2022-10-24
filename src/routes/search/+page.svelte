@@ -16,8 +16,10 @@
 	let loading = false;
 
 	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter')
+		if (e.key === 'Enter'){
 			goto(`/search?${new URLSearchParams({ keyword, course_keyword: courseKeyword })}`);
+			runQuery()
+		}
 	};
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
