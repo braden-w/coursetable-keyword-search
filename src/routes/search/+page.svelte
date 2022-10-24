@@ -5,6 +5,7 @@
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import type { PageData } from './$types';
 	import {onMount} from 'svelte';
+	import {goto} from '$app/navigation';
 
 	export let data: PageData;
 	let keyword = data.keyword ?? '';
@@ -13,7 +14,13 @@
 	$: keywordWithPercents = `%${keyword}%`;
 	$: courseKeywordWithPercents = `%${courseKeyword}%`;
 
-	const onKeydown = (e: KeyboardEvent) => (e.key === 'Enter' ? runQuery() : null);
+	const onKeydown = (e: KeyboardEvent) => (e.key === 'Enter' ? goto( '/search?' +
+				new URLSearchParams({
+					keyword: keywordWithPercents,
+					course_keyword: courseKeywordWithPercents
+				})
+		
+) : null);
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [
 		{
