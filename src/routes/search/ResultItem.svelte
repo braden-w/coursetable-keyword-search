@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { slide, fly } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 	import { ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
