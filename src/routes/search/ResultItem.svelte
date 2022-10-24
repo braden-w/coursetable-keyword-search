@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { slide, fly } from 'svelte/transition';
 	import { ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from 'src/routes/search/[keyword]/[course_keyword]/types';
@@ -46,7 +47,7 @@
 
 {#if expanded}
 	{#each course.evaluation_narratives as review}
-		<li>
+		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">{review.comment}</p>
 			</div>
