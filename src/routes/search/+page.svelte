@@ -92,7 +92,6 @@
 	<h3 class="mb-4 text-3xl font-bold">
 		A search box that allows you to search CourseTable reviews by keyword
 	</h3>
-	<!-- <p class="">Start by typing in this box:</p> -->
 	<div class="w-full">
 		<label for="search" class="sr-only">Search</label>
 		<div class="relative">
