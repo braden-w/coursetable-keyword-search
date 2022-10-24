@@ -77,14 +77,6 @@
 	];
 
 	const onSubmit = async () => {
-		console.log(
-			'🚀 ~ file: +page.svelte ~ line 25 ~ onSubmit ~ courseKeywordWithPercents',
-			courseKeywordWithPercents
-		);
-		console.log(
-			'🚀 ~ file: +page.svelte ~ line 25 ~ onSubmit ~ keywordWithPercents',
-			keywordWithPercents
-		);
 		// Send api request to search passing {keyword: keywordWithPercents, courseKeyword: courseKeywordWithPercents}
 		const response = await fetch(
 			`/api/search?keyword=${encodeURIComponent(
@@ -93,7 +85,6 @@
 		);
 		const data = (await response.json()) as SearchResponse;
 		courses = data.data.courses;
-		console.log('🚀 ~ file: +page.svelte ~ line 18 ~ onSubmit ~ data', data);
 	};
 </script>
 
