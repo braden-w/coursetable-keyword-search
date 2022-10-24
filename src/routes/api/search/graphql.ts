@@ -1,11 +1,4 @@
-export const graphQL = ({
-	keyword,
-	course_keyword
-}: {
-	keyword: string;
-	course_keyword: string;
-}) => ({
-	query: `query searchCoursesByKeyword ($keyword: String!, $course_keyword: String!) {
+const query = `query searchCoursesByKeyword ($keyword: String!, $course_keyword: String!) {
    courses (
     where: {
      _and: [
@@ -55,8 +48,15 @@ export const graphQL = ({
      comment
     }
    }
-  }
-  `,
+  }`;
+export const graphQL = ({
+	keyword,
+	course_keyword
+}: {
+	keyword: string;
+	course_keyword: string;
+}) => ({
+	query,
 	variables: {
 		keyword,
 		course_keyword
