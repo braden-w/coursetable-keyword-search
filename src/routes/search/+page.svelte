@@ -66,7 +66,7 @@
 			id="filters"
 			type="button"
 			name="filters"
-			class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+			class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
 			on:click={() => (showFilters = !showFilters)}
 		>
 			<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
