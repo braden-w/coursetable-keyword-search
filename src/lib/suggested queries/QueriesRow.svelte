@@ -15,7 +15,6 @@
 			title: '"Quintessential" history courses',
 			keyword: 'quintessential',
 			course_keyword: 'HIST',
-			count: '18'
 		},
 		{
 			title: '"Favorite" in general',
@@ -24,7 +23,7 @@
 	];
 </script>
 
-<span class="flex gap-2 overflow-x-auto rounded-md shadow-sm">
+<span class="flex mb-2 gap-2 overflow-x-auto rounded-md shadow-sm">
 	{#each queries as query}
 		<QueryButton {...query} />
 	{/each}
