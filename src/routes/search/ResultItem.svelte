@@ -9,7 +9,7 @@
 </script>
 
 <li>
-	<button on:click={toggleExpanded} class="block hover:bg-gray-50">
+	<button type="button" on:click={toggleExpanded} class="block hover:bg-gray-50">
 		<div class="flex items-center px-4 py-4 sm:px-6">
 			<div class="flex min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
 				<div>
@@ -19,11 +19,12 @@
 							{course.title}
 						</p>
 						<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
-							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews
+							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course
+								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews
 						</p>
 					</div>
 					<div class="mt-2">
-						<div class="text-left items-center text-sm text-gray-500">
+						<div class="items-center text-left text-sm text-gray-500">
 							{course.description}
 						</div>
 					</div>
