@@ -45,7 +45,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 		const response = await queryCourseTable({keyword, course_keyword, areas_skills_keyword});
 		const daysBeforeRevalidateCache = 7;
 		const cacheControl = `public, max-age=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
-		return json(response, { headers: { 'Cache-Control': cacheControl} });
+		return json(response, { headers: { 'cache-control': cacheControl,  'Cache-Control': cacheControl} });
 	} catch (e) {
 		throw error(500, e as Error);
 	}
