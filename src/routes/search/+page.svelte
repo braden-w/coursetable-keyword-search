@@ -16,9 +16,9 @@
 	let loading = false;
 
 	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter'){
+		if (e.key === 'Enter') {
 			goto(`/search?${new URLSearchParams({ keyword, course_keyword: courseKeyword })}`);
-			runQuery()
+			runQuery();
 		}
 	};
 
@@ -67,7 +67,9 @@
 				bind:value={keyword}
 				on:keydown={onKeydown}
 			/>
-			<LoadingSpinner {loading} />
+			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+				<LoadingSpinner {loading} />
+			</div>
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
 		<span class="sr-only">Loading...</span>
@@ -102,16 +104,16 @@
 		</div>
 	{/if}
 	{#if coursesSortedByCount.length !== 0}
-	<div class="overflow-hidden bg-white shadow sm:rounded-md">
-		<ul class="divide-y divide-gray-200">
-			{#each coursesSortedByCount as course}
-				<ResultItem {course} />
-			{/each}
-		</ul>
-	</div>
+		<div class="overflow-hidden bg-white shadow sm:rounded-md">
+			<ul class="divide-y divide-gray-200">
+				{#each coursesSortedByCount as course}
+					<ResultItem {course} />
+				{/each}
+			</ul>
+		</div>
 	{:else}
 		<div class="mt-4">
-			<p class="text-center text-gray-500">No results yet</p>
+			<p class="text-center text-gray-500">No results yet <LoadingSpinner { loading } /></p>
 		</div>
 	{/if}
 </div>

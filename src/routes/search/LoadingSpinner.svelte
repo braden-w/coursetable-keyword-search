@@ -3,7 +3,6 @@
 </script>
 
 {#if loading}
-	<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
 		<svg
 			role="status"
 			class="mr-3 inline h-4 w-4 animate-spin text-white"
@@ -20,5 +19,4 @@
 				fill="currentColor"
 			/>
 		</svg>
-	</div>
 {/if}
