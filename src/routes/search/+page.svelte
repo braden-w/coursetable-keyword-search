@@ -72,63 +72,6 @@
 				{
 					comment: 'I learned a great deal about research and paper writing.'
 				},
-				{
-					comment:
-						'This class really taught me how to think like a political scientist. I started thinking about the importance of defining terms and how definitions cannot span geography and time. As a result of this class, I have begun to think of extreme right parties, and generally political parties, in new ways.'
-				},
-				{
-					comment:
-						"This course helped me understand the many tensions within far-right movements, which in turn made me reflect on some of the political movements to which I subscribe. The radical right is a fascinating phenomenon to study and is particularly topical in today's world. Unfortunately, I do not feel that I have a cohesive understanding of it leaving the course, but that is mainly due to the fact that there is no cohesion among far-right groups across the world. I also credit Professor Aslanidis for helping make my writing more pithy and to the point."
-				},
-				{
-					comment:
-						'I got a broad sense of the motivations and history of the extreme and radical right in the US and Europe. I also got a sense of the nuance surrounding political science classifications of the extreme right and the difficulty that comes with that task. Moreover, I was exposed to in depth political science scholarly papers.'
-				},
-				{
-					comment:
-						'This course was interesting and engaging. By the nature of the subject, the seminars sometimes felt disconnected from each other, but other times connected perfectly. The radical right is such a disparate topic that it becomes difficult to put everything together. However, that is not the fault of the course or the professor.  The structure of assignments in this course is perfect. There are three reading response papers throughout the semester and then one substantial research paper at the end of the semester. This enabled me to go deeper into the material and to research a truly fascinating case.'
-				},
-				{
-					comment:
-						'Strengths: teaching, subject matter, class discussion.   Weaknesses: none, favorite class at yale.'
-				},
-				{
-					comment: 'The readings were interesting but the class was not structured'
-				},
-				{
-					comment:
-						'This is an excellent course. I really enjoyed it. Potentially a bigger focus on country case studies and less on definitions, but overall outstanding!'
-				},
-				{
-					comment:
-						'My only note is that I wish the reading response instructions were more clear. Even by the third response, I was still unclear what the professor wanted. However, generally class was engaging and the readings interesting.'
-				},
-				{
-					comment:
-						'The strengths of the course are that it gives a very good overview of a number of cultures experiencing similar political phenomena (the extreme right). It also exposes you to modern diverse research on the topic. The discussions were engaging and informative and made good use of alternative forms of media like videos. One weakness was that the course really only focused on the US and Europe, largely due to existing scholarship being focused on these issues. Regardless, I would recommend devoting at least one lecture to other regions broadly if it is too difficult to find scholarship or a discussion on why scholarship is so thin in these areas. Also, some of the readings could be dry at times but that seemed relatively unavoidable.'
-				},
-				{
-					comment:
-						"Yes I would. Professor Aslanidis is fabulous, and any of his courses would be worth taking. You should only take this if you are interested in the subject, but Professor Aslanidis's passion helps other students feel passionate about the topic as well. Also the workload is very reasonable. It allowed me to learn a lot and stay engaged, but did not overwhelm me."
-				},
-				{
-					comment:
-						'Yes. Not only is the subject matter relevant and interesting, but Professor Aslanidis does a really good job of exposing students to a vast range of opinions and forcing them to really confront their inner biases. Every week I looked forward to class, and was eager to discuss the reading with both Professor Aslanidis and the class. If you have any interest in the Right, extremism, or really just the current political landscape, you have to take this class.'
-				},
-				{
-					comment: 'Definitely! I learn so much'
-				},
-				{
-					comment:
-						"Yes absolutely. Professor Aslanidis is the best professor I've had at Yale (I previously took two of his other seminars) and this seminar deals with really engaging course material."
-				},
-				{
-					comment: 'Yes! Be ready to think and think hard, but it is definitely worth it.'
-				},
-				{
-					comment:
-						'I would recommend this course to anyone interested in learning about what it means to be a part of the extreme right. It gives you a more complex understanding of a group of ideologies which are very hard to sympathize with but nontheless have seen a non-negligible amount of popularity around the world.'
-				}
 			]
 		}
 	];
