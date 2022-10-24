@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ResultItem from './ResultItem.svelte';
-	import { MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import type { PageData } from './$types';
@@ -22,9 +22,13 @@
 			  )
 			: null;
 
-	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [ ];
-	
-	$: coursesSortedByCount = courses.sort((a, b) => b.course.evaluation_narratives_aggregate_filtered.aggregate.count - a.course.evaluation_narratives_aggregate_filtered.aggregate.count);
+	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
+
+	$: coursesSortedByCount = courses.sort(
+		(a, b) =>
+			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
+			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
+	);
 
 	const runQuery = async () => {
 		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
@@ -46,9 +50,9 @@
 	<h3 class="mb-4 text-3xl font-bold">
 		A search box that allows you to search CourseTable reviews by keyword
 	</h3>
-	<div class="w-full">
+	<div class="flex w-full">
 		<label for="search" class="sr-only">Search</label>
-		<div class="relative">
+		<div class="relative flex-1">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 				<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-400" aria-hidden="true" />
 			</div>
@@ -62,6 +66,13 @@
 				on:keydown={onKeydown}
 			/>
 		</div>
+		<button
+			type="submit"
+			class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+		>
+			<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+			<span class="sr-only">Search</span>
+		</button>
 	</div>
 	<div class="w-full">
 		<label for="search" class="sr-only">Search</label>
