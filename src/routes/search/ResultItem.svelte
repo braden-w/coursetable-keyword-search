@@ -2,7 +2,7 @@
 	import { slide, fly } from 'svelte/transition';
 	import { ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { SearchResponse } from 'src/routes/search/[keyword]/[course_keyword]/types';
+	import type { SearchResponse } from '$lib/types/SearchResponse';
 	export let course: SearchResponse['data']['courses'][number];
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
