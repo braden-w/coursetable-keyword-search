@@ -3,7 +3,8 @@
 	import { MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
-	import type {PageData} from './$types';
+	import type { PageData } from './$types';
+	import {onMount} from 'svelte';
 
 	export let data: PageData;
 	let keyword = data.keyword ?? '';
@@ -12,9 +13,7 @@
 	$: keywordWithPercents = `%${keyword}%`;
 	$: courseKeywordWithPercents = `%${courseKeyword}%`;
 
-	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') runQuery();
-	};
+	const onKeydown = (e: KeyboardEvent) => (e.key === 'Enter' ? runQuery() : null);
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [
 		{
@@ -80,11 +79,16 @@
 	const runQuery = async () => {
 		// Send api request to search passing {keyword: keywordWithPercents, courseKeyword: courseKeywordWithPercents}
 		const response = await fetch(
-		 '/api/search?' + new URLSearchParams({keyword: keywordWithPercents, course_keyword: courseKeywordWithPercents})
+			'/api/search?' +
+				new URLSearchParams({
+					keyword: keywordWithPercents,
+					course_keyword: courseKeywordWithPercents
+				})
 		);
 		const data = (await response.json()) as SearchResponse;
-		courses = data.data.computed_listing_info_aggregate.nodes
+		courses = data.data.computed_listing_info_aggregate.nodes;
 	};
+	onMount(runQuery);
 </script>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
