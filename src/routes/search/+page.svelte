@@ -39,6 +39,7 @@
 	);
 
 	const runQuery = async () => {
+		if (keyword === '') return;
 		loading = true;
 		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
 		const response = await fetch(
