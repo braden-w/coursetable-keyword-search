@@ -1,15 +1,4 @@
 <script lang="ts">
-	import {goto} from "$app/navigation";
-	let keyword = ''
-	let courseKeyword = ''
-	
-	$: keywordWithPercents = `%${keyword}%`
-	$: courseKeywordWithPercents = `%${courseKeyword}%`
-
-	const onSubmit = () =>
-	{
-		goto('/search/' + encodeURIComponent(keywordWithPercents) + '/' + encodeURIComponent(courseKeywordWithPercents))
-	}
 </script>
 
 <div class="hero bg-base-100 text-base-content">
@@ -20,32 +9,26 @@
 			<h3 class="mb-4 text-3xl font-bold">
 				A search box that allows you to search CourseTable reviews by keyword
 			</h3>
-			<!-- <p class="">Start by typing in this box:</p> -->
-			<div class="form-control">
-				<div class="input-group">
-					<span>Search course reviews with</span>
-					<input type="text" placeholder="Keyword..." class="input input-bordered" bind:value={keyword}/>
-					<span>for courses that start with</span>
-					<input type="text" placeholder="ECON, CPSC, PLSC..." class="input input-bordered" bind:value={courseKeyword}/>
-					<button class="btn" on:click={onSubmit}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/>
-						</svg>
-						Search
-					</button>
-				</div>
-			</div>
+			<span class="isolate inline-flex rounded-md shadow-sm">
+				<a
+					href="/search?keyword=favorite"
+					class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+				>
+					Favorite
+				</a>
+				<a
+					href="/search?keyword=favorite+class+of+all+time"
+					class="relative -ml-px inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+				>
+					Favorite class of all time
+				</a>
+				<a
+					href="/search?keyword=best+class"
+					class="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+				>
+					Best class
+				</a>
+			</span>
 		</div>
 	</div>
 </div>
