@@ -14,8 +14,12 @@
 >
 	<button
 		type="button"
-		class="relative -ml-px inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+		class="relative -ml-px inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm butt-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
 	>
-		{title}
-	</button>
+		<span
+			class="inline-flex items-center rounded-full bg-indigo-300 px-3 py-0.5 text-sm font-medium text-gray-800"
+		>
+			{title}
+		</span>
+	
 </a>
