@@ -1,7 +1,7 @@
 <script lang="ts">
-	export let keyword: string = '	';
-	export let title: string = '	';
-	export let count: string = '	';
+	export let keyword: string = '';
+	export let title: string = '';
+	export let count: string = '';
 </script>
 
 <button
