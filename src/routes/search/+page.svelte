@@ -67,7 +67,7 @@
 				bind:value={keyword}
 				on:keydown={onKeydown}
 			/>
-			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
 				<LoadingSpinner {loading} />
 			</div>
 		</div>
