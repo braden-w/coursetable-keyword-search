@@ -2,7 +2,7 @@
 	import LoadingSpinner from './LoadingSpinner.svelte';
 
 	import ResultItem from './ResultItem.svelte';
-	import { Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import type { PageData } from './$types';
@@ -85,17 +85,17 @@
 		</button>
 	</div>
 	{#if showFilters}
-		<div class="w-full">
+		<div class="w-full my-2">
 			<label for="search" class="sr-only">Search</label>
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					<Icon src={BookOpen} class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				</div>
 				<input
 					id="search"
 					name="search"
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-					placeholder="Filter by course code ...(use % to match anything)"
+					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
 					type="search"
 					bind:value={courseKeyword}
 					on:keydown={onKeydown}
