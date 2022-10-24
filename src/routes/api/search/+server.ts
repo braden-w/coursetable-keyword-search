@@ -43,7 +43,9 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		const response = await queryCourseTable({keyword, course_keyword, areas_skills_keyword});
-		return json(response, {headers: {'Cache-Control': 'public, max-age=3600'}});
+		const daysBeforeRevalidateCache = 7;
+		const cacheControl = `public, max-age=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
+		return json(response, { headers: { 'Cache-Control': cacheControl} });
 	} catch (e) {
 		throw error(500, e as Error);
 	}
