@@ -11,16 +11,16 @@
 	let keyword = data.keyword ?? '';
 	let courseKeyword = data.course_keyword ?? '';
 
-	const onKeydown = (e: KeyboardEvent) =>
-		e.key === 'Enter'
-			? goto(
+	const onKeydown = (e: KeyboardEvent) => {
+		if (e.key === 'Enter')
+			goto(
 					'/search?' +
 						new URLSearchParams({
 							keyword,
 							course_keyword: courseKeyword
 						})
-			  )
-			: null;
+					)
+	};
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
