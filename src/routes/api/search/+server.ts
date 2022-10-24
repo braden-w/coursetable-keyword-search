@@ -1,6 +1,7 @@
 import type { SearchResponse } from '../../search/[keyword]/[course_keyword]/types';
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/public';
+import {json} from '@sveltejs/kit';
 
 const query = ({ keyword, course_keyword }: { keyword: string; course_keyword: string }) => ({
 	method: 'POST',
@@ -76,7 +77,5 @@ export const GET: RequestHandler = async ({url}: {url: URL}) => {
 	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', query({keyword, course_keyword}));
 	const response = await res.json() as SearchResponse;
 	console.log("🚀 ~ file: +server.ts ~ line 78 ~ constGET:RequestHandler= ~ response", response)
-	const blob = new Blob([JSON.stringify(response)], { type: 'application/json' });
-	const options = { status: 200, statusText: 'OK' };
-	return new Response(blob, options)
+	return json(response);
 };
