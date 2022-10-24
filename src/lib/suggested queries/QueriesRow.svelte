@@ -2,25 +2,29 @@
 	import QueryButton from './QueryButton.svelte';
 	const queries = [
 		{
-			title: 'Favorite humanities courses',
+			title: '"Favorite" humanities courses',
 			keyword: 'favorite',
 			course_keyword: 'Hu'
 		},
 		{
-			title: 'Best QR courses',
+			title: '"Best" QR courses',
 			keyword: 'best',
-			course_keyword: 'QR'
+			areas_skills_keyword: 'QR'
 		},
 		{
 			title: '"Quintessential" history courses',
 			keyword: 'quintessential',
 			course_keyword: 'HIST',
 			count: '18'
+		},
+		{
+			title: '"Favorite" in general',
+			keyword: 'favorite',
 		}
 	];
 </script>
 
-<span class="flex overflow-x-auto rounded-md shadow-sm">
+<span class="flex gap-2 overflow-x-auto rounded-md shadow-sm">
 	{#each queries as query}
 		<QueryButton {...query} />
 	{/each}
