@@ -1,21 +1,15 @@
-<span class="inline-flex rounded-md shadow-sm">
-	<select
-		id="message-type"
-		name="message-type"
-		class="-mr-px block w-full rounded-r-none rounded-l-md border border-gray-300 bg-white py-2 pl-3 pr-9 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+<button
+	id="message-type"
+	name="message-type"
+	class="inline-flex rounded-md text-sm shadow-sm hover:bg-gray-50 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+>
+	<span
+		class="-mr-px rounded-l-md border border-gray-300 bg-white px-2 py-2 pl-3 pr-9 font-medium text-gray-700"
 	>
-		<option>Unread messages</option>
-		<option>Sent messages</option>
-		<option>All messages</option>
-	</select>
-	<span class="inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2">
-		<label for="select-all" class="sr-only">Select all</label>
-		<input
-			id="select-all"
-			type="checkbox"
-			name="select-all"
-			class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-		/>
+		All messages
+	</span>
+	<span class="rounded-r-md border border-gray-300 bg-white px-2 py-2">
+		<p>100</p>
 	</span>
 	<label for="message-type" class="sr-only">Select message type</label>
-</span>
+</button>
