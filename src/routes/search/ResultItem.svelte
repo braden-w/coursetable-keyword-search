@@ -3,10 +3,12 @@
 	import {Icon} from "@steeze-ui/svelte-icon";
 	import type {SearchResponse} from "src/routes/search/[keyword]/[course_keyword]/types";
 	export let course: SearchResponse['data']['courses'][number]
+	let expanded = false;
+	const toggleExpanded = () => ( expanded = !expanded)
 </script>
 
 <li>
-	<a href="#" class="block hover:bg-gray-50">
+	<button on:click={toggleExpanded} class="block hover:bg-gray-50">
 		<div class="flex items-center px-4 py-4 sm:px-6">
 			<div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
 				<div>
@@ -35,13 +37,15 @@
 				<Icon src={ChevronRight} class="h-5 w-5 text-gray-400" aria-hidden="true" />
 			</div>
 		</div>
-	</a>
+	</button>
 </li>
 
-{#each course.evaluation_narratives as review}
-	<li>
-		<div class="px-4 py-4 sm:px-6">
-			<p class="text-sm text-gray-500">{review.comment}</p>
-		</div>
-	</li>
-{/each}
+{#if expanded}
+	{#each course.evaluation_narratives as review}
+		<li>
+			<div class="px-4 py-4 sm:px-6">
+				<p class="text-sm text-gray-500">{review.comment}</p>
+			</div>
+		</li>
+	{/each}
+{/if}
