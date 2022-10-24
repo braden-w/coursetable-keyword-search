@@ -17,7 +17,7 @@
 	const navigation = [
 		{ name: 'Dashboard', href: '/' },
 		{ name: 'Login', href: '/login' },
-		{ name: 'Form', href: '/form' },
+		{ name: 'Form', href: '/form' }
 	];
 </script>
 
@@ -26,8 +26,10 @@
 		<div class="relative flex h-16 items-center justify-between">
 			<div class="flex items-center px-2 lg:px-0">
 				<div class="flex-shrink-0">
-					<Logo class="block h-8 w-auto lg:hidden" />
-					<Logo class="hidden h-8 w-auto lg:block" />
+					<a href="/">
+						<Logo class="block h-8 w-auto lg:hidden" />
+						<Logo class="hidden h-8 w-auto lg:block" />
+					</a>
 				</div>
 				<div class="hidden lg:ml-6 lg:block">
 					<div class="flex space-x-4">
@@ -130,9 +132,8 @@
 									>
 								</MenuItem>
 								<MenuItem let:active>
-									<button
-										class:bg-gray-100={active}
-										class="block px-4 py-2 text-sm text-gray-700">Sign out</button
+									<button class:bg-gray-100={active} class="block px-4 py-2 text-sm text-gray-700"
+										>Sign out</button
 									>
 								</MenuItem>
 							</MenuItems>
