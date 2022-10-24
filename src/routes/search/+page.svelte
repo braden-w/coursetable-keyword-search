@@ -2,7 +2,7 @@
 	import ResultItem from './ResultItem.svelte';
 	import { MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { SearchResponse } from 'src/routes/search/[keyword]/[course_keyword]/types';
+	import type { SearchResponse } from '$lib/types/SearchResponse';
 
 	let keyword = '';
 	let courseKeyword = '';
@@ -78,9 +78,7 @@
 	const runQuery = async () => {
 		// Send api request to search passing {keyword: keywordWithPercents, courseKeyword: courseKeywordWithPercents}
 		const response = await fetch(
-			`/api/search?keyword=${encodeURIComponent(
-				keywordWithPercents
-			)}&courseKeyword=${encodeURIComponent(courseKeywordWithPercents)}`
+		 '/api/search?' + new URLSearchParams({keyword: keywordWithPercents, course_keyword: courseKeywordWithPercents})
 		);
 		const data = (await response.json()) as SearchResponse;
 		courses = data.data.courses;
