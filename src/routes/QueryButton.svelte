@@ -1,5 +1,7 @@
 <script lang="ts">
 	export let keyword: string = '	';
+	export let title: string = '	';
+	export let count: string = '	';
 </script>
 
 <button
@@ -10,10 +12,10 @@
 	<span
 		class="-mr-px rounded-l-md border border-gray-300 bg-white px-3 py-2 pr-6 font-medium text-gray-700"
 	>
-		{keyword}
+		{title}
 	</span>
 	<span class="rounded-r-md border border-gray-300 bg-white px-2 py-2">
-		<p>100</p>
+		<p>{count}</p>
 	</span>
 	<label for={keyword} class="sr-only">Select keyword</label>
 </button>

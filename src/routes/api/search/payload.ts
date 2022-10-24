@@ -3,10 +3,12 @@ import { graphQL } from './graphql';
 
 export const options = ({
 	keyword,
-	course_keyword
+	course_keyword,
+	areas_skills_keyword
 }: {
 	keyword: string;
 	course_keyword: string;
+	areas_skills_keyword: string;
 }) => ({
 	method: 'POST',
 	headers: {
@@ -15,5 +17,5 @@ export const options = ({
 		Referer: 'https://www.coursetable.com',
 		'Content-Type': 'application/json'
 	},
-	body: JSON.stringify(graphQL({ keyword, course_keyword }))
+	body: JSON.stringify(graphQL({ keyword, course_keyword, areas_skills_keyword }))
 });

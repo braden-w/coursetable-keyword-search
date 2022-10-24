@@ -5,10 +5,12 @@ import { options } from './payload';
 
 export const queryCourseTable = async ({
 	keyword,
-	course_keyword
+	course_keyword,
+	areas_skills_keyword
 }: {
 	keyword: string;
 	course_keyword: string;
+	areas_skills_keyword: string;
 }) => {
 	// Add a % to the beginning of the keyword to make it a prefix search if it's not already
 	keyword = keyword.startsWith('%') ? keyword : `%${keyword}`;
@@ -20,14 +22,13 @@ export const queryCourseTable = async ({
 
 	// Lowercase both keywords
 	keyword = keyword.toLowerCase();
+	console.log("🚀 ~ file: +server.ts ~ line 27 ~ keyword", keyword)
 	course_keyword = course_keyword.toLowerCase();
-
-	console.log('🚀 ~ file: +server.ts ~ line 19 ~ keyword', keyword);
-	console.log('🚀 ~ file: +server.ts ~ line 21 ~ course_keyword', course_keyword);
+	console.log("🚀 ~ file: +server.ts ~ line 29 ~ course_keyword", course_keyword)
 
 	const res = await fetch(
 		'https://api.coursetable.com/ferry/v1/graphql?=',
-		options({ keyword, course_keyword })
+		options({ keyword, course_keyword, areas_skills_keyword })
 	);
 	const response = (await res.json()) as SearchResponse;
 	console.log('🚀 ~ file: +server.ts ~ line 25 ~ response', response);
@@ -37,7 +38,8 @@ export const queryCourseTable = async ({
 export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const keyword = url.searchParams.get('keyword') ?? '%';
 	const course_keyword = url.searchParams.get('course_keyword') ?? '%';
+	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '%';
 	// From https://stackoverflow.com/a/58437909
-	const response = await queryCourseTable({ keyword, course_keyword });
+	const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
 	return json(response);
 };

@@ -1,9 +1,19 @@
-const query = `query searchCoursesByKeyword($keyword: String!, $course_keyword: String!) {
+const query = `query searchCoursesByKeyword(
+	$keyword: String!
+	$course_keyword: String!
+	$areas_skills_keyword: jsonb!
+) {
 	computed_listing_info_aggregate(
 		where: {
 			_and: [
 				{ course_code: { _ilike: $course_keyword } }
 				{ course: { evaluation_narratives: { comment: { _ilike: $keyword } } } }
+				{
+					_or: [
+						{ areas: { _contains: $areas_skills_keyword } }
+						{ skills: { _contains: $areas_skills_keyword } }
+					]
+				}
 			]
 		}
 		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
@@ -72,14 +82,17 @@ const query = `query searchCoursesByKeyword($keyword: String!, $course_keyword: 
 }`;
 export const graphQL = ({
 	keyword,
-	course_keyword
+	course_keyword,
+	areas_skills_keyword
 }: {
 	keyword: string;
 	course_keyword: string;
+	areas_skills_keyword: string;
 }) => ({
 	query,
 	variables: {
 		keyword,
-		course_keyword
+		course_keyword,
+		areas_skills_keyword
 	}
 });

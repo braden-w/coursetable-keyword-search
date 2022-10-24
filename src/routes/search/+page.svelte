@@ -2,7 +2,7 @@
 	import LoadingSpinner from './LoadingSpinner.svelte';
 
 	import ResultItem from './ResultItem.svelte';
-	import { BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import type { PageData } from './$types';
@@ -11,13 +11,14 @@
 
 	export let data: PageData;
 	let keyword = data.keyword ?? '';
-	let showFilters = true;
 	let courseKeyword = data.course_keyword ?? '';
+	let areasSkillsKeyword = data.areas_skills_keyword ?? '';
+	let showFilters = true;
 	let loading = false;
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter') {
-			goto(`/search?${new URLSearchParams({ keyword, course_keyword: courseKeyword })}`);
+			goto(`/search?${new URLSearchParams({ keyword, course_keyword: courseKeyword, areas_skills_keyword: areasSkillsKeyword })}`);
 			runQuery();
 		}
 	};
@@ -37,7 +38,8 @@
 			'/api/search?' +
 				new URLSearchParams({
 					keyword: keyword,
-					course_keyword: courseKeyword
+					course_keyword: courseKeyword,
+					areas_skills_keyword: areasSkillsKeyword
 				})
 		);
 		const data = (await response.json()) as SearchResponse;
@@ -86,7 +88,7 @@
 	</div>
 	{#if showFilters}
 		<div class="w-full my-2">
-			<label for="search" class="sr-only">Search</label>
+			<label for="search" class="sr-only">Course Filter</label>
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<Icon src={BookOpen} class="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -98,6 +100,24 @@
 					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
 					type="search"
 					bind:value={courseKeyword}
+					on:keydown={onKeydown}
+				/>
+			</div>
+		</div>
+
+		<div class="w-full my-2">
+			<label for="search" class="sr-only">Areas Filter</label>
+			<div class="relative">
+				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+					<Icon src={AcademicCap} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				</div>
+				<input
+					id="search"
+					name="search"
+					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+					placeholder="Filter by areas ...(Hu, Qr, So, etc.)"
+					type="search"
+					bind:value={areasSkillsKeyword}
 					on:keydown={onKeydown}
 				/>
 			</div>
