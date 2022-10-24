@@ -3,6 +3,7 @@
 	import { MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from 'src/routes/search/[keyword]/[course_keyword]/types';
+
 	let keyword = '';
 	let courseKeyword = '';
 
@@ -10,9 +11,7 @@
 	$: courseKeywordWithPercents = `%${courseKeyword}%`;
 
 	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') {
-			onSubmit();
-		}
+		if (e.key === 'Enter') runQuery();
 	};
 
 	let courses: SearchResponse['data']['courses'] = [
@@ -71,12 +70,12 @@
 				},
 				{
 					comment: 'I learned a great deal about research and paper writing.'
-				},
+				}
 			]
 		}
 	];
 
-	const onSubmit = async () => {
+	const runQuery = async () => {
 		// Send api request to search passing {keyword: keywordWithPercents, courseKeyword: courseKeywordWithPercents}
 		const response = await fetch(
 			`/api/search?keyword=${encodeURIComponent(
@@ -112,7 +111,7 @@
 		</div>
 	</div>
 	<div class="overflow-hidden bg-white shadow sm:rounded-md">
-		<ul role="list" class="divide-y divide-gray-200">
+		<ul class="divide-y divide-gray-200">
 			{#each courses as course}
 				<ResultItem {course} />
 			{/each}
