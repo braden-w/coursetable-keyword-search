@@ -65,7 +65,7 @@ export enum Area {
 }
 
 export interface Course {
-	evaluation_narratives_aggregate: EvaluationNarrativesAggregate;
+	evaluation_narratives_aggregate_filtered: EvaluationNarrativesAggregate;
 }
 
 export interface EvaluationNarrativesAggregate {

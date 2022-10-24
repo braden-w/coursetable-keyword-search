@@ -51,7 +51,7 @@ const query = `query searchCoursesByKeyword($keyword: String!, $course_keyword: 
 			times_summary
 			title
 			course {
-				evaluation_narratives_aggregate(
+				evaluation_narratives_aggregate_filtered: evaluation_narratives_aggregate(
 					where: { comment: { _ilike: $keyword } }
 				) {
 					aggregate {
@@ -61,11 +61,15 @@ const query = `query searchCoursesByKeyword($keyword: String!, $course_keyword: 
 						comment
 					}
 				}
+				evaluation_narratives_aggregate {
+					aggregate {
+						count
+					}
+				}
 			}
 		}
 	}
-}
-`;
+}`;
 export const graphQL = ({
 	keyword,
 	course_keyword

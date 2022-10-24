@@ -19,7 +19,7 @@
 							{course.title}
 						</p>
 						<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
-							<!-- in {course.description} -->
+							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews
 						</p>
 					</div>
 					<div class="mt-2">
@@ -46,7 +46,7 @@
 </li>
 
 {#if expanded}
-	{#each course.course.evaluation_narratives_aggregate.nodes as review}
+	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review}
 		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">{review.comment}</p>

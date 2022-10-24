@@ -11,7 +11,7 @@
 			<h3 class="card-subtitle">{course.title}</h3>
 			<p class="card-text">{course.description}</p>
 		</div>
-		{#each course.course.evaluation_narratives_aggregate.nodes as review}
+		{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review}
 		<div class="card-body">
 			<!-- <h3 class="card-title">{review.comment}</h3> -->
 			<p class="card-text">{review.comment}</p>

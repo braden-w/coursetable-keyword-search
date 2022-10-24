@@ -24,7 +24,7 @@
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [ ];
 	
-	$: coursesSortedByCount = courses.sort((a, b) => b.course.evaluation_narratives_aggregate.aggregate.count - a.course.evaluation_narratives_aggregate.aggregate.count);
+	$: coursesSortedByCount = courses.sort((a, b) => b.course.evaluation_narratives_aggregate_filtered.aggregate.count - a.course.evaluation_narratives_aggregate_filtered.aggregate.count);
 
 	const runQuery = async () => {
 		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
@@ -59,6 +59,23 @@
 				placeholder="Search by course keyword...(use % to match anything)"
 				type="search"
 				bind:value={keyword}
+				on:keydown={onKeydown}
+			/>
+		</div>
+	</div>
+	<div class="w-full">
+		<label for="search" class="sr-only">Search</label>
+		<div class="relative">
+			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+				<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+			</div>
+			<input
+				id="search"
+				name="search"
+				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-indigo-500 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+				placeholder="Search by course keyword...(use % to match anything)"
+				type="search"
+				bind:value={courseKeyword}
 				on:keydown={onKeydown}
 			/>
 		</div>
