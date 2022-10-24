@@ -52,7 +52,7 @@
 	<h3 class="mb-4 text-3xl font-bold">
 		A search box that allows you to search CourseTable reviews by keyword
 	</h3>
-	<div class="flex w-full">
+	<div class="flex w-full my-2">
 		<label for="search" class="sr-only">Search</label>
 		<div class="relative flex-1">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
