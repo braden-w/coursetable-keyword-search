@@ -15,7 +15,7 @@
 				<div>
 					<div class="flex text-sm">
 						<p class="truncate font-medium text-primary">
-							{course.all_course_codes}
+							{course.course_code}
 							{course.title}
 						</p>
 						<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
@@ -26,6 +26,28 @@
 					<div class="mt-2">
 						<div class="items-center text-left text-sm text-gray-500">
 							{course.description}
+						</div>
+						<div class="items-center text-left text-sm text-gray-500">
+							{#each course.all_course_codes as code}
+								<span
+									class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800"
+								>
+									<svg class="mr-1.5 h-2 w-2 text-indigo-400" fill="currentColor" viewBox="0 0 8 8">
+										<circle cx="4" cy="4" r="3" />
+									</svg>
+									{code}
+								</span>
+							{/each}
+							{#each course.areas as area}
+								<span
+									class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800"
+								>
+									<svg class="mr-1.5 h-2 w-2 text-indigo-400" fill="currentColor" viewBox="0 0 8 8">
+										<circle cx="4" cy="4" r="3" />
+									</svg>
+									{area}
+								</span>
+							{/each}
 						</div>
 					</div>
 				</div>
