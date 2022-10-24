@@ -3,9 +3,11 @@
 	import { MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
+	import type {PageData} from './$types';
 
-	let keyword = '';
-	let courseKeyword = '';
+	export let data: PageData;
+	let keyword = data.keyword ?? '';
+	let courseKeyword = data.course_keyword ?? '';
 
 	$: keywordWithPercents = `%${keyword}%`;
 	$: courseKeywordWithPercents = `%${courseKeyword}%`;
