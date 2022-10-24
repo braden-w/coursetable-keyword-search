@@ -41,5 +41,5 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '%';
 	// From https://stackoverflow.com/a/58437909
 	const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-	return json(response);
+	return json(response, { headers: { 'cache-control': 'public, max-age=3600' } });
 };

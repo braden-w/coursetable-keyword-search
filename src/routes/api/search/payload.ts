@@ -12,6 +12,7 @@ export const options = ({
 }) => ({
 	method: 'POST',
 	headers: {
+		'cache-control': 'public, max-age=3600',
 		Cookie: env.PUBLIC_COURSETABLE_COOKIE,
 		origin: 'https://www.coursetable.com',
 		Referer: 'https://www.coursetable.com',
