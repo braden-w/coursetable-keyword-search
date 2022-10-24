@@ -9,6 +9,7 @@
 
 	export let data: PageData;
 	let keyword = data.keyword ?? '';
+	let showFilters = false;
 	let courseKeyword = data.course_keyword ?? '';
 
 	const onKeydown = (e: KeyboardEvent) => {
@@ -60,14 +61,19 @@
 				on:keydown={onKeydown}
 			/>
 		</div>
+	  <label for="filters" class="sr-only">Show filters</label>
 		<button
-			type="submit"
+			id="filters"
+			type="button"
+			name="filters"
 			class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+			on:click={() => (showFilters = !showFilters)}
 		>
 			<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
 			<span class="sr-only">Search</span>
 		</button>
 	</div>
+	{#if showFilters}
 	<div class="w-full">
 		<label for="search" class="sr-only">Search</label>
 		<div class="relative">
@@ -85,6 +91,7 @@
 			/>
 		</div>
 	</div>
+	{/if}
 	<div class="overflow-hidden bg-white shadow sm:rounded-md">
 		<ul class="divide-y divide-gray-200">
 			{#each coursesSortedByCount as course}
