@@ -212,12 +212,15 @@
 					</a>
 				</li>
 				{#each course.evaluation_narratives as review}
-					<p>{review.comment}</p>
+					<li>
+						<div class="px-4 py-4 sm:px-6">
+							<p class="text-sm text-gray-500">{review.comment}</p>
+						</div>
+					</li>
 				{/each}
 			{/each}
 		</ul>
 	</div>
 </div>
 
-<div class="min-h-screen text-base-content">
-</div>
+<div class="min-h-screen text-base-content" />
