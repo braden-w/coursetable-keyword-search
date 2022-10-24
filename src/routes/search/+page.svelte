@@ -1,4 +1,6 @@
 <script lang="ts">
+  import LoadingSpinner from './LoadingSpinner.svelte';
+
 	import ResultItem from './ResultItem.svelte';
 	import { Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -11,6 +13,7 @@
 	let keyword = data.keyword ?? '';
 	let showFilters = false;
 	let courseKeyword = data.course_keyword ?? '';
+	let loading = false;
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter')
@@ -26,6 +29,7 @@
 	);
 
 	const runQuery = async () => {
+		loading = true;
 		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
 		const response = await fetch(
 			'/api/search?' +
@@ -36,6 +40,7 @@
 		);
 		const data = (await response.json()) as SearchResponse;
 		courses = data.data.computed_listing_info_aggregate.nodes;
+		loading = false;
 	};
 	onMount(runQuery);
 </script>
@@ -54,14 +59,16 @@
 			<input
 				id="search"
 				name="search"
-				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-primary text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-				placeholder="Search by course keyword...(use % to match anything)"
+				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+				placeholder="Search by review keyword...(use % to match anything)"
 				type="search"
 				bind:value={keyword}
 				on:keydown={onKeydown}
 			/>
+			<LoadingSpinner {loading}></LoadingSpinner>
 		</div>
-	  <label for="filters" class="sr-only">Show filters</label>
+		<label for="filters" class="sr-only">Show filters</label>
+		<span class="sr-only">Loading...</span>
 		<button
 			id="filters"
 			type="button"
@@ -74,23 +81,23 @@
 		</button>
 	</div>
 	{#if showFilters}
-	<div class="w-full">
-		<label for="search" class="sr-only">Search</label>
-		<div class="relative">
-			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-				<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+		<div class="w-full">
+			<label for="search" class="sr-only">Search</label>
+			<div class="relative">
+				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+					<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				</div>
+				<input
+					id="search"
+					name="search"
+					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+					placeholder="Filter by course code ...(use % to match anything)"
+					type="search"
+					bind:value={courseKeyword}
+					on:keydown={onKeydown}
+				/>
 			</div>
-			<input
-				id="search"
-				name="search"
-				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-primary text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-				placeholder="Search by course keyword...(use % to match anything)"
-				type="search"
-				bind:value={courseKeyword}
-				on:keydown={onKeydown}
-			/>
 		</div>
-	</div>
 	{/if}
 	<div class="overflow-hidden bg-white shadow sm:rounded-md">
 		<ul class="divide-y divide-gray-200">
