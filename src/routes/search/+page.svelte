@@ -11,7 +11,7 @@
 
 	export let data: PageData;
 	let keyword = data.keyword ?? '';
-	let showFilters = false;
+	let showFilters = true;
 	let courseKeyword = data.course_keyword ?? '';
 	let loading = false;
 
