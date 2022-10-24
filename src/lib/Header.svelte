@@ -15,9 +15,7 @@
 	import { Bars3, MagnifyingGlass, XMark, BellAlert, Bell } from '@steeze-ui/heroicons';
 
 	const navigation = [
-		{ name: 'Dashboard', href: '/' },
-		{ name: 'Login', href: '/login' },
-		{ name: 'Form', href: '/form' }
+		{ name: 'Search', href: '/search' }
 	];
 </script>
 
