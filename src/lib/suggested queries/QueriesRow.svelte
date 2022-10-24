@@ -2,60 +2,19 @@
 	import QueryButton from './QueryButton.svelte';
 	const queries = [
 		{
-			title: '"Favorite" courses',
+			title: 'Favorite humanities courses',
 			keyword: 'favorite',
-			count: '1000'
+			course_keyword: 'Hu'
 		},
 		{
-			title: '"Best" courses',
+			title: 'Best QR courses',
 			keyword: 'best',
-			count: '1000'
+			course_keyword: 'QR'
 		},
 		{
 			title: '"Quintessential" history courses',
 			keyword: 'quintessential',
 			course_keyword: 'HIST',
-			count: '18'
-		},
-		{
-			title: '"Quintessential" history courses',
-			keyword: 'quintessential',
-			course_keyword: 'HIST',
-			count: '18'
-		},
-		{
-			title: '"Quintessential" history courses',
-			keyword: 'quintessential',
-			course_keyword: 'HIST',
-			count: '18'
-		},
-		{
-			title: '"Quintessential" history courses',
-			keyword: 'quintessential',
-			course_keyword: 'HIST',
-			count: '18'
-		},
-		{
-			title: '"Quintessential" history courses',
-			keyword: 'quintessential',
-			count: '18'
-		},
-		{
-			title: '"Quintessential" history courses',
-			keyword: 'quintessential',
-			course_keyword: 'HIST',
-			count: '18'
-		},
-		{
-			title: '"Quintessential" history courses',
-			keyword: 'quintessential',
-			course_keyword: 'HIST',
-			count: '18'
-		},
-		{
-			title: '"Quintessential" history courses',
-			keyword: 'quintessential',
-			areas_skills_keyword: 'Hu',
 			count: '18'
 		}
 	];
