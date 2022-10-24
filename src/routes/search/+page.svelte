@@ -185,7 +185,7 @@
 							<div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
 								<div>
 									<div class="flex text-sm">
-										<p class="truncate font-medium text-indigo-600">
+										<p class="truncate font-medium text-primary">
 											{course.computed_listing_infos_aggregate.nodes[0].all_course_codes}
 											{course.title}
 										</p>
