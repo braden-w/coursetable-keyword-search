@@ -1,10 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
 	import '../app.postcss';
-	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
-	const queryClient = new QueryClient();
 </script>
 
 <!-- TODO: Update Head -->
@@ -17,8 +14,6 @@
 <Header />
 
 <main>
-	<QueryClientProvider client={queryClient}>
-		<slot />
-	</QueryClientProvider>
+	<slot />
 </main>
 <Footer />
