@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import { ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
+	import { BookOpen, ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
@@ -33,9 +33,7 @@
 								<span
 									class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800"
 								>
-									<svg class="mr-1.5 h-2 w-2 text-indigo-400" fill="currentColor" viewBox="0 0 8 8">
-										<circle cx="4" cy="4" r="3" />
-									</svg>
+									<Icon src={BookOpen} class="mr-1.5 h-4 w-4" />
 									{code}
 								</span>
 								<!-- Spacer for my-2 -->
