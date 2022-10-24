@@ -22,7 +22,7 @@ export const queryCourseTable = async ({
 	
 	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options({ keyword, course_keyword }));
 	const response = (await res.json()) as SearchResponse;
-	console.log("🚀 ~ file: +server.ts ~ line 15 ~ response", response)
+	console.log("🚀 ~ file: +server.ts ~ line 25 ~ response", response)
 	return response;
 };
 
@@ -31,6 +31,5 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const course_keyword = url.searchParams.get('course_keyword') ?? '%';
 	// From https://stackoverflow.com/a/58437909
 	const response = await queryCourseTable({ keyword, course_keyword });
-	console.log('🚀 ~ file: +server.ts ~ line 78 ~ constGET:RequestHandler= ~ response', response);
 	return json(response);
 };
