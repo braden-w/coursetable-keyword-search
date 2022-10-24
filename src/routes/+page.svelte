@@ -12,7 +12,7 @@
 				<h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
 					Yale Course Keyword Search
 				</h1>
-				<h2 class="mx-auto mt-6 text-center text-2xl font-bold max-w-lg sm:max-w-3xl">
+				<h2 class="mx-auto mt-6 text-center text-2xl font-bold max-w-lg sm:max-w-4xl">
 					A search box that allows you to search CourseTable reviews by keyword
 				</h2>
 				<div class="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
