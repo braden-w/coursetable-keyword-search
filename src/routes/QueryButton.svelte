@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let keyword: string;
+	export let keyword: string = '	';
 </script>
 
 <button
@@ -8,7 +8,7 @@
 	class="inline-flex rounded-md text-sm shadow-sm hover:bg-gray-50 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
 >
 	<span
-		class="-mr-px rounded-l-md border border-gray-300 bg-white px-2 py-2 pl-3 pr-9 font-medium text-gray-700"
+		class="-mr-px rounded-l-md border border-gray-300 bg-white px-3 py-2 pr-6 font-medium text-gray-700"
 	>
 		All messages
 	</span>
