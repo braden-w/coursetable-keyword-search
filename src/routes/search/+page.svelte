@@ -1,5 +1,5 @@
 <script lang="ts">
-  import LoadingSpinner from './LoadingSpinner.svelte';
+	import LoadingSpinner from './LoadingSpinner.svelte';
 
 	import ResultItem from './ResultItem.svelte';
 	import { Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
@@ -65,7 +65,7 @@
 				bind:value={keyword}
 				on:keydown={onKeydown}
 			/>
-			<LoadingSpinner {loading}></LoadingSpinner>
+			<LoadingSpinner {loading} />
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
 		<span class="sr-only">Loading...</span>
@@ -107,5 +107,3 @@
 		</ul>
 	</div>
 </div>
-
-<div class="min-h-screen text-base-content" />
