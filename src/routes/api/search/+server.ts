@@ -1,4 +1,4 @@
-import {error} from '@sveltejs/kit'
+import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import type { SearchResponse } from '$lib/types/SearchResponse';
@@ -23,9 +23,9 @@ export const queryCourseTable = async ({
 
 	// Lowercase both keywords
 	keyword = keyword.toLowerCase();
-	console.log("🚀 ~ file: +server.ts ~ line 27 ~ keyword", keyword)
+	console.log('🚀 ~ file: +server.ts ~ line 27 ~ keyword', keyword);
 	course_keyword = course_keyword.toLowerCase();
-	console.log("🚀 ~ file: +server.ts ~ line 29 ~ course_keyword", course_keyword)
+	console.log('🚀 ~ file: +server.ts ~ line 29 ~ course_keyword', course_keyword);
 
 	const res = await fetch(
 		'https://api.coursetable.com/ferry/v1/graphql?=',
@@ -42,10 +42,12 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '%';
 	// From https://stackoverflow.com/a/58437909
 	try {
-		const response = await queryCourseTable({keyword, course_keyword, areas_skills_keyword});
+		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
 		const daysBeforeRevalidateCache = 7;
 		const cacheControl = `public, max-age=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
-		return json(response, { headers: { 'cache-control': cacheControl,  'Cache-Control': cacheControl} });
+		return json(response, {
+			headers: { 'cache-control': cacheControl, 'Cache-Control': cacheControl }
+		});
 	} catch (e) {
 		throw error(500, e as Error);
 	}

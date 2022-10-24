@@ -18,7 +18,13 @@
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter') {
-			goto(`/search?${new URLSearchParams({ keyword, course_keyword: courseKeyword, areas_skills_keyword: areasSkillsKeyword })}`);
+			goto(
+				`/search?${new URLSearchParams({
+					keyword,
+					course_keyword: courseKeyword,
+					areas_skills_keyword: areasSkillsKeyword
+				})}`
+			);
 			runQuery();
 		}
 	};
@@ -54,7 +60,7 @@
 	<h3 class="mb-4 text-3xl font-bold">
 		A search box that allows you to search CourseTable reviews by keyword
 	</h3>
-	<div class="flex w-full my-2">
+	<div class="my-2 flex w-full">
 		<label for="search" class="sr-only">Search</label>
 		<div class="relative flex-1">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -87,7 +93,7 @@
 		</button>
 	</div>
 	{#if showFilters}
-		<div class="w-full my-2">
+		<div class="my-2 w-full">
 			<label for="search" class="sr-only">Course Filter</label>
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -105,7 +111,7 @@
 			</div>
 		</div>
 
-		<div class="w-full my-2">
+		<div class="my-2 w-full">
 			<label for="search" class="sr-only">Areas Filter</label>
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -133,7 +139,7 @@
 		</div>
 	{:else}
 		<div class="mt-4">
-			<p class="text-center text-gray-500">No results yet <LoadingSpinner { loading } /></p>
+			<p class="text-center text-gray-500">No results yet <LoadingSpinner {loading} /></p>
 		</div>
 	{/if}
 </div>

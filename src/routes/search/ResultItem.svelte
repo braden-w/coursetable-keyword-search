@@ -29,38 +29,46 @@
 						</div>
 						<div class="flex justify-between text-left text-sm text-gray-500">
 							<div>
-							{#each course.all_course_codes as code}
-								<span
-									class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800"
-								>
-									<Icon src={BookOpen} class="mr-1.5 h-4 w-4" />
-									{code}
-								</span>
-								<!-- Spacer for my-2 -->
-								<span class="inline-block w-0 h-5 align-middle"></span>
-							{/each}
+								{#each course.all_course_codes as code}
+									<span
+										class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800"
+									>
+										<Icon src={BookOpen} class="mr-1.5 h-4 w-4" />
+										{code}
+									</span>
+									<!-- Spacer for my-2 -->
+									<span class="inline-block h-5 w-0 align-middle" />
+								{/each}
 							</div>
 							<div>
-							{#each course.skills as skill}
-								<span
-									class="inline-flex items-center rounded bg-secondary-100 px-2 py-0.5 text-xs font-medium text-secondary-800"
-								>
-									<svg class="mr-1.5 h-2 w-2 text-secondary-400" fill="currentColor" viewBox="0 0 8 8">
-										<circle cx="4" cy="4" r="3" />
-									</svg>
-									{skill}
-								</span>
-							{/each}
-							{#each course.areas as area}
-								<span
-									class="inline-flex items-center rounded bg-secondary-100 px-2 py-0.5 text-xs font-medium text-secondary-800"
-								>
-									<svg class="mr-1.5 h-2 w-2 text-secondary-400" fill="currentColor" viewBox="0 0 8 8">
-										<circle cx="4" cy="4" r="3" />
-									</svg>
-									{area}
-								</span>
-							{/each}
+								{#each course.skills as skill}
+									<span
+										class="bg-secondary-100 text-secondary-800 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium"
+									>
+										<svg
+											class="text-secondary-400 mr-1.5 h-2 w-2"
+											fill="currentColor"
+											viewBox="0 0 8 8"
+										>
+											<circle cx="4" cy="4" r="3" />
+										</svg>
+										{skill}
+									</span>
+								{/each}
+								{#each course.areas as area}
+									<span
+										class="bg-secondary-100 text-secondary-800 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium"
+									>
+										<svg
+											class="text-secondary-400 mr-1.5 h-2 w-2"
+											fill="currentColor"
+											viewBox="0 0 8 8"
+										>
+											<circle cx="4" cy="4" r="3" />
+										</svg>
+										{area}
+									</span>
+								{/each}
 							</div>
 						</div>
 					</div>

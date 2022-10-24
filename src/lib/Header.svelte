@@ -1,10 +1,7 @@
 <script lang="ts">
 	import Logo from './Logo.svelte';
 
-	import {
-		Disclosure,
-		DisclosureButton,
-	} from '@rgossiaux/svelte-headlessui';
+	import { Disclosure, DisclosureButton } from '@rgossiaux/svelte-headlessui';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Bars3, XMark } from '@steeze-ui/heroicons';
 </script>
@@ -38,5 +35,4 @@
 			</div>
 		</div>
 	</div>
-
 </Disclosure>
