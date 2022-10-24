@@ -22,66 +22,9 @@
 			  )
 			: null;
 
-	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [
-		{
-			description:
-				'Extreme and radical right movements and political parties are a recurrent phenomenon found in most parts of the world. Discussion of their foundational values and the causes of their continuous, even increasing, support among citizens and voters.',
-			title: 'Extreme and Radical Right Movements',
-			areas: ['So'],
-			average_rating: 4.3505106005106,
-			average_rating_same_professors: 4.3505106005106,
-			average_workload: 3.086233211233212,
-			average_workload_same_professors: 3.086233211233212,
-			computed_listing_infos_aggregate: {
-				nodes: [
-					{
-						all_course_codes: ['ER&M 376', 'MGRK 304', 'PLSC 376', 'SOCY 307'],
-						areas: ['So'],
-						average_gut_rating: 1.2642773892773884,
-						average_professor: 4.233843925252594,
-						course_code: 'ER&M 376',
-						crn: 21822
-					},
-					{
-						all_course_codes: ['ER&M 376', 'MGRK 304', 'PLSC 376', 'SOCY 307'],
-						areas: ['So'],
-						average_gut_rating: 1.2642773892773884,
-						average_professor: 4.233843925252594,
-						course_code: 'MGRK 304',
-						crn: 21823
-					},
-					{
-						all_course_codes: ['ER&M 376', 'MGRK 304', 'PLSC 376', 'SOCY 307'],
-						areas: ['So'],
-						average_gut_rating: 1.2642773892773884,
-						average_professor: 4.233843925252594,
-						course_code: 'PLSC 376',
-						crn: 21821
-					},
-					{
-						all_course_codes: ['ER&M 376', 'MGRK 304', 'PLSC 376', 'SOCY 307'],
-						areas: ['So'],
-						average_gut_rating: 1.2642773892773884,
-						average_professor: 4.233843925252594,
-						course_code: 'SOCY 307',
-						crn: 21824
-					}
-				]
-			},
-			course_id: 59251,
-			locations_summary: 'HGS 220B',
-			requirements: null,
-			skills: [],
-			evaluation_narratives: [
-				{
-					comment: 'I learn a lot on the far right in Sweden'
-				},
-				{
-					comment: 'I learned a great deal about research and paper writing.'
-				}
-			]
-		}
-	];
+	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [ ];
+	
+	$: coursesSortedByCount = courses.sort((a, b) => b.course.evaluation_narratives_aggregate.aggregate.count - a.course.evaluation_narratives_aggregate.aggregate.count);
 
 	const runQuery = async () => {
 		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
@@ -122,7 +65,7 @@
 	</div>
 	<div class="overflow-hidden bg-white shadow sm:rounded-md">
 		<ul class="divide-y divide-gray-200">
-			{#each courses as course}
+			{#each coursesSortedByCount as course}
 				<ResultItem {course} />
 			{/each}
 		</ul>
