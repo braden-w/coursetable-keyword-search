@@ -22,8 +22,8 @@
 							<!-- in {course.description} -->
 						</p>
 					</div>
-					<div class="mt-2 flex">
-						<div class="flex text-left items-center text-sm text-gray-500">
+					<div class="mt-2">
+						<div class="text-left items-center text-sm text-gray-500">
 							{course.description}
 						</div>
 					</div>
