@@ -10,6 +10,7 @@ export const queryCourseTable = async ({
 	keyword: string;
 	course_keyword: string;
 }) => {
+	
 	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options({ keyword, course_keyword }));
 	const response = (await res.json()) as SearchResponse;
 	console.log("🚀 ~ file: +server.ts ~ line 15 ~ response", response)

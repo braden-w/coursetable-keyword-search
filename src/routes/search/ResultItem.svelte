@@ -3,7 +3,8 @@
 	import { ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
-	export let course: SearchResponse['data']['courses'][number];
+	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
+	export let keyword: string;
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
 </script>
@@ -11,11 +12,11 @@
 <li>
 	<button on:click={toggleExpanded} class="block hover:bg-gray-50">
 		<div class="flex items-center px-4 py-4 sm:px-6">
-			<div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+			<div class="flex min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
 				<div>
 					<div class="flex text-sm">
 						<p class="truncate font-medium text-primary">
-							{course.computed_listing_infos_aggregate.nodes[0].all_course_codes}
+							{course.all_course_codes}
 							{course.title}
 						</p>
 						<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
@@ -46,7 +47,7 @@
 </li>
 
 {#if expanded}
-	{#each course.evaluation_narratives as review}
+	{#each course.course.evaluation_narratives_aggregate.nodes as review}
 		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">{review.comment}</p>

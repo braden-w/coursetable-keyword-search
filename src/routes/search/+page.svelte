@@ -16,7 +16,7 @@
 		if (e.key === 'Enter') runQuery();
 	};
 
-	let courses: SearchResponse['data']['courses'] = [
+	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [
 		{
 			description:
 				'Extreme and radical right movements and political parties are a recurrent phenomenon found in most parts of the world. Discussion of their foundational values and the causes of their continuous, even increasing, support among citizens and voters.',
@@ -83,7 +83,7 @@
 		 '/api/search?' + new URLSearchParams({keyword: keywordWithPercents, course_keyword: courseKeywordWithPercents})
 		);
 		const data = (await response.json()) as SearchResponse;
-		courses = data.data.courses;
+		courses = data.data.computed_listing_info_aggregate.nodes
 	};
 </script>
 
@@ -112,7 +112,7 @@
 	<div class="overflow-hidden bg-white shadow sm:rounded-md">
 		<ul class="divide-y divide-gray-200">
 			{#each courses as course}
-				<ResultItem {course} />
+				<ResultItem {keyword} {course} />
 			{/each}
 		</ul>
 	</div>
