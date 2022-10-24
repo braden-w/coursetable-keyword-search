@@ -1,7 +1,7 @@
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { env } from "$env/dynamic/public"
 
-export const searchResponse = async ({
+export const queryCourseTable = async ({
  keyword,
  course_keyword
 }: {
