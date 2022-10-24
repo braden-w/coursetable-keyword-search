@@ -19,7 +19,7 @@
 	];
 </script>
 
-<Disclosure as="nav" class="bg-gray-800" let:open>
+<Disclosure as="nav" class="bg-neutral" let:open>
 	<div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
 		<div class="relative flex h-16 items-center justify-between">
 			<div class="flex items-center px-2 lg:px-0">
@@ -84,7 +84,7 @@
 				<div class="flex items-center">
 					<button
 						type="button"
-						class="flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+						class="flex-shrink-0 rounded-full bg-neutral p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
 					>
 						<span class="sr-only">View notifications</span>
 						<Icon src={BellAlert} theme="solid" class="h-6 w-6" aria-hidden="true" />
@@ -94,7 +94,7 @@
 					<Menu as="div" class="relative ml-4 flex-shrink-0">
 						<div>
 							<MenuButton
-								class="flex rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+								class="flex rounded-full bg-neutral text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
 							>
 								<span class="sr-only">Open user menu</span>
 								<img
@@ -185,7 +185,7 @@
 				</div>
 				<button
 					type="button"
-					class="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+					class="ml-auto flex-shrink-0 rounded-full bg-neutral p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
 				>
 					<span class="sr-only">View notifications</span>
 					<Icon src={BellAlert} class="h-6 w-6" aria-hidden="true" />
