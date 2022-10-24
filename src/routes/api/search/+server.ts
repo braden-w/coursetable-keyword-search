@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import type { SearchResponse } from '$lib/types/SearchResponse';
-import {options} from './payload';
+import { options } from './payload';
 
 export const queryCourseTable = async ({
 	keyword,
@@ -17,17 +17,20 @@ export const queryCourseTable = async ({
 	// Add a % to the end of the keyword to make it a prefix search if it's not already
 	keyword = keyword.endsWith('%') ? keyword : `${keyword}%`;
 	course_keyword = course_keyword.endsWith('%') ? course_keyword : `${course_keyword}%`;
-	
+
 	// Lowercase both keywords
 	keyword = keyword.toLowerCase();
 	course_keyword = course_keyword.toLowerCase();
 
-	console.log("🚀 ~ file: +server.ts ~ line 19 ~ keyword", keyword)
-	console.log("🚀 ~ file: +server.ts ~ line 21 ~ course_keyword", course_keyword)
-	
-	const res = await fetch('https://api.coursetable.com/ferry/v1/graphql?=', options({ keyword, course_keyword }));
+	console.log('🚀 ~ file: +server.ts ~ line 19 ~ keyword', keyword);
+	console.log('🚀 ~ file: +server.ts ~ line 21 ~ course_keyword', course_keyword);
+
+	const res = await fetch(
+		'https://api.coursetable.com/ferry/v1/graphql?=',
+		options({ keyword, course_keyword })
+	);
 	const response = (await res.json()) as SearchResponse;
-	console.log("🚀 ~ file: +server.ts ~ line 25 ~ response", response)
+	console.log('🚀 ~ file: +server.ts ~ line 25 ~ response', response);
 	return response;
 };
 

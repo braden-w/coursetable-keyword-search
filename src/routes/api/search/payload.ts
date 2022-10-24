@@ -1,7 +1,13 @@
 import { env } from '$env/dynamic/public';
 import { graphQL } from './graphql';
 
-export const options = ({ keyword, course_keyword }: { keyword: string; course_keyword: string }) => ({
+export const options = ({
+	keyword,
+	course_keyword
+}: {
+	keyword: string;
+	course_keyword: string;
+}) => ({
 	method: 'POST',
 	headers: {
 		Cookie: env.PUBLIC_COURSETABLE_COOKIE,
