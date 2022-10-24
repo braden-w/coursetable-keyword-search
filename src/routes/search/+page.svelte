@@ -8,6 +8,7 @@
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 
 	export let data: PageData;
 	let keyword = data.keyword ?? '';
@@ -129,6 +130,8 @@
 			</div>
 		</div>
 	{/if}
+	<QueriesRow />
+
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
