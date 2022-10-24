@@ -1,3 +1,4 @@
+import {error} from '@sveltejs/kit'
 import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import type { SearchResponse } from '$lib/types/SearchResponse';
@@ -40,6 +41,10 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const course_keyword = url.searchParams.get('course_keyword') ?? '%';
 	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '%';
 	// From https://stackoverflow.com/a/58437909
-	const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-	return json(response, { headers: { 'cache-control': 'public, max-age=3600' } });
+	try {
+		const response = await queryCourseTable({keyword, course_keyword, areas_skills_keyword});
+		return json(response, {headers: {'Cache-Control': 'public, max-age=3600'}});
+	} catch (e) {
+		throw error(500, e as Error);
+	}
 };
