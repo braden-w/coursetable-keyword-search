@@ -1,10 +1,10 @@
 <script lang="ts">
-	import {ChevronRight} from "@steeze-ui/heroicons";
-	import {Icon} from "@steeze-ui/svelte-icon";
-	import type {SearchResponse} from "src/routes/search/[keyword]/[course_keyword]/types";
-	export let course: SearchResponse['data']['courses'][number]
+	import { ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import type { SearchResponse } from 'src/routes/search/[keyword]/[course_keyword]/types';
+	export let course: SearchResponse['data']['courses'][number];
 	let expanded = false;
-	const toggleExpanded = () => ( expanded = !expanded)
+	const toggleExpanded = () => (expanded = !expanded);
 </script>
 
 <li>
@@ -34,7 +34,11 @@
 				</div>
 			</div>
 			<div class="ml-5 flex-shrink-0">
-				<Icon src={ChevronRight} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				{#if expanded}
+					<Icon src={ChevronUp} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				{:else}
+					<Icon src={ChevronDown} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				{/if}
 			</div>
 		</div>
 	</button>
