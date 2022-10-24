@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import { BookOpen, ChevronDown, ChevronRight, ChevronUp } from '@steeze-ui/heroicons';
+	import { BookOpen, ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
