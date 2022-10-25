@@ -24,9 +24,7 @@ export const queryCourseTable = async ({
 
 	// Lowercase both keywords
 	keyword = keyword.toLowerCase();
-	console.log('🚀 ~ file: +server.ts ~ line 27 ~ keyword', keyword);
 	course_keyword = course_keyword.toLowerCase();
-	console.log('🚀 ~ file: +server.ts ~ line 29 ~ course_keyword', course_keyword);
 
 	const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
 
@@ -34,12 +32,11 @@ export const queryCourseTable = async ({
 
 	const reply = await redis.get(key);
 	if (reply) {
-		console.log('Cache Hit');
+		// console.log('Cache Hit');
 		const parsedReply = JSON.parse(reply) as SearchResponse
-		console.log("🚀 ~ file: +server.ts ~ line 39 ~ parsedReply", parsedReply)
 		return parsedReply;
 	} else {
-		console.log('Cache Miss');
+		// console.log('Cache Miss');
 			const res = await fetch(
 				'https://api.coursetable.com/ferry/v1/graphql?=',
 				options({ keyword, course_keyword, areas_skills_keyword })
@@ -57,11 +54,11 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		// const daysBeforeRevalidateCache = 7;
+		const daysBeforeRevalidateCache = 7;
 		// https://vercel.com/docs/concepts/functions/serverless-functions/edge-caching
-		// const cacheControl = `max-age=0, s-maxage=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
+		const cacheControl = `max-age=0, s-maxage=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
 		return json(response, {
-			// headers: { 'cache-control': cacheControl, 'Cache-Control': cacheControl }
+			headers: { 'cache-control': cacheControl, 'Cache-Control': cacheControl }
 		});
 	} catch (e) {
 		throw error(500, e as Error);
