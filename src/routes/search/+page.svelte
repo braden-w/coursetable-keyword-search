@@ -9,6 +9,7 @@
 	import { goto } from '$app/navigation';
 	import {queries} from '$lib/suggested queries/queries';
 	import QueryButton from '$lib/suggested queries/QueryButton.svelte';
+	import {onMount} from 'svelte';
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
 	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
