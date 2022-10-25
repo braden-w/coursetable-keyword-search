@@ -2,7 +2,7 @@
 		{
 			title: '"Favorite" humanities courses',
 			keyword: 'favorite',
-			course_keyword: 'Hu'
+			areas_skills_keyword: 'Hu'
 		},
 		{
 			title: '"Best" QR courses',
