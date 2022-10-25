@@ -6,13 +6,13 @@
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
+	import {queries} from '$lib/suggested queries/queries';
+	import QueryButton from '$lib/suggested queries/QueryButton.svelte';
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
-	let courseKeyword = $page.url.searchParams.get('course_keyword') ?? '';
-	let areasSkillsKeyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
+	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
+	let areas_skills_keyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
 
 	let showFilters = true;
 	let loading = false;
@@ -22,12 +22,28 @@
 			goto(
 				`?${new URLSearchParams({
 					keyword,
-					course_keyword: courseKeyword,
-					areas_skills_keyword: areasSkillsKeyword
+					course_keyword: course_keyword,
+					areas_skills_keyword: areas_skills_keyword
 				})}`
 			);
 			runQuery();
 		}
+	};
+
+	const onRouteChange = (event: {
+		detail: { keyword: string; course_keyword: string; areas_skills_keyword: string };
+	}) => {
+		({
+			detail: { keyword, course_keyword, areas_skills_keyword }
+		} = event);
+		goto(
+			`?${new URLSearchParams({
+				keyword: keyword,
+				course_keyword: course_keyword,
+				areas_skills_keyword: areas_skills_keyword
+			})}`
+		);
+		runQuery();
 	};
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
@@ -37,28 +53,28 @@
 			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
 			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
 	);
-	
-	const getCourses = async () =>{
-		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
+
+	const getCourses = async () => {
+		// Send api request to search passing {keyword: keyword, course_keyword: course_keyword}
 		const response = await fetch(
 			'/api/search?' +
 				new URLSearchParams({
 					keyword: keyword,
-					course_keyword: courseKeyword,
-					areas_skills_keyword: areasSkillsKeyword
+					course_keyword: course_keyword,
+					areas_skills_keyword: areas_skills_keyword
 				})
 		);
 		const data = (await response.json()) as SearchResponse;
 		return data.data.computed_listing_info_aggregate.nodes;
-	}
+	};
 
 	const runQuery = async () => {
 		if (keyword === '') return;
 		loading = true;
-		courses = await getCourses()
+		courses = await getCourses();
 		loading = false;
 	};
-	onMount(runQuery);
+	// onMount(runQuery);
 </script>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
@@ -111,7 +127,7 @@
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
 					type="search"
-					bind:value={courseKeyword}
+					bind:value={course_keyword}
 					on:keydown={onKeydown}
 				/>
 			</div>
@@ -129,14 +145,18 @@
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 					placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
 					type="search"
-					bind:value={areasSkillsKeyword}
+					bind:value={areas_skills_keyword}
 					on:keydown={onKeydown}
 				/>
 			</div>
 		</div>
 	{/if}
 
-	<QueriesRow />
+<span class="mb-2 flex gap-2 overflow-x-auto rounded-md shadow-sm">
+		{#each queries as query}
+			<QueryButton {...query} on:click={onRouteChange} />
+		{/each}
+	</span>
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">

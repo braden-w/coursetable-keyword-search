@@ -6,9 +6,9 @@
 	export let course_keyword: string = '';
 	export let areas_skills_keyword: string = '';
 	export let title: string;
-	const dispatch = createEventDispatcher<{routeChange: {keyword: string; course_keyword: string; areas_skills_keyword: string;}; }>();
+	const dispatch = createEventDispatcher<{click: {keyword: string; course_keyword: string; areas_skills_keyword: string;}; }>();
 	const onClick = () => {
-		dispatch('routeChange', {
+		dispatch('click', {
 			keyword,
 			course_keyword,
 			areas_skills_keyword

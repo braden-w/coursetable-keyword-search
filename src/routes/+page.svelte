@@ -1,5 +1,6 @@
 <script lang="ts">
-  import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
+	import {queries} from "$lib/suggested queries/queries";
+	import QueryButton from "$lib/suggested queries/QueryButton.svelte";
 </script>
 
 <div class="relative">
@@ -15,7 +16,11 @@
 				</h1>
 				<h2 class="mb-2 text-2xl font-bold">List courses by keyword. Try now:</h2>
 
-				<QueriesRow></QueriesRow>
+				<span class="flex mb-2 gap-2 overflow-x-auto rounded-md shadow-sm">
+	{#each queries as query}
+		<QueryButton {...query} />
+	{/each}
+</span>
 			</div>
 		</div>
 	</div>
