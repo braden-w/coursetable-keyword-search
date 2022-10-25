@@ -30,19 +30,28 @@ export const queryCourseTable = async ({
 
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 
-	const reply = await redis.get(key);
-	if (reply) {
-		// console.log('Cache Hit');
-		const parsedReply = JSON.parse(reply) as SearchResponse
-		return parsedReply;
-	} else {
-		// console.log('Cache Miss');
+	try {
+		const reply = await redis.get(key);
+		if (reply) {
+			console.log('Cache Hit');
+			const parsedReply = JSON.parse(reply) as SearchResponse
+			return parsedReply;
+		} else {
+			console.log('Cache Miss');
 			const res = await fetch(
 				'https://api.coursetable.com/ferry/v1/graphql?=',
-				options({ keyword, course_keyword, areas_skills_keyword })
+				options({keyword, course_keyword, areas_skills_keyword})
 			);
-		const response = await res.json() as SearchResponse
-		redis.setEx(key, DEFAULT_EXPIRATION, JSON.stringify(response));
+			const response = await res.json() as SearchResponse
+			redis.setEx(key, DEFAULT_EXPIRATION, JSON.stringify(response));
+			return response;
+		}
+	} catch {
+			const res = await fetch(
+				'https://api.coursetable.com/ferry/v1/graphql?=',
+				options({keyword, course_keyword, areas_skills_keyword})
+			);
+			const response = await res.json() as SearchResponse
 		return response;
 	}
 };
