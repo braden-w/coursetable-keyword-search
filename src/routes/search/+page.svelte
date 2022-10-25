@@ -70,7 +70,7 @@
 
 	const runQuery = async () => {
 		loading = true;
-		courses = await getCourses() ?? [];
+		courses = (await getCourses()) ?? [];
 		loading = false;
 	};
 	onMount(runQuery);

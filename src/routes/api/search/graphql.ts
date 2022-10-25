@@ -166,9 +166,9 @@ export const graphQL = ({
 	course_keyword: string;
 	areas_skills_keyword: string;
 }) => {
-	console.log("🚀 ~ file: graphql.ts ~ line 169 ~ keyword", keyword)
-	console.log("🚀 ~ file: graphql.ts ~ line 169 ~ course_keyword", course_keyword)
-	console.log("🚀 ~ file: graphql.ts ~ line 169 ~ areas_skills_keyword", areas_skills_keyword)
+	console.log('🚀 ~ file: graphql.ts ~ line 169 ~ keyword', keyword);
+	console.log('🚀 ~ file: graphql.ts ~ line 169 ~ course_keyword', course_keyword);
+	console.log('🚀 ~ file: graphql.ts ~ line 169 ~ areas_skills_keyword', areas_skills_keyword);
 	if (areas_skills_keyword === '') {
 		return {
 			query: queryWithoutAreasSkillsKeyword,

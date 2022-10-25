@@ -14,16 +14,16 @@
 		{
 			title: '"Quintessential" history courses',
 			keyword: 'quintessential',
-			course_keyword: 'HIST',
+			course_keyword: 'HIST'
 		},
 		{
 			title: '"Favorite" in general',
-			keyword: 'favorite',
+			keyword: 'favorite'
 		}
 	];
 </script>
 
-<span class="flex mb-2 gap-2 overflow-x-auto rounded-md shadow-sm">
+<span class="mb-2 flex gap-2 overflow-x-auto rounded-md shadow-sm">
 	{#each queries as query}
 		<QueryButton {...query} />
 	{/each}
