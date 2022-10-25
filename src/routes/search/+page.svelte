@@ -20,7 +20,7 @@
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter') {
 			goto(
-				`/search?${new URLSearchParams({
+				`?${new URLSearchParams({
 					keyword,
 					course_keyword: courseKeyword,
 					areas_skills_keyword: areasSkillsKeyword
@@ -54,7 +54,6 @@
 		courses = data.data.computed_listing_info_aggregate.nodes;
 		loading = false;
 	};
-	onMount(runQuery);
 </script>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
@@ -133,7 +132,6 @@
 	{/if}
 
 	<QueriesRow />
-
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
