@@ -54,7 +54,6 @@
 	);
 
 	const getCourses = async () => {
-		if (keyword === '') return;
 		// Send api request to search passing {keyword: keyword, course_keyword: course_keyword}
 		const response = await fetch(
 			'/api/search?' +
@@ -70,7 +69,7 @@
 
 	const runQuery = async () => {
 		loading = true;
-		courses = (await getCourses()) ?? [];
+		courses = await getCourses();
 		loading = false;
 	};
 	onMount(runQuery);
