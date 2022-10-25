@@ -14,6 +14,7 @@
 	let keyword = data.keyword ?? '';
 	let courseKeyword = data.course_keyword ?? '';
 	let areasSkillsKeyword = data.areas_skills_keyword ?? '';
+
 	let showFilters = true;
 	let loading = false;
 
@@ -132,6 +133,8 @@
 		</div>
 	{/if}
 	<QueriesRow />
+	{JSON.stringify(courses)}
+
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
@@ -147,3 +150,4 @@
 		</div>
 	{/if}
 </div>
+
