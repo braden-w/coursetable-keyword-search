@@ -68,6 +68,7 @@
 
 	const runQuery = async () => {
 		loading = true;
+		courses = []
 		courses = await getCourses();
 		loading = false;
 	};
