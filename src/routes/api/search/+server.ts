@@ -31,6 +31,7 @@ export const queryCourseTable = async ({
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 
 	try {
+		redis.on('error', (err) => {throw err});
 		const reply = await redis.get(key);
 		if (reply) {
 			console.log('Cache Hit');
