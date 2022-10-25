@@ -161,12 +161,12 @@
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
-				{#each coursesSortedByCount as course (course.listing_id)}
+				<!-- {#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} />
-				{/each}
-				<!-- <VirtualList items={coursesSortedByCount} height="500px" let:item>
+				{/each} -->
+				<VirtualList items={coursesSortedByCount} height="500px" let:item>
 					<ResultItem course={item} />
-				</VirtualList> -->
+				</VirtualList>
 			</ul>
 		</div>
 	{:else}
