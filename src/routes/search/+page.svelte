@@ -74,7 +74,7 @@
 		courses = await getCourses();
 		loading = false;
 	};
-	// onMount(runQuery);
+	onMount(runQuery);
 </script>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
