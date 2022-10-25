@@ -9,7 +9,7 @@
 </script>
 
 <li>
-	<button type="button" on:click={toggleExpanded} class="block hover:bg-gray-50">
+	<button type="button" on:click={toggleExpanded} class="block hover:bg-gray-50 w-full">
 		<div class="flex items-center px-4 py-4 sm:px-6">
 			<div class="flex min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
 				<div>
