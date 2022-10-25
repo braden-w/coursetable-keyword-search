@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 
 	import ResultItem from './ResultItem.svelte';
@@ -11,9 +12,9 @@
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 
 	export let data: PageData;
-	let keyword = data.keyword ?? '';
-	let courseKeyword = data.course_keyword ?? '';
-	let areasSkillsKeyword = data.areas_skills_keyword ?? '';
+	let keyword = $page.url.searchParams.get('keyword') ?? '';
+	let courseKeyword = $page.url.searchParams.get('course_keyword') ?? '';
+	let areasSkillsKeyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
 
 	let showFilters = true;
 	let loading = false;
@@ -55,7 +56,30 @@
 		courses = data.data.computed_listing_info_aggregate.nodes;
 		loading = false;
 	};
-	onMount(runQuery);
+	// onMount(runQuery);
+
+	import QueryButton from '$lib/suggested queries/QueryButton.svelte';
+	const queries = [
+		{
+			title: '"Favorite" humanities courses',
+			keyword: 'favorite',
+			course_keyword: 'Hu'
+		},
+		{
+			title: '"Best" QR courses',
+			keyword: 'best',
+			areas_skills_keyword: 'QR'
+		},
+		{
+			title: '"Quintessential" history courses',
+			keyword: 'quintessential',
+			course_keyword: 'HIST'
+		},
+		{
+			title: '"Favorite" in general',
+			keyword: 'favorite'
+		}
+	];
 </script>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
@@ -132,9 +156,24 @@
 			</div>
 		</div>
 	{/if}
-	<QueriesRow />
-	{JSON.stringify(courses)}
 
+	<span class="mb-2 flex gap-2 overflow-x-auto rounded-md shadow-sm">
+		{#each queries as query}
+			<a
+				href="/search?{new URLSearchParams({
+					keyword: query.keyword ?? '',
+					course_keyword: query.course_keyword ?? '',
+					areas_skills_keyword: query.areas_skills_keyword ?? ''
+				})}"
+			>
+				<span
+					class="inline-flex items-center rounded-full bg-indigo-300 px-3 py-0.5 text-sm font-medium text-gray-800"
+				>
+					{query.title}
+				</span>
+			</a>
+		{/each}
+	</span>
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
@@ -150,4 +189,3 @@
 		</div>
 	{/if}
 </div>
-
