@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import LoadingSpinner from './LoadingSpinner.svelte';
+
+	import { page } from '$app/stores';
 
 	import ResultItem from './ResultItem.svelte';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
@@ -11,9 +12,9 @@
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type { Query } from '$lib/types/Query';
 
-	let keyword = $page.url.searchParams.get('keyword') ?? '';
-	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
-	let areas_skills_keyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
+	let keyword = '';
+	let course_keyword = '';
+	let areas_skills_keyword = '';
 
 	let showFilters = true;
 	let loading = false;
@@ -70,7 +71,12 @@
 		courses = await getCourses();
 		loading = false;
 	};
-	onMount(runQuery);
+	onMount(() => {
+		keyword = $page.url.searchParams.get('keyword') ?? '';
+		course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
+		areas_skills_keyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
+		runQuery();
+	});
 </script>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">

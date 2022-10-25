@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { options } from './payload';
+import { redis } from '$lib/redis';
 
 export const queryCourseTable = async ({
 	keyword,
@@ -23,17 +24,37 @@ export const queryCourseTable = async ({
 
 	// Lowercase both keywords
 	keyword = keyword.toLowerCase();
-	console.log('🚀 ~ file: +server.ts ~ line 27 ~ keyword', keyword);
 	course_keyword = course_keyword.toLowerCase();
-	console.log('🚀 ~ file: +server.ts ~ line 29 ~ course_keyword', course_keyword);
 
-	const res = await fetch(
-		'https://api.coursetable.com/ferry/v1/graphql?=',
-		options({ keyword, course_keyword, areas_skills_keyword })
-	);
-	const response = (await res.json()) as SearchResponse;
-	console.log('🚀 ~ file: +server.ts ~ line 25 ~ response', response);
-	return response;
+	const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
+
+	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
+
+	try {
+		const reply = await redis.get(key);
+		if (reply) {
+			console.log('Cache Hit');
+			const parsedReply = JSON.parse(reply) as SearchResponse;
+			return parsedReply;
+		} else {
+			console.log('Cache Miss');
+			const res = await fetch(
+				'https://api.coursetable.com/ferry/v1/graphql?=',
+				options({ keyword, course_keyword, areas_skills_keyword })
+			);
+			const response = (await res.json()) as SearchResponse;
+			redis.setEx(key, DEFAULT_EXPIRATION, JSON.stringify(response));
+			return response;
+		}
+	} catch (e) {
+		console.error(e);
+		const res = await fetch(
+			'https://api.coursetable.com/ferry/v1/graphql?=',
+			options({ keyword, course_keyword, areas_skills_keyword })
+		);
+		const response = (await res.json()) as SearchResponse;
+		return response;
+	}
 };
 
 export const GET: RequestHandler = async ({ url }: { url: URL }) => {
