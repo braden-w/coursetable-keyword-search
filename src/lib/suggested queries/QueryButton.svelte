@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import type {Query} from '$lib/types/Query';
 	import { createEventDispatcher } from 'svelte';
 
-	export let keyword: string;
-	export let course_keyword: string = '';
-	export let areas_skills_keyword: string = '';
-	export let title: string;
+	export let query: Query
+	let {keyword, course_keyword, areas_skills_keyword, title} = query
 	const dispatch = createEventDispatcher<{
-		click: { keyword: string; course_keyword: string; areas_skills_keyword: string };
+		click: Query;
 	}>();
 	const onClick = () => {
 		dispatch('click', {
@@ -17,9 +16,9 @@
 		});
 		goto(
 			`/search?${new URLSearchParams({
-				keyword,
-				course_keyword,
-				areas_skills_keyword
+				keyword: keyword ?? '',
+				course_keyword: course_keyword ?? '',
+				areas_skills_keyword: areas_skills_keyword ?? ''
 			})}`
 		);
 	};

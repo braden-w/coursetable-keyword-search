@@ -7,9 +7,9 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { goto } from '$app/navigation';
-	import { queries } from '$lib/suggested queries/queries';
-	import QueryButton from '$lib/suggested queries/QueryButton.svelte';
 	import { onMount } from 'svelte';
+	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
+	import type { Query } from '$lib/types/Query';
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
 	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
@@ -35,12 +35,10 @@
 		);
 	};
 
-	const onRouteChange = (event: {
-		detail: { keyword: string; course_keyword: string; areas_skills_keyword: string };
-	}) => {
-		({
-			detail: { keyword, course_keyword, areas_skills_keyword }
-		} = event);
+	const onRouteChange = (event: { detail: Query }) => {
+		keyword = event.detail.keyword ?? ''
+		course_keyword = event.detail.course_keyword ?? ''
+		areas_skills_keyword = event.detail.areas_skills_keyword ?? ''
 		updateRoute();
 		runQuery();
 	};
@@ -150,11 +148,7 @@
 		</div>
 	{/if}
 
-	<span class="mb-2 flex gap-2 overflow-x-auto rounded-md shadow-sm">
-		{#each queries as query}
-			<QueryButton {...query} on:click={onRouteChange} />
-		{/each}
-	</span>
+	<QueriesRow on:click={onRouteChange} />
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
