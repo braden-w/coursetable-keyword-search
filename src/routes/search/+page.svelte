@@ -7,9 +7,9 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { goto } from '$app/navigation';
-	import {queries} from '$lib/suggested queries/queries';
+	import { queries } from '$lib/suggested queries/queries';
 	import QueryButton from '$lib/suggested queries/QueryButton.svelte';
-	import {onMount} from 'svelte';
+	import { onMount } from 'svelte';
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
 	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
@@ -20,15 +20,19 @@
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter') {
-			goto(
-				`?${new URLSearchParams({
-					keyword,
-					course_keyword: course_keyword,
-					areas_skills_keyword: areas_skills_keyword
-				})}`
-			);
+			updateRoute();
 			runQuery();
 		}
+	};
+
+	const updateRoute = () => {
+		goto(
+			`?${new URLSearchParams({
+				keyword: keyword,
+				course_keyword: course_keyword,
+				areas_skills_keyword: areas_skills_keyword
+			})}`
+		);
 	};
 
 	const onRouteChange = (event: {
@@ -37,13 +41,7 @@
 		({
 			detail: { keyword, course_keyword, areas_skills_keyword }
 		} = event);
-		goto(
-			`?${new URLSearchParams({
-				keyword: keyword,
-				course_keyword: course_keyword,
-				areas_skills_keyword: areas_skills_keyword
-			})}`
-		);
+		updateRoute();
 		runQuery();
 	};
 
@@ -56,6 +54,7 @@
 	);
 
 	const getCourses = async () => {
+		if (keyword === '') return;
 		// Send api request to search passing {keyword: keyword, course_keyword: course_keyword}
 		const response = await fetch(
 			'/api/search?' +
@@ -70,9 +69,8 @@
 	};
 
 	const runQuery = async () => {
-		if (keyword === '') return;
 		loading = true;
-		courses = await getCourses();
+		courses = await getCourses() ?? [];
 		loading = false;
 	};
 	onMount(runQuery);
@@ -153,7 +151,7 @@
 		</div>
 	{/if}
 
-<span class="mb-2 flex gap-2 overflow-x-auto rounded-md shadow-sm">
+	<span class="mb-2 flex gap-2 overflow-x-auto rounded-md shadow-sm">
 		{#each queries as query}
 			<QueryButton {...query} on:click={onRouteChange} />
 		{/each}
