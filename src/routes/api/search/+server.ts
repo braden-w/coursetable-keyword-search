@@ -44,7 +44,8 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
 		const daysBeforeRevalidateCache = 7;
-		const cacheControl = `public, max-age=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
+		// https://vercel.com/docs/concepts/functions/serverless-functions/edge-caching
+		const cacheControl = `max-age=0, s-maxage=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
 		return json(response, {
 			headers: { 'cache-control': cacheControl, 'Cache-Control': cacheControl }
 		});

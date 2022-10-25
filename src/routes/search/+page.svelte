@@ -37,10 +37,8 @@
 			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
 			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
 	);
-
-	const runQuery = async () => {
-		if (keyword === '') return;
-		loading = true;
+	
+	const getCourses = async () =>{
 		// Send api request to search passing {keyword: keyword, courseKeyword: courseKeyword}
 		const response = await fetch(
 			'/api/search?' +
@@ -51,7 +49,13 @@
 				})
 		);
 		const data = (await response.json()) as SearchResponse;
-		courses = data.data.computed_listing_info_aggregate.nodes;
+		return data.data.computed_listing_info_aggregate.nodes;
+	}
+
+	const runQuery = async () => {
+		if (keyword === '') return;
+		loading = true;
+		courses = await getCourses()
 		loading = false;
 	};
 	onMount(runQuery);
