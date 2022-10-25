@@ -131,7 +131,7 @@
 			</div>
 		</div>
 	{/if}
-	<QueriesRow {runQuery}/>
+	<QueriesRow />
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
