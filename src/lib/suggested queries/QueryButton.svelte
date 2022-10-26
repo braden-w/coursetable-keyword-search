@@ -26,7 +26,7 @@
 
 <button on:click={onClick}>
 	<span
-		class="inline-flex items-center rounded-full bg-indigo-300 px-3 py-0.5 text-sm font-medium text-gray-800"
+		class="inline-flex items-center rounded-full bg-primary px-3 py-0.5 text-sm font-medium text-white"
 	>
 		{title}
 	</span>
