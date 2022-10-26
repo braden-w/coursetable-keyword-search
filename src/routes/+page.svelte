@@ -18,8 +18,7 @@
 </script>
 
 <div class="relative">
-	<div class="absolute inset-x-0 bottom-0" />
-	<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-7xl sm:px-6 lg:px-8 my-4">
 		<div class="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
 			<div class="absolute inset-0">
 				<div class="absolute inset-0 bg-base-200" />
