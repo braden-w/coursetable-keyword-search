@@ -1,9 +1,10 @@
 import type { PageLoad } from './$types';
 
+const seasonId = '202301';
+
 export const load: PageLoad = async ({ fetch }) => {
 	// Get the file from static/same_course_id of this season
-	const response = await fetch('/semester_same_course_id/202301.json');
-	const data = await response.json() as number[];
-	console.log("🚀 ~ file: +page.ts ~ line 7 ~ constload:PageLoad= ~ data", data)
-	return { semester_same_course_id : data };
+	const response = await fetch(`${seasonId}_same_course_id.json`)
+	const seasonCourseIds = (await response.json()) as number[];
+	return { seasonCourseIds };
 };

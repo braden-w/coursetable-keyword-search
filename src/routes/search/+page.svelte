@@ -49,9 +49,13 @@
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
 	export let data: PageData;
-	const { semester_same_course_id } = data;
+	const { seasonCourseIds} = data;
+	console.log(
+		'🚀 ~ file: +page.svelte ~ line 53 ~ semester_same_course_id',
+	seasonCourseIds
+	);
 	$: coursesSortedByCount = courses
-		.filter((course) => course.same_course_id in semester_same_course_id)
+		.filter((course) => course.same_course_id in seasonCourseIds)
 		.sort(
 			(a, b) =>
 				b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
@@ -161,15 +165,17 @@
 
 	<QueriesRow on:click={onRouteChange} />
 
+				{coursesSortedByCount.length}
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
-				<!-- {#each coursesSortedByCount as course (course.listing_id)}
+				{#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} />
-				{/each} -->
-				<VirtualList items={coursesSortedByCount} height="500px" let:item>
+					{course.same_course_id}
+				{/each}
+				<!-- <VirtualList items={coursesSortedByCount} height="500px" let:item>
 					<ResultItem course={item} />
-				</VirtualList>
+				</VirtualList> -->
 			</ul>
 		</div>
 	{:else}
