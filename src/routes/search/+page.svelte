@@ -6,7 +6,6 @@
 	import type {SearchResponse} from '$lib/types/SearchResponse';
 	import {AcademicCap, BookOpen, Funnel, MagnifyingGlass} from '@steeze-ui/heroicons';
 	import {Icon} from '@steeze-ui/svelte-icon';
-	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import {onMount} from 'svelte';
 	import type {PageData} from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
