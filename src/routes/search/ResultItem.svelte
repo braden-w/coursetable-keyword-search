@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
+	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { BookOpen, ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { SearchResponse } from '$lib/types/SearchResponse';
+	import { slide } from 'svelte/transition';
+
 	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);

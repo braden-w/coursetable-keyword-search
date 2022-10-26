@@ -1,17 +1,15 @@
 <script lang="ts">
-	import LoadingSpinner from './LoadingSpinner.svelte';
-
-	import { page } from '$app/stores';
-
-	import ResultItem from './ResultItem.svelte';
-	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type { Query } from '$lib/types/Query';
+	import type { SearchResponse } from '$lib/types/SearchResponse';
+	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import LoadingSpinner from './LoadingSpinner.svelte';
+	import ResultItem from './ResultItem.svelte';
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
 	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
