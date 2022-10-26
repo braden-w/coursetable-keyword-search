@@ -1,35 +1,35 @@
 export const queries = [
 	{
-		title: '"Favorite" humanities courses',
+		title: 'Favorite',
 		keyword: 'favorite',
 		areas_skills_keyword: 'Hu'
 	},
 	{
-		title: '"Favorite" social science courses',
-		keyword: 'favorite',
-		areas_skills_keyword: 'So'
-	},
-	{
-		title: '"Favorite" QR courses',
-		keyword: 'favorite',
-		areas_skills_keyword: 'QR'
-	},
-	{
-		title: '"Best" QR courses',
+		title: 'Best',
 		keyword: 'best',
-		areas_skills_keyword: 'QR'
+		areas_skills_keyword: ''
 	},
 	{
-		title: '"Quintessential" history courses',
+		title: 'Quintessential',
 		keyword: 'quintessential',
-		course_keyword: 'HIST'
+		areas_skills_keyword: ''
 	},
 	{
-		title: '"Favorite" in general',
-		keyword: 'favorite'
+		title: 'Gut',
+		keyword: 'gut',
+		areas_skills_keyword: ''
 	},
 	{
-		title: '"Best" ever',
-		keyword: 'best%ever'
+		title: 'Easiest',
+		keyword: 'easiest',
+		course_keyword: ''
+	},
+	{
+		title: 'Fastest',
+		keyword: 'fastest'
+	},
+	{
+		title: 'Ever',
+		keyword: 'ever'
 	}
 ];

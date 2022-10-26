@@ -7,6 +7,7 @@
 	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
+	export let keyword: string;
 </script>
 
 <li>
@@ -95,7 +96,12 @@
 	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review}
 		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
-				<p class="text-sm text-gray-500">{review.comment}</p>
+				<p class="text-sm text-gray-500">
+					{@html review.comment.replace(
+						new RegExp(keyword, 'gi'),
+						(match) => `<mark>${match}</mark>`
+					)}
+				</p>
 			</div>
 		</li>
 	{/each}

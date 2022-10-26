@@ -5,6 +5,22 @@ import type { SearchResponse } from '$lib/types/SearchResponse';
 import { options } from './payload';
 import redis from '$lib/redis';
 
+const getFromRedis = async (key: string) => {
+	try {
+		const reply = await redis.get(key);
+		if (reply) {
+			console.log('Cache Hit');
+			const parsedReply = JSON.parse(reply) as SearchResponse;
+			return parsedReply;
+		} else {
+			console.log('Cache Miss');
+			return null;
+		}
+	} catch (err) {
+		console.error(err);
+		return null;
+	}
+};
 export const queryCourseTable = async ({
 	keyword,
 	course_keyword,
@@ -28,29 +44,17 @@ export const queryCourseTable = async ({
 
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 	const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
-	try {
-		const reply = await redis.get(key);
-		if (reply) {
-			console.log('Cache Hit');
-			const parsedReply = JSON.parse(reply) as SearchResponse;
-			return parsedReply;
-		} else {
-			console.log('Cache Miss');
-			const res = await fetch(
-				'https://api.coursetable.com/ferry/v1/graphql?=',
-				options({ keyword, course_keyword, areas_skills_keyword })
-			);
-			const response = (await res.json()) as SearchResponse;
-			redis.set(key, JSON.stringify(response), 'EX', DEFAULT_EXPIRATION);
-			return response;
-		}
-	} catch (e) {
-		console.error(e);
+
+	const cachedResponse = await getFromRedis(key);
+	if (cachedResponse) {
+		return cachedResponse;
+	} else {
 		const res = await fetch(
 			'https://api.coursetable.com/ferry/v1/graphql?=',
 			options({ keyword, course_keyword, areas_skills_keyword })
 		);
 		const response = (await res.json()) as SearchResponse;
+		redis.set(key, JSON.stringify(response), 'EX', DEFAULT_EXPIRATION);
 		return response;
 	}
 };
@@ -62,12 +66,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		const daysBeforeRevalidateCache = 7;
-		// https://vercel.com/docs/concepts/functions/serverless-functions/edge-caching
-		const cacheControl = `max-age=0, s-maxage=${60 * 60 * 24 * daysBeforeRevalidateCache}`;
-		return json(response, {
-			headers: { 'cache-control': cacheControl, 'Cache-Control': cacheControl }
-		});
+		return json(response);
 	} catch (e) {
 		throw error(500, e as Error);
 	}
