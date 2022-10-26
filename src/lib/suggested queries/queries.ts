@@ -2,7 +2,7 @@ export const queries = [
 	{
 		title: 'Favorite',
 		keyword: 'favorite',
-		areas_skills_keyword: 'Hu'
+		areas_skills_keyword: ''
 	},
 	{
 		title: 'Best',
