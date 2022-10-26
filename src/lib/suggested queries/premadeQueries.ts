@@ -33,7 +33,7 @@ export const queries = [
 		keyword: 'ever'
 	},
 	{
-		title: 'highly recommend',
+		title: 'Highly recommend',
 		keyword: 'high%recommend'
 	},
 	{
