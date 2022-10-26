@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { queries } from '$lib/suggested queries/queries';
+	import { queries } from '$lib/suggested queries/premadeQueries';
 	import QueryButton from './QueryButton.svelte';
 </script>
 
