@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Logo from './Logo.svelte';
 
-	import { Disclosure, DisclosureButton } from '@rgossiaux/svelte-headlessui';
+	import { Disclosure, DisclosureButton, DisclosurePanel } from '@rgossiaux/svelte-headlessui';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Bars3, XMark } from '@steeze-ui/heroicons';
+	import { Bars3, Bell, XMark } from '@steeze-ui/heroicons';
 	import { fly } from 'svelte/transition';
 	const titles = ['Keyword Search', 'KeyTable', 'JankTable', 'WorseTable', 'CourseLabel'];
 	// Cycle between titles every second
@@ -15,7 +15,7 @@
 	}, 5000);
 </script>
 
-<Disclosure as="nav" class="" let:open>
+<Disclosure as="header" class="" let:open>
 	<div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
 		<div class="relative flex h-16 items-center justify-between">
 			<div class="flex items-center px-2 lg:px-0">
@@ -39,24 +39,12 @@
 					{/each}
 				</a>
 			</div>
-			<div class="flex lg:hidden">
-				<!-- Mobile menu button -->
-				<DisclosureButton
-					class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-				>
-					<span class="sr-only">How it works</span>
-					{#if open}
-						<Icon
-							src={XMark}
-							theme="ouOpen main menutline"
-							class="block h-6 w-6"
-							aria-hidden="true"
-						/>
-					{:else}
-						<Icon src={Bars3} theme="outline" class="block h-6 w-6" aria-hidden="true" />
-					{/if}
-				</DisclosureButton>
-			</div>
+			<a
+				href="/about"
+				class="ml-6 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+			>
+				About
+			</a>
 		</div>
 	</div>
 </Disclosure>
