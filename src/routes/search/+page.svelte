@@ -89,9 +89,8 @@
 </svelte:head>
 
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-	<h2 class="mb-2 text-4xl font-extrabold md:text-6xl">Yale Course Keyword Search</h2>
-	<h3 class="mb-4 text-3xl font-bold">
-		A search box that allows you to search CourseTable reviews by keyword
+	<h3 class="mb-4 text-3xl font-bold md:text-3xl">
+		Search CourseTable reviews by keyword
 	</h3>
 	<div class="my-2 flex w-full">
 		<label for="search" class="sr-only">Search</label>

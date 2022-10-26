@@ -26,11 +26,10 @@
 					</a>
 				</div>
 				<a href="/">
-					<!-- <h1 class="ml-4 hidden text-4xl font-extrabold lg:block">Yale Course Keyword Search</h1> -->
 					{#each titles as title, index}
 					{#if titleIndex === index}
 					<h2
-						class="ml-4 hidden text-4xl font-bold md:text-5xl lg:block"
+						class="ml-4 hidden text-4xl font-bold md:text-6xl lg:block"
 						in:fly={{ y: 40, duration: 250 }}
 						out:fly={{ y: -40, duration: 250 }}
 					>
@@ -45,9 +44,9 @@
 				<DisclosureButton
 					class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
 				>
-					<span class="sr-only">Open main menu</span>
+					<span class="sr-only">How it works</span>
 					{#if open}
-						<Icon src={XMark} theme="outline" class="block h-6 w-6" aria-hidden="true" />
+						<Icon src={XMark} theme="ouOpen main menutline" class="block h-6 w-6" aria-hidden="true" />
 					{:else}
 						<Icon src={Bars3} theme="outline" class="block h-6 w-6" aria-hidden="true" />
 					{/if}
