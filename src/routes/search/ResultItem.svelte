@@ -14,7 +14,7 @@
 	<button type="button" on:click={toggleExpanded} class="block w-full hover:bg-gray-50">
 		<div class="flex items-center px-4 py-4 sm:px-6">
 			<div class="flex min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-				<div>
+				<div class="w-full">
 					<div class="flex text-sm">
 						<p class="truncate font-medium text-primary">
 							{course.course_code}
@@ -29,7 +29,7 @@
 						<div class="items-center text-left text-sm text-gray-500">
 							{course.description}
 						</div>
-						<div class="flex justify-between text-left text-sm text-gray-500">
+						<div class="flex mt-2 justify-between text-left text-sm text-gray-500">
 							<div>
 								{#each course.all_course_codes as code}
 									<span
