@@ -1,4 +1,5 @@
 <script lang="ts">
+	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 
 	import { page } from '$app/stores';
@@ -12,9 +13,9 @@
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type { Query } from '$lib/types/Query';
 
-	let keyword = '';
-	let course_keyword = '';
-	let areas_skills_keyword = '';
+	let keyword = $page.url.searchParams.get('keyword') ?? '';
+	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
+	let areas_skills_keyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
 
 	let showFilters = true;
 	let loading = false;
@@ -37,9 +38,9 @@
 	};
 
 	const onRouteChange = (event: { detail: Query }) => {
-		keyword = event.detail.keyword ?? ''
-		course_keyword = event.detail.course_keyword ?? ''
-		areas_skills_keyword = event.detail.areas_skills_keyword ?? ''
+		keyword = event.detail.keyword ?? '';
+		course_keyword = event.detail.course_keyword ?? '';
+		areas_skills_keyword = event.detail.areas_skills_keyword ?? '';
 		updateRoute();
 		runQuery();
 	};
@@ -68,13 +69,13 @@
 
 	const runQuery = async () => {
 		loading = true;
+		courses = [];
 		courses = await getCourses();
 		loading = false;
 	};
+	
+
 	onMount(() => {
-		keyword = $page.url.searchParams.get('keyword') ?? '';
-		course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
-		areas_skills_keyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
 		runQuery();
 	});
 </script>
@@ -159,9 +160,12 @@
 	{#if coursesSortedByCount.length !== 0}
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
-				{#each coursesSortedByCount as course}
+				<!-- {#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} />
-				{/each}
+				{/each} -->
+				<VirtualList items={coursesSortedByCount} height="500px" let:item>
+					<ResultItem course={item} />
+				</VirtualList>
 			</ul>
 		</div>
 	{:else}
