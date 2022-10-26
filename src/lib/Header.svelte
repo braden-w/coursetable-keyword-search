@@ -26,8 +26,9 @@
 			<a href="/">
 				{#each titles as title, index}
 					{#if titleIndex === index}
+						<!-- Hidden, lg:block -->
 						<h2
-							class="ml-4 hidden text-4xl font-bold md:text-5xl lg:block"
+							class="ml-4 block text-4xl font-bold md:text-5xl"
 							in:fly={{ y: 40, duration: 250 }}
 							out:fly={{ y: -40, duration: 250 }}
 						>
