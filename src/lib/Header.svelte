@@ -10,7 +10,8 @@
 	let titleIndex = 0;
 	setInterval(() => {
 		titleIndex = (titleIndex + 1) % titles.length;
-		document.title = titles[titleIndex];
+		// If you want to change the title:
+		// document.title = titles[titleIndex];
 	}, 5000);
 </script>
 
