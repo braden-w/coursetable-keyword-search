@@ -28,7 +28,7 @@
 				{#each titles as title, index}
 					{#if titleIndex === index}
 						<h2
-							class="ml-4 hidden text-4xl font-bold md:text-6xl lg:block"
+							class="ml-4 hidden text-4xl font-bold md:text-5xl lg:block"
 							in:fly={{ y: 40, duration: 250 }}
 							out:fly={{ y: -40, duration: 250 }}
 						>
@@ -41,7 +41,7 @@
 
 		<a
 			href="/about"
-			class="ml-6 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+			class="ml-6 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 		>
 			About
 		</a>
