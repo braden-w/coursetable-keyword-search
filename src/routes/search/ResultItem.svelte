@@ -96,7 +96,12 @@
 	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review}
 		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
-				<p class="text-sm text-gray-500">{@html review.comment.replace(new RegExp(keyword, "gi"), (match) => `<mark>${match}</mark>`)}</p>
+				<p class="text-sm text-gray-500">
+					{@html review.comment.replace(
+						new RegExp(keyword, 'gi'),
+						(match) => `<mark>${match}</mark>`
+					)}
+				</p>
 			</div>
 		</li>
 	{/each}

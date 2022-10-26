@@ -165,7 +165,7 @@
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
 				{#each coursesSortedByCount as course (course.listing_id)}
-					<ResultItem {course} {keyword}/>
+					<ResultItem {course} {keyword} />
 				{/each}
 				<!-- <VirtualList items={coursesSortedByCount} height="500px" let:item>
 					<ResultItem course={item} />

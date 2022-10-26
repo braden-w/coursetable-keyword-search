@@ -14,7 +14,7 @@ const getFromRedis = async (key: string) => {
 			return parsedReply;
 		} else {
 			console.log('Cache Miss');
-			return null
+			return null;
 		}
 	} catch (err) {
 		console.error(err);
@@ -41,7 +41,7 @@ export const queryCourseTable = async ({
 	// Lowercase both keywords
 	keyword = keyword.toLowerCase();
 	course_keyword = course_keyword.toLowerCase();
-	
+
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 	const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
 
