@@ -98,7 +98,7 @@
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">
 					{@html review.comment.replace(
-						new RegExp(keyword, 'gi'),
+						new RegExp(keyword.replaceAll("%", ".*?"), 'gi'),
 						(match) => `<mark>${match}</mark>`
 					)}
 				</p>
