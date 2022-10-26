@@ -7,7 +7,10 @@
 <!-- TODO: Update Head -->
 <svelte:head>
 	<title>JankTable</title>
-	<meta name="description" content="Narrow down your Yale course options. Search CourseTable reviews by keyword." />
+	<meta
+		name="description"
+		content="Narrow down your Yale course options. Search CourseTable reviews by keyword."
+	/>
 	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>

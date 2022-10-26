@@ -21,21 +21,21 @@
 			<div class="flex items-center px-2 lg:px-0">
 				<div class="flex-shrink-0">
 					<a href="/">
-						<Logo class="rounded-md block h-10 w-auto lg:hidden" />
-						<Logo class="rounded-md hidden h-12 w-auto lg:block" />
+						<Logo class="block h-10 w-auto rounded-md lg:hidden" />
+						<Logo class="hidden h-12 w-auto rounded-md lg:block" />
 					</a>
 				</div>
 				<a href="/">
 					{#each titles as title, index}
-					{#if titleIndex === index}
-					<h2
-						class="ml-4 hidden text-4xl font-bold md:text-6xl lg:block"
-						in:fly={{ y: 40, duration: 250 }}
-						out:fly={{ y: -40, duration: 250 }}
-					>
-						{title}
-					</h2>
-					{/if}
+						{#if titleIndex === index}
+							<h2
+								class="ml-4 hidden text-4xl font-bold md:text-6xl lg:block"
+								in:fly={{ y: 40, duration: 250 }}
+								out:fly={{ y: -40, duration: 250 }}
+							>
+								{title}
+							</h2>
+						{/if}
 					{/each}
 				</a>
 			</div>
@@ -46,7 +46,12 @@
 				>
 					<span class="sr-only">How it works</span>
 					{#if open}
-						<Icon src={XMark} theme="ouOpen main menutline" class="block h-6 w-6" aria-hidden="true" />
+						<Icon
+							src={XMark}
+							theme="ouOpen main menutline"
+							class="block h-6 w-6"
+							aria-hidden="true"
+						/>
 					{:else}
 						<Icon src={Bars3} theme="outline" class="block h-6 w-6" aria-hidden="true" />
 					{/if}

@@ -29,7 +29,7 @@
 						<div class="items-center text-left text-sm text-gray-500">
 							{course.description}
 						</div>
-						<div class="flex mt-2 justify-between text-left text-sm text-gray-500">
+						<div class="mt-2 flex justify-between text-left text-sm text-gray-500">
 							<div>
 								{#each course.all_course_codes as code}
 									<span
@@ -98,7 +98,7 @@
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">
 					{@html review.comment.replace(
-						new RegExp(keyword.replaceAll("%", ".*?"), 'gi'),
+						new RegExp(keyword.replaceAll('%', '.*?'), 'gi'),
 						(match) => `<mark>${match}</mark>`
 					)}
 				</p>
