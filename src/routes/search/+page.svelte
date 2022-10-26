@@ -27,7 +27,7 @@
 
 	const updateRoute = () => {
 		goto(
-			`?${new URLSearchParams({
+			`/search?${new URLSearchParams({
 				keyword: keyword,
 				course_keyword: course_keyword,
 				areas_skills_keyword: areas_skills_keyword
@@ -81,11 +81,15 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Search</title>
+	<meta name="description" content="Search Yale course reviews." />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+	<link rel="icon" href="/favicon.png" />
+</svelte:head>
+
 <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-	<h2 class="mb-2 text-4xl font-extrabold md:text-6xl">Yale Course Keyword Search</h2>
-	<h3 class="mb-4 text-3xl font-bold">
-		A search box that allows you to search CourseTable reviews by keyword
-	</h3>
+	<h3 class="mb-4 text-3xl font-bold md:text-3xl">Search CourseTable reviews by keyword</h3>
 	<div class="my-2 flex w-full">
 		<label for="search" class="sr-only">Search</label>
 		<div class="relative flex-1">
@@ -115,7 +119,7 @@
 			on:click={() => (showFilters = !showFilters)}
 		>
 			<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
-			<span class="sr-only">Search</span>
+			<span class="sr-only">Filter</span>
 		</button>
 	</div>
 	{#if showFilters}
@@ -159,7 +163,7 @@
 	<QueriesRow on:click={onRouteChange} />
 
 	{#if coursesSortedByCount.length !== 0}
-		<div class="mt-4">
+		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">

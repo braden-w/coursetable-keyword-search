@@ -2,7 +2,7 @@ export const queries = [
 	{
 		title: 'Favorite',
 		keyword: 'favorite',
-		areas_skills_keyword: 'Hu'
+		areas_skills_keyword: ''
 	},
 	{
 		title: 'Best',
@@ -31,5 +31,21 @@ export const queries = [
 	{
 		title: 'Ever',
 		keyword: 'ever'
+	},
+	{
+		title: 'high<wildcard>recommend',
+		keyword: 'high%recommend'
+	},
+	{
+		title: 'AVOID',
+		keyword: 'avoid'
+	},
+	{
+		title: 'WORST',
+		keyword: 'worst'
+	},
+	{
+		title: 'Easy',
+		keyword: 'easy'
 	}
 ];

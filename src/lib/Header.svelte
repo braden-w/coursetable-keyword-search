@@ -4,6 +4,15 @@
 	import { Disclosure, DisclosureButton } from '@rgossiaux/svelte-headlessui';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Bars3, XMark } from '@steeze-ui/heroicons';
+	import { fly } from 'svelte/transition';
+	const titles = ['Keyword Search', 'KeyTable', 'JankTable', 'WorseTable', 'CourseLabel'];
+	// Cycle between titles every second
+	let titleIndex = 0;
+	setInterval(() => {
+		titleIndex = (titleIndex + 1) % titles.length;
+		// If you want to change the title:
+		// document.title = titles[titleIndex];
+	}, 5000);
 </script>
 
 <Disclosure as="nav" class="" let:open>
@@ -12,12 +21,22 @@
 			<div class="flex items-center px-2 lg:px-0">
 				<div class="flex-shrink-0">
 					<a href="/">
-						<Logo class="block h-8 w-auto lg:hidden" />
-						<Logo class="hidden h-8 w-auto lg:block" />
+						<Logo class="block h-10 w-auto rounded-md lg:hidden" />
+						<Logo class="hidden h-12 w-auto rounded-md lg:block" />
 					</a>
 				</div>
 				<a href="/">
-					<h1 class="ml-4 hidden text-4xl font-extrabold lg:block">Yale Course Keyword Search</h1>
+					{#each titles as title, index}
+						{#if titleIndex === index}
+							<h2
+								class="ml-4 hidden text-4xl font-bold md:text-6xl lg:block"
+								in:fly={{ y: 40, duration: 250 }}
+								out:fly={{ y: -40, duration: 250 }}
+							>
+								{title}
+							</h2>
+						{/if}
+					{/each}
 				</a>
 			</div>
 			<div class="flex lg:hidden">
@@ -25,9 +44,14 @@
 				<DisclosureButton
 					class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
 				>
-					<span class="sr-only">Open main menu</span>
+					<span class="sr-only">How it works</span>
 					{#if open}
-						<Icon src={XMark} theme="outline" class="block h-6 w-6" aria-hidden="true" />
+						<Icon
+							src={XMark}
+							theme="ouOpen main menutline"
+							class="block h-6 w-6"
+							aria-hidden="true"
+						/>
 					{:else}
 						<Icon src={Bars3} theme="outline" class="block h-6 w-6" aria-hidden="true" />
 					{/if}
