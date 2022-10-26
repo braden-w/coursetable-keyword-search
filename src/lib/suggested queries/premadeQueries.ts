@@ -31,5 +31,25 @@ export const queries = [
 	{
 		title: 'Ever',
 		keyword: 'ever'
+	},
+	{
+		title: 'high<wildcard>recommend',
+		keyword: 'high%recommend'
+	},
+	{
+		title: 'AVOID',
+		keyword: 'avoid'
+	},
+	{
+		title: 'WORST',
+		keyword: 'worst'
+	},
+	{
+		title: 'Easiest',
+		keyword: 'easiest'
+	},
+	{
+		title: 'easy',
+		keyword: 'easy'
 	}
 ];
