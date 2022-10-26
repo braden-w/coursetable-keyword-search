@@ -167,7 +167,7 @@
 		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
-		<div class="overflow-hidden bg-white shadow sm:rounded-md">
+		<div class="overflow-hidden bg-white shadow rounded-md">
 			<ul class="divide-y divide-gray-200">
 				{#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} {keyword} />
