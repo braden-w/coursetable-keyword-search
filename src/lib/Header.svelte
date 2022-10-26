@@ -4,6 +4,14 @@
 	import { Disclosure, DisclosureButton } from '@rgossiaux/svelte-headlessui';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Bars3, XMark } from '@steeze-ui/heroicons';
+	import { fly } from 'svelte/transition';
+	const titles = ['Keyword Search', 'KeyTable', 'JankTable', 'WorseTable', 'CourseLabel'];
+	// Cycle between titles every second
+	let titleIndex = 0;
+	setInterval(() => {
+		titleIndex = (titleIndex + 1) % titles.length;
+		// document.title = titles[titleIndex];
+	}, 3000);
 </script>
 
 <Disclosure as="nav" class="" let:open>
@@ -12,12 +20,23 @@
 			<div class="flex items-center px-2 lg:px-0">
 				<div class="flex-shrink-0">
 					<a href="/">
-						<Logo class="block h-8 w-auto lg:hidden" />
-						<Logo class="hidden h-8 w-auto lg:block" />
+						<Logo class="rounded-md block h-10 w-auto lg:hidden" />
+						<Logo class="rounded-md hidden h-12 w-auto lg:block" />
 					</a>
 				</div>
 				<a href="/">
-					<h1 class="ml-4 hidden text-4xl font-extrabold lg:block">Yale Course Keyword Search</h1>
+					<!-- <h1 class="ml-4 hidden text-4xl font-extrabold lg:block">Yale Course Keyword Search</h1> -->
+					{#each titles as title, index}
+					{#if titleIndex === index}
+					<h2
+						class="ml-4 hidden text-4xl font-bold md:text-5xl lg:block"
+						in:fly={{ y: 80, duration: 200 }}
+						out:fly={{ y: -80, duration: 200 }}
+					>
+						{title}
+					</h2>
+					{/if}
+					{/each}
 				</a>
 			</div>
 			<div class="flex lg:hidden">
