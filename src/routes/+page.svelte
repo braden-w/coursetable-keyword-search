@@ -10,9 +10,9 @@
 		if (e.key === 'Enter') {
 			goto(
 				`/search?${new URLSearchParams({
-					keyword: keyword,
-					course_keyword: course_keyword,
-					areas_skills_keyword: areas_skills_keyword
+					keyword: keyword ?? '',
+					course_keyword: course_keyword ?? '',
+					areas_skills_keyword: areas_skills_keyword ?? ''
 				})}`
 			);
 		}
