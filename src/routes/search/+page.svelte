@@ -171,9 +171,6 @@
 				{#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} {keyword} />
 				{/each}
-				<!-- <VirtualList items={coursesSortedByCount} height="500px" let:item>
-					<ResultItem course={item} />
-				</VirtualList> -->
 			</ul>
 		</div>
 	{:else}
