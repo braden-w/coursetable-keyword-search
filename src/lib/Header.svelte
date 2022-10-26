@@ -10,8 +10,8 @@
 	let titleIndex = 0;
 	setInterval(() => {
 		titleIndex = (titleIndex + 1) % titles.length;
-		// document.title = titles[titleIndex];
-	}, 3000);
+		document.title = titles[titleIndex];
+	}, 5000);
 </script>
 
 <Disclosure as="nav" class="" let:open>
@@ -30,8 +30,8 @@
 					{#if titleIndex === index}
 					<h2
 						class="ml-4 hidden text-4xl font-bold md:text-5xl lg:block"
-						in:fly={{ y: 80, duration: 200 }}
-						out:fly={{ y: -80, duration: 200 }}
+						in:fly={{ y: 40, duration: 250 }}
+						out:fly={{ y: -40, duration: 250 }}
 					>
 						{title}
 					</h2>
