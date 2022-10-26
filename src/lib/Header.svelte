@@ -38,11 +38,11 @@
 			</a>
 		</div>
 
-		<a
+		<!-- <a
 			href="/about"
-			class="ml-6 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+			class="ml-6 inline-flex items-center rounded-xl border border-transparent bg-indigo-600 px-1 py-1 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 		>
-			<Icon src={InformationCircle} class="h-6 w-6" />
-		</a>
+			<Icon src={InformationCircle} class="h-8 w-8" aria-hidden="true"/>
+		</a> -->
 	</div>
 </div>
