@@ -47,7 +47,6 @@
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
-	console.log('🚀 ~ file: +page.svelte ~ line 53 ~ semester_same_course_id', seasonCourseIds);
 	$: coursesSortedByCount = courses
 		.filter((course) => course.same_course_id in seasonCourseIds)
 		.sort(
@@ -166,7 +165,7 @@
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
 				{#each coursesSortedByCount as course (course.listing_id)}
-					<ResultItem {course} />
+					<ResultItem {course} {keyword}/>
 				{/each}
 				<!-- <VirtualList items={coursesSortedByCount} height="500px" let:item>
 					<ResultItem course={item} />
