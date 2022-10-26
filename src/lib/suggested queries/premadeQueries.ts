@@ -33,15 +33,15 @@ export const queries = [
 		keyword: 'ever'
 	},
 	{
-		title: 'high<wildcard>recommend',
+		title: 'highly recommend',
 		keyword: 'high%recommend'
 	},
 	{
-		title: 'AVOID',
+		title: 'Avoid',
 		keyword: 'avoid'
 	},
 	{
-		title: 'WORST',
+		title: 'Worst',
 		keyword: 'worst'
 	},
 	{
