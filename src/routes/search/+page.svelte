@@ -49,11 +49,8 @@
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
 	export let data: PageData;
-	const { seasonCourseIds} = data;
-	console.log(
-		'🚀 ~ file: +page.svelte ~ line 53 ~ semester_same_course_id',
-	seasonCourseIds
-	);
+	const { seasonCourseIds } = data;
+	console.log('🚀 ~ file: +page.svelte ~ line 53 ~ semester_same_course_id', seasonCourseIds);
 	$: coursesSortedByCount = courses
 		.filter((course) => course.same_course_id in seasonCourseIds)
 		.sort(
@@ -166,6 +163,9 @@
 	<QueriesRow on:click={onRouteChange} />
 
 	{#if coursesSortedByCount.length !== 0}
+		<div class="mt-4">
+			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
+		</div>
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
 				{#each coursesSortedByCount as course (course.listing_id)}
