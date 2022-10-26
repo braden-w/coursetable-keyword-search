@@ -12,6 +12,7 @@
 	import { onMount } from 'svelte';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type { Query } from '$lib/types/Query';
+	import type { PageData } from './$types';
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
 	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
@@ -47,11 +48,15 @@
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
-	$: coursesSortedByCount = courses.sort(
-		(a, b) =>
-			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
-			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
-	);
+	export let data: PageData;
+	const { semester_same_course_id } = data;
+	$: coursesSortedByCount = courses
+		.filter((course) => course.same_course_id in semester_same_course_id)
+		.sort(
+			(a, b) =>
+				b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
+				a.course.evaluation_narratives_aggregate_filtered.aggregate.count
+		);
 
 	const getCourses = async () => {
 		// Send api request to search passing {keyword: keyword, course_keyword: course_keyword}
@@ -73,7 +78,6 @@
 		courses = await getCourses();
 		loading = false;
 	};
-	
 
 	onMount(() => {
 		runQuery();
