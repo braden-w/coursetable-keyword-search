@@ -45,11 +45,7 @@ export const queries = [
 		keyword: 'worst'
 	},
 	{
-		title: 'Easiest',
-		keyword: 'easiest'
-	},
-	{
-		title: 'easy',
+		title: 'Easy',
 		keyword: 'easy'
 	}
 ];
