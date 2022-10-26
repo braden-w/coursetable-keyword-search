@@ -169,12 +169,12 @@
 		</div>
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
-				<!-- {#each coursesSortedByCount as course (course.listing_id)}
+				{#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} {keyword} />
-				{/each} -->
-				<VirtualList items={coursesSortedByCount} let:item height="500px">
+				{/each}
+				<!-- <VirtualList items={coursesSortedByCount} let:item height="500px">
 					<ResultItem course={item} {keyword} />
-				</VirtualList>
+				</VirtualList> -->
 			</ul>
 		</div>
 	{:else}
