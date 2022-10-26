@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Logo from './Logo.svelte';
 
-	import { Disclosure, DisclosureButton, DisclosurePanel } from '@rgossiaux/svelte-headlessui';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Bars3, Bell, XMark } from '@steeze-ui/heroicons';
+	import { InformationCircle } from '@steeze-ui/heroicons';
 	import { fly } from 'svelte/transition';
 	const titles = ['Keyword Search', 'KeyTable', 'JankTable', 'WorseTable', 'CourseLabel'];
 	// Cycle between titles every second
@@ -43,7 +42,7 @@
 			href="/about"
 			class="ml-6 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 		>
-			About
+			<Icon src={InformationCircle} class="h-6 w-6" />
 		</a>
 	</div>
 </div>
