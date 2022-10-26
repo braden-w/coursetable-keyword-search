@@ -159,7 +159,7 @@
 	<QueriesRow on:click={onRouteChange} />
 
 	{#if coursesSortedByCount.length !== 0}
-		<div class="mt-4">
+		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
