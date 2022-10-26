@@ -26,11 +26,11 @@
 						</p>
 					</div>
 					<div class="mt-2">
-						<div class="items-center text-left text-sm text-gray-500">
+						<div class="items-center text-left text-sm text-gray-500 line-clamp-1 md:line-clamp-2">
 							{course.description}
 						</div>
 						<div class="mt-2 flex justify-between text-left text-sm text-gray-500">
-							<div>
+							<div class="flex gap-0.5 overflow-x-auto whitespace-nowrap md:gap-1">
 								{#each course.all_course_codes as code}
 									<span
 										class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800"
