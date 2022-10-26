@@ -3,7 +3,7 @@ import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { options } from './payload';
-import redis from "$lib/redis";
+import redis from '$lib/redis';
 
 export const queryCourseTable = async ({
 	keyword,
@@ -26,7 +26,6 @@ export const queryCourseTable = async ({
 	keyword = keyword.toLowerCase();
 	course_keyword = course_keyword.toLowerCase();
 
-
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 	const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
 	try {
@@ -42,7 +41,7 @@ export const queryCourseTable = async ({
 				options({ keyword, course_keyword, areas_skills_keyword })
 			);
 			const response = (await res.json()) as SearchResponse;
-			redis.set(key, JSON.stringify(response), "EX", DEFAULT_EXPIRATION);
+			redis.set(key, JSON.stringify(response), 'EX', DEFAULT_EXPIRATION);
 			return response;
 		}
 	} catch (e) {

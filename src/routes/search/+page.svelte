@@ -1,17 +1,15 @@
 <script lang="ts">
-	import VirtualList from '@sveltejs/svelte-virtual-list';
-	import LoadingSpinner from './LoadingSpinner.svelte';
-
-	import { page } from '$app/stores';
-
-	import ResultItem from './ResultItem.svelte';
-	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type { Query } from '$lib/types/Query';
+	import type { SearchResponse } from '$lib/types/SearchResponse';
+	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+	import LoadingSpinner from './LoadingSpinner.svelte';
+	import ResultItem from './ResultItem.svelte';
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
 	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
@@ -47,11 +45,16 @@
 
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
-	$: coursesSortedByCount = courses.sort(
-		(a, b) =>
-			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
-			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
-	);
+	export let data: PageData;
+	const { seasonCourseIds } = data;
+	console.log('🚀 ~ file: +page.svelte ~ line 53 ~ semester_same_course_id', seasonCourseIds);
+	$: coursesSortedByCount = courses
+		.filter((course) => course.same_course_id in seasonCourseIds)
+		.sort(
+			(a, b) =>
+				b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
+				a.course.evaluation_narratives_aggregate_filtered.aggregate.count
+		);
 
 	const getCourses = async () => {
 		// Send api request to search passing {keyword: keyword, course_keyword: course_keyword}
@@ -73,7 +76,6 @@
 		courses = await getCourses();
 		loading = false;
 	};
-	
 
 	onMount(() => {
 		runQuery();
@@ -158,14 +160,17 @@
 	<QueriesRow on:click={onRouteChange} />
 
 	{#if coursesSortedByCount.length !== 0}
+		<div class="mt-4">
+			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
+		</div>
 		<div class="overflow-hidden bg-white shadow sm:rounded-md">
 			<ul class="divide-y divide-gray-200">
-				<!-- {#each coursesSortedByCount as course (course.listing_id)}
+				{#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} />
-				{/each} -->
-				<VirtualList items={coursesSortedByCount} height="500px" let:item>
+				{/each}
+				<!-- <VirtualList items={coursesSortedByCount} height="500px" let:item>
 					<ResultItem course={item} />
-				</VirtualList>
+				</VirtualList> -->
 			</ul>
 		</div>
 	{:else}
