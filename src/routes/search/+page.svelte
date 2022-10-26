@@ -1,5 +1,4 @@
 <script lang="ts">
-	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 
 	import { page } from '$app/stores';
