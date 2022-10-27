@@ -6,7 +6,6 @@
 	import type {SearchResponse} from '$lib/types/SearchResponse';
 	import {AcademicCap, BookOpen, Funnel, MagnifyingGlass} from '@steeze-ui/heroicons';
 	import {Icon} from '@steeze-ui/svelte-icon';
-	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import {onMount} from 'svelte';
 	import type {PageData} from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
@@ -167,14 +166,14 @@
 		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
-		<div class="overflow-hidden bg-white shadow sm:rounded-md">
+		<div class="overflow-hidden bg-white shadow rounded-md">
 			<ul class="divide-y divide-gray-200">
-				<!-- {#each coursesSortedByCount as course (course.listing_id)}
+				{#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} {keyword} />
-				{/each} -->
-				<VirtualList items={coursesSortedByCount} let:item height="500px">
+				{/each}
+				<!-- <VirtualList items={coursesSortedByCount} let:item height="500px">
 					<ResultItem course={item} {keyword} />
-				</VirtualList>
+				</VirtualList> -->
 			</ul>
 		</div>
 	{:else}
