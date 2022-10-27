@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Logo from './Logo.svelte';
 
-	import { Disclosure, DisclosureButton } from '@rgossiaux/svelte-headlessui';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Bars3, XMark } from '@steeze-ui/heroicons';
+	import { InformationCircle } from '@steeze-ui/heroicons';
 	import { fly } from 'svelte/transition';
 	const titles = ['Keyword Search', 'KeyTable', 'JankTable', 'WorseTable', 'CourseLabel'];
 	// Cycle between titles every second
@@ -15,48 +14,35 @@
 	}, 5000);
 </script>
 
-<Disclosure as="nav" class="" let:open>
-	<div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-		<div class="relative flex h-16 items-center justify-between">
-			<div class="flex items-center px-2 lg:px-0">
-				<div class="flex-shrink-0">
-					<a href="/">
-						<Logo class="block h-10 w-auto rounded-md lg:hidden" />
-						<Logo class="hidden h-12 w-auto rounded-md lg:block" />
-					</a>
-				</div>
+<div class="mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-8">
+	<div class="flex h-16 items-center justify-between">
+		<div class="flex px-2 lg:px-0">
+			<div class="flex-shrink-0">
 				<a href="/">
-					{#each titles as title, index}
-						{#if titleIndex === index}
-							<h2
-								class="ml-4 hidden text-4xl font-bold md:text-6xl lg:block"
-								in:fly={{ y: 40, duration: 250 }}
-								out:fly={{ y: -40, duration: 250 }}
-							>
-								{title}
-							</h2>
-						{/if}
-					{/each}
+					<Logo class="block h-10 w-auto rounded-md lg:hidden" />
+					<Logo class="hidden h-12 w-auto rounded-md lg:block" />
 				</a>
 			</div>
-			<div class="flex lg:hidden">
-				<!-- Mobile menu button -->
-				<DisclosureButton
-					class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-				>
-					<span class="sr-only">How it works</span>
-					{#if open}
-						<Icon
-							src={XMark}
-							theme="ouOpen main menutline"
-							class="block h-6 w-6"
-							aria-hidden="true"
-						/>
-					{:else}
-						<Icon src={Bars3} theme="outline" class="block h-6 w-6" aria-hidden="true" />
+			<a href="/">
+				{#each titles as title, index}
+					{#if titleIndex === index}
+						<h2
+							class="ml-4 hidden text-4xl font-bold md:text-5xl lg:block"
+							in:fly={{ y: 40, duration: 250 }}
+							out:fly={{ y: -40, duration: 250 }}
+						>
+							{title}
+						</h2>
 					{/if}
-				</DisclosureButton>
-			</div>
+				{/each}
+			</a>
 		</div>
+
+		<!-- <a
+			href="/about"
+			class="ml-6 inline-flex items-center rounded-xl border border-transparent bg-indigo-600 px-1 py-1 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+		>
+			<Icon src={InformationCircle} class="h-8 w-8" aria-hidden="true"/>
+		</a> -->
 	</div>
-</Disclosure>
+</div>

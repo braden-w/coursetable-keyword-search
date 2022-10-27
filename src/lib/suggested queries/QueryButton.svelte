@@ -24,10 +24,9 @@
 	};
 </script>
 
-<button on:click={onClick}>
-	<span
-		class="inline-flex items-center rounded-full bg-primary px-3 py-0.5 text-sm font-medium text-white"
-	>
-		{title}
-	</span>
+<button
+	on:click={onClick}
+	class="whitespace-nowrap rounded-md bg-primary px-2 py-0.5 text-sm font-medium text-white"
+>
+	{title}
 </button>

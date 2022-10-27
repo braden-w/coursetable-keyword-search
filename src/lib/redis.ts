@@ -1,8 +1,6 @@
 import Redis from 'ioredis';
 import { env } from '$env/dynamic/private';
 
-const REDIS_URL = `redis://${env.REDISUSER}:${env.REDISPASSWORD}@${env.REDISHOST}:${env.REDISPORT}`;
-
-const redis = REDIS_URL ? new Redis(REDIS_URL) : new Redis();
+const redis = new Redis(env.REDIS_URL as string);
 
 export default redis;

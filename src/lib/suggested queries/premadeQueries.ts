@@ -10,6 +10,10 @@ export const queries = [
 		areas_skills_keyword: ''
 	},
 	{
+		title: 'Highly recommend',
+		keyword: 'high%recommend'
+	},
+	{
 		title: 'Quintessential',
 		keyword: 'quintessential',
 		areas_skills_keyword: ''
@@ -20,32 +24,44 @@ export const queries = [
 		areas_skills_keyword: ''
 	},
 	{
+		title: 'Important',
+		keyword: 'important'
+	},
+	{
+		title: 'Must',
+		keyword: 'must'
+	},
+	{
+		title: 'Helpful',
+		keyword: 'helpful'
+	},
+	{
+		title: 'Useful',
+		keyword: 'useful'
+	},
+	{
 		title: 'Easiest',
 		keyword: 'easiest',
 		course_keyword: ''
-	},
-	{
-		title: 'Fastest',
-		keyword: 'fastest'
 	},
 	{
 		title: 'Ever',
 		keyword: 'ever'
 	},
 	{
-		title: 'high<wildcard>recommend',
-		keyword: 'high%recommend'
-	},
-	{
-		title: 'AVOID',
+		title: 'Avoid',
 		keyword: 'avoid'
 	},
 	{
-		title: 'WORST',
+		title: 'Worst',
 		keyword: 'worst'
 	},
 	{
 		title: 'Easy',
 		keyword: 'easy'
+	},
+	{
+		title: 'Fastest',
+		keyword: 'fastest'
 	}
 ];

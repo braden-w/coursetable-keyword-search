@@ -42,6 +42,7 @@
 		"@supabase/auth-helpers-sveltekit": "^0.8.2",
 		"@supabase/supabase-js": "^2.0.0",
 		"@sveltejs/svelte-virtual-list": "^3.0.1",
+		"@tailwindcss/line-clamp": "^0.4.2",
 		"daisyui": "^2.33.0",
 		"ioredis": "^5.2.3",
 		"redis": "^4.3.1"
