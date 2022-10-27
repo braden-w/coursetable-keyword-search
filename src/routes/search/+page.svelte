@@ -1,13 +1,13 @@
 <script lang="ts">
-	import {goto} from '$app/navigation';
-	import {page} from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
-	import type {Query} from '$lib/types/Query';
-	import type {SearchResponse} from '$lib/types/SearchResponse';
-	import {AcademicCap, BookOpen, Funnel, MagnifyingGlass} from '@steeze-ui/heroicons';
-	import {Icon} from '@steeze-ui/svelte-icon';
-	import {onMount} from 'svelte';
-	import type {PageData} from './$types';
+	import type { Query } from '$lib/types/Query';
+	import type { SearchResponse } from '$lib/types/SearchResponse';
+	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
 
@@ -166,7 +166,7 @@
 		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
-		<div class="overflow-hidden bg-white shadow rounded-md">
+		<div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
 				{#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} {keyword} />

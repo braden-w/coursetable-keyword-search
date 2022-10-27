@@ -1,9 +1,8 @@
-import { error } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
-import { json } from '@sveltejs/kit';
-import type { SearchResponse } from '$lib/types/SearchResponse';
-import { options } from './payload';
 import redis from '$lib/redis';
+import type { SearchResponse } from '$lib/types/SearchResponse';
+import { error, json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
+import { options } from './payload';
 
 const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
 
@@ -67,7 +66,11 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		return json(response, {headers: {"Cache-Control": `max-age=${DEFAULT_EXPIRATION}, s-maxage=${DEFAULT_EXPIRATION}, public`}});
+		return json(response, {
+			headers: {
+				'Cache-Control': `max-age=${DEFAULT_EXPIRATION}, s-maxage=${DEFAULT_EXPIRATION}, public`
+			}
+		});
 	} catch (e) {
 		throw error(500, e as Error);
 	}
