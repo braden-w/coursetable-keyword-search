@@ -5,6 +5,8 @@ import type { SearchResponse } from '$lib/types/SearchResponse';
 import { options } from './payload';
 import redis from '$lib/redis';
 
+const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
+
 const getFromRedis = async (key: string) => {
 	try {
 		const reply = await redis.get(key);
@@ -43,7 +45,6 @@ export const queryCourseTable = async ({
 	course_keyword = course_keyword.toLowerCase();
 
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
-	const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
 
 	const cachedResponse = await getFromRedis(key);
 	if (cachedResponse) {
@@ -66,7 +67,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		return json(response);
+		return json(response, {headers: {"Cache-Control": `max-age=${DEFAULT_EXPIRATION}, s-maxage=${DEFAULT_EXPIRATION}, public`}});
 	} catch (e) {
 		throw error(500, e as Error);
 	}
