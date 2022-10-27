@@ -57,6 +57,7 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 		nodes {
 			all_course_codes
 			areas
+			course_code
 			credits
 			description
 			same_course_id
@@ -110,6 +111,7 @@ const query = `query searchCoursesByKeyword(
 		nodes {
 			all_course_codes
 			areas
+			course_code
 			credits
 			description
 			same_course_id
