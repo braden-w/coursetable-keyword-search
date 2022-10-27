@@ -4,7 +4,7 @@ import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { options } from './payload';
 
-const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
+const DEFAULT_EXPIRATION = 60 * 60 * 24; // 1 day
 
 const getFromRedis = async (key: string) => {
 	try {
@@ -68,7 +68,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
 		return json(response, {
 			headers: {
-				'Cache-Control': `max-age=${DEFAULT_EXPIRATION}, s-maxage=${DEFAULT_EXPIRATION}, public`
+				'Cache-Control': `s-maxage=${DEFAULT_EXPIRATION}, public`
 			}
 		});
 	} catch (e) {
