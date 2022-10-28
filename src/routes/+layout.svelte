@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
-	import { inject } from '@vercel/analytics';
 	import '../app.postcss';
-	inject();
 </script>
 
 <!-- TODO: Update Head -->

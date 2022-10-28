@@ -2,7 +2,7 @@ import redis from '$lib/redis';
 import type { Params } from '$lib/types/Query';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { error, json } from '@sveltejs/kit';
-import { compress, decompress } from 'lz-string';
+import { compressToUTF16, decompressFromUTF16 } from 'lz-string';
 import type { RequestHandler } from './$types';
 import { options } from './payload';
 
@@ -58,7 +58,7 @@ async function getRedisKey(key: string) {
 		const reply = await redis.get(key);
 		if (reply) {
 			console.log('Cache Hit');
-			const parsedReply = JSON.parse(decompress(reply) as string) as SearchResponse;
+			const parsedReply = JSON.parse(decompressFromUTF16(reply) as string) as SearchResponse;
 			return parsedReply;
 		} else {
 			console.log('Cache Miss');
@@ -72,7 +72,7 @@ async function getRedisKey(key: string) {
 
 async function setRedisKey(key: string, value: SearchResponse) {
 	try {
-		await redis.set(key, compress(JSON.stringify(value)), 'EX', DEFAULT_EXPIRATION);
+		await redis.set(key, compressToUTF16(JSON.stringify(value)), 'EX', DEFAULT_EXPIRATION);
 	} catch (err) {
 		console.error(err);
 	}

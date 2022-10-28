@@ -4,9 +4,9 @@
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	let keyword: string = '';
-	let course_keyword: string = '';
-	let areas_skills_keyword: string = '';
+	let keyword = '';
+	let course_keyword = '';
+	let areas_skills_keyword = '';
 	$: params = {
 		keyword,
 		course_keyword,
