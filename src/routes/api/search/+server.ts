@@ -1,9 +1,9 @@
-import { compress, decompress } from 'lz-string';
 import redis from '$lib/redis';
-import type { SearchResponse } from '$lib/types/SearchResponse';
-import { error, json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
-import { options } from './payload';
+import type {SearchResponse} from '$lib/types/SearchResponse';
+import {error, json} from '@sveltejs/kit';
+import {compress, decompress} from 'lz-string';
+import type {RequestHandler} from './$types';
+import {options} from './payload';
 
 const DEFAULT_EXPIRATION = 60 * 60 * 24; // 1 day
 
