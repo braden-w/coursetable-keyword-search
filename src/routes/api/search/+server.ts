@@ -14,9 +14,9 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '';
 	// From https://stackoverflow.com/a/58437909
 	try {
-		console.time('queryCourseTable');
+		// console.time('queryCourseTable');
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		console.timeEnd('queryCourseTable');
+		// console.timeEnd('queryCourseTable');
 		return json(response);
 	} catch (e) {
 		throw error(500, e as Error);
@@ -24,8 +24,8 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 };
 
 async function queryCourseTable({ keyword, course_keyword, areas_skills_keyword }: Params) {
-	console.time('redis');
-	console.time('fetch');
+	// console.time('redis');
+	// console.time('fetch');
 	// Add a % to the beginning of the keyword to make it a prefix search if it's not already
 	keyword = keyword.startsWith('%') ? keyword : `%${keyword}`;
 	course_keyword = course_keyword.startsWith('%') ? course_keyword : `%${course_keyword}`;
@@ -41,13 +41,13 @@ async function queryCourseTable({ keyword, course_keyword, areas_skills_keyword 
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 
 	const cachedResponse = await getRedisKey(key);
-	console.timeEnd('redis');
+	// console.timeEnd('redis');
 	if (cachedResponse) return cachedResponse;
 	const res = await fetch(
 		'https://api.coursetable.com/ferry/v1/graphql?=',
 		options({ keyword, course_keyword, areas_skills_keyword })
 	);
-	console.timeEnd('fetch');
+	// console.timeEnd('fetch');
 	const response = (await res.json()) as SearchResponse;
 	setRedisKey(key, response);
 	return response;
