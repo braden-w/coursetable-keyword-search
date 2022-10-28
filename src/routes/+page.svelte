@@ -7,15 +7,14 @@
 	let course_keyword: string;
 	let areas_skills_keyword: string;
 	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') {
-			goto(
-				`/search?${new URLSearchParams({
-					keyword: keyword ?? '',
-					course_keyword: course_keyword ?? '',
-					areas_skills_keyword: areas_skills_keyword ?? ''
-				})}`
-			);
-		}
+		if (e.key !== 'Enter') return;
+		goto(
+			`/search?${new URLSearchParams({
+				keyword: keyword ?? '',
+				course_keyword: course_keyword ?? '',
+				areas_skills_keyword: areas_skills_keyword ?? ''
+			})}`
+		);
 	};
 	let showFilters = false;
 </script>

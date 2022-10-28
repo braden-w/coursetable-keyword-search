@@ -24,10 +24,9 @@
 	let loading = false;
 
 	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') {
-			updateRoute(params);
-			runQuery(params);
-		}
+		if (e.key !== 'Enter') return;
+		updateRoute(params);
+		runQuery(params);
 	};
 
 	const updateRoute = (params: Params) => {
