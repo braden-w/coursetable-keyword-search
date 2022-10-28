@@ -42,10 +42,8 @@
 		runQuery(params);
 	};
 
-	const onQueriesRowClick = (event: { detail: PremadeQuery }) => {
-		keyword = event.detail.keyword;
-		course_keyword = event.detail.course_keyword;
-		areas_skills_keyword = event.detail.areas_skills_keyword;
+	const onQueriesRowClick = (event: { detail: Params }) => {
+		const params = event.detail
 		updateRoute(params);
 		runQuery(params);
 	};
