@@ -63,5 +63,13 @@ export const queries = [
 	{
 		title: 'Fastest',
 		keyword: 'fastest'
+	},
+	{
+		title: 'One of',
+		keyword: 'one of'
+	},
+	{
+		title: 'Of all',
+		keyword: 'of all'
 	}
 ];
