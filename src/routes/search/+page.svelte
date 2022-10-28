@@ -24,6 +24,8 @@
 		areas_skills_keyword
 	};
 
+	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
+
 	let showFilters = true;
 	let loading = false;
 	$: coursesSortedByCount = courses
@@ -43,12 +45,10 @@
 	};
 
 	const onQueriesRowClick = (event: { detail: Params }) => {
-		const params = event.detail
+		({ keyword, course_keyword, areas_skills_keyword } = event.detail);
 		updateRoute(params);
 		runQuery(params);
 	};
-
-	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
 	const runQuery = async (params: Params) => {
 		loading = true;
