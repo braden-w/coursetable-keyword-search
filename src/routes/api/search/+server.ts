@@ -66,11 +66,12 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		return json(response, {
-			headers: {
-				'Cache-Control': `s-maxage=${DEFAULT_EXPIRATION}, public`
-			}
-		});
+		return json(response)
+		// {
+		// 	headers: {
+		// 		'Cache-Control': `s-maxage=${DEFAULT_EXPIRATION}, public`
+		// 	}
+		// }
 	} catch (e) {
 		throw error(500, e as Error);
 	}
