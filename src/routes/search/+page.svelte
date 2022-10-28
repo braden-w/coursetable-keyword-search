@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
-	import type { Params, PremadeQuery } from '$lib/types/Query';
+	import type { Params } from '$lib/types/Query';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
