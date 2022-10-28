@@ -7,30 +7,24 @@ import { options } from './payload';
 
 const DEFAULT_EXPIRATION = 60 * 60 * 24; // 1 day
 
-async function getRedisKey(key: string) {
+export const GET: RequestHandler = async ({ url }: { url: URL }) => {
+	const keyword = url.searchParams.get('keyword') ?? '';
+	const course_keyword = url.searchParams.get('course_keyword') ?? '';
+	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '';
+	// From https://stackoverflow.com/a/58437909
 	try {
-		const reply = await redis.get(key);
-		if (reply) {
-			console.log('Cache Hit');
-			const parsedReply = JSON.parse(decompress(reply) as string) as SearchResponse;
-			return parsedReply;
-		} else {
-			console.log('Cache Miss');
-			return null;
-		}
-	} catch (err) {
-		console.error(err);
-		return null;
+		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
+		return json(response);
+		// {
+		// 	headers: {
+		// 		'Cache-Control': `s-maxage=${DEFAULT_EXPIRATION}, public`
+		// 	}
+		// }
+	} catch (e) {
+		throw error(500, e as Error);
 	}
-}
+};
 
-async function setRedisKey(key: string, value: SearchResponse) {
-	try {
-		await redis.set(key, compress(JSON.stringify(value)), 'EX', DEFAULT_EXPIRATION);
-	} catch (err) {
-		console.error(err);
-	}
-}
 async function queryCourseTable({
 	keyword,
 	course_keyword,
@@ -57,31 +51,38 @@ async function queryCourseTable({
 	const cachedResponse = await getRedisKey(key);
 	if (cachedResponse) {
 		return cachedResponse;
-	} else {
-		const res = await fetch(
-			'https://api.coursetable.com/ferry/v1/graphql?=',
-			options({ keyword, course_keyword, areas_skills_keyword })
-		);
-		const response = (await res.json()) as SearchResponse;
-		setRedisKey(key, response);
-		return response;
+	}
+	const res = await fetch(
+		'https://api.coursetable.com/ferry/v1/graphql?=',
+		options({ keyword, course_keyword, areas_skills_keyword })
+	);
+	const response = (await res.json()) as SearchResponse;
+	setRedisKey(key, response);
+	return response;
+}
+
+
+async function getRedisKey(key: string) {
+	try {
+		const reply = await redis.get(key);
+		if (reply) {
+			console.log('Cache Hit');
+			const parsedReply = JSON.parse(decompress(reply) as string) as SearchResponse;
+			return parsedReply;
+		} else {
+			console.log('Cache Miss');
+			return null;
+		}
+	} catch (err) {
+		console.error(err);
+		return null;
 	}
 }
 
-export const GET: RequestHandler = async ({ url }: { url: URL }) => {
-	const keyword = url.searchParams.get('keyword') ?? '%';
-	const course_keyword = url.searchParams.get('course_keyword') ?? '%';
-	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '%';
-	// From https://stackoverflow.com/a/58437909
+async function setRedisKey(key: string, value: SearchResponse) {
 	try {
-		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		return json(response);
-		// {
-		// 	headers: {
-		// 		'Cache-Control': `s-maxage=${DEFAULT_EXPIRATION}, public`
-		// 	}
-		// }
-	} catch (e) {
-		throw error(500, e as Error);
+		await redis.set(key, compress(JSON.stringify(value)), 'EX', DEFAULT_EXPIRATION);
+	} catch (err) {
+		console.error(err);
 	}
-};
+}
