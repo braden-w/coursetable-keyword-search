@@ -1,4 +1,5 @@
 import redis from '$lib/redis';
+import type {Params} from '$lib/types/Query';
 import type {SearchResponse} from '$lib/types/SearchResponse';
 import {error, json} from '@sveltejs/kit';
 import {compress, decompress} from 'lz-string';
@@ -24,11 +25,7 @@ async function queryCourseTable({
 	keyword,
 	course_keyword,
 	areas_skills_keyword
-}: {
-	keyword: string;
-	course_keyword: string;
-	areas_skills_keyword: string;
-}) {
+}: Params) {
 	// Add a % to the beginning of the keyword to make it a prefix search if it's not already
 	keyword = keyword.startsWith('%') ? keyword : `%${keyword}`;
 	course_keyword = course_keyword.startsWith('%') ? course_keyword : `%${course_keyword}`;
