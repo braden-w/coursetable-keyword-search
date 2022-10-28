@@ -1,6 +1,7 @@
 <script lang="ts">
-	import {goto} from '$app/navigation';
-	import {page} from '$app/stores';
+	import VirtualList from '@sveltejs/svelte-virtual-list';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type {Query} from '$lib/types/Query';
 	import type {SearchResponse} from '$lib/types/SearchResponse';
@@ -17,7 +18,7 @@
 
 	let showFilters = true;
 	let loading = false;
-
+	
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter') {
 			updateRoute();
@@ -88,7 +89,7 @@
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
 
-<div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+<div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8 flex-col">
 	<h3 class="mb-4 text-3xl font-bold md:text-3xl">Search CourseTable reviews by keyword</h3>
 	<div class="my-2 flex w-full">
 		<label for="search" class="sr-only">Search</label>
@@ -168,12 +169,12 @@
 		</div>
 		<div class="overflow-hidden bg-white shadow rounded-md">
 			<ul class="divide-y divide-gray-200">
-				{#each coursesSortedByCount as course (course.listing_id)}
+				<!-- {#each coursesSortedByCount as course (course.listing_id)}
 					<ResultItem {course} {keyword} />
-				{/each}
-				<!-- <VirtualList items={coursesSortedByCount} let:item height="500px">
+				{/each} -->
+				<VirtualList items={coursesSortedByCount} let:item height="5000px">
 					<ResultItem course={item} {keyword} />
-				</VirtualList> -->
+				</VirtualList>
 			</ul>
 		</div>
 	{:else}
