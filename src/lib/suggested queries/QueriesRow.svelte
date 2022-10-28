@@ -3,8 +3,8 @@
 	import QueryButton from './QueryButton.svelte';
 </script>
 
-<div class="flex gap-1.5 overflow-x-auto md:gap-3">
-	{#each queries as query}
+<div class="flex flex-wrap gap-1.5 overflow-x-auto md:gap-2">
+	{#each queries as query (query.title)}
 		<QueryButton {query} on:click />
 	{/each}
 </div>
