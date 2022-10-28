@@ -1,12 +1,8 @@
 import { env } from '$env/dynamic/public';
-import type {Params} from '$lib/types/Query';
+import type { Params } from '$lib/types/Query';
 import { graphQL } from './graphql';
 
-export const options = ({
-	keyword,
-	course_keyword,
-	areas_skills_keyword
-}: Params) => ({
+export const options = ({ keyword, course_keyword, areas_skills_keyword }: Params) => ({
 	method: 'POST',
 	headers: {
 		Cookie: env.PUBLIC_COURSETABLE_COOKIE ?? '',
