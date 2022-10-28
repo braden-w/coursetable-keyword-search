@@ -15,11 +15,6 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
 		return json(response);
-		// {
-		// 	headers: {
-		// 		'Cache-Control': `s-maxage=${DEFAULT_EXPIRATION}, public`
-		// 	}
-		// }
 	} catch (e) {
 		throw error(500, e as Error);
 	}
