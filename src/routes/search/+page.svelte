@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
-	import type { Query } from '$lib/types/Query';
+	import type { Params, PremadeQuery } from '$lib/types/Query';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -11,42 +11,21 @@
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
 
+	export let data: PageData;
+	const { seasonCourseIds } = data;
+
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
 	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
 	let areas_skills_keyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
+	$: params = {
+		keyword,
+		course_keyword,
+		areas_skills_keyword
+	};
 
 	let showFilters = true;
 	let loading = false;
 
-	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') {
-			updateRoute();
-			runQuery();
-		}
-	};
-
-	const updateRoute = () => {
-		goto(
-			`/search?${new URLSearchParams({
-				keyword: keyword,
-				course_keyword: course_keyword,
-				areas_skills_keyword: areas_skills_keyword
-			})}`
-		);
-	};
-
-	const onRouteChange = (event: { detail: Query }) => {
-		keyword = event.detail.keyword ?? '';
-		course_keyword = event.detail.course_keyword ?? '';
-		areas_skills_keyword = event.detail.areas_skills_keyword ?? '';
-		updateRoute();
-		runQuery();
-	};
-
-	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
-
-	export let data: PageData;
-	const { seasonCourseIds } = data;
 	$: coursesSortedByCount = courses
 		.filter((course) => course.same_course_id in seasonCourseIds)
 		.sort(
@@ -55,29 +34,37 @@
 				a.course.evaluation_narratives_aggregate_filtered.aggregate.count
 		);
 
-	const getCourses = async () => {
-		// Send api request to search passing {keyword: keyword, course_keyword: course_keyword}
-		const response = await fetch(
-			'/api/search?' +
-				new URLSearchParams({
-					keyword: keyword,
-					course_keyword: course_keyword,
-					areas_skills_keyword: areas_skills_keyword
-				})
-		);
+	const updateRoute = (params: Params) => goto(`/search?${new URLSearchParams(params)}`);
+
+	const onKeydown = (e: KeyboardEvent) => {
+		if (e.key !== 'Enter') return;
+		updateRoute(params);
+		runQuery(params);
+	};
+
+	const onQueriesRowClick = (event: { detail: Params }) => {
+		const params = event.detail
+		updateRoute(params);
+		runQuery(params);
+	};
+
+	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
+
+	const runQuery = async (params: Params) => {
+		loading = true;
+		courses = [];
+		courses = await getCourses(params);
+		loading = false;
+	};
+
+	const getCourses = async (params: Params) => {
+		const response = await fetch(`/api/search?${new URLSearchParams(params)}`);
 		const data = (await response.json()) as SearchResponse;
 		return data.data.computed_listing_info_aggregate.nodes;
 	};
 
-	const runQuery = async () => {
-		loading = true;
-		courses = [];
-		courses = await getCourses();
-		loading = false;
-	};
-
 	onMount(() => {
-		runQuery();
+		runQuery(params);
 	});
 </script>
 
@@ -160,7 +147,7 @@
 		</div>
 	{/if}
 
-	<QueriesRow on:click={onRouteChange} />
+	<QueriesRow on:click={onQueriesRowClick} />
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="my-4">

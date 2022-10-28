@@ -3,21 +3,22 @@
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	let keyword: string;
-	let course_keyword: string;
-	let areas_skills_keyword: string;
-	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') {
-			goto(
-				`/search?${new URLSearchParams({
-					keyword: keyword ?? '',
-					course_keyword: course_keyword ?? '',
-					areas_skills_keyword: areas_skills_keyword ?? ''
-				})}`
-			);
-		}
+
+	let keyword: string = '';
+	let course_keyword: string = '';
+	let areas_skills_keyword: string = '';
+	$: params = {
+		keyword,
+		course_keyword,
+		areas_skills_keyword
 	};
+
 	let showFilters = false;
+
+	const onKeydown = (e: KeyboardEvent) => {
+		if (e.key !== 'Enter') return;
+		goto(`/search?${new URLSearchParams(params)}`);
+	};
 </script>
 
 <div class="relative">
