@@ -1,4 +1,4 @@
-import {compress, decompress} from 'lz-string';
+import { compress, decompress } from 'lz-string';
 import redis from '$lib/redis';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { error, json } from '@sveltejs/kit';
@@ -31,7 +31,7 @@ async function setRedisKey(key: string, value: SearchResponse) {
 		console.error(err);
 	}
 }
-export const queryCourseTable = async ({
+async function queryCourseTable({
 	keyword,
 	course_keyword,
 	areas_skills_keyword
@@ -39,7 +39,7 @@ export const queryCourseTable = async ({
 	keyword: string;
 	course_keyword: string;
 	areas_skills_keyword: string;
-}) => {
+}) {
 	// Add a % to the beginning of the keyword to make it a prefix search if it's not already
 	keyword = keyword.startsWith('%') ? keyword : `%${keyword}`;
 	course_keyword = course_keyword.startsWith('%') ? course_keyword : `%${course_keyword}`;
@@ -56,7 +56,7 @@ export const queryCourseTable = async ({
 
 	const cachedResponse = await getRedisKey(key);
 	if (cachedResponse) {
-		return cachedResponse
+		return cachedResponse;
 	} else {
 		const res = await fetch(
 			'https://api.coursetable.com/ferry/v1/graphql?=',
@@ -66,7 +66,7 @@ export const queryCourseTable = async ({
 		setRedisKey(key, response);
 		return response;
 	}
-};
+}
 
 export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const keyword = url.searchParams.get('keyword') ?? '%';
@@ -75,7 +75,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		return json(response)
+		return json(response);
 		// {
 		// 	headers: {
 		// 		'Cache-Control': `s-maxage=${DEFAULT_EXPIRATION}, public`
