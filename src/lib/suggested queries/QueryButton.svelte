@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { Query } from '$lib/types/Query';
+	import type { PremadeQuery } from '$lib/types/Query';
 	import { createEventDispatcher } from 'svelte';
 
-	export let query: Query;
-	let { keyword, course_keyword, areas_skills_keyword, title } = query;
+	export let premadeQuery: PremadeQuery;
+	let { keyword, course_keyword, areas_skills_keyword, title } = premadeQuery;
 	const dispatch = createEventDispatcher<{
-		click: Query;
+		click: PremadeQuery;
 	}>();
 	const onClick = () => {
 		dispatch('click', {

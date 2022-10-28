@@ -1,5 +1,5 @@
 import type { PremadeQuery } from '$lib/types/Query';
-export const queries: PremadeQuery[] = [
+export const premadeQueries: PremadeQuery[] = [
 	{
 		title: 'Favorite',
 		keyword: 'favorite',
