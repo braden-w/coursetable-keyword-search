@@ -23,6 +23,8 @@
 		areas_skills_keyword
 	};
 
+	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
+
 	let showFilters = true;
 	let loading = false;
 
@@ -47,8 +49,6 @@
 		updateRoute(params);
 		runQuery(params);
 	};
-
-	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
 	const runQuery = async (params: Params) => {
 		loading = true;
