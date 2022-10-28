@@ -43,7 +43,7 @@
 								{/each}
 							</div>
 							<div>
-								{#each course.skills as skill}
+								{#each course.skills as skill (skill)}
 									<span
 										class="bg-secondary-100 text-secondary-800 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium"
 									>
@@ -57,7 +57,7 @@
 										{skill}
 									</span>
 								{/each}
-								{#each course.areas as area}
+								{#each course.areas as area (area)}
 									<span
 										class="bg-secondary-100 text-secondary-800 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium"
 									>
@@ -93,7 +93,7 @@
 </li>
 
 {#if expanded}
-	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review}
+	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review (review.comment)}
 		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">

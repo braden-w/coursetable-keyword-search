@@ -1,29 +1,26 @@
-import { error } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
-import { json } from '@sveltejs/kit';
-import type { SearchResponse } from '$lib/types/SearchResponse';
-import { options } from './payload';
 import redis from '$lib/redis';
+import type {SearchResponse} from '$lib/types/SearchResponse';
+import {error, json} from '@sveltejs/kit';
+import {compress, decompress} from 'lz-string';
+import type {RequestHandler} from './$types';
+import {options} from './payload';
 
-const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
+const DEFAULT_EXPIRATION = 60 * 60 * 24; // 1 day
 
-const getFromRedis = async (key: string) => {
+export const GET: RequestHandler = async ({ url }: { url: URL }) => {
+	const keyword = url.searchParams.get('keyword') ?? '';
+	const course_keyword = url.searchParams.get('course_keyword') ?? '';
+	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '';
+	// From https://stackoverflow.com/a/58437909
 	try {
-		const reply = await redis.get(key);
-		if (reply) {
-			console.log('Cache Hit');
-			const parsedReply = JSON.parse(reply) as SearchResponse;
-			return parsedReply;
-		} else {
-			console.log('Cache Miss');
-			return null;
-		}
-	} catch (err) {
-		console.error(err);
-		return null;
+		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
+		return json(response);
+	} catch (e) {
+		throw error(500, e as Error);
 	}
 };
-export const queryCourseTable = async ({
+
+async function queryCourseTable({
 	keyword,
 	course_keyword,
 	areas_skills_keyword
@@ -31,7 +28,7 @@ export const queryCourseTable = async ({
 	keyword: string;
 	course_keyword: string;
 	areas_skills_keyword: string;
-}) => {
+}) {
 	// Add a % to the beginning of the keyword to make it a prefix search if it's not already
 	keyword = keyword.startsWith('%') ? keyword : `%${keyword}`;
 	course_keyword = course_keyword.startsWith('%') ? course_keyword : `%${course_keyword}`;
@@ -46,29 +43,41 @@ export const queryCourseTable = async ({
 
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 
-	const cachedResponse = await getFromRedis(key);
+	const cachedResponse = await getRedisKey(key);
 	if (cachedResponse) {
 		return cachedResponse;
-	} else {
-		const res = await fetch(
-			'https://api.coursetable.com/ferry/v1/graphql?=',
-			options({ keyword, course_keyword, areas_skills_keyword })
-		);
-		const response = (await res.json()) as SearchResponse;
-		redis.set(key, JSON.stringify(response), 'EX', DEFAULT_EXPIRATION);
-		return response;
 	}
-};
+	const res = await fetch(
+		'https://api.coursetable.com/ferry/v1/graphql?=',
+		options({ keyword, course_keyword, areas_skills_keyword })
+	);
+	const response = (await res.json()) as SearchResponse;
+	setRedisKey(key, response);
+	return response;
+}
 
-export const GET: RequestHandler = async ({ url }: { url: URL }) => {
-	const keyword = url.searchParams.get('keyword') ?? '%';
-	const course_keyword = url.searchParams.get('course_keyword') ?? '%';
-	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '%';
-	// From https://stackoverflow.com/a/58437909
+
+async function getRedisKey(key: string) {
 	try {
-		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
-		return json(response, {headers: {"Cache-Control": `max-age=${DEFAULT_EXPIRATION}, s-maxage=${DEFAULT_EXPIRATION}, public`}});
-	} catch (e) {
-		throw error(500, e as Error);
+		const reply = await redis.get(key);
+		if (reply) {
+			console.log('Cache Hit');
+			const parsedReply = JSON.parse(decompress(reply) as string) as SearchResponse;
+			return parsedReply;
+		} else {
+			console.log('Cache Miss');
+			return null;
+		}
+	} catch (err) {
+		console.error(err);
+		return null;
 	}
-};
+}
+
+async function setRedisKey(key: string, value: SearchResponse) {
+	try {
+		await redis.set(key, compress(JSON.stringify(value)), 'EX', DEFAULT_EXPIRATION);
+	} catch (err) {
+		console.error(err);
+	}
+}
