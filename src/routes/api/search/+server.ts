@@ -1,3 +1,4 @@
+import {compress, decompress} from 'lz-string';
 import redis from '$lib/redis';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { error, json } from '@sveltejs/kit';
@@ -11,7 +12,7 @@ const getFromRedis = async (key: string) => {
 		const reply = await redis.get(key);
 		if (reply) {
 			console.log('Cache Hit');
-			const parsedReply = JSON.parse(reply) as SearchResponse;
+			const parsedReply = JSON.parse(decompress(reply) as string) as SearchResponse;
 			return parsedReply;
 		} else {
 			console.log('Cache Miss');
@@ -47,14 +48,15 @@ export const queryCourseTable = async ({
 
 	const cachedResponse = await getFromRedis(key);
 	if (cachedResponse) {
-		return cachedResponse;
+		return cachedResponse
 	} else {
 		const res = await fetch(
 			'https://api.coursetable.com/ferry/v1/graphql?=',
 			options({ keyword, course_keyword, areas_skills_keyword })
 		);
 		const response = (await res.json()) as SearchResponse;
-		redis.set(key, JSON.stringify(response), 'EX', DEFAULT_EXPIRATION);
+		const value = JSON.stringify(response); 
+		redis.set(key, compress(value), 'EX', DEFAULT_EXPIRATION);
 		return response;
 	}
 };
