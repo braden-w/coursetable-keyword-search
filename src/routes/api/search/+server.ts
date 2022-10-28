@@ -7,7 +7,7 @@ import { options } from './payload';
 
 const DEFAULT_EXPIRATION = 60 * 60 * 24; // 1 day
 
-const getFromRedis = async (key: string) => {
+async function getRedisKey(key: string) {
 	try {
 		const reply = await redis.get(key);
 		if (reply) {
@@ -22,7 +22,15 @@ const getFromRedis = async (key: string) => {
 		console.error(err);
 		return null;
 	}
-};
+}
+
+async function setRedisKey(key: string, value: SearchResponse) {
+	try {
+		await redis.set(key, compress(JSON.stringify(value)), 'EX', DEFAULT_EXPIRATION);
+	} catch (err) {
+		console.error(err);
+	}
+}
 export const queryCourseTable = async ({
 	keyword,
 	course_keyword,
@@ -46,7 +54,7 @@ export const queryCourseTable = async ({
 
 	const key = `/api/search?keyword=${keyword}&course_keyword=${course_keyword}&areas_skills_keyword=${areas_skills_keyword}`;
 
-	const cachedResponse = await getFromRedis(key);
+	const cachedResponse = await getRedisKey(key);
 	if (cachedResponse) {
 		return cachedResponse
 	} else {
@@ -55,8 +63,7 @@ export const queryCourseTable = async ({
 			options({ keyword, course_keyword, areas_skills_keyword })
 		);
 		const response = (await res.json()) as SearchResponse;
-		const value = JSON.stringify(response); 
-		redis.set(key, compress(value), 'EX', DEFAULT_EXPIRATION);
+		setRedisKey(key, response);
 		return response;
 	}
 };
