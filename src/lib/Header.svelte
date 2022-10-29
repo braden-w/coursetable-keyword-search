@@ -14,7 +14,7 @@
 	}, 2000);
 </script>
 
-<div class="mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-8">
+<div class="mx-auto px-2 py-2 sm:px-4 lg:px-8">
 	<div class="flex h-16 items-center justify-between">
 		<div class="flex px-2 lg:px-0">
 			<div class="flex-shrink-0">
@@ -32,7 +32,7 @@
 							in:fly={{ y: 40, duration: 800, easing: (t) => t * (2 - t) }}
 							out:fly={{ y: -40, duration: 800, easing: (t) => t * (2 - t) }}
 						>
-							{title}
+							{@html title}
 						</h2>
 					{/if}
 				{/each}
