@@ -14,7 +14,7 @@
 	}, 2000);
 </script>
 
-<div class="mx-auto px-2 py-2 sm:px-4 lg:px-8 shadow-md bg-base-200">
+<div class="mx-auto bg-base-200 px-2 py-2 shadow-md sm:px-4 lg:px-8">
 	<div class="flex h-16 items-center justify-between">
 		<div class="flex px-2 lg:px-0">
 			<div class="flex-shrink-0">
