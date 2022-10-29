@@ -72,12 +72,12 @@
 								<span class="sr-only">Filter</span>
 							</button>
 							{#if !showFilters}
-							<span class="flex absolute h-2 w-2 top-0 right-0 -mt-1 -mr-1">
-								<span
-									class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
-								/>
-								<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
-							</span>
+								<span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-2 w-2">
+									<span
+										class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
+									/>
+									<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+								</span>
 							{/if}
 						</span>
 					</div>
@@ -121,7 +121,14 @@
 				</div>
 				<QueriesRow />
 				<!-- Add screenshot with rounded corners -->
-				<img src="/screenshot.png" alt="Screenshot" />
+				<div class="mx-auto ">
+					<img
+						src="/screenshot_cropped.jpg"
+						class="rounded-xl shadow-lg"
+						alt="Screenshot"
+					/>
+					<div class="absolute inset-0 bg-gradient-to-t from-base-100" />
+				</div>
 			</div>
 		</div>
 	</div>
