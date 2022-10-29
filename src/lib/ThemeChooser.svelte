@@ -8,7 +8,7 @@
 </script>
 
 <div title="Change Theme" class="dropdown-end dropdown ">
-	<div tabindex="0" class="btn-ghost btn gap-1 normal-case">
+	<div tabindex="-1" class="btn-ghost btn gap-1 normal-case">
 		<svg
 			width="20"
 			height="20"
