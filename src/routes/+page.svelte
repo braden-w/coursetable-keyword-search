@@ -121,10 +121,10 @@
 				</div>
 				<QueriesRow />
 				<!-- Add screenshot with rounded corners -->
-				<div class="mx-auto ">
+				<div class="relative">
 					<img
 						src="/screenshot_cropped.jpg"
-						class="rounded-xl shadow-lg"
+						class="rounded-xl"
 						alt="Screenshot"
 					/>
 					<div class="absolute inset-0 bg-gradient-to-t from-base-100" />
