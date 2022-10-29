@@ -37,7 +37,7 @@
 		<div class="relative sm:overflow-hidden sm:rounded-2xl">
 			<div class="relative flex flex-col gap-4 px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-16">
 				<h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-					Search CourseTable reviews by
+					Search Yale Course reviews by
 					<span bind:this={typewriter} class="font-extrabold text-primary-content" />
 				</h1>
 				<h2 class="text-xl font-medium">Don't just read reviews, search them. Try now:</h2>
@@ -120,6 +120,8 @@
 					{/if}
 				</div>
 				<QueriesRow />
+				<!-- Add screenshot with rounded corners -->
+				<img src="/screenshot.png" alt="Screenshot" />
 			</div>
 		</div>
 	</div>
