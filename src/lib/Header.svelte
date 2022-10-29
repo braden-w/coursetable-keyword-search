@@ -1,16 +1,14 @@
 <script lang="ts">
 	import Logo from './Logo.svelte';
 
-	// import { Icon } from '@steeze-ui/svelte-icon';
-	// import { InformationCircle } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { InformationCircle } from '@steeze-ui/heroicons';
 	import { fly } from 'svelte/transition';
 	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
 	let titleIndex = 0;
 	setInterval(() => {
 		titleIndex = (titleIndex + 1) % titles.length;
-		// If you want to change the title:
-		// document.title = titles[titleIndex];
 	}, 2000);
 </script>
 
@@ -39,11 +37,29 @@
 			</a>
 		</div>
 
-		<!-- <a
+		<div class="block">
+			<div class="flex space-x-4">
+				<a
+					href="/about"
+					class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+					>
+					About
+					</a
+				>
+
+				<a
+					href="#"
+					class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+					>Calendar</a
+				>
+			</div>
+		</div>
+
+		<a
 			href="/about"
-			class="ml-6 inline-flex items-center rounded-xl border border-transparent bg-indigo-600 px-1 py-1 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+			class="rounded-md border border-transparent bg-indigo-600 px-1 py-1 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 		>
-			<Icon src={InformationCircle} class="h-8 w-8" aria-hidden="true"/>
-		</a> -->
+			About
+		</a>
 	</div>
 </div>
