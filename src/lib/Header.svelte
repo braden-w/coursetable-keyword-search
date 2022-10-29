@@ -22,18 +22,20 @@
 				</a>
 			</div>
 			<a href="/">
-				{#each titles as title, index}
-					{#if titleIndex === index}
-						<!-- Hidden, lg:block -->
-						<h2
-							class="absolute ml-4 block text-4xl font-bold md:text-5xl"
-							in:fly={{ y: -20, duration: 800, easing: (t) => t * (2 - t) }}
-							out:fly={{ y: 30, duration: 800, easing: (t) => t * (2 - t) }}
-						>
-							{@html title}
-						</h2>
-					{/if}
-				{/each}
+				<div class="hidden sm:block">
+					{#each titles as title, index}
+						{#if titleIndex === index}
+							<!-- Hidden, lg:block -->
+							<h2
+								class="absolute ml-4 block text-4xl font-bold md:text-5xl"
+								in:fly={{ y: -20, duration: 800, easing: (t) => t * (2 - t) }}
+								out:fly={{ y: 30, duration: 800, easing: (t) => t * (2 - t) }}
+							>
+								{@html title}
+							</h2>
+						{/if}
+					{/each}
+				</div>
 			</a>
 		</div>
 
