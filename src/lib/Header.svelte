@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Logo from './Logo.svelte';
-
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { InformationCircle } from '@steeze-ui/heroicons';
 	import { fly } from 'svelte/transition';
+
 	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
 	let titleIndex = 0;
