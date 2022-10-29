@@ -64,6 +64,7 @@
 	};
 
 	onMount(() => {
+		if (!keyword && !course_keyword && !areas_skills_keyword) return;
 		runQuery(params);
 	});
 </script>
