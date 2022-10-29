@@ -26,7 +26,7 @@
 	onMount(() => {
 		new Typewriter(typewriter, {
 			loop: true,
-			strings: ['keyword.', 'course code.', 'area.'],
+			strings: ['keyword.', 'code.', 'area.'],
 			autoStart: true
 		});
 	});
