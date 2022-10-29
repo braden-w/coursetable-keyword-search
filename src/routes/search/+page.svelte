@@ -163,14 +163,16 @@
 		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
+		<div class="sm:hidden">
+			<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
+				<VirtualList items={coursesSortedByCount} let:item height="50rem">
+					<ResultItem course={item} {keyword} />
+				</VirtualList>
+			</ul>
+		</div>
 		<div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
-				<div class="lg:hidden">
-					<VirtualList items={coursesSortedByCount} let:item height="500px">
-						<ResultItem course={item} {keyword} />
-					</VirtualList>
-				</div>
-				<div class="hidden lg:block">
+				<div class="hidden sm:block">
 					{#each coursesSortedByCount as course (course.listing_id)}
 						<ResultItem {course} {keyword} />
 					{/each}
