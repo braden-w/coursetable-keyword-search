@@ -75,7 +75,7 @@
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
 
-<div class="mx-auto flex-col py-6 px-4 sm:px-6 lg:px-8">
+<div class="mx-auto max-w-7xl flex-col py-6 px-4 sm:px-6 lg:px-8">
 	<h3 class="mb-4 text-3xl font-bold md:text-3xl">Search CourseTable reviews by keyword</h3>
 	<div class="my-2 flex w-full">
 		<label for="search" class="sr-only">Search</label>
@@ -164,12 +164,12 @@
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
 		<!-- <div class="sm:hidden"> -->
-			<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
-				<VirtualList items={coursesSortedByCount} let:item height="50rem">
-					<ResultItem course={item} {keyword} />
-					<li class="border-t border-gray-200" />
-				</VirtualList>
-			</ul>
+		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
+			<VirtualList items={coursesSortedByCount} let:item height="50rem">
+				<ResultItem course={item} {keyword} />
+				<li class="border-t border-gray-200" />
+			</VirtualList>
+		</ul>
 		<!-- </div> -->
 		<!-- <div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
