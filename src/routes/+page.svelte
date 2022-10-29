@@ -60,7 +60,6 @@
 						</div>
 						<label for="filters" class="sr-only">Show filters</label>
 						<span class="sr-only">Loading...</span>
-
 						<span class="relative inline-flex">
 							<button
 								id="filters"
