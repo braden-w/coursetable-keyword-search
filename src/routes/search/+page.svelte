@@ -163,14 +163,14 @@
 		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
-		<div class="sm:hidden">
+		<!-- <div class="sm:hidden"> -->
 			<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
 				<VirtualList items={coursesSortedByCount} let:item height="50rem">
 					<ResultItem course={item} {keyword} />
 				</VirtualList>
 			</ul>
-		</div>
-		<div class="overflow-hidden rounded-md bg-white shadow">
+		<!-- </div> -->
+		<!-- <div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
 				<div class="hidden sm:block">
 					{#each coursesSortedByCount as course (course.listing_id)}
@@ -178,7 +178,7 @@
 					{/each}
 				</div>
 			</ul>
-		</div>
+		</div> -->
 	{:else}
 		<div class="mt-4">
 			<p class="text-center text-gray-500">No results yet <LoadingSpinner {loading} /></p>
