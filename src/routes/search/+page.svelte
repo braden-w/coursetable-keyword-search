@@ -167,6 +167,7 @@
 			<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
 				<VirtualList items={coursesSortedByCount} let:item height="50rem">
 					<ResultItem course={item} {keyword} />
+					<li class="border-t border-gray-200" />
 				</VirtualList>
 			</ul>
 		<!-- </div> -->
