@@ -1,3 +1,7 @@
+<script>
+  import Collapse from './Collapse.svelte';
+</script>
+
 <div class="mx-4 my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
 	<h1 class="text-4xl font-bold">What does it do?</h1>
 	<p>
@@ -5,6 +9,8 @@
 		aggregates all reviews and allows you to filter them down by keyword, department, etc.. It is
 		especially useful for trying to find the best courses in a certain department.
 	</p>
+	<Collapse></Collapse>
+
 	<h2 class="text-2xl font-bold">Why not CourseTable?</h2>
 	<p>
 		I love <a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>! This is
