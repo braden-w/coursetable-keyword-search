@@ -11,7 +11,7 @@
 		titleIndex = (titleIndex + 1) % titles.length;
 		// If you want to change the title:
 		// document.title = titles[titleIndex];
-	}, 5000);
+	}, 2000);
 </script>
 
 <div class="mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-8">
@@ -28,9 +28,9 @@
 					{#if titleIndex === index}
 						<!-- Hidden, lg:block -->
 						<h2
-							class="ml-4 block text-4xl font-bold md:text-5xl"
-							in:fly={{ y: 40, duration: 250 }}
-							out:fly={{ y: -40, duration: 250 }}
+							class="absolute ml-4 block text-4xl font-bold md:text-5xl"
+							in:fly={{ y: 40, duration: 800, easing: (t) => t * (2 - t) }}
+							out:fly={{ y: -40, duration: 800, easing: (t) => t * (2 - t) }}
 						>
 							{title}
 						</h2>
