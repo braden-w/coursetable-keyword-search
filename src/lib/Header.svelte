@@ -1,6 +1,8 @@
 <script lang="ts">
+  import ThemeChooser from './ThemeChooser.svelte';
+
+	import {fly} from 'svelte/transition';
 	import Logo from './Logo.svelte';
-	import { fly } from 'svelte/transition';
 
 	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
@@ -37,6 +39,7 @@
 
 		<div class="block">
 			<div class="flex space-x-4">
+				<ThemeChooser></ThemeChooser>
 				<a
 					href="/about"
 					class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
