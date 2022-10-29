@@ -1,7 +1,7 @@
 <script lang="ts">
-  import ThemeChooser from './ThemeChooser.svelte';
+	import ThemeChooser from './ThemeChooser.svelte';
 
-	import {fly} from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import Logo from './Logo.svelte';
 
 	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
@@ -39,20 +39,10 @@
 
 		<div class="block">
 			<div class="flex space-x-4">
-				<ThemeChooser></ThemeChooser>
-				<a
-					href="/about"
-					class="btn btn-ghost gap-1 normal-case"
-				>
-					About
-				</a>
+				<ThemeChooser />
+				<a href="/about" class="btn-ghost btn gap-1 normal-case"> About </a>
 
-				<a
-					href="/search"
-					class="btn btn-ghost gap-1 normal-case"
-				>
-					Search
-				</a>
+				<a href="/search" class="btn-ghost btn gap-1 normal-case"> Search </a>
 			</div>
 		</div>
 	</div>
