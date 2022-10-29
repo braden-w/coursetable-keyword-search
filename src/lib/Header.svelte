@@ -4,7 +4,7 @@
 	// import { Icon } from '@steeze-ui/svelte-icon';
 	// import { InformationCircle } from '@steeze-ui/heroicons';
 	import { fly } from 'svelte/transition';
-	const titles = ['Keyword Search', 'KeyTable', 'JankTable', 'WorseTable', 'CourseLabel'];
+	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
 	let titleIndex = 0;
 	setInterval(() => {
@@ -29,8 +29,8 @@
 						<!-- Hidden, lg:block -->
 						<h2
 							class="absolute ml-4 block text-4xl font-bold md:text-5xl"
-							in:fly={{ y: 40, duration: 800, easing: (t) => t * (2 - t) }}
-							out:fly={{ y: -40, duration: 800, easing: (t) => t * (2 - t) }}
+							in:fly={{ y: -20, duration: 800, easing: (t) => t * (2 - t) }}
+							out:fly={{ y: 30, duration: 800, easing: (t) => t * (2 - t) }}
 						>
 							{@html title}
 						</h2>
