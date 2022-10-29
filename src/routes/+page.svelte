@@ -60,16 +60,25 @@
 						</div>
 						<label for="filters" class="sr-only">Show filters</label>
 						<span class="sr-only">Loading...</span>
-						<button
-							id="filters"
-							type="button"
-							name="filters"
-							class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-							on:click={() => (showFilters = !showFilters)}
-						>
-							<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
-							<span class="sr-only">Filter</span>
-						</button>
+
+						<span class="relative inline-flex">
+							<button
+								id="filters"
+								type="button"
+								name="filters"
+								class="flex rounded-md border border-gray-300 bg-white px-3.5 py-2 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+								on:click={() => (showFilters = !showFilters)}
+							>
+								<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+								<span class="sr-only">Filter</span>
+							</button>
+							<span class="flex absolute h-2 w-2 top-0 right-0 -mt-1 -mr-1">
+								<span
+									class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
+								/>
+								<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+							</span>
+						</span>
 					</div>
 					{#if showFilters}
 						<div class="my-2 w-full">
