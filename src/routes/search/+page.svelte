@@ -1,4 +1,5 @@
 <script lang="ts">
+	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
@@ -164,12 +165,16 @@
 		</div>
 		<div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
-				{#each coursesSortedByCount as course (course.listing_id)}
-					<ResultItem {course} {keyword} />
-				{/each}
-				<!-- <VirtualList items={coursesSortedByCount} let:item height="500px">
-					<ResultItem course={item} {keyword} />
-				</VirtualList> -->
+				<div class="lg:hidden">
+					<VirtualList items={coursesSortedByCount} let:item height="500px">
+						<ResultItem course={item} {keyword} />
+					</VirtualList>
+				</div>
+				<div class="hidden lg:block">
+					{#each coursesSortedByCount as course (course.listing_id)}
+						<ResultItem {course} {keyword} />
+					{/each}
+				</div>
 			</ul>
 		</div>
 	{:else}
