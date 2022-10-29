@@ -1,4 +1,4 @@
-<div class="mx-4 my-4 flex max-w-7xl flex-col gap-2 sm:my-10 sm:px-6 lg:px-8">
+<div class="mx-4 my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
 	<h1 class="text-4xl font-bold">Hello!</h1>
 	<p>This app is designed to answer a single question: how can I browse Yale course reviews?</p>
 	<h2 class="text-2xl font-bold">How it works</h2>
@@ -66,3 +66,14 @@
 	<p>I hope you find this useful!! :D</p>
 	<p>-Braden &#10084;</p>
 </div>
+
+<style>
+/* Add paragraph styling*/
+p {
+	margin: 0.5rem 0;
+}
+/* Add heading styling */
+h1, h2, h3, h4, h5, h6 {
+	margin: 1rem 0;
+}
+</style>
