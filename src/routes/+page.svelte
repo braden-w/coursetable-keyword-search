@@ -35,14 +35,14 @@
 <div class="relative">
 	<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 		<div class="relative sm:overflow-hidden sm:rounded-2xl">
-			<div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-16">
-				<h1 class="mb-2 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+			<div class="relative flex flex-col gap-4 px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-16">
+				<h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
 					Search CourseTable reviews by
 					<span bind:this={typewriter} class="font-extrabold text-primary-content" />
 				</h1>
-				<h2 class="mb-2 text-2xl font-bold">List courses by keyword. Try now:</h2>
-				<div class="my-4">
-					<div class="mb-2 flex w-full">
+				<h2 class="text-2xl font-bold">Filtered for Spring 2023. Try now:</h2>
+				<div class="">
+					<div class="flex w-full">
 						<label for="search" class="sr-only">Search</label>
 						<div class="relative flex-1">
 							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
