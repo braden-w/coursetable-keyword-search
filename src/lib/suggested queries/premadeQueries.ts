@@ -55,12 +55,6 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Easiest',
-		keyword: 'easiest',
-		course_keyword: '',
-		areas_skills_keyword: ''
-	},
-	{
 		title: 'Ever',
 		keyword: 'ever',
 		course_keyword: '',
@@ -81,12 +75,6 @@ export const premadeQueries: PremadeQuery[] = [
 	{
 		title: 'Easy',
 		keyword: 'easy',
-		course_keyword: '',
-		areas_skills_keyword: ''
-	},
-	{
-		title: 'Fastest',
-		keyword: 'fastest',
 		course_keyword: '',
 		areas_skills_keyword: ''
 	},

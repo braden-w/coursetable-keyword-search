@@ -1,20 +1,18 @@
 <script lang="ts">
+	import ThemeChooser from './ThemeChooser.svelte';
+
+	import { fly } from 'svelte/transition';
 	import Logo from './Logo.svelte';
 
-	// import { Icon } from '@steeze-ui/svelte-icon';
-	// import { InformationCircle } from '@steeze-ui/heroicons';
-	import { fly } from 'svelte/transition';
-	const titles = ['Keyword Search', 'KeyTable', 'JankTable', 'WorseTable', 'CourseLabel'];
+	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
 	let titleIndex = 0;
 	setInterval(() => {
 		titleIndex = (titleIndex + 1) % titles.length;
-		// If you want to change the title:
-		// document.title = titles[titleIndex];
-	}, 5000);
+	}, 2000);
 </script>
 
-<div class="mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-8">
+<div class="mx-auto bg-base-200 px-2 py-2 shadow-md sm:px-4 lg:px-8">
 	<div class="flex h-16 items-center justify-between">
 		<div class="flex px-2 lg:px-0">
 			<div class="flex-shrink-0">
@@ -28,22 +26,24 @@
 					{#if titleIndex === index}
 						<!-- Hidden, lg:block -->
 						<h2
-							class="ml-4 block text-4xl font-bold md:text-5xl"
-							in:fly={{ y: 40, duration: 250 }}
-							out:fly={{ y: -40, duration: 250 }}
+							class="absolute ml-4 block text-4xl font-bold md:text-5xl"
+							in:fly={{ y: -20, duration: 800, easing: (t) => t * (2 - t) }}
+							out:fly={{ y: 30, duration: 800, easing: (t) => t * (2 - t) }}
 						>
-							{title}
+							{@html title}
 						</h2>
 					{/if}
 				{/each}
 			</a>
 		</div>
 
-		<!-- <a
-			href="/about"
-			class="ml-6 inline-flex items-center rounded-xl border border-transparent bg-indigo-600 px-1 py-1 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-		>
-			<Icon src={InformationCircle} class="h-8 w-8" aria-hidden="true"/>
-		</a> -->
+		<div class="block">
+			<div class="flex space-x-4">
+				<ThemeChooser />
+				<a href="/about" class="btn-ghost btn gap-1 normal-case"> About </a>
+
+				<a href="/search" class="btn-ghost btn gap-1 normal-case"> Search </a>
+			</div>
+		</div>
 	</div>
 </div>

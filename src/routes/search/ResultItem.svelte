@@ -33,7 +33,7 @@
 							<div class="flex gap-0.5 overflow-x-auto whitespace-nowrap md:gap-1">
 								{#each course.all_course_codes as code}
 									<span
-										class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800"
+										class="inline-flex items-center rounded bg-primary px-2 py-0.5 text-xs font-medium text-white"
 									>
 										<Icon src={BookOpen} class="mr-1.5 h-4 w-4" />
 										{code}

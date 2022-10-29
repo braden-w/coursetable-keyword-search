@@ -1,4 +1,5 @@
 <script lang="ts">
+	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
@@ -22,7 +23,9 @@
 		course_keyword,
 		areas_skills_keyword
 	};
+	$: isEmptyQuery = !keyword && !course_keyword && !areas_skills_keyword;
 
+	let message = 'Enter a query to search for course reviews.';
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
 	let showFilters = true;
@@ -50,6 +53,8 @@
 	};
 
 	const runQuery = async (params: Params) => {
+		if (isEmptyQuery)
+			return (message = 'Please enter a query before searching for course reviews.');
 		loading = true;
 		courses = [];
 		courses = await getCourses(params);
@@ -63,6 +68,7 @@
 	};
 
 	onMount(() => {
+		if (isEmptyQuery) return;
 		runQuery(params);
 	});
 </script>
@@ -97,16 +103,26 @@
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
 		<span class="sr-only">Loading...</span>
-		<button
-			id="filters"
-			type="button"
-			name="filters"
-			class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-			on:click={() => (showFilters = !showFilters)}
-		>
-			<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
-			<span class="sr-only">Filter</span>
-		</button>
+		<span class="relative inline-flex">
+			<button
+				id="filters"
+				type="button"
+				name="filters"
+				class="flex rounded-md border border-gray-300 bg-white px-3.5 py-2 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-2"
+				on:click={() => (showFilters = !showFilters)}
+			>
+				<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				<span class="sr-only">Filter</span>
+			</button>
+			{#if !showFilters}
+				<span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-2 w-2">
+					<span
+						class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
+					/>
+					<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+				</span>
+			{/if}
+		</span>
 	</div>
 	{#if showFilters}
 		<div class="my-2 w-full">
@@ -152,19 +168,26 @@
 		<div class="my-4">
 			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
 		</div>
-		<div class="overflow-hidden rounded-md bg-white shadow">
+		<!-- <div class="sm:hidden"> -->
+		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
+			<VirtualList items={coursesSortedByCount} let:item height="50rem">
+				<ResultItem course={item} {keyword} />
+				<li class="border-t border-gray-200" />
+			</VirtualList>
+		</ul>
+		<!-- </div> -->
+		<!-- <div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
-				{#each coursesSortedByCount as course (course.listing_id)}
-					<ResultItem {course} {keyword} />
-				{/each}
-				<!-- <VirtualList items={coursesSortedByCount} let:item height="500px">
-					<ResultItem course={item} {keyword} />
-				</VirtualList> -->
+				<div class="hidden sm:block">
+					{#each coursesSortedByCount as course (course.listing_id)}
+						<ResultItem {course} {keyword} />
+					{/each}
+				</div>
 			</ul>
-		</div>
+		</div> -->
 	{:else}
 		<div class="mt-4">
-			<p class="text-center text-gray-500">No results yet <LoadingSpinner {loading} /></p>
+			<p class="text-center text-gray-500">{message}<LoadingSpinner {loading} /></p>
 		</div>
 	{/if}
 </div>
