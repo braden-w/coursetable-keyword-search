@@ -1,8 +1,10 @@
 <script lang="ts">
+	import Typewriter from 'typewriter-effect/dist/core';
 	import { goto } from '$app/navigation';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { onMount } from 'svelte';
 
 	let keyword = '';
 	let course_keyword = '';
@@ -19,14 +21,24 @@
 		if (e.key !== 'Enter') return;
 		goto(`/search?${new URLSearchParams(params)}`);
 	};
+
+	let typewriter: HTMLSpanElement;
+	onMount(() => {
+		new Typewriter(typewriter, {
+			loop: true,
+			strings: ['keyword', 'course code', 'area'],
+			autoStart: true
+		});
+	});
 </script>
 
 <div class="relative">
 	<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 		<div class="relative sm:overflow-hidden sm:rounded-2xl">
 			<div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-16">
-				<h1 class="mb-2 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-					Search CourseTable reviews by keyword.
+				<h1 class="mb-2 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+					Search CourseTable reviews by
+					<span bind:this={typewriter} class="font-extrabold text-primary-content" />
 				</h1>
 				<h2 class="mb-2 text-2xl font-bold">List courses by keyword. Try now:</h2>
 				<div class="my-4">
