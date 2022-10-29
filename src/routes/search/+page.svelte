@@ -23,7 +23,9 @@
 		course_keyword,
 		areas_skills_keyword
 	};
+	$: isEmptyQuery = !keyword && !course_keyword && !areas_skills_keyword;
 
+	let message = 'Enter a query to search for course reviews.';
 	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
 
 	let showFilters = true;
@@ -51,6 +53,8 @@
 	};
 
 	const runQuery = async (params: Params) => {
+		if (isEmptyQuery)
+			return (message = 'Please enter a query before searching for course reviews.');
 		loading = true;
 		courses = [];
 		courses = await getCourses(params);
@@ -64,7 +68,7 @@
 	};
 
 	onMount(() => {
-		if (!keyword && !course_keyword && !areas_skills_keyword) return;
+		if (isEmptyQuery) return;
 		runQuery(params);
 	});
 </script>
@@ -183,7 +187,7 @@
 		</div> -->
 	{:else}
 		<div class="mt-4">
-			<p class="text-center text-gray-500">No results yet <LoadingSpinner {loading} /></p>
+			<p class="text-center text-gray-500">{message}<LoadingSpinner {loading} /></p>
 		</div>
 	{/if}
 </div>
