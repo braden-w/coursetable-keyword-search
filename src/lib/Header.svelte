@@ -7,9 +7,7 @@
 	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
 	let titleIndex = 0;
-	setInterval(() => {
-		titleIndex = (titleIndex + 1) % titles.length;
-	}, 2000);
+	const cycleTitles = () => (titleIndex = (titleIndex + 1) % titles.length);
 </script>
 
 <div class="mx-auto bg-base-200 px-2 py-2 shadow-md sm:px-4 lg:px-8">
@@ -21,7 +19,7 @@
 					<Logo class="hidden h-12 w-auto rounded-md lg:block" />
 				</a>
 			</div>
-			<a href="/">
+			<a href="/" on:click={cycleTitles}>
 				<div class="hidden sm:block">
 					{#each titles as title, index}
 						{#if titleIndex === index}
