@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { slide } from 'svelte/transition';
 
-	let expanded = false;
+	export let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
 </script>
 
@@ -24,7 +24,7 @@
 	</div>
 </button>
 {#if expanded}
-	<div transition:slide class="bg-base-200 px-4">
+	<div transition:slide class="block w-full bg-base-200 px-4 -mx-4">
 		<slot name="content" />
 	</div>
 {/if}
