@@ -1,5 +1,5 @@
 <script>
-  import Collapse from './Collapse.svelte';
+	import Collapse from './Collapse.svelte';
 </script>
 
 <div class="mx-4 my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
@@ -9,15 +9,20 @@
 		aggregates all reviews and allows you to filter them down by keyword, department, etc.. It is
 		especially useful for trying to find the best courses in a certain department.
 	</p>
-	<Collapse></Collapse>
+	<Collapse>
+		<p slot="title">How does it work?</p>
+		<p slot="content">The app makes a graphql query to the Yale CourseTable API:</p>
+	</Collapse>
+	<Collapse>
+		<p slot="title">Why not CourseTable</p>
+		<p slot="content">
+			I love <a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>! This is
+			designed to compliment rather than compete with
+			<a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>
+			—in fact, it is built on top of CourseTable's backend API. You are encouraged to use it side-by-side!
+		</p>
+	</Collapse>
 
-	<h2 class="text-2xl font-bold">Why not CourseTable?</h2>
-	<p>
-		I love <a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>! This is
-		designed to compliment rather than compete with
-		<a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>
-		—in fact, it is built on top of CourseTable's backend API. You are encouraged to use it side-by-side!
-	</p>
 	<h2 class="text-2xl font-bold">How it works</h2>
 	<p>The app makes a graphql query to the Yale CourseTable API:</p>
 	<div class="mockup-code">
