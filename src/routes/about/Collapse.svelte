@@ -1,20 +1,35 @@
-<script>
-	let isOpen = false;
-	const toggleIsOpen = () => (isOpen = !isOpen);
+<script lang="ts">
+	import { ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { slide } from 'svelte/transition';
+
+	let expanded = false;
+	const toggleExpanded = () => (expanded = !expanded);
 </script>
 
-<button
-	class="collapse-arrow rounded-box collapse border border-base-300 bg-base-200 text-left text-base-content"
-	class:collapse-open={isOpen}
-	class:collapse-close={isOpen}
-	on:click={toggleIsOpen}
->
-	<input type="checkbox" />
-	<div class="collapse-title text-2xl font-bold">How it works</div>
-	<div class="collapse-content">
-		<p>The app makes a graphql query to the Yale CourseTable API:</p>
-	</div>
-</button>
+<li>
+	<button
+		type="button"
+		on:click={toggleExpanded}
+		class="block w-full rounded-md bg-base-200 p-4 text-left hover:bg-base-300"
+	>
+		<div class="flex items-center justify-between">
+			<div class="text-2xl font-bold">How it works</div>
+			<div class="ml-5 flex-shrink-0">
+				{#if expanded}
+					<Icon src={ChevronUp} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				{:else}
+					<Icon src={ChevronDown} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				{/if}
+			</div>
+		</div>
+	</button>
+	{#if expanded}
+		<div transition:slide class='px-4 bg-base-200'>
+			<p>The app makes a graphql query to the Yale CourseTable API:</p>
+		</div>
+	{/if}
+</li>
 
 <style>
 	/* Add paragraph styling*/
