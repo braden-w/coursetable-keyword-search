@@ -10,7 +10,7 @@
 <button
 	type="button"
 	on:click={toggleExpanded}
-	class="block w-full rounded-md bg-base-200 p-4 text-left hover:bg-base-300"
+	class="block w-full rounded-md bg-base-200 -mx-4 px-4 text-left hover:bg-base-300"
 >
 	<div class="flex items-center justify-between">
 		<div class="text-2xl font-bold"><slot name="title" /></div>

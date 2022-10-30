@@ -3,14 +3,19 @@
 </script>
 
 <div class="mx-4 my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
-	<h1 class="text-4xl font-bold">What does it do?</h1>
-	<p>
-		This app is designed to help with one question: how can I browse all Yale course reviews? It
-		aggregates all reviews and allows you to filter them down by keyword, department, etc.. It is
-		especially useful for trying to find the best courses in a certain department.
-	</p>
 	<Collapse>
-		<h2 slot="title">Why not CourseTable</h2>
+		<h2 slot="title" class="text-4xl font-bold">What does it solve?</h2>
+		<div slot="content">
+			<p>
+				This app is designed to help with one question: how can I browse <strong>all</strong> Yale course
+				reviews? It aggregates all reviews and allows you to filter them down by keyword, department,
+				etc.. It is especially useful for trying to find the best courses in a certain department.
+			</p>
+			<p>Choosing the right course can be lifechanging. Hopefully this helps with that.</p>
+		</div>
+	</Collapse>
+	<Collapse>
+		<h2 slot="title">Why not CourseTable?</h2>
 		<p slot="content">
 			I love <a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>! This is
 			designed to compliment rather than compete with
@@ -91,12 +96,14 @@
 	</Collapse>
 
 	<Collapse>
-		<h2 slot="title">Aren't you a CS Major?</h2>
+		<h2 slot="title">What's the tech stack, and aren't you a CS Major?</h2>
 		<p slot="content">
-			No, I'm actually an <a
+			This is built with SvelteKit+TailwindCSS (with DaisyUI) deployed on Vercel, with the external
+			CourseTable GraphQL backend. I'm not a CS major, but I'm actually an <a
 				href="http://catalog.yale.edu/ycps/subjects-of-instruction/ethics-politics-economics/"
-				>Ethics, Politics, and Economics</a
-			> major
+			>
+				Ethics, Politics, and Economics
+			</a> major who happens to enjoy writing code.
 		</p>
 	</Collapse>
 	<Collapse>
