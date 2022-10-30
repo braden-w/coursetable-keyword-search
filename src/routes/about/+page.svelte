@@ -10,11 +10,7 @@
 		especially useful for trying to find the best courses in a certain department.
 	</p>
 	<Collapse>
-		<p slot="title">How does it work?</p>
-		<p slot="content">The app makes a graphql query to the Yale CourseTable API:</p>
-	</Collapse>
-	<Collapse>
-		<p slot="title">Why not CourseTable</p>
+		<h2 slot="title">Why not CourseTable</h2>
 		<p slot="content">
 			I love <a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>! This is
 			designed to compliment rather than compete with
@@ -22,11 +18,12 @@
 			—in fact, it is built on top of CourseTable's backend API. You are encouraged to use it side-by-side!
 		</p>
 	</Collapse>
-
-	<h2 class="text-2xl font-bold">How it works</h2>
-	<p>The app makes a graphql query to the Yale CourseTable API:</p>
-	<div class="mockup-code">
-		<pre class="px-6 text-sm">
+	<Collapse>
+		<h2 slot="title">How does it work?</h2>
+		<div slot="content">
+			<p>The app makes a graphql query to the Yale CourseTable API:</p>
+			<div class="mockup-code">
+				<pre class="px-6 text-sm">
 	<code class="lang-graphql">
 {@html `query searchCoursesByKeyword(
     $keyword: String!
@@ -77,30 +74,51 @@
 }`}
 </code>
 </pre>
-	</div>
-	<p>
-		The results are then parsed into a format that&#39;s easy to work with and displayed in a table.
-	</p>
-	<h2 class="text-2xl font-bold">Why is it called JankTable</h2>
-	<p>
-		Numerous reasons, one being how Spring courses are filtered down—there is no way for , so
-		instead, a separate request is made to fetch , and .
-	</p>
+			</div>
+		</div>
+		<p>
+			The results are then parsed into a format that&#39;s easy to work with and displayed in a
+			table.
+		</p>
+	</Collapse>
+	<Collapse>
+		<h2 slot="title">Why is it called JankTable</h2>
+		<p slot="content">
+			Numerous reasons, one being how the GraphQL requests are being sent, and second how the Spring
+			courses are filtered down—there is no way for , so instead, a separate request is made to
+			fetch , and .
+		</p>
+	</Collapse>
 
-	<p>
-		If you have any questions, bug reports, etc., please feel free to mail me at
-		<a href="mailto:braden.wong@yale.edu" class="text-blue-200">braden.wong@yale.edu</a>.
-	</p>
-	<p>
-		I’m echoing
-		<a href="https://devonzuegel.com/page/contact">Devon Zuegel’s</a>,
-		<a href="https://danwang.co/contact">Dan Wang’s</a>,
-		<a href="https://www.kalzumeus.com/standing-invitation">Patrick McKenzie’s</a>, and
-		<a href="https://zhengdongwang.com/">Zhengdong Wang's</a>
-		standing invitations. I really like getting email. If you have any questions, bug reports, etc.,
-		please feel free to mail me at
-		<a href="mailto:braden.wong@yale.edu" class="text-blue-200">braden.wong@yale.edu</a>.
-	</p>
+	<Collapse>
+		<h2 slot="title">Aren't you a CS Major?</h2>
+		<p slot="content">
+			No, I'm actually an <a
+				href="http://catalog.yale.edu/ycps/subjects-of-instruction/ethics-politics-economics/"
+				>Ethics, Politics, and Economics</a
+			> major
+		</p>
+	</Collapse>
+	<Collapse>
+		<h2 slot="title">How can I contact you?</h2>
+		<div slot="content">
+			<p>
+				If you have any questions, bug reports, etc., please feel free to mail me at
+				<a href="mailto:braden.wong@yale.edu" class="text-blue-200">braden.wong@yale.edu</a>.
+			</p>
+			<p>
+				I’m echoing
+				<a href="https://devonzuegel.com/page/contact">Devon Zuegel’s</a>,
+				<a href="https://danwang.co/contact">Dan Wang’s</a>,
+				<a href="https://www.kalzumeus.com/standing-invitation">Patrick McKenzie’s</a>, and
+				<a href="https://zhengdongwang.com/">Zhengdong Wang's</a>
+				standing invitations. I really like getting email. If you have any questions, bug reports, etc.,
+				please feel free to mail me at
+				<a href="mailto:braden.wong@yale.edu" class="text-blue-200">braden.wong@yale.edu</a>.
+			</p>
+		</div>
+	</Collapse>
+	<p />
 	<p>I hope you find this useful!! :D</p>
 	<p>-Braden &#10084;</p>
 </div>
