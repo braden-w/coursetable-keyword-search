@@ -2,7 +2,7 @@
 	import Collapse from './Collapse.svelte';
 </script>
 
-<div class="mx-4 my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
+<div class="mx-auto my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
 	<Collapse>
 		<h2 slot="title" class="text-4xl font-bold">What does it solve?</h2>
 		<div slot="content">
@@ -17,10 +17,11 @@
 	<Collapse>
 		<h2 slot="title">Why not CourseTable?</h2>
 		<p slot="content">
-			I love <a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>! This is
-			designed to compliment rather than compete with
-			<a href="https://www.coursetable.com/" class="text-blue-200"> CourseTable </a>
-			—in fact, it is built on top of CourseTable's backend API. You are encouraged to use it side-by-side!
+			I love <a href="https://www.coursetable.com/"> CourseTable</a>! This is designed to compliment
+			rather than compete with
+			<a href="https://www.coursetable.com/"> CourseTable </a>
+			—in fact, it is built on top of CourseTable's backend API. JankTable specifically targets course
+			<strong>reviews</strong> as opposed to other metrics. You are encouraged to use them side-by-side!
 		</p>
 	</Collapse>
 	<Collapse>
@@ -111,7 +112,7 @@
 		<div slot="content">
 			<p>
 				If you have any questions, bug reports, etc., please feel free to mail me at
-				<a href="mailto:braden.wong@yale.edu" class="text-blue-200">braden.wong@yale.edu</a>.
+				<a href="mailto:braden.wong@yale.edu">braden.wong@yale.edu</a>.
 			</p>
 			<p>
 				I’m echoing
@@ -119,9 +120,9 @@
 				<a href="https://danwang.co/contact">Dan Wang’s</a>,
 				<a href="https://www.kalzumeus.com/standing-invitation">Patrick McKenzie’s</a>, and
 				<a href="https://zhengdongwang.com/">Zhengdong Wang's</a>
-				standing invitations. I really like getting email. If you have any questions, bug reports, etc.,
-				please feel free to mail me at
-				<a href="mailto:braden.wong@yale.edu" class="text-blue-200">braden.wong@yale.edu</a>.
+				standing invitations. I really like getting email. If you ever want to chat, have any questions,
+				bug reports, etc., please feel free to email me at
+				<a href="mailto:braden.wong@yale.edu">braden.wong@yale.edu</a>.
 			</p>
 		</div>
 	</Collapse>
@@ -131,6 +132,11 @@
 </div>
 
 <style>
+	/* Highlight anchor tags */
+	a {
+		color: #4299e1;
+	}
+
 	/* Add paragraph styling*/
 	p {
 		margin: 0.5rem 0;
