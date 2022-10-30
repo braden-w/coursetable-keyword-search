@@ -1,9 +1,10 @@
 <script>
 	import Collapse from './Collapse.svelte';
+    let expanded = true
 </script>
 
 <div class="mx-auto my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
-	<Collapse>
+	<Collapse {expanded}>
 		<h2 slot="title" class="text-4xl font-bold">What does it solve?</h2>
 		<div slot="content">
 			<p>
@@ -107,7 +108,7 @@
 			</a> major who happens to enjoy writing code.
 		</p>
 	</Collapse>
-	<Collapse>
+	<Collapse {expanded}>
 		<h2 slot="title">How can I contact you?</h2>
 		<div slot="content">
 			<p>
@@ -124,11 +125,10 @@
 				bug reports, etc., please feel free to email me at
 				<a href="mailto:braden.wong@yale.edu">braden.wong@yale.edu</a>.
 			</p>
+			<p>I hope you find this useful!! :D</p>
+			<p>-Braden &#10084;</p>
 		</div>
 	</Collapse>
-	<p />
-	<p>I hope you find this useful!! :D</p>
-	<p>-Braden &#10084;</p>
 </div>
 
 <style>
