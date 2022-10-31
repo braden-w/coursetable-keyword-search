@@ -8,7 +8,8 @@
 </script>
 
 <div title="Change Theme" class="dropdown-end dropdown ">
-	<div tabindex="-1" class="btn-ghost btn gap-1 normal-case">
+	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+	<div tabindex="0" class="btn-ghost btn gap-1 normal-case">
 		<svg
 			width="20"
 			height="20"
@@ -39,6 +40,7 @@
 	<div
 		class="dropdown-content rounded-t-box rounded-b-box top-px mt-16 h-[70vh] max-h-96 w-52 overflow-y-auto bg-base-200 text-base-content shadow-2xl"
 	>
+		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 		<div class="grid grid-cols-1 gap-3 p-3" tabindex="0">
 			<div
 				class="overflow-hidden rounded-lg outline-2 outline-offset-2 outline-base-content"

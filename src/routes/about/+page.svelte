@@ -84,9 +84,8 @@
 			</div>
 			<p>
 				Which is called under the "/api/search" route. The results are then parsed into a format
-				that&#39;s easy to work with and displayed in a table.
-
-                The results are then cached in Redis for 24 hours.
+				that&#39;s easy to work with and displayed in a table. The results are then cached in Redis
+				for 24 hours.
 			</p>
 		</div>
 	</Collapse>
@@ -143,13 +142,9 @@
 	p {
 		margin: 0.5rem 0;
 	}
+
 	/* Add heading styling */
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
+	h2 {
 		margin: 1rem 0;
 	}
 </style>
