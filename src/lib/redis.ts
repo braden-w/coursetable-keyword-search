@@ -1,6 +1,9 @@
-import Redis from 'ioredis';
+import {createClient} from 'redis';
 import { env } from '$env/dynamic/private';
 
-const redis = new Redis(env.REDIS_URL as string);
+const redis = createClient({url: env.REDIS_URL});
+redis.on('error', (err) => console.error('Redis Client Error', err));
+await redis.connect();
+
 
 export default redis;
