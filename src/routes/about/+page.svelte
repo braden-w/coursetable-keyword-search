@@ -1,6 +1,6 @@
 <script>
 	import Collapse from './Collapse.svelte';
-    let expanded = true
+	let expanded = true;
 </script>
 
 <div class="mx-auto my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
@@ -82,14 +82,16 @@
 </code>
 </pre>
 			</div>
+			<p>
+				Which is called under the "/api/search" route. The results are then parsed into a format
+				that&#39;s easy to work with and displayed in a table.
+
+                The results are then cached in Redis for 24 hours.
+			</p>
 		</div>
-		<p>
-			The results are then parsed into a format that&#39;s easy to work with and displayed in a
-			table.
-		</p>
 	</Collapse>
 	<Collapse>
-		<h2 slot="title">Why is it called JankTable</h2>
+		<h2 slot="title">Why is it called JankTable?</h2>
 		<p slot="content">
 			Numerous reasons, one being how the GraphQL requests are being sent, and second how the Spring
 			courses are filtered down—there is no way for , so instead, a separate request is made to
