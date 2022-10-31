@@ -3,6 +3,8 @@
 
 	import { fly } from 'svelte/transition';
 	import Logo from './Logo.svelte';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { GithubLogo } from '@steeze-ui/radix-icons';
 
 	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
@@ -39,6 +41,8 @@
 
 		<div class="block">
 			<div class="flex space-x-4">
+				<!-- GitHub Icon -->
+				<Icon src={GithubLogo} class="h-6 w-6 text-gray-400" aria-hidden="true" />
 				<ThemeChooser />
 				<a href="/about" class="btn-ghost btn gap-1 normal-case"> About </a>
 
