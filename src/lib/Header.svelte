@@ -5,11 +5,15 @@
 	import Logo from './Logo.svelte';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { GithubLogo } from '@steeze-ui/radix-icons';
+	import {onMount} from 'svelte';
 
-	const titles = ['JankTable', 'Course Reviews', 'WorseTable &trade;', 'CourseLabel'];
+	const titles = [ 'Course Reviews', 'JankTable &trade;', 'WorseTable &trade;', 'CourseLabel'];
 	// Cycle between titles every second
 	let titleIndex = 0;
 	const cycleTitles = () => (titleIndex = (titleIndex + 1) % titles.length);
+	onMount(() => {
+		setInterval(cycleTitles, 10000);
+	});
 </script>
 
 <div class="mx-auto bg-base-200 px-2 py-2 shadow-md sm:px-4 lg:px-8">
