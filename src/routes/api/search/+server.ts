@@ -6,7 +6,7 @@ import type { RequestHandler } from './$types';
 import { options } from './payload';
 import zlib from 'zlib';
 
-const DEFAULT_EXPIRATION = 60 * 60 * 24; // 1 day
+const DEFAULT_EXPIRATION = 60 * 60 * 24 * 7 * 4 * 12; // 1 year
 
 export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const keyword = url.searchParams.get('keyword') ?? '';
