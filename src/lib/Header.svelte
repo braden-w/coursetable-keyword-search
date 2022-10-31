@@ -15,9 +15,9 @@
 	const cycleTitles = () => {
 		titleIndex = (titleIndex + 1) % titles.length;
 		clearInterval(interval);
-		interval = setInterval(cycleTitles, 10000);
+		interval = setInterval(cycleTitles, 5000);
 	};
-	onMount(() => (interval = setInterval(cycleTitles, 10000)));
+	onMount(() => (interval = setInterval(cycleTitles, 5000)));
 	onDestroy(() => clearInterval(interval));
 </script>
 
