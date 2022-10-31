@@ -72,7 +72,7 @@ async function getRedisKey(key: string) {
 
 async function setRedisKey(key: string, value: SearchResponse) {
 	try {
-		await redis.set(key, compress(JSON.stringify(value)), { EX: DEFAULT_EXPIRATION });
+		await redis.set(key, compress(JSON.stringify(value)), 'EX', DEFAULT_EXPIRATION);
 	} catch (err) {
 		console.error(err);
 	}
