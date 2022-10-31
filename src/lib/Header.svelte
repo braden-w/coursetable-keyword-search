@@ -42,7 +42,7 @@
 		<div class="block">
 			<div class="flex space-x-4">
 				<!-- GitHub Icon -->
-				<a href="https://github.com/braden-w/coursetable-keyword-search" class="btn-ghost btn normal-case">
+				<a href="https://github.com/braden-w/coursetable-keyword-search" class="btn-ghost btn normal-case" target="_blank" rel="noreferrer">
 					<Icon src={GithubLogo} class="h-6 w-6" aria-hidden="true" />
 				</a>
 				<ThemeChooser />
