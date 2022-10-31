@@ -28,7 +28,10 @@
 	<Collapse>
 		<h2 slot="title">How does it work?</h2>
 		<div slot="content">
-			<p>The app makes a graphql query to the Yale CourseTable API:</p>
+			<p>
+				The app makes a request under the "/api/search" route, which runs a graphql query to the
+				Yale CourseTable API:
+			</p>
 			<div class="mockup-code">
 				<pre class="px-6 text-sm">
 	<code class="lang-graphql">
@@ -83,40 +86,43 @@
 </pre>
 			</div>
 			<p>
-				Which is called under the "/api/search" route. The results are then parsed into a format
-				that&#39;s easy to work with and displayed in a table.
-
-                The results are then cached in Redis for 24 hours.
+				The results are then parsed into a format that&#39;s easy to work with and displayed in a
+				table. The results are also cached in Redis so that future requests are fast.
 			</p>
 		</div>
 	</Collapse>
 	<Collapse>
 		<h2 slot="title">Why is it called JankTable?</h2>
-		<p slot="content">
-			Numerous reasons, one being how the GraphQL requests are being sent, and second how the Spring
-			courses are filtered down—there is no way for , so instead, a separate request is made to
-			fetch , and .
-		</p>
+		<div slot="content">
+			<p>
+				Numerous reasons/design decisions, one being how I was able to make the GraphQL requests to
+				work when CourseTable's GraphQL playground is down, and second how the Spring courses are
+				filtered client side because I couldn't figure out how to filter them in the GraphQL query
+				server side.
+			</p>
+			<p>Also, JankTable is just more memorable!</p>
+		</div>
 	</Collapse>
 
 	<Collapse>
 		<h2 slot="title">What's the tech stack, and aren't you a CS Major?</h2>
-		<p slot="content">
+		<div slot="content">
+			<p>
 			This is built with SvelteKit+TailwindCSS (with DaisyUI) deployed on Vercel, with the external
-			CourseTable GraphQL backend. I'm not a CS major, but I'm actually an <a
+			CourseTable GraphQL backend.
+			</p>
+			
+			<p>I'm not a CS major, but I'm actually an <a
 				href="http://catalog.yale.edu/ycps/subjects-of-instruction/ethics-politics-economics/"
 			>
 				Ethics, Politics, and Economics
 			</a> major who happens to enjoy writing code.
-		</p>
+			</p>
+		</div>
 	</Collapse>
 	<Collapse {expanded}>
 		<h2 slot="title">How can I contact you?</h2>
 		<div slot="content">
-			<p>
-				If you have any questions, bug reports, etc., please feel free to mail me at
-				<a href="mailto:braden.wong@yale.edu">braden.wong@yale.edu</a>.
-			</p>
 			<p>
 				I’m echoing
 				<a href="https://devonzuegel.com/page/contact">Devon Zuegel’s</a>,
@@ -124,8 +130,8 @@
 				<a href="https://www.kalzumeus.com/standing-invitation">Patrick McKenzie’s</a>, and
 				<a href="https://zhengdongwang.com/">Zhengdong Wang's</a>
 				standing invitations. I really like getting email. If you ever want to chat, have any questions,
-				bug reports, etc., please feel free to email me at
-				<a href="mailto:braden.wong@yale.edu">braden.wong@yale.edu</a>.
+				bug reports, etc., please feel free to
+				<a href="mailto:braden.wong@yale.edu">email me</a>.
 			</p>
 			<p>I hope you find this useful!! :D</p>
 			<p>-Braden &#10084;</p>
