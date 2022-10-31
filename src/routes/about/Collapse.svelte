@@ -25,7 +25,7 @@
 		</div>
 	</button>
 	{#if expanded}
-		<div transition:slide class="-mx-4 block w-full bg-base-200 px-4">
+		<div transition:slide class="-mx-4 block w-full px-4">
 			<slot name="content" />
 		</div>
 	{/if}
