@@ -109,15 +109,16 @@
 		<h2 slot="title">What's the tech stack, and aren't you a CS Major?</h2>
 		<div slot="content">
 			<p>
-			This is built with SvelteKit+TailwindCSS (with DaisyUI) deployed on Vercel, with the external
-			CourseTable GraphQL backend.
+				This is built with SvelteKit+TailwindCSS (with DaisyUI) deployed on Vercel, with the
+				external CourseTable GraphQL backend.
 			</p>
-			
-			<p>I'm not a CS major, but I'm actually an <a
-				href="http://catalog.yale.edu/ycps/subjects-of-instruction/ethics-politics-economics/"
-			>
-				Ethics, Politics, and Economics
-			</a> major who happens to enjoy writing code.
+
+			<p>
+				I'm not a CS major, but I'm actually an <a
+					href="http://catalog.yale.edu/ycps/subjects-of-instruction/ethics-politics-economics/"
+				>
+					Ethics, Politics, and Economics
+				</a> major who happens to enjoy writing code.
 			</p>
 		</div>
 	</Collapse>
