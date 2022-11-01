@@ -48,7 +48,6 @@
 
 	const onQueriesRowClick = (event: { detail: Params }) => {
 		({ keyword, course_keyword, areas_skills_keyword } = event.detail);
-		updateRoute(params);
 		runQuery(params);
 	};
 

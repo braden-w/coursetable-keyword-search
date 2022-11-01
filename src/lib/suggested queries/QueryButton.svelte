@@ -8,20 +8,21 @@
 
 	const dispatch = createEventDispatcher<{ click: Params }>();
 
+	$: params = {
+		keyword,
+		course_keyword,
+		areas_skills_keyword
+	};
+
 	const onClick = () => {
-		const params = {
-			keyword,
-			course_keyword,
-			areas_skills_keyword
-		};
 		dispatch('click', params);
-		goto(`/search?${new URLSearchParams(params)}`);
 	};
 </script>
 
-<button
+<a
+	href="/search?{new URLSearchParams(params)}"
 	on:click={onClick}
 	class="whitespace-nowrap rounded-md bg-primary px-2 py-0.5 text-sm font-medium text-white"
 >
 	{title}
-</button>
+</a>
