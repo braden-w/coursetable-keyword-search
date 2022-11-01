@@ -48,7 +48,7 @@
 
 	const onQueriesRowClick = (event: { detail: Params }) => {
 		({ keyword, course_keyword, areas_skills_keyword } = event.detail);
-		runQuery(params);
+		runQuery(event.detail);
 	};
 
 	const runQuery = async (params: Params) => {
@@ -169,7 +169,7 @@
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
-			<VirtualList items={coursesSortedByCount} let:item height="50rem">
+			<VirtualList items={coursesSortedByCount} let:item height="90vh">
 				<ResultItem course={item} {keyword} />
 				<li class="border-t border-gray-200" />
 			</VirtualList>
