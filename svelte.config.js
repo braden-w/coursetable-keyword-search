@@ -1,5 +1,7 @@
-import adapter from '@sveltejs/adapter-node';
+import adapter from '@sveltejs/adapter-auto';
+import nodeAdapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
+import { env } from '$env/dynamic/private';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -12,7 +14,7 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter()
+		adapter: env.VERCEL === '1' ? adapter() : nodeAdapter(),
 	}
 };
 
