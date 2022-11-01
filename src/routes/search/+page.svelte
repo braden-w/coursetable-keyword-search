@@ -42,9 +42,12 @@
 				sameCourse.course.evaluation_narratives_aggregate.aggregate.count +=
 					course.course.evaluation_narratives_aggregate.aggregate.count;
 				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = [
-					...course.course.evaluation_narratives_aggregate_filtered.nodes,
-					...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
+						...course.course.evaluation_narratives_aggregate_filtered.nodes,
+						...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
 				];
+				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = sameCourse.course.evaluation_narratives_aggregate_filtered.nodes.filter(
+					(n, i, a) => a.findIndex((t) => t.comment === n.comment) === i
+				);
 			} else {
 				acc.push(course);
 			}
