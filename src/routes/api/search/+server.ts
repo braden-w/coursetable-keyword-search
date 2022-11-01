@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 		redis.incr('counter');
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
 		// console.timeEnd('queryCourseTable');
-		return json(response);
+		return json(response, { headers: { 'Allow-Control-Allow-Origin': '*' } });
 	} catch (e) {
 		throw error(500, e as Error);
 	}
