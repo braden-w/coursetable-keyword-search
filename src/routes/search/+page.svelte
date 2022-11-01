@@ -63,7 +63,7 @@
 
 	const getCourses = async (params: Params) => {
 		const response = await fetch(
-			`https://janktable.herokuapp.com/api/search?${new URLSearchParams(params)}`
+			`/api/search?${new URLSearchParams(params)}`
 		);
 		const data = (await response.json()) as SearchResponse;
 		return data.data.computed_listing_info_aggregate.nodes;
