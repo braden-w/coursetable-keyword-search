@@ -55,8 +55,8 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Ever',
-		keyword: 'ever',
+		title: 'Influential',
+		keyword: 'influential',
 		course_keyword: '',
 		areas_skills_keyword: ''
 	},
