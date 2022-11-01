@@ -50,7 +50,7 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 			]
 		}
 		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
-		limit: 500
+		limit: 200
 	) {
 		aggregate {
 			count
@@ -106,7 +106,7 @@ const query = `query searchCoursesByKeyword(
 			]
 		}
 		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
-		limit: 500
+		limit: 200
 	) {
 		aggregate {
 			count
