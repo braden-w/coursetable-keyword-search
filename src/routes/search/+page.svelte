@@ -32,6 +32,24 @@
 	let loading = false;
 	$: coursesSortedByCount = courses
 		.filter((course) => course.same_course_id in seasonCourseIds)
+		// Combine courses with the same course id
+		.reduce((acc, course) => {
+			const sameCourse = acc.find((c) => c.same_course_id === course.same_course_id);
+			if (sameCourse) {
+				// Combine the reviews
+				sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count +=
+					course.course.evaluation_narratives_aggregate_filtered.aggregate.count;
+				sameCourse.course.evaluation_narratives_aggregate.aggregate.count +=
+					course.course.evaluation_narratives_aggregate.aggregate.count;
+				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = [
+					...course.course.evaluation_narratives_aggregate_filtered.nodes,
+					...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
+				];
+			} else {
+				acc.push(course);
+			}
+			return acc;
+		}, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'])
 		.sort(
 			(a, b) =>
 				b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
