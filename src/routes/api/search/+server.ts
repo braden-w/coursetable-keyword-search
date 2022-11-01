@@ -15,6 +15,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	// From https://stackoverflow.com/a/58437909
 	try {
 		// console.time('queryCourseTable');
+		redis.incr('counter');
 		const response = await queryCourseTable({ keyword, course_keyword, areas_skills_keyword });
 		// console.timeEnd('queryCourseTable');
 		return json(response);
