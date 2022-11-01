@@ -14,7 +14,7 @@ const config = {
 
 	kit: {
 		// Default adapter if on Vercel, node adapter if on Heroku Node.js
-		adapter: process.env.VERCEL === '1' ? adapter() : nodeAdapter(),
+		adapter: process.env.VERCEL === '1' ? adapter() : nodeAdapter()
 	}
 };
 
