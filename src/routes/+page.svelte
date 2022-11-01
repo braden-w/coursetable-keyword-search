@@ -40,7 +40,7 @@
 					Search Yale Course reviews by
 					<span bind:this={typewriter} class="font-extrabold text-primary-content" />
 				</h1>
-				<h2 class="text-xl font-medium">Don't just read reviews, search them. Try now:</h2>
+				<h2 class="text-xl font-medium">Don't just read reviews, search them. Courtesy of <a href="https://www.coursetable.com/" class="from-sky-500 to-sky-700 text-transparent bg-clip-text bg-gradient-to-br"> <strong>CourseTable</strong></a>. Try now:</h2>
 				<div class="">
 					<div class="flex w-full">
 						<label for="search" class="sr-only">Search</label>
