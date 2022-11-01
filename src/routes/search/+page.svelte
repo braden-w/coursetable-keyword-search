@@ -42,12 +42,20 @@
 				sameCourse.course.evaluation_narratives_aggregate.aggregate.count +=
 					course.course.evaluation_narratives_aggregate.aggregate.count;
 				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = [
-						...course.course.evaluation_narratives_aggregate_filtered.nodes,
-						...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
+					...course.course.evaluation_narratives_aggregate_filtered.nodes,
+					...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
 				];
-				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = sameCourse.course.evaluation_narratives_aggregate_filtered.nodes.filter(
-					(n, i, a) => a.findIndex((t) => t.comment === n.comment) === i
-				);
+				// Subtract duplicate comments from counts
+				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes =
+					sameCourse.course.evaluation_narratives_aggregate_filtered.nodes.reduce((acc, node) => {
+						if (acc.find((n) => n.comment === node.comment)) {
+							sameCourse.course.evaluation_narratives_aggregate.aggregate.count -= 1;
+							sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count -= 1;
+							return acc;
+						}
+						acc.push(node);
+						return acc;
+					}, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number]['course']['evaluation_narratives_aggregate_filtered']['nodes']);
 			} else {
 				acc.push(course);
 			}
