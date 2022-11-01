@@ -89,5 +89,29 @@ export const premadeQueries: PremadeQuery[] = [
 		keyword: 'of all',
 		course_keyword: '',
 		areas_skills_keyword: ''
+	},
+	{
+		title: 'Easy economics courses',
+		keyword: 'easy',
+		course_keyword: 'ECON',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Gut CS Classes',
+		keyword: 'gut',
+		course_keyword: 'CPSC',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Best humanities courses',
+		keyword: 'best',
+		course_keyword: '',
+		areas_skills_keyword: 'Hu'
+	},
+	{
+		title: 'Favorite history courses',
+		keyword: 'favorite',
+		course_keyword: 'HIST',
+		areas_skills_keyword: ''
 	}
 ];
