@@ -15,7 +15,7 @@
 </script>
 
 <div bind:this={scroll} class="flex snap-x gap-1.5 overflow-x-auto md:gap-2">
-	<button on:click={scrollLeft} class="absolute left-0">
+	<button on:click={scrollLeft} class="absolute left-9 mt-1">
 		<Icon src={ArrowLeft} class="h-4 w-4" />
 	</button>
 	{#each premadeQueries as premadeQuery (premadeQuery.title)}
@@ -23,7 +23,7 @@
 			<QueryButton {premadeQuery} on:click />
 		</div>
 	{/each}
-	<button on:click={scrollRight} class="absolute right-0">
+	<button on:click={scrollRight} class="absolute right-9 mt-1">
 		<Icon src={ArrowRight} class="h-4 w-4" />
 	</button>
 </div>
