@@ -13,9 +13,9 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Easiest CS Classes',
-		keyword: 'easiest',
-		course_keyword: 'CPSC',
+		title: 'Best HSHM courses',
+		keyword: 'best',
+		course_keyword: 'HSHM',
 		areas_skills_keyword: ''
 	},
 	{
@@ -28,6 +28,12 @@ export const premadeQueries: PremadeQuery[] = [
 		title: 'Highly recommended Philosophy Courses',
 		keyword: 'high%recommend',
 		course_keyword: 'PHIL',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Highly recommended ECON 400 level courses',
+		keyword: 'high%recommend',
+		course_keyword: 'ECON 4%',
 		areas_skills_keyword: ''
 	},
 	{
