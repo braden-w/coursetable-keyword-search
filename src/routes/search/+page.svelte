@@ -31,36 +31,36 @@
 	let showFilters = true;
 	let loading = false;
 	$: coursesSortedByCount = courses
-		.filter((course) => course.same_course_id in seasonCourseIds)
+		// .filter((course) => course.same_course_id in seasonCourseIds)
 		// Combine courses with the same course id
-		.reduce((acc, course) => {
-			const sameCourse = acc.find((c) => c.same_course_id === course.same_course_id);
-			if (sameCourse) {
-				// Combine the reviews
-				sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count +=
-					course.course.evaluation_narratives_aggregate_filtered.aggregate.count;
-				sameCourse.course.evaluation_narratives_aggregate.aggregate.count +=
-					course.course.evaluation_narratives_aggregate.aggregate.count;
-				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = [
-					...course.course.evaluation_narratives_aggregate_filtered.nodes,
-					...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
-				];
-				// Subtract duplicate comments from counts
-				sameCourse.course.evaluation_narratives_aggregate_filtered.nodes =
-					sameCourse.course.evaluation_narratives_aggregate_filtered.nodes.reduce((acc, node) => {
-						if (acc.find((n) => n.comment === node.comment)) {
-							sameCourse.course.evaluation_narratives_aggregate.aggregate.count -= 1;
-							sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count -= 1;
-							return acc;
-						}
-						acc.push(node);
-						return acc;
-					}, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number]['course']['evaluation_narratives_aggregate_filtered']['nodes']);
-			} else {
-				acc.push(course);
-			}
-			return acc;
-		}, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'])
+		// .reduce((acc, course) => {
+		// 	const sameCourse = acc.find((c) => c.same_course_id === course.same_course_id);
+		// 	if (sameCourse) {
+		// 		// Combine the reviews
+		// 		sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count +=
+		// 			course.course.evaluation_narratives_aggregate_filtered.aggregate.count;
+		// 		sameCourse.course.evaluation_narratives_aggregate.aggregate.count +=
+		// 			course.course.evaluation_narratives_aggregate.aggregate.count;
+		// 		sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = [
+		// 			...course.course.evaluation_narratives_aggregate_filtered.nodes,
+		// 			...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
+		// 		];
+		// 		// Subtract duplicate comments from counts
+		// 		sameCourse.course.evaluation_narratives_aggregate_filtered.nodes =
+		// 			sameCourse.course.evaluation_narratives_aggregate_filtered.nodes.reduce((acc, node) => {
+		// 				if (acc.find((n) => n.comment === node.comment)) {
+		// 					sameCourse.course.evaluation_narratives_aggregate.aggregate.count -= 1;
+		// 					sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count -= 1;
+		// 					return acc;
+		// 				}
+		// 				acc.push(node);
+		// 				return acc;
+		// 			}, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number]['course']['evaluation_narratives_aggregate_filtered']['nodes']);
+		// 	} else {
+		// 		acc.push(course);
+		// 	}
+		// 	return acc;
+		// }, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'])
 		.sort(
 			(a, b) =>
 				b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
@@ -107,7 +107,7 @@
 	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
-
+{courses}
 <div class="mx-auto max-w-7xl flex-col py-6 px-4 sm:px-6 lg:px-8">
 	<h3 class="mb-4 text-3xl font-bold md:text-3xl">Search CourseTable reviews by keyword</h3>
 	<div class="my-2 flex w-full">
@@ -198,7 +198,7 @@
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
-			<VirtualList items={coursesSortedByCount} let:item height="90vh">
+			<VirtualList items={coursesSortedByCount} let:item height="54rem">
 				<ResultItem course={item} {keyword} />
 				<li class="border-t border-gray-200" />
 			</VirtualList>
