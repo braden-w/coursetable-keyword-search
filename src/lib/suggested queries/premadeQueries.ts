@@ -7,14 +7,32 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Best',
-		keyword: 'best',
+		title: 'Favorite history courses',
+		keyword: 'favorite',
+		course_keyword: 'HIST',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Easiest CS Classes',
+		keyword: 'easiest',
+		course_keyword: 'CPSC',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Easiest of all time',
+		keyword: 'easiest',
 		course_keyword: '',
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Highly recommend',
+		title: 'Highly recommended Philosophy Courses',
 		keyword: 'high%recommend',
+		course_keyword: 'PHIL',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Best',
+		keyword: 'best',
 		course_keyword: '',
 		areas_skills_keyword: ''
 	},
@@ -79,12 +97,6 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Easiest of all time',
-		keyword: 'easiest',
-		course_keyword: '',
-		areas_skills_keyword: ''
-	},
-	{
 		title: 'One of',
 		keyword: 'one of',
 		course_keyword: '',
@@ -103,21 +115,9 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Gut CS Classes',
-		keyword: 'gut',
-		course_keyword: 'CPSC',
-		areas_skills_keyword: ''
-	},
-	{
 		title: 'Best humanities courses',
 		keyword: 'best',
 		course_keyword: '',
 		areas_skills_keyword: 'Hu'
-	},
-	{
-		title: 'Favorite history courses',
-		keyword: 'favorite',
-		course_keyword: 'HIST',
-		areas_skills_keyword: ''
 	}
 ];
