@@ -18,7 +18,7 @@
 
 <div bind:this={scroll} class="flex snap-x gap-1.5 overflow-x-auto md:snap-none md:gap-2">
 	{#if showLeftArrow}
-		<button on:click={scrollLeft} class="absolute left-9 mt-1">
+		<button on:click={scrollLeft} class="absolute left-7 mt-1">
 			<Icon src={ArrowLeft} class="h-4 w-4" />
 		</button>
 	{/if}
@@ -27,7 +27,7 @@
 			<QueryButton {premadeQuery} on:click />
 		</div>
 	{/each}
-	<button on:click={scrollRight} class="absolute right-9 mt-1">
+	<button on:click={scrollRight} class="absolute right-7 mt-1">
 		<Icon src={ArrowRight} class="h-4 w-4" />
 	</button>
 </div>
