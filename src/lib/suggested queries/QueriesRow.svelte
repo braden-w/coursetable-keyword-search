@@ -3,8 +3,10 @@
 	import QueryButton from './QueryButton.svelte';
 </script>
 
-<div class="flex flex-wrap gap-1.5 overflow-x-auto md:gap-2">
+<div class="flex snap-x md:snap-none gap-1.5 overflow-x-auto md:gap-2">
 	{#each premadeQueries as premadeQuery (premadeQuery.title)}
-		<QueryButton {premadeQuery} on:click />
+		<div class="snap-start">
+			<QueryButton {premadeQuery} on:click />
+		</div>
 	{/each}
 </div>
