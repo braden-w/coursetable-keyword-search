@@ -11,6 +11,7 @@
 	import type { PageData } from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
+	import {requestLimit} from '$lib/constants';
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
@@ -107,7 +108,6 @@
 	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
-{courses}
 <div class="mx-auto max-w-7xl flex-col py-6 px-4 sm:px-6 lg:px-8">
 	<h3 class="mb-4 text-3xl font-bold md:text-3xl">Search CourseTable reviews by keyword</h3>
 	<div class="my-2 flex w-full">
@@ -194,7 +194,9 @@
 
 	{#if coursesSortedByCount.length !== 0}
 		<div class="my-4">
-			<p class="text-center text-gray-500">{coursesSortedByCount.length} results</p>
+			<p class="text-center text-gray-500">
+				{courses.length === requestLimit ? `${requestLimit}+` : courses.length} results
+			</p>
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">

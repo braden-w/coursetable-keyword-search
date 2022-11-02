@@ -38,6 +38,8 @@
 // 			times_summary
 // 			title
 
+import {requestLimit} from "$lib/constants";
+
 const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 	$keyword: String!
 	$course_keyword: String!
@@ -50,7 +52,7 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 			]
 		}
 		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
-		limit: 200
+		limit: ${requestLimit}
 	) {
 		aggregate {
 			count
@@ -59,7 +61,6 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 			all_course_codes
 			areas
 			course_code
-			credits
 			description
 			listing_id
 			same_course_id
@@ -69,6 +70,7 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 			course {
 				evaluation_narratives_aggregate_filtered: evaluation_narratives_aggregate(
 					where: { comment: { _ilike: $keyword } }
+					order_by: { comment_compound: desc }
 				) {
 					aggregate {
 						count
@@ -106,7 +108,7 @@ const query = `query searchCoursesByKeyword(
 			]
 		}
 		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
-		limit: 200
+		limit: ${requestLimit}
 	) {
 		aggregate {
 			count
@@ -115,7 +117,6 @@ const query = `query searchCoursesByKeyword(
 			all_course_codes
 			areas
 			course_code
-			credits
 			description
 			listing_id
 			same_course_id
@@ -125,6 +126,7 @@ const query = `query searchCoursesByKeyword(
 			course {
 				evaluation_narratives_aggregate_filtered: evaluation_narratives_aggregate(
 					where: { comment: { _ilike: $keyword } }
+					order_by: { comment_compound: desc }
 				) {
 					aggregate {
 						count
