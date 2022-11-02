@@ -11,7 +11,7 @@
 	import type { PageData } from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
-	import {requestLimit} from '$lib/constants';
+	import {REQUEST_LIMIT} from '$lib/constants';
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
@@ -195,7 +195,7 @@
 	{#if coursesSortedByCount.length !== 0}
 		<div class="my-4">
 			<p class="text-center text-gray-500">
-				{courses.length === requestLimit ? `${requestLimit}+` : courses.length} results
+				{courses.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : courses.length} results
 			</p>
 		</div>
 		<!-- <div class="sm:hidden"> -->

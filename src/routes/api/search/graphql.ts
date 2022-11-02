@@ -38,7 +38,7 @@
 // 			times_summary
 // 			title
 
-import {requestLimit} from "$lib/constants";
+import {REQUEST_LIMIT} from "$lib/constants";
 
 const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 	$keyword: String!
@@ -52,7 +52,7 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 			]
 		}
 		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
-		limit: ${requestLimit}
+		limit: ${REQUEST_LIMIT}
 	) {
 		aggregate {
 			count
@@ -108,7 +108,7 @@ const query = `query searchCoursesByKeyword(
 			]
 		}
 		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
-		limit: ${requestLimit}
+		limit: ${REQUEST_LIMIT}
 	) {
 		aggregate {
 			count
