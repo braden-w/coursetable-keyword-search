@@ -8,6 +8,18 @@
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
 	export let keyword: string;
+
+	function interpretSeasonCode(yearSeason: string) {
+		const numbersToSeasons = {
+			'01': 'Spring',
+			'02': 'Summer',
+			'03': 'Fall'
+		};
+		// Pop the first four characters off the season code into season
+		const year = yearSeason.slice(0, 4);
+		const season = yearSeason.slice(-2) as keyof typeof numbersToSeasons;
+		return `${numbersToSeasons[season]} ${year}`;
+	}
 </script>
 
 <li>
@@ -41,6 +53,7 @@
 									<!-- Spacer for my-2 -->
 									<span class="inline-block h-5 w-0 align-middle" />
 								{/each}
+								{interpretSeasonCode(course.season_code)}
 							</div>
 							<div>
 								{#each course.skills as skill (skill)}
