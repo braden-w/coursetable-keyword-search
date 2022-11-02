@@ -22,7 +22,7 @@
 <a
 	href="/search?{new URLSearchParams(params)}"
 	on:click={onClick}
-	class="whitespace-nowrap rounded-md bg-primary px-2 py-0.5 text-sm font-medium text-white"
+	class="whitespace-nowrap rounded-md bg-primary px-2 py-1 text-sm font-medium text-white"
 >
 	{title}
 </a>
