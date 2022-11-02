@@ -106,7 +106,7 @@
 </li>
 
 {#if expanded}
-	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review (review.comment)}
+	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review}
 		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">
