@@ -1,9 +1,9 @@
 import type { PremadeQuery } from '$lib/types/Query';
 export const premadeQueries: PremadeQuery[] = [
 	{
-		title: 'Favorite',
+		title: 'Favorite English 100 level courses',
 		keyword: 'favorite',
-		course_keyword: '',
+		course_keyword: 'ENGL 1%',
 		areas_skills_keyword: ''
 	},
 	{
@@ -19,7 +19,7 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Quintessential',
+		title: 'Quintessential Yale courses',
 		keyword: 'quintessential',
 		course_keyword: '',
 		areas_skills_keyword: ''
@@ -79,8 +79,8 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Easy',
-		keyword: 'easy',
+		title: 'Easiest of all time',
+		keyword: 'easiest',
 		course_keyword: '',
 		areas_skills_keyword: ''
 	},
