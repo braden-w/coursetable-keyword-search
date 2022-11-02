@@ -44,7 +44,7 @@
 					Don't just read reviews, search them. Courtesy of
 					<a
 						href="https://www.coursetable.com/"
-						class="bg-gradient-to-br from-sky-500 to-sky-700 bg-clip-text text-transparent"
+						class="-mr-1 bg-gradient-to-br from-sky-500 to-sky-700 bg-clip-text text-transparent"
 					>
 						<strong>CourseTable</strong>
 					</a>. Try now:
