@@ -14,7 +14,7 @@
 	}
 </script>
 
-<div bind:this={scroll} class="flex snap-x md:snap-none gap-1.5 overflow-x-auto md:gap-2">
+<div bind:this={scroll} class="flex snap-x gap-1.5 overflow-x-auto md:snap-none md:gap-2">
 	<button on:click={scrollLeft} class="absolute left-9 mt-1">
 		<Icon src={ArrowLeft} class="h-4 w-4" />
 	</button>
@@ -27,3 +27,10 @@
 		<Icon src={ArrowRight} class="h-4 w-4" />
 	</button>
 </div>
+
+<style>
+/* Hide the scrollbar */
+::-webkit-scrollbar {
+	display: none;
+}
+</style>
