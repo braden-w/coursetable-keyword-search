@@ -8,6 +8,7 @@ const config = {
 	daisyui: {
 		darkTheme: 'yale',
 		themes: [
+			'dark',
 			{
 				yale: {
 					primary: '#00356b',
@@ -26,7 +27,6 @@ const config = {
 				}
 			},
 			'light',
-			'dark',
 			'cupcake',
 			'bumblebee',
 			'emerald',
