@@ -13,6 +13,16 @@
 	/>
 	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 	<link rel="icon" href="/favicon.png" />
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PEGFGBNW6V"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'G-PEGFGBNW6V');
+	</script>
 </svelte:head>
 <Header />
 
