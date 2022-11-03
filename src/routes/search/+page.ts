@@ -1,6 +1,5 @@
-import {SEASON_ID} from '$lib/constants';
+import { SEASON_ID } from '$lib/constants';
 import type { PageLoad } from './$types';
-
 
 export const load: PageLoad = async ({ fetch }) => {
 	// Get the file from static/same_course_id of this season

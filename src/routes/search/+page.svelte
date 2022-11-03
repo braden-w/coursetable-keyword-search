@@ -13,7 +13,7 @@
 	import ResultItem from './ResultItem.svelte';
 	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
 	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
-	import {interpretSeasonCode} from '$lib/helpers';
+	import { interpretSeasonCode } from '$lib/helpers';
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
@@ -202,12 +202,12 @@
 	<QueriesRow on:click={onQueriesRowClick} />
 
 	{#if coursesToDisplay.length !== 0}
-		<div class="my-4 relative">
+		<div class="relative my-4">
 			<p class="text-center text-gray-500">
 				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
 			</p>
 			<!-- Put a toggle switch for filterCurrentSeason -->
-			<SwitchGroup as="div" class="absolute flex items-center inset-y-0 right-0">
+			<SwitchGroup as="div" class="absolute inset-y-0 right-0 flex items-center">
 				<SwitchLabel as="span" class="mr-3">
 					<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
 				</SwitchLabel>

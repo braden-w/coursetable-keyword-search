@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import type { Params, PremadeQuery } from '$lib/types/Query';
 	import { createEventDispatcher } from 'svelte';
 

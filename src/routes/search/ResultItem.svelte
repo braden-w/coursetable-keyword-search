@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {interpretSeasonCode} from '$lib/helpers';
+	import { interpretSeasonCode } from '$lib/helpers';
 	import type { SearchResponse } from '$lib/types/SearchResponse';
 	import { BookOpen, ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
