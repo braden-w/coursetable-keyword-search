@@ -4,14 +4,14 @@
 	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type { Params } from '$lib/types/Query';
-	import type { SearchResponse } from '$lib/types/SearchResponse';
+	import type { ComputedListingInfoAggregateNode, SearchResponse } from '$lib/types/SearchResponse';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
-	import {REQUEST_LIMIT} from '$lib/constants';
+	import { REQUEST_LIMIT } from '$lib/constants';
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
@@ -31,42 +31,49 @@
 
 	let showFilters = true;
 	let loading = false;
-	$: coursesSortedByCount = courses
-		// .filter((course) => course.same_course_id in seasonCourseIds)
-		// Combine courses with the same course id
-		// .reduce((acc, course) => {
-		// 	const sameCourse = acc.find((c) => c.same_course_id === course.same_course_id);
-		// 	if (sameCourse) {
-		// 		// Combine the reviews
-		// 		sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count +=
-		// 			course.course.evaluation_narratives_aggregate_filtered.aggregate.count;
-		// 		sameCourse.course.evaluation_narratives_aggregate.aggregate.count +=
-		// 			course.course.evaluation_narratives_aggregate.aggregate.count;
-		// 		sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = [
-		// 			...course.course.evaluation_narratives_aggregate_filtered.nodes,
-		// 			...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
-		// 		];
-		// 		// Subtract duplicate comments from counts
-		// 		sameCourse.course.evaluation_narratives_aggregate_filtered.nodes =
-		// 			sameCourse.course.evaluation_narratives_aggregate_filtered.nodes.reduce((acc, node) => {
-		// 				if (acc.find((n) => n.comment === node.comment)) {
-		// 					sameCourse.course.evaluation_narratives_aggregate.aggregate.count -= 1;
-		// 					sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count -= 1;
-		// 					return acc;
-		// 				}
-		// 				acc.push(node);
-		// 				return acc;
-		// 			}, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number]['course']['evaluation_narratives_aggregate_filtered']['nodes']);
-		// 	} else {
-		// 		acc.push(course);
-		// 	}
-		// 	return acc;
-		// }, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'])
-		.sort(
-			(a, b) =>
-				b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
-				a.course.evaluation_narratives_aggregate_filtered.aggregate.count
-		);
+	let filterCurrentSeason = true;
+
+	const sortByAggregateFilteredCount = (
+		a: ComputedListingInfoAggregateNode,
+		b: ComputedListingInfoAggregateNode
+	) =>
+		b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
+		a.course.evaluation_narratives_aggregate_filtered.aggregate.count;
+
+	$: coursesSortedByCount = filterCurrentSeason
+		? courses
+				.filter((course) => course.same_course_id in seasonCourseIds)
+				.sort(sortByAggregateFilteredCount)
+		: courses.sort(sortByAggregateFilteredCount);
+	// Combine courses with the same course id
+	// .reduce((acc, course) => {
+	// 	const sameCourse = acc.find((c) => c.same_course_id === course.same_course_id);
+	// 	if (sameCourse) {
+	// 		// Combine the reviews
+	// 		sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count +=
+	// 			course.course.evaluation_narratives_aggregate_filtered.aggregate.count;
+	// 		sameCourse.course.evaluation_narratives_aggregate.aggregate.count +=
+	// 			course.course.evaluation_narratives_aggregate.aggregate.count;
+	// 		sameCourse.course.evaluation_narratives_aggregate_filtered.nodes = [
+	// 			...course.course.evaluation_narratives_aggregate_filtered.nodes,
+	// 			...sameCourse.course.evaluation_narratives_aggregate_filtered.nodes
+	// 		];
+	// 		// Subtract duplicate comments from counts
+	// 		sameCourse.course.evaluation_narratives_aggregate_filtered.nodes =
+	// 			sameCourse.course.evaluation_narratives_aggregate_filtered.nodes.reduce((acc, node) => {
+	// 				if (acc.find((n) => n.comment === node.comment)) {
+	// 					sameCourse.course.evaluation_narratives_aggregate.aggregate.count -= 1;
+	// 					sameCourse.course.evaluation_narratives_aggregate_filtered.aggregate.count -= 1;
+	// 					return acc;
+	// 				}
+	// 				acc.push(node);
+	// 				return acc;
+	// 			}, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number]['course']['evaluation_narratives_aggregate_filtered']['nodes']);
+	// 	} else {
+	// 		acc.push(course);
+	// 	}
+	// 	return acc;
+	// }, [] as SearchResponse['data']['computed_listing_info_aggregate']['nodes'])
 
 	const updateRoute = (params: Params) => goto(`/search?${new URLSearchParams(params)}`);
 
