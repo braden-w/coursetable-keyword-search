@@ -202,7 +202,7 @@
 	<QueriesRow on:click={onQueriesRowClick} />
 
 	{#if coursesToDisplay.length !== 0}
-		<div class="relative my-4">
+		<div class="relative my-4 flex sm:block">
 			<p class="text-center text-gray-500">
 				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
 			</p>
