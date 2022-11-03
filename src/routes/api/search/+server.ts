@@ -5,7 +5,7 @@ import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { options } from './payload';
 import zlib from 'zlib';
-import {DEFAULT_EXPIRATION} from '$lib/constants';
+import { DEFAULT_EXPIRATION } from '$lib/constants';
 
 export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	const keyword = url.searchParams.get('keyword') ?? '';
