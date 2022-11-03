@@ -12,6 +12,7 @@
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
 	import { REQUEST_LIMIT } from '$lib/constants';
+	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
@@ -40,7 +41,7 @@
 		b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
 		a.course.evaluation_narratives_aggregate_filtered.aggregate.count;
 
-	$: coursesSortedByCount = filterCurrentSeason
+	$: coursesToDisplay = filterCurrentSeason
 		? courses
 				.filter((course) => course.same_course_id in seasonCourseIds)
 				.sort(sortByAggregateFilteredCount)
@@ -199,15 +200,35 @@
 
 	<QueriesRow on:click={onQueriesRowClick} />
 
-	{#if coursesSortedByCount.length !== 0}
-		<div class="my-4">
+	{#if coursesToDisplay.length !== 0}
+		<div class="my-4 relative">
 			<p class="text-center text-gray-500">
-				{courses.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : courses.length} results
+				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
 			</p>
+			<!-- Put a toggle switch for filterCurrentSeason -->
+			<SwitchGroup as="div" class="absolute flex items-center inset-y-0 right-0">
+				<SwitchLabel as="span" class="mr-3">
+					<span class="text-sm font-medium">Filter for Spring 2023</span>
+				</SwitchLabel>
+				<Switch
+					checked={filterCurrentSeason}
+					on:change={(e) => (filterCurrentSeason = e.detail)}
+					class="{filterCurrentSeason
+						? 'bg-primary'
+						: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+				>
+					<span
+						aria-hidden="true"
+						class="{filterCurrentSeason
+							? 'translate-x-5'
+							: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+					/>
+				</Switch>
+			</SwitchGroup>
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
-			<VirtualList items={coursesSortedByCount} let:item height="54rem">
+			<VirtualList items={coursesToDisplay} let:item height="54rem">
 				<ResultItem course={item} {keyword} />
 				<li class="border-t border-gray-200" />
 			</VirtualList>
@@ -216,7 +237,7 @@
 		<!-- <div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
 				<div class="hidden sm:block">
-					{#each coursesSortedByCount as course (course.listing_id)}
+					{#each coursesToDisplay as course (course.listing_id)}
 						<ResultItem {course} {keyword} />
 					{/each}
 				</div>
