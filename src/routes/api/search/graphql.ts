@@ -38,7 +38,7 @@
 // 			times_summary
 // 			title
 
-import {REQUEST_LIMIT} from "$lib/constants";
+import { REQUEST_LIMIT } from '$lib/constants';
 
 const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 	$keyword: String!
