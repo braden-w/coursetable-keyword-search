@@ -11,8 +11,9 @@
 	import type { PageData } from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
-	import { REQUEST_LIMIT } from '$lib/constants';
+	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
 	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
+	import {interpretSeasonCode} from '$lib/helpers';
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
@@ -208,7 +209,7 @@
 			<!-- Put a toggle switch for filterCurrentSeason -->
 			<SwitchGroup as="div" class="absolute flex items-center inset-y-0 right-0">
 				<SwitchLabel as="span" class="mr-3">
-					<span class="text-sm font-medium">Filter for Spring 2023</span>
+					<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
 				</SwitchLabel>
 				<Switch
 					checked={filterCurrentSeason}
