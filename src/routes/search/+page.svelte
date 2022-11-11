@@ -34,7 +34,7 @@
 	let showFilters = true;
 	let loading = false;
 	let filterCurrentSeason = true;
-	let sortPercent = true;
+	let sortPercent = false;
 
 	function count(a: ComputedListingInfoAggregateNode, b: ComputedListingInfoAggregateNode) {
 		return (
