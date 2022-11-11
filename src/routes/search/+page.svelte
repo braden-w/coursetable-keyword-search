@@ -13,7 +13,7 @@
 	import ResultItem from './ResultItem.svelte';
 	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
 	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
-	import { interpretSeasonCode } from '$lib/helpers';
+	import { getPercent, interpretSeasonCode } from '$lib/helpers';
 
 	export let data: PageData;
 	const { seasonCourseIds } = data;
@@ -34,19 +34,24 @@
 	let showFilters = true;
 	let loading = false;
 	let filterCurrentSeason = true;
+	let sortPercent = false;
 
-	const sortByAggregateFilteredCount = (
-		a: ComputedListingInfoAggregateNode,
-		b: ComputedListingInfoAggregateNode
-	) =>
-		b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
-		a.course.evaluation_narratives_aggregate_filtered.aggregate.count;
+	function count(a: ComputedListingInfoAggregateNode, b: ComputedListingInfoAggregateNode) {
+		return (
+			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
+			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
+		);
+	}
 
-	$: coursesToDisplay = filterCurrentSeason
-		? courses
-				.filter((course) => course.same_course_id in seasonCourseIds)
-				.sort(sortByAggregateFilteredCount)
-		: courses.sort(sortByAggregateFilteredCount);
+	function percent(a: ComputedListingInfoAggregateNode, b: ComputedListingInfoAggregateNode) {
+		return getPercent(b) - getPercent(a);
+	}
+
+	$: coursesFiltered = filterCurrentSeason
+		? courses.filter((course) => course.same_course_id in seasonCourseIds)
+		: courses;
+	$: coursesToDisplay = sortPercent ? coursesFiltered.sort(percent) : coursesFiltered.sort(count);
+
 	// Combine courses with the same course id
 	// .reduce((acc, course) => {
 	// 	const sameCourse = acc.find((c) => c.same_course_id === course.same_course_id);
@@ -202,30 +207,52 @@
 	<QueriesRow on:click={onQueriesRowClick} />
 
 	{#if coursesToDisplay.length !== 0}
-		<div class="relative my-4 flex sm:block">
+		<div class="relative my-4 flex flex-col justify-center sm:flex-row">
 			<p class="text-center text-gray-500">
 				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
 			</p>
-			<!-- Put a toggle switch for filterCurrentSeason -->
-			<SwitchGroup as="div" class="absolute inset-y-0 right-0 flex items-center">
-				<SwitchLabel as="span" class="mr-3">
-					<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
-				</SwitchLabel>
-				<Switch
-					checked={filterCurrentSeason}
-					on:change={(e) => (filterCurrentSeason = e.detail)}
-					class="{filterCurrentSeason
-						? 'bg-primary'
-						: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-				>
-					<span
-						aria-hidden="true"
+			<div class="right-0 mt-4 flex justify-between gap-6 sm:absolute sm:mt-0">
+				<!-- Put a switch group to sort by percentage or count -->
+				<SwitchGroup as="div" class="inset-y-0 flex items-center">
+					<SwitchLabel as="span" class="mr-3">
+						<span class="text-sm font-medium">Sort by {sortPercent ? '%' : '#'}</span>
+					</SwitchLabel>
+					<Switch
+						checked={sortPercent}
+						on:change={(e) => (sortPercent = e.detail)}
+						class="{sortPercent
+							? 'bg-primary'
+							: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+					>
+						<span
+							aria-hidden="true"
+							class="{sortPercent
+								? 'translate-x-5'
+								: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+						/>
+					</Switch>
+				</SwitchGroup>
+				<!-- Put a toggle switch for filterCurrentSeason -->
+				<SwitchGroup as="div" class="inset-y-0 flex items-center">
+					<SwitchLabel as="span" class="mr-3">
+						<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
+					</SwitchLabel>
+					<Switch
+						checked={filterCurrentSeason}
+						on:change={(e) => (filterCurrentSeason = e.detail)}
 						class="{filterCurrentSeason
-							? 'translate-x-5'
-							: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-					/>
-				</Switch>
-			</SwitchGroup>
+							? 'bg-primary'
+							: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+					>
+						<span
+							aria-hidden="true"
+							class="{filterCurrentSeason
+								? 'translate-x-5'
+								: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+						/>
+					</Switch>
+				</SwitchGroup>
+			</div>
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
