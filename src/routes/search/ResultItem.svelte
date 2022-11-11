@@ -1,16 +1,13 @@
 <script lang="ts">
-	import { interpretSeasonCode } from '$lib/helpers';
-	import type { SearchResponse } from '$lib/types/SearchResponse';
+	import { getPercent, interpretSeasonCode } from '$lib/helpers';
+	import type { ComputedListingInfoAggregateNode, SearchResponse } from '$lib/types/SearchResponse';
 	import { BookOpen, ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { slide } from 'svelte/transition';
 
-	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
+	export let course: ComputedListingInfoAggregateNode;
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
-	$: percent =
-		course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count /
-		course.course?.evaluation_narratives_aggregate?.aggregate?.count * 100 || 0;
 
 	export let keyword: string;
 </script>
@@ -27,7 +24,9 @@
 						</p>
 						<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
 							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course
-								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews (~{percent.toFixed(1)}%)
+								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews (~{getPercent(
+								course
+							).toFixed(1)}%)
 						</p>
 					</div>
 					<div class="mt-2">
