@@ -1,9 +1,15 @@
 import type { PremadeQuery } from '$lib/types/Query';
 export const premadeQueries: PremadeQuery[] = [
 	{
-		title: 'Favorite English 100 level courses',
-		keyword: 'favorite',
-		course_keyword: 'ENGL 1%',
+		title: 'Best of all time',
+		keyword: 'best',
+		course_keyword: '',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Easiest of all time',
+		keyword: 'easiest',
+		course_keyword: '',
 		areas_skills_keyword: ''
 	},
 	{
@@ -19,9 +25,9 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Best HSHM courses',
-		keyword: 'best',
-		course_keyword: 'HSHM',
+		title: 'Best lecture of all time',
+		keyword: 'best%lecture',
+		course_keyword: '',
 		areas_skills_keyword: ''
 	},
 	{
@@ -31,21 +37,27 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Easiest of all time',
-		keyword: 'easiest',
+		title: 'Love',
+		keyword: 'love',
 		course_keyword: '',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Favorite English 100 level courses',
+		keyword: 'favorite',
+		course_keyword: 'ENGL 1%',
+		areas_skills_keyword: ''
+	},
+	{
+		title: 'Best HSHM courses',
+		keyword: 'best',
+		course_keyword: 'HSHM',
 		areas_skills_keyword: ''
 	},
 	{
 		title: 'Highly recommended ECON 400 level courses',
 		keyword: 'high%recommend',
 		course_keyword: 'ECON 4%',
-		areas_skills_keyword: ''
-	},
-	{
-		title: 'Best',
-		keyword: 'best',
-		course_keyword: '',
 		areas_skills_keyword: ''
 	},
 	{
@@ -61,16 +73,16 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
-		title: 'Love',
-		keyword: 'love',
-		course_keyword: '',
-		areas_skills_keyword: ''
-	},
-	{
 		title: 'Important',
 		keyword: 'important',
 		course_keyword: '',
 		areas_skills_keyword: ''
+	},
+	{
+		title: 'Best humanities courses',
+		keyword: 'best',
+		course_keyword: '',
+		areas_skills_keyword: 'Hu'
 	},
 	{
 		title: 'Must',
@@ -126,10 +138,4 @@ export const premadeQueries: PremadeQuery[] = [
 		course_keyword: 'ECON',
 		areas_skills_keyword: ''
 	},
-	{
-		title: 'Best humanities courses',
-		keyword: 'best',
-		course_keyword: '',
-		areas_skills_keyword: 'Hu'
-	}
 ];
