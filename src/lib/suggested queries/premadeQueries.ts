@@ -1,4 +1,15 @@
 import type { PremadeQuery } from '$lib/types/Query';
+
+// Shuffle the array
+export function shuffleArray<T>(arr: T[]): T[] {
+	const newArr = arr.slice();
+	for (let i = newArr.length - 1; i > 0; i--) {
+		const rand = Math.floor(Math.random() * (i + 1));
+		[newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+	}
+	return newArr;
+}
+
 export const premadeQueries: PremadeQuery[] = [
 	{
 		title: 'Best of all time',
@@ -138,4 +149,10 @@ export const premadeQueries: PremadeQuery[] = [
 		course_keyword: 'ECON',
 		areas_skills_keyword: ''
 	},
+	{
+		title: 'Peter Salovey',
+		keyword: 'salovey',
+		course_keyword: '',
+		areas_skills_keyword: ''
+	}
 ];
