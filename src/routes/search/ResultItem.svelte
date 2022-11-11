@@ -8,6 +8,10 @@
 	export let course: SearchResponse['data']['computed_listing_info_aggregate']['nodes'][number];
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
+	$: percent =
+		course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count /
+		course.course?.evaluation_narratives_aggregate?.aggregate?.count * 100 || 0;
+
 	export let keyword: string;
 </script>
 
@@ -23,7 +27,7 @@
 						</p>
 						<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
 							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course
-								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews
+								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews (~{percent.toFixed(1)}%)
 						</p>
 					</div>
 					<div class="mt-2">
