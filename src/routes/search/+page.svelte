@@ -50,7 +50,7 @@
 	$: coursesFiltered = filterCurrentSeason
 		? courses.filter((course) => course.same_course_id in seasonCourseIds)
 		: courses;
-	$: coursesToDisplay = sortPercent ? coursesFiltered.sort(percent) : courses.sort(count);
+	$: coursesToDisplay = sortPercent ? coursesFiltered.sort(percent) : coursesFiltered.sort(count);
 
 	// Combine courses with the same course id
 	// .reduce((acc, course) => {
@@ -202,48 +202,6 @@
 				/>
 			</div>
 		</div>
-		<div class="flex gap-6 my-2">
-			<!-- Put a switch group to sort by percentage or count -->
-			<SwitchGroup as="div" class="inset-y-0 flex items-center">
-				<SwitchLabel as="span" class="mr-3">
-					<span class="text-sm font-medium">Sort by percentage</span>
-				</SwitchLabel>
-				<Switch
-					checked={sortPercent}
-					on:change={(e) => (sortPercent = e.detail)}
-					class="{sortPercent
-						? 'bg-primary'
-						: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-				>
-					<span
-						aria-hidden="true"
-						class="{sortPercent
-							? 'translate-x-5'
-							: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-					/>
-				</Switch>
-			</SwitchGroup>
-			<!-- Put a toggle switch for filterCurrentSeason -->
-			<SwitchGroup as="div" class="inset-y-0 flex items-center">
-				<SwitchLabel as="span" class="mr-3">
-					<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
-				</SwitchLabel>
-				<Switch
-					checked={filterCurrentSeason}
-					on:change={(e) => (filterCurrentSeason = e.detail)}
-					class="{filterCurrentSeason
-						? 'bg-primary'
-						: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-				>
-					<span
-						aria-hidden="true"
-						class="{filterCurrentSeason
-							? 'translate-x-5'
-							: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-					/>
-				</Switch>
-			</SwitchGroup>
-		</div>
 	{/if}
 
 	<QueriesRow on:click={onQueriesRowClick} />
@@ -253,6 +211,48 @@
 			<p class="text-center text-gray-500">
 				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
 			</p>
+			<div class="absolute right-0 flex gap-6">
+				<!-- Put a switch group to sort by percentage or count -->
+				<SwitchGroup as="div" class="inset-y-0 flex items-center">
+					<SwitchLabel as="span" class="mr-3">
+						<span class="text-sm font-medium">{sortPercent ? '%' : '#'}</span>
+					</SwitchLabel>
+					<Switch
+						checked={sortPercent}
+						on:change={(e) => (sortPercent = e.detail)}
+						class="{sortPercent
+							? 'bg-primary'
+							: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+					>
+						<span
+							aria-hidden="true"
+							class="{sortPercent
+								? 'translate-x-5'
+								: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+						/>
+					</Switch>
+				</SwitchGroup>
+				<!-- Put a toggle switch for filterCurrentSeason -->
+				<SwitchGroup as="div" class="inset-y-0 flex items-center">
+					<SwitchLabel as="span" class="mr-3">
+						<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
+					</SwitchLabel>
+					<Switch
+						checked={filterCurrentSeason}
+						on:change={(e) => (filterCurrentSeason = e.detail)}
+						class="{filterCurrentSeason
+							? 'bg-primary'
+							: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+					>
+						<span
+							aria-hidden="true"
+							class="{filterCurrentSeason
+								? 'translate-x-5'
+								: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+						/>
+					</Switch>
+				</SwitchGroup>
+			</div>
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
