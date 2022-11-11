@@ -211,7 +211,7 @@
 			<p class="text-center text-gray-500">
 				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
 			</p>
-			<div class="sm:absolute right-0 flex gap-6 justify-between mt-4 sm:mt-0">
+			<div class="right-0 mt-4 flex justify-between gap-6 sm:absolute sm:mt-0">
 				<!-- Put a switch group to sort by percentage or count -->
 				<SwitchGroup as="div" class="inset-y-0 flex items-center">
 					<SwitchLabel as="span" class="mr-3">
