@@ -34,7 +34,7 @@
 	let showFilters = true;
 	let loading = false;
 	let filterCurrentSeason = true;
-	let sortPercent = false;
+	let sortPercent = true;
 
 	function count(a: ComputedListingInfoAggregateNode, b: ComputedListingInfoAggregateNode) {
 		return (
@@ -202,14 +202,9 @@
 				/>
 			</div>
 		</div>
-	{/if}
-
-	<QueriesRow on:click={onQueriesRowClick} />
-
-	{#if coursesToDisplay.length !== 0}
-		<div class="relative my-4 flex sm:block">
+		<div class="flex gap-6 my-2">
 			<!-- Put a switch group to sort by percentage or count -->
-			<SwitchGroup as="div" class="absolute inset-y-0 left-0 flex items-center">
+			<SwitchGroup as="div" class="inset-y-0 flex items-center">
 				<SwitchLabel as="span" class="mr-3">
 					<span class="text-sm font-medium">Sort by percentage</span>
 				</SwitchLabel>
@@ -228,11 +223,8 @@
 					/>
 				</Switch>
 			</SwitchGroup>
-			<p class="text-center text-gray-500">
-				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
-			</p>
 			<!-- Put a toggle switch for filterCurrentSeason -->
-			<SwitchGroup as="div" class="absolute inset-y-0 right-0 flex items-center">
+			<SwitchGroup as="div" class="inset-y-0 flex items-center">
 				<SwitchLabel as="span" class="mr-3">
 					<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
 				</SwitchLabel>
@@ -251,6 +243,16 @@
 					/>
 				</Switch>
 			</SwitchGroup>
+		</div>
+	{/if}
+
+	<QueriesRow on:click={onQueriesRowClick} />
+
+	{#if coursesToDisplay.length !== 0}
+		<div class="relative my-4 flex flex-col justify-center sm:flex-row">
+			<p class="text-center text-gray-500">
+				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
+			</p>
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
