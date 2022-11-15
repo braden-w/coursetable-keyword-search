@@ -1,4 +1,4 @@
-import type { ComputedListingInfoAggregateNode } from './types/SearchResponse.d';
+import type { Course } from './types/SearchResponse.d';
 export function interpretSeasonCode(yearSeason: string) {
 	const numbersToSeasons = {
 		'01': 'Spring',
@@ -11,7 +11,7 @@ export function interpretSeasonCode(yearSeason: string) {
 	return `${numbersToSeasons[season]} ${year}`;
 }
 
-export function getPercent(course: ComputedListingInfoAggregateNode) {
+export function getPercent(course: Course) {
 	return (
 		(course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count /
 			course.course?.evaluation_narratives_aggregate?.aggregate?.count) *

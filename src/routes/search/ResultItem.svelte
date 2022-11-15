@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { getPercent, interpretSeasonCode } from '$lib/helpers';
-	import type { ComputedListingInfoAggregateNode } from '$lib/types/SearchResponse';
+	import type { Course } from '$lib/types/SearchResponse';
 	import { BookOpen, ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { slide } from 'svelte/transition';
 
-	export let course: ComputedListingInfoAggregateNode;
+	export let course: Course;
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
 

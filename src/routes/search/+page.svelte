@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
 	import type { Params } from '$lib/types/Query';
-	import type { ComputedListingInfoAggregateNode, SearchResponse } from '$lib/types/SearchResponse';
+	import type { Course, SearchResponse } from '$lib/types/SearchResponse';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
@@ -36,14 +36,14 @@
 	let filterCurrentSeason = true;
 	let sortPercent = false;
 
-	function count(a: ComputedListingInfoAggregateNode, b: ComputedListingInfoAggregateNode) {
+	function count(a: Course, b: Course) {
 		return (
 			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
 			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
 		);
 	}
 
-	function percent(a: ComputedListingInfoAggregateNode, b: ComputedListingInfoAggregateNode) {
+	function percent(a: Course, b: Course) {
 		return getPercent(b) - getPercent(a);
 	}
 
