@@ -24,6 +24,12 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
+		title: 'Easy writing credit',
+		keyword: 'eas%writing%credit',
+		course_keyword: '',
+		areas_skills_keyword: 'Sc'
+	},
+	{
 		title: 'Gutty science courses',
 		keyword: 'gut',
 		course_keyword: '',
