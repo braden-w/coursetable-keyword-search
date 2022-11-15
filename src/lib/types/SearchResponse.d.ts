@@ -5,19 +5,19 @@ export interface SearchResponse {
 }
 
 export interface Data {
-	computed_listing_info_aggregate: ComputedListingInfoAggregate;
+	computed_listing_info_aggregate: CoursesAggregate;
 }
 
-export interface ComputedListingInfoAggregate {
+export interface CoursesAggregate {
 	aggregate: Aggregate;
-	nodes: ComputedListingInfoAggregateNode[];
+	nodes: Course[];
 }
 
 export interface Aggregate {
 	count: number;
 }
 
-export interface ComputedListingInfoAggregateNode {
+export interface Course {
 	all_course_codes: string[];
 	areas: Area[];
 	average_gut_rating: number;
@@ -56,7 +56,7 @@ export interface ComputedListingInfoAggregateNode {
 	times_by_day: TimesByDay;
 	times_summary: string;
 	title: string;
-	course: Course;
+	course: CourseNested;
 }
 
 export enum Area {
@@ -64,17 +64,17 @@ export enum Area {
 	So = 'So'
 }
 
-export interface Course {
-	evaluation_narratives_aggregate_filtered: EvaluationNarrativesAggregate;
-	evaluation_narratives_aggregate: EvaluationNarrativesAggregate;
+export interface CourseNested {
+	evaluation_narratives_aggregate_filtered: CourseEvaluationsAggregate;
+	evaluation_narratives_aggregate: CourseEvaluationsAggregate;
 }
 
-export interface EvaluationNarrativesAggregate {
+export interface CourseEvaluationsAggregate {
 	aggregate: Aggregate;
-	nodes: EvaluationNarrativesAggregateNode[];
+	nodes: CourseEvaluation[];
 }
 
-export interface EvaluationNarrativesAggregateNode {
+export interface CourseEvaluation {
 	comment: string;
 }
 
