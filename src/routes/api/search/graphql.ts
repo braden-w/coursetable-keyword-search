@@ -61,6 +61,7 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 			all_course_codes
 			areas
 			course_code
+			credits
 			description
 			listing_id
 			same_course_id
@@ -74,14 +75,21 @@ const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
 				) {
 					aggregate {
 						count
+						avg {
+							comment_compound
+						}
 					}
 					nodes {
 						comment
+						comment_compound
 					}
 				}
 				evaluation_narratives_aggregate {
 					aggregate {
 						count
+						avg {
+							comment_compound
+						}
 					}
 				}
 			}
@@ -117,6 +125,7 @@ const query = `query searchCoursesByKeyword(
 			all_course_codes
 			areas
 			course_code
+			credits
 			description
 			listing_id
 			same_course_id
@@ -130,14 +139,21 @@ const query = `query searchCoursesByKeyword(
 				) {
 					aggregate {
 						count
+						avg {
+							comment_compound
+						}
 					}
 					nodes {
 						comment
+						comment_compound
 					}
 				}
 				evaluation_narratives_aggregate {
 					aggregate {
 						count
+						avg {
+							comment_compound
+						}
 					}
 				}
 			}
