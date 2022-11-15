@@ -54,6 +54,12 @@ export const premadeQueries: PremadeQuery[] = [
 		areas_skills_keyword: ''
 	},
 	{
+		title: 'Entrepreneurship',
+		keyword: 'entrepreneurship',
+		course_keyword: '',
+		areas_skills_keyword: ''
+	},
+	{
 		title: 'Favorite English 100 level courses',
 		keyword: 'favorite',
 		course_keyword: 'ENGL 1%',
