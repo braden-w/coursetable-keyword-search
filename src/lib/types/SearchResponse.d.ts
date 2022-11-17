@@ -20,41 +20,13 @@ export interface Aggregate {
 export interface Course {
 	all_course_codes: string[];
 	areas: Area[];
-	average_gut_rating: number;
-	average_professor: number;
-	average_rating: number;
-	average_workload: number;
-	average_rating_same_professors: number;
-	average_workload_same_professors: number;
-	classnotes: null | string;
 	course_code: string;
 	credits: number | null;
 	description: string;
-	enrolled: number;
-	extra_info: ExtraInfo;
-	final_exam: null | string;
-	flag_info: string[];
-	fysem: boolean | null;
-	last_enrollment: number | null;
-	last_enrollment_same_professors: boolean | null;
 	listing_id: number;
-	locations_summary: string;
-	professor_ids: string[];
-	professor_names: string[];
-	regnotes: null;
-	requirements: null | string;
-	rp_attr: null | string;
 	same_course_id: number;
-	same_course_and_profs_id: number;
-	last_offered_course_id: number | null;
-	school: School | null;
 	season_code: string;
-	section: string;
 	skills: string[];
-	subject: Subject;
-	syllabus_url: null | string;
-	times_by_day: TimesByDay;
-	times_summary: string;
 	title: string;
 	course: CourseNested;
 }
@@ -65,35 +37,29 @@ export enum Area {
 }
 
 export interface CourseNested {
-	evaluation_narratives_aggregate_filtered: CourseEvaluationsAggregate;
-	evaluation_narratives_aggregate: CourseEvaluationsAggregate;
+	evaluation_narratives_aggregate_filtered: EvaluationNarrativesAggregateFiltered;
+	evaluation_narratives_aggregate: EvaluationNarrativesAggregate;
 }
 
-export interface CourseEvaluationsAggregate {
-	aggregate: Aggregate;
-	nodes: CourseEvaluation[];
+export interface EvaluationNarrativesAggregate {
+	aggregate: EvaluationNarrativesAggregateAggregate;
 }
 
-export interface CourseEvaluation {
+export interface EvaluationNarrativesAggregateAggregate {
+	count: number;
+	avg: Avg;
+}
+
+export interface Avg {
+	comment_compound: number;
+}
+
+export interface EvaluationNarrativesAggregateFiltered {
+	aggregate: EvaluationNarrativesAggregateAggregate;
+	nodes: EvaluationNarrativesAggregateFilteredNode[];
+}
+
+export interface EvaluationNarrativesAggregateFilteredNode {
 	comment: string;
-}
-
-export enum ExtraInfo {
-	Active = 'ACTIVE'
-}
-
-export enum School {
-	Yc = 'YC'
-}
-
-export enum Subject {
-	EpE = 'EP&E'
-}
-
-export interface TimesByDay {
-	Tuesday?: Array<string[]>;
-	Thursday?: Array<string[]>;
-	Monday?: Array<string[]>;
-	Wednesday?: Array<string[]>;
-	Friday?: Array<string[]>;
+	comment_compound: number;
 }
