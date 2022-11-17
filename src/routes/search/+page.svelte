@@ -63,8 +63,8 @@
 			courses = courses.filter((course) => course.same_course_id in seasonCourseIds);
 		}
 		courses = sortPercent ? courses.sort(percent) : courses.sort(count);
-		return courses
-	}
+		return courses;
+	};
 
 	const updateRoute = (params: Params) => goto(`/search?${new URLSearchParams(params)}`);
 
@@ -193,7 +193,9 @@
 	{#if coursesToDisplay(courses).length !== 0}
 		<div class="relative my-4 flex flex-col justify-center sm:flex-row">
 			<p class="text-center text-gray-500">
-				{coursesToDisplay(courses).length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay(courses).length} results.
+				{coursesToDisplay(courses).length === REQUEST_LIMIT
+					? `${REQUEST_LIMIT}+`
+					: coursesToDisplay(courses).length} results.
 			</p>
 			<div class="right-0 mt-4 flex justify-between gap-6 sm:absolute sm:mt-0">
 				<!-- Put a switch group to sort by percentage or count -->
