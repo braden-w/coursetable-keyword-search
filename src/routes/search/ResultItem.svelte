@@ -6,6 +6,12 @@
 	import { slide } from 'svelte/transition';
 
 	export let course: Course;
+	let {
+		course: {
+			evaluation_narratives_aggregate_filtered: { nodes: reviews }
+		}
+	} = course;
+
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
 
@@ -98,7 +104,7 @@
 </li>
 
 {#if expanded}
-	{#each course.course.evaluation_narratives_aggregate_filtered.nodes as review}
+	{#each reviews as review}
 		<li transition:slide>
 			<div class="px-4 py-4 sm:px-6">
 				<p class="text-sm text-gray-500">
