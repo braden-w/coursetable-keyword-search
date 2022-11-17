@@ -12,9 +12,15 @@ export function interpretSeasonCode(yearSeason: string) {
 }
 
 export function getPercent(course: Course) {
-	return (
-		(course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count /
-			course.course?.evaluation_narratives_aggregate?.aggregate?.count) *
-		100
-	);
+	const {
+		course: {
+			evaluation_narratives_aggregate_filtered: {
+				aggregate: { count: filtered_count }
+			},
+			evaluation_narratives_aggregate: {
+				aggregate: { count: total_count }
+			}
+		}
+	} = course;
+	return (filtered_count / total_count) * 100;
 }

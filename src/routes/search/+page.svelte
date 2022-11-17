@@ -37,10 +37,21 @@
 	let sortPercent = false;
 
 	function count(a: Course, b: Course) {
-		return (
-			b.course.evaluation_narratives_aggregate_filtered.aggregate.count -
-			a.course.evaluation_narratives_aggregate_filtered.aggregate.count
-		);
+		const {
+			course: {
+				evaluation_narratives_aggregate_filtered: {
+					aggregate: { count: b_reviews_count }
+				}
+			}
+		} = b;
+		const {
+			course: {
+				evaluation_narratives_aggregate_filtered: {
+					aggregate: { count: a_reviews_count }
+				}
+			}
+		} = a;
+		return b_reviews_count - a_reviews_count;
 	}
 
 	function percent(a: Course, b: Course) {
