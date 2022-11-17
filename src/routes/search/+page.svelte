@@ -58,10 +58,13 @@
 		return getPercent(b) - getPercent(a);
 	}
 
-	$: coursesFiltered = filterCurrentSeason
-		? courses.filter((course) => course.same_course_id in seasonCourseIds)
-		: courses;
-	$: coursesToDisplay = sortPercent ? coursesFiltered.sort(percent) : coursesFiltered.sort(count);
+	$: coursesToDisplay = (courses: Course[]) => {
+		if (filterCurrentSeason) {
+			courses = courses.filter((course) => course.same_course_id in seasonCourseIds);
+		}
+		courses = sortPercent ? courses.sort(percent) : courses.sort(count);
+		return courses
+	}
 
 	const updateRoute = (params: Params) => goto(`/search?${new URLSearchParams(params)}`);
 
@@ -187,10 +190,10 @@
 
 	<QueriesRow on:click={onQueriesRowClick} />
 
-	{#if coursesToDisplay.length !== 0}
+	{#if coursesToDisplay(courses).length !== 0}
 		<div class="relative my-4 flex flex-col justify-center sm:flex-row">
 			<p class="text-center text-gray-500">
-				{coursesToDisplay.length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay.length} results.
+				{coursesToDisplay(courses).length === REQUEST_LIMIT ? `${REQUEST_LIMIT}+` : coursesToDisplay(courses).length} results.
 			</p>
 			<div class="right-0 mt-4 flex justify-between gap-6 sm:absolute sm:mt-0">
 				<!-- Put a switch group to sort by percentage or count -->
@@ -237,7 +240,7 @@
 		</div>
 		<!-- <div class="sm:hidden"> -->
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
-			<VirtualList items={coursesToDisplay} let:item height="54rem">
+			<VirtualList items={coursesToDisplay(courses)} let:item height="54rem">
 				<ResultItem course={item} {keyword} />
 				<li class="border-t border-gray-200" />
 			</VirtualList>
@@ -246,7 +249,7 @@
 		<!-- <div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
 				<div class="hidden sm:block">
-					{#each coursesToDisplay as course (course.listing_id)}
+					{#each coursesToDisplay(courses) as course (course.listing_id)}
 						<ResultItem {course} {keyword} />
 					{/each}
 				</div>
