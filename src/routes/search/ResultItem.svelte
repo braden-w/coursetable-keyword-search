@@ -6,11 +6,16 @@
 	import { slide } from 'svelte/transition';
 
 	export let course: Course;
-	let {
+	$: ({
 		course: {
-			evaluation_narratives_aggregate_filtered: { nodes: reviews }
+			evaluation_narratives_aggregate_filtered: { nodes: reviews },
+			evaluation_narratives_aggregate: {
+				aggregate: {
+					avg: { comment_compound: average_sentiment }
+				}
+			}
 		}
-	} = course;
+	} = course);
 
 	let expanded = false;
 	const toggleExpanded = () => (expanded = !expanded);
@@ -19,6 +24,7 @@
 </script>
 
 <li>
+	<!-- {JSON.stringify(course)} -->
 	<button type="button" on:click={toggleExpanded} class="block w-full hover:bg-gray-50">
 		<div class="flex items-center px-4 py-4 sm:px-6">
 			<div class="flex min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -32,7 +38,8 @@
 							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course
 								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews (~{getPercent(
 								course
-							).toFixed(1)}%)
+							).toFixed(1)}%) Average sentiment score:
+							{(average_sentiment * 100).toFixed(1)}%
 						</p>
 					</div>
 					<div class="mt-2">
@@ -84,11 +91,6 @@
 								{/each}
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
-					<div class="flex -space-x-1 overflow-hidden">
-						<!-- <img v-for="applicant in position.applicants" :key="applicant.email" class="inline-block h-6 w-6 rounded-full ring-2 ring-white" :src="applicant.imageUrl" :alt="applicant.name" /> -->
 					</div>
 				</div>
 			</div>
