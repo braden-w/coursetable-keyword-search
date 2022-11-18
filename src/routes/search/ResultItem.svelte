@@ -38,7 +38,7 @@
 							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course
 								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews (~{getPercent(
 								course
-							).toFixed(1)}%) Average sentiment score:
+							).toFixed(1)}%) Average positivity score:
 							{(average_sentiment * 100).toFixed(1)}%
 						</p>
 					</div>
