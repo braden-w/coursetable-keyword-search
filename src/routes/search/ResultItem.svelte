@@ -11,7 +11,7 @@
 			evaluation_narratives_aggregate_filtered: { nodes: reviews },
 			evaluation_narratives_aggregate: {
 				aggregate: {
-					avg: { comment_compound: average_sentiment }
+					avg: { comment_compound: average_sentiment } = { comment_compound: null }
 				}
 			}
 		}
@@ -38,8 +38,10 @@
 							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course
 								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews (~{getPercent(
 								course
-							).toFixed(1)}%) Average positivity score:
-							{(average_sentiment * 100).toFixed(1)}%
+							).toFixed(1)}%).
+							{#if average_sentiment}
+								<span class="text-gray-500">Average sentiment: {(average_sentiment * 100).toFixed(1)}%</span>
+							{/if}
 						</p>
 					</div>
 					<div class="mt-2">
