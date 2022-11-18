@@ -10,9 +10,7 @@
 		course: {
 			evaluation_narratives_aggregate_filtered: { nodes: reviews },
 			evaluation_narratives_aggregate: {
-				aggregate: {
-					avg: { comment_compound: average_sentiment } = { comment_compound: null }
-				}
+				aggregate: { avg: { comment_compound: average_sentiment } = { comment_compound: null } }
 			}
 		}
 	} = course);
@@ -40,7 +38,11 @@
 								course
 							).toFixed(1)}%).
 							{#if average_sentiment}
-								<span class="text-gray-500">Average sentiment: {(average_sentiment * 100).toFixed(1)}%</span>
+								<span>
+									Average sentiment: <span class="font-medium">
+										{(average_sentiment * 100).toFixed(1)}%
+									</span>
+								</span>
 							{/if}
 						</p>
 					</div>
