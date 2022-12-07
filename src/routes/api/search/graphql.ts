@@ -40,78 +40,25 @@
 
 import { REQUEST_LIMIT } from '$lib/constants';
 
-const queryWithoutAreasSkillsKeyword = `query searchCoursesByKeyword(
+const generateQuery = (filterAreas: boolean) => `query searchCoursesByKeyword(
 	$keyword: String!
 	$course_keyword: String!
+	${filterAreas ? '$areas_skills_keyword: jsonb!' : ''}
 ) {
 	computed_listing_info_aggregate(
 		where: {
 			_and: [
 				{ course_code: { _ilike: $course_keyword } }
 				{ course: { evaluation_narratives: { comment: { _ilike: $keyword } } } }
-			]
-		}
-		order_by: { course: { evaluation_narratives_aggregate: { count: desc } } }
-		limit: ${REQUEST_LIMIT}
-	) {
-		aggregate {
-			count
-		}
-		nodes {
-			all_course_codes
-			areas
-			course_code
-			credits
-			description
-			listing_id
-			same_course_id
-			season_code
-			skills
-			title
-			course {
-				evaluation_narratives_aggregate_filtered: evaluation_narratives_aggregate(
-					where: { comment: { _ilike: $keyword } }
-					order_by: { comment_compound: desc }
-				) {
-					aggregate {
-						count
-						avg {
-							comment_compound
-						}
-					}
-					nodes {
-						comment
-						comment_compound
-					}
-				}
-				evaluation_narratives_aggregate {
-					aggregate {
-						count
-						avg {
-							comment_compound
-						}
-					}
-				}
-			}
-		}
-	}
-}`;
-
-const query = `query searchCoursesByKeyword(
-	$keyword: String!
-	$course_keyword: String!
-	$areas_skills_keyword: jsonb!
-) {
-	computed_listing_info_aggregate(
-		where: {
-			_and: [
-				{ course_code: { _ilike: $course_keyword } }
-				{ course: { evaluation_narratives: { comment: { _ilike: $keyword } } } }
-				{
+				${
+					filterAreas
+						? `{
 					_or: [
 						{ areas: { _contains: $areas_skills_keyword } }
 						{ skills: { _contains: $areas_skills_keyword } }
 					]
+				}`
+						: ''
 				}
 			]
 		}
@@ -173,21 +120,12 @@ export const graphQL = ({
 	// console.log('🚀 ~ file: graphql.ts ~ line 169 ~ keyword', keyword);
 	// console.log('🚀 ~ file: graphql.ts ~ line 169 ~ course_keyword', course_keyword);
 	// console.log('🚀 ~ file: graphql.ts ~ line 169 ~ areas_skills_keyword', areas_skills_keyword);
-	if (areas_skills_keyword === '') {
-		return {
-			query: queryWithoutAreasSkillsKeyword,
-			variables: {
-				keyword,
-				course_keyword
-			}
-		};
-	} else
-		return {
-			query,
-			variables: {
-				keyword,
-				course_keyword,
-				areas_skills_keyword
-			}
-		};
+	return {
+		query: generateQuery(areas_skills_keyword === ''),
+		variables: {
+			keyword,
+			course_keyword,
+			areas_skills_keyword
+		}
+	};
 };
