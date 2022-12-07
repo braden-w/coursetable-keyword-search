@@ -40,10 +40,10 @@
 
 import { REQUEST_LIMIT } from '$lib/constants';
 
-const generateQuery = (filterAreas: boolean) => `query searchCoursesByKeyword(
+const generateQuery = (includeFilterAreas: boolean) => `query searchCoursesByKeyword(
 	$keyword: String!
 	$course_keyword: String!
-	${filterAreas ? '$areas_skills_keyword: jsonb!' : ''}
+	${includeFilterAreas ? '$areas_skills_keyword: jsonb!' : ''}
 ) {
 	computed_listing_info_aggregate(
 		where: {
@@ -51,7 +51,7 @@ const generateQuery = (filterAreas: boolean) => `query searchCoursesByKeyword(
 				{ course_code: { _ilike: $course_keyword } }
 				{ course: { evaluation_narratives: { comment: { _ilike: $keyword } } } }
 				${
-					filterAreas
+					includeFilterAreas
 						? `{
 					_or: [
 						{ areas: { _contains: $areas_skills_keyword } }
@@ -120,12 +120,13 @@ export const graphQL = ({
 	// console.log('🚀 ~ file: graphql.ts ~ line 169 ~ keyword', keyword);
 	// console.log('🚀 ~ file: graphql.ts ~ line 169 ~ course_keyword', course_keyword);
 	// console.log('🚀 ~ file: graphql.ts ~ line 169 ~ areas_skills_keyword', areas_skills_keyword);
+	const includeFilterAreas = areas_skills_keyword !== '';
 	return {
-		query: generateQuery(areas_skills_keyword === ''),
+		query: generateQuery(includeFilterAreas),
 		variables: {
 			keyword,
 			course_keyword,
-			areas_skills_keyword
+			...(includeFilterAreas && { areas_skills_keyword})
 		}
 	};
 };
