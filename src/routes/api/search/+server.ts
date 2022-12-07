@@ -3,7 +3,7 @@ import type { Params } from '$lib/types/Query';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { options } from './payload';
+import { generateOptions } from './generateOptions';
 import zlib from 'zlib';
 import { DEFAULT_EXPIRATION } from '$lib/constants';
 
@@ -45,7 +45,7 @@ async function queryCourseTable({ keyword, course_keyword, areas_skills_keyword 
 	if (cachedResponse) return cachedResponse;
 	const res = await fetch(
 		'https://api.coursetable.com/ferry/v1/graphql?=',
-		options({ keyword, course_keyword, areas_skills_keyword })
+		generateOptions({ keyword, course_keyword, areas_skills_keyword })
 	);
 	// console.timeEnd('fetch');
 	const response = (await res.json()) as SearchResponse;

@@ -108,7 +108,7 @@ const generateQuery = (includeFilterAreas: boolean) => `query searchCoursesByKey
 	}
 }`;
 
-export const graphQL = ({
+export const generateGraphQL = ({
 	keyword,
 	course_keyword,
 	areas_skills_keyword
