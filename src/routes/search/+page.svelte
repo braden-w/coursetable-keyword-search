@@ -36,7 +36,7 @@
 	let filterCurrentSeason = true;
 	let sortPercent = false;
 
-	function count(a: Course, b: Course) {
+	function sort_count(a: Course, b: Course) {
 		const {
 			course: {
 				evaluation_narratives_aggregate_filtered: {
@@ -54,15 +54,38 @@
 		return b_reviews_count - a_reviews_count;
 	}
 
-	function percent(a: Course, b: Course) {
+	function sort_percent(a: Course, b: Course) {
 		return getPercent(b) - getPercent(a);
+	}
+
+	function sort_average_sentiment_desc(a: Course, b: Course) {
+		const {
+			course: {
+				evaluation_narratives_aggregate: {
+					aggregate: { avg: { comment_compound: a_average_sentiment } = { comment_compound: null } }
+				}
+			}
+		} = a;
+		const {
+			course: {
+				evaluation_narratives_aggregate: {
+					aggregate: { avg: { comment_compound: b_average_sentiment } = { comment_compound: null } }
+				}
+			}
+		} = b;
+		// Sort nulls to the end
+		if (a_average_sentiment === null) return 1;
+		if (b_average_sentiment === null) return -1;
+		return b_average_sentiment - a_average_sentiment;
 	}
 
 	$: coursesToDisplay = (courses: Course[]) => {
 		if (filterCurrentSeason) {
 			courses = courses.filter((course) => course.same_course_id in seasonCourseIds);
 		}
-		courses = sortPercent ? courses.sort(percent) : courses.sort(count);
+		courses = sortPercent ? courses.sort(sort_percent) : courses.sort(sort_count);
+		// Sort courses by average_sentiment descending
+		courses.sort(sort_average_sentiment_desc);
 		return courses;
 	};
 
