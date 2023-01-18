@@ -282,7 +282,7 @@
 		</div> -->
 	{:else}
 		<!-- Flexbox row jwith the message and loading spinner. Center content vertically and horizontally -->
-		<div class="mt-4 flex justify-center items-center gap-1">
+		<div class="mt-4 flex items-center justify-center gap-1">
 			<p class="text-center text-gray-500">{message}</p>
 			<LoadingSpinner loading={true} />
 		</div>
