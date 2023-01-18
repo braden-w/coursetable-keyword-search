@@ -130,7 +130,7 @@
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
 <div class="mx-auto max-w-7xl flex-col py-6 px-4 sm:px-6 lg:px-8">
-	<h3 class="mb-4 text-3xl font-bold md:text-3xl">Search CourseTable reviews by keyword</h3>
+	<h3 class="mb-4 text-3xl font-bold md:text-4xl">Search CourseTable reviews by keyword</h3>
 	<div class="my-2 flex w-full">
 		<label for="search" class="sr-only">Search</label>
 		<div class="relative flex-1">
@@ -281,8 +281,10 @@
 			</ul>
 		</div> -->
 	{:else}
-		<div class="mt-4">
-			<p class="text-center text-gray-500">{message}<LoadingSpinner {loading} /></p>
+		<!-- Flexbox row jwith the message and loading spinner. Center content vertically and horizontally -->
+		<div class="mt-4 flex justify-center items-center gap-1">
+			<p class="text-center text-gray-500">{message}</p>
+			<LoadingSpinner loading={true} />
 		</div>
 	{/if}
 </div>
