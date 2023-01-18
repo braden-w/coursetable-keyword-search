@@ -1,3 +1,4 @@
+import { SEASON_ID } from '$lib/constants';
 import { env } from '$env/dynamic/public';
 import { error, json, type RequestHandler } from '@sveltejs/kit';
 
@@ -23,7 +24,10 @@ const options = {
 
 const getCatalog = async () => {
 	try {
-		const res = await fetch('https://api.coursetable.com/api/static/catalogs/202301.json', options);
+		const res = await fetch(
+			`https://api.coursetable.com/api/static/catalogs/${SEASON_ID}.json`,
+			options
+		);
 		const data = await res.json();
 		return data;
 	} catch (err) {
