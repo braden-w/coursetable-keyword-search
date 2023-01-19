@@ -6,7 +6,12 @@ export const GET: RequestHandler = async () => {
 	try {
 		const catalog = await getCatalog();
 		// console.timeEnd('queryCourseTable');
-		return json(catalog);
+		return json(catalog, {
+			headers: {
+				'Cache-Control': 'max-age=3600',
+				'Access-Control-Allow-Origin': '*'
+			}
+		});
 	} catch (e) {
 		throw error(500, e as Error);
 	}
