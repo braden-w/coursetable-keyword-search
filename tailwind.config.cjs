@@ -12,15 +12,15 @@ const config = {
 				yale: {
 					primary: '#00356b',
 					'primary-content': '#ffffff',
-					secondary: '#7D919B',
+					secondary: '#1C2D3F',
 					'secondary-content': '#ffffff',
-					accent: '#63aaff',
+					accent: '#0077B6',
 					'accent-content': '#ffffff',
-					neutral: '#191D24',
-					'neutral-focus': '#111318',
+					neutral: '#1A1E25',
+					'neutral-focus': '#101317',
 					'neutral-content': '#A6ADBB',
-					'base-100': '#2A303C',
-					'base-200': '#242933',
+					'base-100': '#2C3548',
+					'base-200': '#1A1F2C',
 					'base-300': '#20252E',
 					'base-content': '#A6ADBB'
 				}
