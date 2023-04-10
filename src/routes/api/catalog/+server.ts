@@ -1,8 +1,8 @@
 import { SEASON_ID } from '$lib/constants';
 import { env } from '$env/dynamic/public';
-import { error, json, type RequestHandler } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async () => {
+export async function GET() {
 	try {
 		const catalog = await getCatalog();
 		// console.timeEnd('queryCourseTable');
@@ -15,7 +15,7 @@ export const GET: RequestHandler = async () => {
 	} catch (e) {
 		throw error(500, e as Error);
 	}
-};
+}
 
 const options = {
 	method: 'GET',

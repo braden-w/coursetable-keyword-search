@@ -2,12 +2,11 @@ import redis from '$lib/redis';
 import type { Params } from '$lib/types/Query';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { error, json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
 import { generateOptions } from './generateOptions';
 import zlib from 'zlib';
 import { DEFAULT_EXPIRATION } from '$lib/constants';
 
-export const GET: RequestHandler = async ({ url }: { url: URL }) => {
+export async function GET({ url }: { url: URL }) {
 	const keyword = url.searchParams.get('keyword') ?? '';
 	const course_keyword = url.searchParams.get('course_keyword') ?? '';
 	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '';
@@ -21,7 +20,7 @@ export const GET: RequestHandler = async ({ url }: { url: URL }) => {
 	} catch (e) {
 		throw error(500, e as Error);
 	}
-};
+}
 
 async function queryCourseTable({ keyword, course_keyword, areas_skills_keyword }: Params) {
 	// console.time('redis');

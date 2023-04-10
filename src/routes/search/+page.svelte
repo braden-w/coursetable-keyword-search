@@ -8,14 +8,13 @@
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
 	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
 	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
 	import { getPercent, interpretSeasonCode } from '$lib/helpers';
 
-	export let data: PageData;
+	export let data;
 	const { seasonCourseIds } = data;
 
 	let keyword = $page.url.searchParams.get('keyword') ?? '';
