@@ -1,6 +1,37 @@
-export async function load({ fetch }) {
-	// Get the file from static/same_course_id of this season
+import type { Params } from '$lib/types/Query';
+import type { SearchResponse } from '$lib/types/SearchResponse';
+
+export async function load({ fetch, url }) {
+	const keyword = url.searchParams.get('keyword') ?? '';
+	const course_keyword = url.searchParams.get('course_keyword') ?? '';
+	const areas_skills_keyword = url.searchParams.get('areas_skills_keyword') ?? '';
+	const params = { keyword, course_keyword, areas_skills_keyword };
+	const isEmptyQuery = !keyword && !course_keyword && !areas_skills_keyword;
+	return {
+		seasonCourseIds: getSeasonCourseIds({ fetch }),
+		params,
+		message: isEmptyQuery
+			? 'Please enter a query before searching for course reviews.'
+			: 'Enter a query to search for course reviews.',
+		streamed: { courses: getCourses({ fetch, params }) }
+	};
+}
+
+async function getCourses({
+	fetch,
+	params
+}: {
+	fetch: WindowOrWorkerGlobalScope['fetch'];
+	params: Params;
+}) {
+	const response = await fetch(`/api/search?${new URLSearchParams(params)}`);
+	const data = (await response.json()) as SearchResponse;
+	return data.data.computed_listing_info_aggregate.nodes;
+}
+
+// Get the file from static/same_course_id of this season
+async function getSeasonCourseIds({ fetch }: { fetch: WindowOrWorkerGlobalScope['fetch'] }) {
 	const response = await fetch('/api/catalog');
 	const seasonCourseIds = (await response.json()) as { [key: number]: string };
-	return { seasonCourseIds };
+	return seasonCourseIds;
 }

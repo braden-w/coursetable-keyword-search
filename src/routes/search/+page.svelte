@@ -1,7 +1,6 @@
 <script lang="ts">
 	import VirtualList from '@sveltejs/svelte-virtual-list';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { goto, invalidate, invalidateAll } from '$app/navigation';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
 	import type { Params } from '$lib/types/Query';
 	import type { Course, SearchResponse } from '$lib/types/SearchResponse';
@@ -15,23 +14,16 @@
 	import { getPercent, interpretSeasonCode } from '$lib/helpers';
 
 	export let data;
-	const { seasonCourseIds } = data;
-
-	let keyword = $page.url.searchParams.get('keyword') ?? '';
-	let course_keyword = $page.url.searchParams.get('course_keyword') ?? '';
-	let areas_skills_keyword = $page.url.searchParams.get('areas_skills_keyword') ?? '';
-	$: params = {
-		keyword,
-		course_keyword,
-		areas_skills_keyword
-	};
-	$: isEmptyQuery = !keyword && !course_keyword && !areas_skills_keyword;
-
-	let message = 'Enter a query to search for course reviews.';
-	let courses: SearchResponse['data']['computed_listing_info_aggregate']['nodes'] = [];
+	const {
+		seasonCourseIds,
+		params,
+		message,
+		streamed: { courses }
+	} = data;
+	let { keyword, course_keyword, areas_skills_keyword } = params;
+	$: enteredParams = { keyword, course_keyword, areas_skills_keyword };
 
 	let showFilters = true;
-	let loading = false;
 	let filterCurrentSeason = true;
 	let sortPercent = false;
 
@@ -88,38 +80,18 @@
 		return courses;
 	};
 
-	const updateRoute = (params: Params) => goto(`/search?${new URLSearchParams(params)}`);
+	const updateRoute = (newParams: Params) => {
+		goto(`/search?${new URLSearchParams(newParams)}`, { invalidateAll: true });
+	};
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key !== 'Enter') return;
-		updateRoute(params);
-		runQuery(params);
+		updateRoute(enteredParams);
 	};
 
-	const onQueriesRowClick = (event: { detail: Params }) => {
-		({ keyword, course_keyword, areas_skills_keyword } = event.detail);
-		runQuery(event.detail);
+	const onQueriesRowClick = ({ detail }: { detail: Params }) => {
+		updateRoute(detail);
 	};
-
-	const runQuery = async (params: Params) => {
-		if (isEmptyQuery)
-			return (message = 'Please enter a query before searching for course reviews.');
-		loading = true;
-		courses = [];
-		courses = await getCourses(params);
-		loading = false;
-	};
-
-	const getCourses = async (params: Params) => {
-		const response = await fetch(`/api/search?${new URLSearchParams(params)}`);
-		const data = (await response.json()) as SearchResponse;
-		return data.data.computed_listing_info_aggregate.nodes;
-	};
-
-	onMount(() => {
-		if (isEmptyQuery) return;
-		runQuery(params);
-	});
 </script>
 
 <svelte:head>
@@ -146,7 +118,7 @@
 				on:keydown={onKeydown}
 			/>
 			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
-				<LoadingSpinner {loading} />
+				<!-- <LoadingSpinner {loading} /> -->
 			</div>
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
@@ -212,7 +184,13 @@
 
 	<QueriesRow on:click={onQueriesRowClick} />
 
-	{#if coursesToDisplay(courses).length !== 0}
+	{#await data.streamed.courses}
+		<!-- Flexbox row jwith the message and loading spinner. Center content vertically and horizontally -->
+		<div class="mt-4 flex items-center justify-center gap-1">
+			<p class="text-center text-gray-500">{message}</p>
+			<LoadingSpinner loading={true} />
+		</div>
+	{:then courses}
 		<div class="relative my-4 flex flex-col justify-center sm:flex-row">
 			<p class="text-center text-gray-500">
 				{coursesToDisplay(courses).length === REQUEST_LIMIT
@@ -263,6 +241,7 @@
 			</div>
 		</div>
 		<!-- <div class="sm:hidden"> -->
+
 		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
 			<VirtualList items={coursesToDisplay(courses)} let:item height="54rem">
 				<ResultItem course={item} {keyword} />
@@ -279,11 +258,5 @@
 				</div>
 			</ul>
 		</div> -->
-	{:else}
-		<!-- Flexbox row jwith the message and loading spinner. Center content vertically and horizontally -->
-		<div class="mt-4 flex items-center justify-center gap-1">
-			<p class="text-center text-gray-500">{message}</p>
-			<LoadingSpinner loading={true} />
-		</div>
-	{/if}
+	{/await}
 </div>
