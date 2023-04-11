@@ -1,4 +1,4 @@
-import { env } from '$env/dynamic/public';
+import { PUBLIC_COURSETABLE_COOKIE } from '$env/static/public';
 import { SEASON_ID } from '$lib/constants';
 import { error, json } from '@sveltejs/kit';
 
@@ -20,7 +20,7 @@ export async function GET() {
 const options = {
 	method: 'GET',
 	headers: {
-		Cookie: env.PUBLIC_COURSETABLE_COOKIE ?? '',
+		Cookie: PUBLIC_COURSETABLE_COOKIE ?? '',
 		origin: 'https://www.coursetable.com',
 		Referer: 'https://www.coursetable.com',
 		'Content-Type': 'application/json'
