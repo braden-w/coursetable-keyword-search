@@ -2,7 +2,7 @@
 	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
+	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
 	import type { Params } from '$lib/types/Query';
 	import type { Course, SearchResponse } from '$lib/types/SearchResponse';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';

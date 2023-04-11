@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Typewriter from 'typewriter-effect/dist/core';
 	import { goto } from '$app/navigation';
-	import QueriesRow from '$lib/suggested queries/QueriesRow.svelte';
+	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';

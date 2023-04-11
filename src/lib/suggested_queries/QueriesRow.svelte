@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { premadeQueries } from '$lib/suggested queries/premadeQueries';
+	import { premadeQueries } from '$lib/suggested_queries/premadeQueries';
 	import { ArrowLeft, ArrowRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import QueryButton from './QueryButton.svelte';
