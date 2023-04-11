@@ -2,6 +2,10 @@
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
 	import '../app.postcss';
+	import { QueryClientProvider } from '@tanstack/svelte-query';
+	import { trpc } from '$lib/trpc';
+	export let data;
+	const queryClient = trpc.hydrateQueryClient(data.trpc);
 </script>
 
 <!-- TODO: Update Head -->
@@ -26,7 +30,10 @@
 </svelte:head>
 <Header />
 
-<main>
-	<slot />
-</main>
+<QueryClientProvider client={queryClient}>
+	<main>
+		<slot />
+	</main>
+</QueryClientProvider>
+
 <Footer />

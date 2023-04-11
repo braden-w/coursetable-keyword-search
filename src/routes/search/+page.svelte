@@ -1,12 +1,11 @@
 <script lang="ts">
 	import VirtualList from '@sveltejs/svelte-virtual-list';
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
 	import type { Params } from '$lib/types/Query';
-	import type { Course, SearchResponse } from '$lib/types/SearchResponse';
+	import type { Course } from '$lib/types/SearchResponse';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { onMount } from 'svelte';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
 	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
@@ -14,12 +13,7 @@
 	import { getPercent, interpretSeasonCode } from '$lib/helpers';
 
 	export let data;
-	const {
-		seasonCourseIds,
-		params,
-		message,
-		streamed: { courses }
-	} = data;
+	const { seasonCourseIds, params, message } = data;
 	let { keyword, course_keyword, areas_skills_keyword } = params;
 	$: enteredParams = { keyword, course_keyword, areas_skills_keyword };
 
