@@ -1,5 +1,5 @@
-import { SEASON_ID } from '$lib/constants';
 import { env } from '$env/dynamic/public';
+import { SEASON_ID } from '$lib/constants';
 import { error, json } from '@sveltejs/kit';
 
 export async function GET() {

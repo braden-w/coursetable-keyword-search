@@ -56,7 +56,7 @@ const config = {
 			'winter'
 		]
 	},
-	plugins: [require('@tailwindcss/forms'), require('daisyui'), require('@tailwindcss/line-clamp')]
+	plugins: [require('@tailwindcss/forms'), require('daisyui')]
 };
 
 module.exports = config;

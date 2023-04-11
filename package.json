@@ -10,7 +10,9 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"start": "node build/index.js"
+		"start": "node build/index.js",
+		"postinstall": "prisma db push && node ./prisma/generate.cjs",
+		"db:push": "prisma db push && node ./prisma/generate.cjs"
 	},
 	"devDependencies": {
 		"@rgossiaux/svelte-headlessui": "^1.0.2",
@@ -21,17 +23,21 @@
 		"@sveltejs/adapter-node": "^1.2.3",
 		"@sveltejs/kit": "^1.15.2",
 		"@tailwindcss/forms": "^0.5.3",
+		"@types/pg": "^8.6.6",
 		"@typescript-eslint/eslint-plugin": "^5.57.1",
 		"@typescript-eslint/parser": "^5.57.1",
 		"autoprefixer": "^10.4.14",
 		"eslint": "^8.38.0",
 		"eslint-config-prettier": "^8.8.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"kysely-codegen": "^0.10.0",
 		"postcss": "^8.4.21",
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.7",
+		"prettier-plugin-organize-imports": "^3.2.2",
 		"prettier-plugin-svelte": "^2.10.0",
 		"prettier-plugin-tailwindcss": "^0.2.7",
+		"prisma": "^4.12.0",
 		"svelte": "^3.58.0",
 		"svelte-check": "^3.2.0",
 		"svelte-preprocess": "^4.10.7",
@@ -44,9 +50,18 @@
 	"dependencies": {
 		"@sveltejs/svelte-virtual-list": "^3.0.1",
 		"@tailwindcss/line-clamp": "^0.4.4",
+		"@tanstack/svelte-query": "^4.29.1",
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1",
 		"daisyui": "^2.51.5",
+		"devalue": "^4.3.0",
+		"dotenv": "^16.0.3",
 		"ioredis": "^5.3.1",
+		"kysely": "^0.24.2",
+		"pg": "^8.10.0",
 		"theme-change": "^2.5.0",
-		"typewriter-effect": "^2.19.0"
+		"trpc-svelte-query": "^0.0.2",
+		"typewriter-effect": "^2.19.0",
+		"zod": "^3.21.4"
 	}
 }

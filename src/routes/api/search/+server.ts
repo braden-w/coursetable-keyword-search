@@ -1,10 +1,10 @@
+import { DEFAULT_EXPIRATION } from '$lib/constants';
 import redis from '$lib/redis';
 import type { Params } from '$lib/types/Query';
 import type { SearchResponse } from '$lib/types/SearchResponse';
 import { error, json } from '@sveltejs/kit';
-import { generateOptions } from './generateOptions';
 import zlib from 'zlib';
-import { DEFAULT_EXPIRATION } from '$lib/constants';
+import { generateOptions } from './generateOptions';
 
 export async function GET({ url }: { url: URL }) {
 	const keyword = url.searchParams.get('keyword') ?? '';
