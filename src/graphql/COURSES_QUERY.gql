@@ -1,0 +1,10 @@
+query {
+	computed_listing_info(distinct_on: same_course_id) {
+		same_course_id
+		all_course_codes
+		title
+		description
+		season_code
+		fysem
+	}
+}
