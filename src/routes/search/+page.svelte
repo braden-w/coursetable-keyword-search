@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ResultItemList from './ResultItemList.svelte';
 	import { goto } from '$app/navigation';
 	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
 	import { interpretSeasonCode } from '$lib/helpers';
@@ -10,8 +11,8 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import LoadingSpinner from './LoadingSpinner.svelte';
-	import ResultItem from './ResultItem.svelte';
 	import { sort_average_sentiment_desc, sort_count, sort_percent } from './sortCourses';
+	import ResultItem from './ResultItem.svelte';
 
 	export let data;
 	const { seasonCourseIds, params, message } = data;
@@ -203,10 +204,7 @@
 			<!-- <div class="sm:hidden"> -->
 
 			<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
-				<VirtualList items={coursesToDisplay(courses)} let:item height="54rem">
-					<ResultItem course={item} {keyword} />
-					<li class="border-t border-gray-200" />
-				</VirtualList>
+				<ResultItemList courses={coursesToDisplay(courses)} {keyword} />
 			</ul>
 			<!-- </div> -->
 			<!-- <div class="overflow-hidden rounded-md bg-white shadow">
