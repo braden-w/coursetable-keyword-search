@@ -1,8 +1,3 @@
-<script lang="ts">
-	export let loading: boolean;
-</script>
-
-{#if loading}
 	<svg
 		role="status"
 		class="mr-3 inline h-4 w-4 animate-spin text-white"
@@ -19,4 +14,3 @@
 			fill="currentColor"
 		/>
 	</svg>
-{/if}

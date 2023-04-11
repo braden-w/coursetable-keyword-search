@@ -1,5 +1,5 @@
 import type { Params } from '$lib/types/Query';
-import type { SearchResponse } from '$lib/types/SearchResponse';
+import type { Course, SearchResponse } from '$lib/types/SearchResponse';
 
 type Fetch = typeof fetch;
 export async function load({ fetch, url }) {
@@ -13,7 +13,7 @@ export async function load({ fetch, url }) {
 			seasonCourseIds: getSeasonCourseIds({ fetch }),
 			params,
 			message: 'Enter a query to search for course reviews.',
-			streamed: { courses: [] }
+			streamed: { courses: [] as Course[] }
 		};
 	}
 	return {

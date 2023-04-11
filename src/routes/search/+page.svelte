@@ -112,7 +112,9 @@
 				on:keydown={onKeydown}
 			/>
 			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
-				<!-- <LoadingSpinner {loading} /> -->
+				{#await data.streamed.courses}
+					<LoadingSpinner />
+				{/await}
 			</div>
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
@@ -182,68 +184,74 @@
 		<!-- Flexbox row jwith the message and loading spinner. Center content vertically and horizontally -->
 		<div class="mt-4 flex items-center justify-center gap-1">
 			<p class="text-center text-gray-500">{message}</p>
-			<LoadingSpinner loading={true} />
+			<LoadingSpinner />
 		</div>
 	{:then courses}
-		<div class="relative my-4 flex flex-col justify-center sm:flex-row">
-			<p class="text-center text-gray-500">
-				{coursesToDisplay(courses).length === REQUEST_LIMIT
-					? `${REQUEST_LIMIT}+`
-					: coursesToDisplay(courses).length} results.
-			</p>
-			<div class="right-0 mt-4 flex justify-between gap-6 sm:absolute sm:mt-0">
-				<!-- Put a switch group to sort by percentage or count -->
-				<SwitchGroup as="div" class="inset-y-0 flex items-center">
-					<SwitchLabel as="span" class="mr-3">
-						<span class="text-sm font-medium">Sort by {sortPercent ? '%' : '#'}</span>
-					</SwitchLabel>
-					<Switch
-						checked={sortPercent}
-						on:change={(e) => (sortPercent = e.detail)}
-						class="{sortPercent
-							? 'bg-primary'
-							: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-					>
-						<span
-							aria-hidden="true"
-							class="{sortPercent
-								? 'translate-x-5'
-								: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-						/>
-					</Switch>
-				</SwitchGroup>
-				<!-- Put a toggle switch for filterCurrentSeason -->
-				<SwitchGroup as="div" class="inset-y-0 flex items-center">
-					<SwitchLabel as="span" class="mr-3">
-						<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
-					</SwitchLabel>
-					<Switch
-						checked={filterCurrentSeason}
-						on:change={(e) => (filterCurrentSeason = e.detail)}
-						class="{filterCurrentSeason
-							? 'bg-primary'
-							: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-					>
-						<span
-							aria-hidden="true"
-							class="{filterCurrentSeason
-								? 'translate-x-5'
-								: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-						/>
-					</Switch>
-				</SwitchGroup>
+		{#if coursesToDisplay(courses).length === 0}
+			<!-- Flexbox row jwith the message and loading spinner. Center content vertically and horizontally -->
+			<div class="mt-4 flex items-center justify-center gap-1">
+				<p class="text-center text-gray-500">{message}</p>
 			</div>
-		</div>
-		<!-- <div class="sm:hidden"> -->
+		{:else}
+			<div class="relative my-4 flex flex-col justify-center sm:flex-row">
+				<p class="text-center text-gray-500">
+					{coursesToDisplay(courses).length === REQUEST_LIMIT
+						? `${REQUEST_LIMIT}+`
+						: coursesToDisplay(courses).length} results.
+				</p>
+				<div class="right-0 mt-4 flex justify-between gap-6 sm:absolute sm:mt-0">
+					<!-- Put a switch group to sort by percentage or count -->
+					<SwitchGroup as="div" class="inset-y-0 flex items-center">
+						<SwitchLabel as="span" class="mr-3">
+							<span class="text-sm font-medium">Sort by {sortPercent ? '%' : '#'}</span>
+						</SwitchLabel>
+						<Switch
+							checked={sortPercent}
+							on:change={(e) => (sortPercent = e.detail)}
+							class="{sortPercent
+								? 'bg-primary'
+								: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+						>
+							<span
+								aria-hidden="true"
+								class="{sortPercent
+									? 'translate-x-5'
+									: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+							/>
+						</Switch>
+					</SwitchGroup>
+					<!-- Put a toggle switch for filterCurrentSeason -->
+					<SwitchGroup as="div" class="inset-y-0 flex items-center">
+						<SwitchLabel as="span" class="mr-3">
+							<span class="text-sm font-medium">Filter for {interpretSeasonCode(SEASON_ID)}</span>
+						</SwitchLabel>
+						<Switch
+							checked={filterCurrentSeason}
+							on:change={(e) => (filterCurrentSeason = e.detail)}
+							class="{filterCurrentSeason
+								? 'bg-primary'
+								: 'bg-gray-200'} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+						>
+							<span
+								aria-hidden="true"
+								class="{filterCurrentSeason
+									? 'translate-x-5'
+									: 'translate-x-0'} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+							/>
+						</Switch>
+					</SwitchGroup>
+				</div>
+			</div>
+			<!-- <div class="sm:hidden"> -->
 
-		<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
-			<VirtualList items={coursesToDisplay(courses)} let:item height="54rem">
-				<ResultItem course={item} {keyword} />
-				<li class="border-t border-gray-200" />
-			</VirtualList>
-		</ul>
-		<!-- </div> -->
-		<!-- <div class="overflow-hidden rounded-md bg-white shadow">
+			<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
+				<VirtualList items={coursesToDisplay(courses)} let:item height="54rem">
+					<ResultItem course={item} {keyword} />
+					<li class="border-t border-gray-200" />
+				</VirtualList>
+			</ul>
+			<!-- </div> -->
+			<!-- <div class="overflow-hidden rounded-md bg-white shadow">
 			<ul class="divide-y divide-gray-200">
 				<div class="hidden sm:block">
 					{#each coursesToDisplay(courses) as course (course.listing_id)}
@@ -252,5 +260,6 @@
 				</div>
 			</ul>
 		</div> -->
+		{/if}
 	{/await}
 </div>
