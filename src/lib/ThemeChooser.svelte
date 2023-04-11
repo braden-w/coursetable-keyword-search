@@ -7,7 +7,7 @@
 	});
 </script>
 
-<div title="Change Theme" class="dropdown-end dropdown ">
+<div title="Change Theme" class="dropdown-end dropdown">
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 	<div tabindex="0" class="btn-ghost btn gap-1 normal-case">
 		<svg

@@ -1,9 +1,9 @@
+import { transformer } from '$lib/trpc/transformer';
 import { initTRPC } from '@trpc/server';
 import type { Context } from './context';
-import { transformer } from '$lib/trpc/transformer';
 
 const t = initTRPC.context<Context>().create({
-	transformer,
+	transformer
 	// errorFormatter: (shape) => ({ ...shape }),
 });
 

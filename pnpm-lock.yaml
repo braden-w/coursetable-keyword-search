@@ -31,6 +31,7 @@ specifiers:
   postcss: ^8.4.21
   postcss-load-config: ^4.0.1
   prettier: ^2.8.7
+  prettier-plugin-organize-imports: ^3.2.2
   prettier-plugin-svelte: ^2.10.0
   prettier-plugin-tailwindcss: ^0.2.7
   prisma: ^4.12.0
@@ -83,8 +84,9 @@ devDependencies:
   postcss: 8.4.21
   postcss-load-config: 4.0.1_postcss@8.4.21
   prettier: 2.8.7
+  prettier-plugin-organize-imports: 3.2.2_erhqnhond52bpeyvirmp3gjrp4
   prettier-plugin-svelte: 2.10.0_ur5pqdgn24bclu6l6i7qojopk4
-  prettier-plugin-tailwindcss: 0.2.7_ur4yhozmpa5c7u2hssnpuxkrki
+  prettier-plugin-tailwindcss: 0.2.7_maxqqe6patlarfrgkcapowrakm
   prisma: 4.12.0
   svelte: 3.58.0
   svelte-check: 3.2.0_2hvvzllqxfj4tjxqrekw73wrxm
@@ -2002,6 +2004,23 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
+  /prettier-plugin-organize-imports/3.2.2_erhqnhond52bpeyvirmp3gjrp4:
+    resolution: {integrity: sha512-e97lE6odGSiHonHJMTYC0q0iLXQyw0u5z/PJpvP/3vRy6/Zi9kLBwFAbEGjDzIowpjQv8b+J04PDamoUSQbzGA==}
+    peerDependencies:
+      '@volar/vue-language-plugin-pug': ^1.0.4
+      '@volar/vue-typescript': ^1.0.4
+      prettier: '>=2.0'
+      typescript: '>=2.9'
+    peerDependenciesMeta:
+      '@volar/vue-language-plugin-pug':
+        optional: true
+      '@volar/vue-typescript':
+        optional: true
+    dependencies:
+      prettier: 2.8.7
+      typescript: 4.9.5
+    dev: true
+
   /prettier-plugin-svelte/2.10.0_ur5pqdgn24bclu6l6i7qojopk4:
     resolution: {integrity: sha512-GXMY6t86thctyCvQq+jqElO+MKdB09BkL3hexyGP3Oi8XLKRFaJP1ud/xlWCZ9ZIa2BxHka32zhHfcuU+XsRQg==}
     peerDependencies:
@@ -2012,7 +2031,7 @@ packages:
       svelte: 3.58.0
     dev: true
 
-  /prettier-plugin-tailwindcss/0.2.7_ur4yhozmpa5c7u2hssnpuxkrki:
+  /prettier-plugin-tailwindcss/0.2.7_maxqqe6patlarfrgkcapowrakm:
     resolution: {integrity: sha512-jQopIOgjLpX+y8HeD56XZw7onupRTC0cw7eKKUimI7vhjkPF5/1ltW5LyqaPtSyc8HvEpvNZsvvsGFa2qpa59w==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -2065,6 +2084,7 @@ packages:
         optional: true
     dependencies:
       prettier: 2.8.7
+      prettier-plugin-organize-imports: 3.2.2_erhqnhond52bpeyvirmp3gjrp4
       prettier-plugin-svelte: 2.10.0_ur5pqdgn24bclu6l6i7qojopk4
     dev: true
 

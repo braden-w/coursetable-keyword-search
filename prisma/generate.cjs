@@ -17,7 +17,7 @@ async function generate() {
 
 	const db = await dialect.introspector.connect({
 		connectionString: databasePath,
-		dialect,
+		dialect
 	});
 
 	const generator = new Generator();
@@ -27,7 +27,7 @@ async function generate() {
 		db,
 		dialect,
 		logger,
-		outFile: join(__dirname, '../src/lib/db/schema.d.ts'),
+		outFile: join(__dirname, '../src/lib/db/schema.d.ts')
 	});
 
 	await db.destroy();

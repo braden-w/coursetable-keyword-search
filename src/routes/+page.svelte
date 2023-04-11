@@ -35,7 +35,7 @@
 <div class="relative">
 	<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 		<div class="relative sm:overflow-hidden sm:rounded-2xl">
-			<div class="relative flex flex-col gap-4 px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-16">
+			<div class="relative flex flex-col gap-4 px-4 py-16 sm:px-6 sm:py-24 lg:px-16 lg:py-32">
 				<h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
 					Search Yale Course reviews by
 					<span bind:this={typewriter} class="font-extrabold text-primary-content" />
@@ -80,7 +80,7 @@
 								<span class="sr-only">Filter</span>
 							</button>
 							{#if !showFilters}
-								<span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-2 w-2">
+								<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
 									<span
 										class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
 									/>

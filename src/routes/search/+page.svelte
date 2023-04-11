@@ -1,17 +1,17 @@
 <script lang="ts">
-	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import { goto } from '$app/navigation';
+	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
+	import { interpretSeasonCode } from '$lib/helpers';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
 	import type { Params } from '$lib/types/Query';
 	import type { Course } from '$lib/types/SearchResponse';
+	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
 	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
-	import { REQUEST_LIMIT, SEASON_ID } from '$lib/constants';
-	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
-	import { interpretSeasonCode } from '$lib/helpers';
-	import { sort_percent, sort_count, sort_average_sentiment_desc } from './sortCourses';
+	import { sort_average_sentiment_desc, sort_count, sort_percent } from './sortCourses';
 
 	export let data;
 	const { seasonCourseIds, params, message } = data;

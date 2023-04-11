@@ -46,7 +46,7 @@
 						</p>
 					</div>
 					<div class="mt-2">
-						<div class="items-center text-left text-sm text-gray-500 line-clamp-1 md:line-clamp-2">
+						<div class="line-clamp-1 items-center text-left text-sm text-gray-500 md:line-clamp-2">
 							{course.description}
 						</div>
 						<div class="mt-2 flex justify-between text-left text-sm text-gray-500">
