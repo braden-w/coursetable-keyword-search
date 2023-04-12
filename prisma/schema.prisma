@@ -4,60 +4,59 @@ datasource db {
 }
 
 model courses {
-  all_course_codes                    Json             @db.Json
-  areas                               Json             @db.Json
-  average_gut_rating                  Float            
-  average_professor                   Float            
-  average_rating                      Float            
-  average_rating_n                    Int              
-  average_rating_same_professors      Float            
-  average_rating_same_professors_n    Int              
-  average_workload                    Float            
-  average_workload_n                  Int              
-  average_workload_same_professors    Float            
-  average_workload_same_professors_n  Int              
-  classnotes                          String?
+  all_course_codes                    Json?             @db.Json
+  areas                               Json?             @db.Json
+  average_gut_rating                  Float?           
+  average_professor                   Float?           
+  average_rating                      Float?           
+  average_rating_n                    Int?              
+  average_rating_same_professors      Float?           
+  average_rating_same_professors_n    Int?              
+  average_workload                    Float?           
+  average_workload_n                  Int?              
+  average_workload_same_professors    Float?           
+  average_workload_same_professors_n  Int?              
+  classnotes                          String?          
   colsem                              Boolean?
-  // course                              courses_to_listings @relation(fields: [course_id], references: [id])
-  course_code                         String           
+  // course                              courses_to_listings? @relation(fields: [course_id], references: [id])
+  course_code                         String?           
   course_id                           Int              @id
-  credits                             Float            
-  crn                                 Int              
+  credits                             Float?           
+  crn                                 Int?              
   declined                            Int?
-  description                         String?
-  enrolled                            Int?
-  enrollment                          Int?
-  extra_info                          String           
-  final_exam                          String?
-  flag_info                           Json             @db.Json
-  fysem                               Boolean?
-  last_enrollment                     Int?
-  last_enrollment_course_id           Int?
-  last_enrollment_same_professors     Boolean?
-  last_enrollment_season_code         String?
-  last_offered_course_id              Int?
-  // listing                             listings_to_courses @relation(fields: [listing_id], references: [id])
-  listing_id                          Int             
-  locations_summary                   String           
+  description                         String?          
+  enrolled                            Int?             
+  enrollment                          Int?              
+  extra_info                          String?          
+  final_exam                          String?          
+  flag_info                           Json?             @db.Json
+  fysem                               Boolean?         
+  last_enrollment                     Int?             
+  last_enrollment_course_id           Int?              
+  last_enrollment_same_professors     Boolean?        
+  last_enrollment_season_code         String?          
+  last_offered_course_id              Int?             
+  // listing                             listings_to_courses? @relation(fields: [listing_id], references: [id])
+  listing_id                          Int?             
+  locations_summary                   String?          
   no_response                         Int?
-  number                              String           
-  professor_ids                       Json             @db.Json
-  professor_info                      Json             @db.Json
-  professor_names                     Json             @db.Json
-  regnotes                            String?
-  requirements                        String?
-  responses                           Int?
-  rp_attr                             String?
-  same_course_and_profs_id            Int              
-  same_course_id                      Int              
-  school                              String?
-  season_code                         String           
-  section                             String           
-  skills                              Json             @db.Json
-  subject                             String           
-  syllabus_url                        String?
-  sysem                               Boolean?
-  times_by_day                        Json             @db.Json
-  times_summary                       String           
-  title                               String           
+  number                              String?           
+  professor_ids                       Json?             @db.Json
+  professor_info                      Json?             @db.Json
+  professor_names                     Json?             @db.Json
+  regnotes                            String?          
+  requirements                        String?          
+  responses                           Int?              
+  rp_attr                             String?          
+  same_course_and_profs_id            Int?              
+  same_course_id                      Int?              
+  school                              String?          
+  season_code                         String?           
+  section                             String?           
+  skills                              Json?             @db.Json
+  syllabus_url                        String?          
+  sysem                               Boolean?         
+  times_by_day                        Json?             @db.Json
+  times_summary                       String?          
+  title                               String?           
 }
