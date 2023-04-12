@@ -6,7 +6,10 @@
 		getSortedRowModel,
 		type ColumnDef,
 		type TableOptions,
-		flexRender
+		flexRender,
+
+		type SortingState
+
 	} from '@tanstack/svelte-table';
 	import type { Course } from '$lib/db/schema';
 
@@ -117,7 +120,7 @@
 		}
 	];
 
-	let sorting = [];
+	let sorting: SortingState= [] ;
 
 	const setSorting = (updater) => {
 		if (updater instanceof Function) {
