@@ -5,9 +5,7 @@ import fetch from 'node-fetch';
 dotenv.config();
 const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY } = process.env;
 
-const supabase = createClient(PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY)
-
-
+const supabase = createClient(PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY);
 
 const options = {
 	method: 'POST',
@@ -18,6 +16,7 @@ const options = {
 	body: JSON.stringify({
 		query: `query {
 	computed_listing_info(distinct_on: same_course_id) {
+		course_id
 		all_course_codes
 		areas
 		average_gut_rating
@@ -67,28 +66,14 @@ const options = {
 const fetchData = async () => {
 	try {
 		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
-		const data = await response.json();
-		console.log(getNullableKeys(data.data.computed_listing_info));
-		// console.log(data.data.computed_listing_info.filter((obj) => obj.course_id === null));
-		const { error } = await supabase.from('courses').upsert(data.data.computed_listing_info);
-		console.log(error);
+		const {
+			data: { computed_listing_info: courses }
+		} = await response.json();
+		const { data, error } = await supabase.from('Course').upsert(courses);
+		console.log(data, error);
 	} catch (err) {
 		console.error(err);
 	}
 };
 
 fetchData();
-
-function getNullableKeys(arr) {
-  const keys = Object.keys(arr[0]);
-  const nullableKeys = [];
-
-  for (const key of keys) {
-    const hasNullValue = arr.some(obj => obj[key] === null);
-    if (hasNullValue) {
-      nullableKeys.push(key);
-    }
-  }
-
-  return nullableKeys;
-}
