@@ -1,5 +1,145 @@
 <script lang="ts">
+	import { writable } from 'svelte/store';
+	import {
+		createSvelteTable,
+		getCoreRowModel,
+		getSortedRowModel,
+		type ColumnDef,
+		type TableOptions,
+		flexRender
+	} from '@tanstack/svelte-table';
+	import type { Course } from '$lib/db/schema';
+
 	export let data;
+
+	const columns: ColumnDef<Course>[] = [
+		{
+			header: 'Course Info',
+			footer: (props) => props.column.id,
+			columns: [
+				{
+					accessorKey: 'course_id',
+					header: () => 'Course ID',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'course_code',
+					header: () => 'Course Code',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'title',
+					header: () => 'Title',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'subject',
+					header: () => 'Subject',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'credits',
+					header: () => 'Credits',
+					footer: (props) => props.column.id
+				}
+			]
+		},
+		{
+			header: 'Ratings',
+			footer: (props) => props.column.id,
+			columns: [
+				{
+					accessorKey: 'average_gut_rating',
+					header: () => 'Avg Gut Rating',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'average_professor',
+					header: () => 'Avg Professor',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'average_rating',
+					header: () => 'Avg Rating',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'average_workload',
+					header: () => 'Avg Workload',
+					footer: (props) => props.column.id
+				}
+			]
+		},
+		{
+			header: 'Other Info',
+			footer: (props) => props.column.id,
+			columns: [
+				{
+					accessorKey: 'description',
+					header: () => 'Description',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'final_exam',
+					header: () => 'Final Exam',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'locations_summary',
+					header: () => 'Locations',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'times_summary',
+					header: () => 'Times Summary',
+					footer: (props) => props.column.id
+				},
+				{
+					accessorKey: 'syllabus_url',
+					header: () => 'Syllabus URL',
+					footer: (props) => props.column.id
+				}
+			]
+		}
+	];
+
+	let sorting = [];
+
+	const setSorting = (updater) => {
+		if (updater instanceof Function) {
+			sorting = updater(sorting);
+		} else {
+			sorting = updater;
+		}
+		options.update((old) => ({
+			...old,
+			state: {
+				...old.state,
+				sorting
+			}
+		}));
+	};
+
+	const options = writable<TableOptions<Course>>({
+		data: data.courses,
+		columns,
+		state: {
+			sorting
+		},
+		onSortingChange: setSorting,
+		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		debugTable: true
+	});
+
+	const rerender = () => {
+		options.update((options) => ({
+			...options,
+			data: data.courses
+		}));
+	};
+
+	const table = createSvelteTable(options);
 </script>
 
 <section class="flex h-screen items-center bg-gray-50 dark:bg-gray-900">
@@ -67,3 +207,65 @@
 		<!-- End coding here -->
 	</div>
 </section>
+
+<div class="p-2">
+	<div class="h-2" />
+	<table>
+		<thead>
+			{#each $table.getHeaderGroups() as headerGroup}
+				<tr>
+					{#each headerGroup.headers as header}
+						<th colSpan={header.colSpan}>
+							{#if !header.isPlaceholder}
+								<button
+									class:cursor-pointer={header.column.getCanSort()}
+									class:select-none={header.column.getCanSort()}
+									on:click={header.column.getToggleSortingHandler()}
+								>
+									<svelte:component
+										this={flexRender(header.column.columnDef.header, header.getContext())}
+									/>
+									{{
+										asc: ' 🔼',
+										desc: ' 🔽'
+									}[header.column.getIsSorted().toString()] ?? ''}
+								</button>
+							{/if}
+						</th>
+					{/each}
+				</tr>
+			{/each}
+		</thead>
+		<tbody>
+			{#each $table.getRowModel().rows.slice(0, 10) as row}
+				<tr>
+					{#each row.getVisibleCells() as cell}
+						<td>
+							<svelte:component this={flexRender(cell.column.columnDef.cell, cell.getContext())} />
+						</td>
+					{/each}
+				</tr>
+			{/each}
+		</tbody>
+		<tfoot>
+			{#each $table.getFooterGroups() as footerGroup}
+				<tr>
+					{#each footerGroup.headers as header}
+						<th colSpan={header.colSpan}>
+							{#if !header.isPlaceholder}
+								<svelte:component
+									this={flexRender(header.column.columnDef.footer, header.getContext())}
+								/>
+							{/if}
+						</th>
+					{/each}
+				</tr>
+			{/each}
+		</tfoot>
+	</table>
+	<div>{$table.getRowModel().rows.length} Rows</div>
+	<div>
+		<button on:click={() => rerender()}>Force Rerender</button>
+	</div>
+	<pre>{JSON.stringify($table.getState().sorting, null, 2)}</pre>
+</div>
