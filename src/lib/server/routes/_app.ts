@@ -16,7 +16,11 @@ export const appRouter = router({
 				.where('season_code', '=', seasonCode)
 				.execute();
 			return courses;
-		})
+		}),
+	allCoursesLight: publicProcedure.query(async () => {
+		const courses = await db.selectFrom('Course').select(['all_course_codes']).execute();
+		return courses;
+	})
 });
 
 export type AppRouter = typeof appRouter;
