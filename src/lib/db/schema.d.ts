@@ -3,6 +3,17 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 	? ColumnType<S, I | undefined, U>
 	: ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+export type aal_level = 'aal1' | 'aal2' | 'aal3';
+export type code_challenge_method = 's256' | 'plain';
+export type factor_status = 'unverified' | 'verified';
+export type factor_type = 'totp' | 'webauthn';
+export type audit_log_entries = {
+	instance_id: string | null;
+	id: string;
+	payload: unknown | null;
+	created_at: Timestamp | null;
+	ip_address: Generated<string>;
+};
 export type Course = {
 	course_id: number;
 	all_course_codes: unknown | null;
@@ -46,6 +57,172 @@ export type Course = {
 	times_summary: string | null;
 	title: string | null;
 };
+export type flow_state = {
+	id: string;
+	user_id: string | null;
+	auth_code: string;
+	code_challenge_method: code_challenge_method;
+	code_challenge: string;
+	provider_type: string;
+	provider_access_token: string | null;
+	provider_refresh_token: string | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+};
+export type identities = {
+	id: string;
+	user_id: string;
+	identity_data: unknown;
+	provider: string;
+	last_sign_in_at: Timestamp | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+	email: Generated<string | null>;
+};
+export type instances = {
+	id: string;
+	uuid: string | null;
+	raw_base_config: string | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+};
+export type mfa_amr_claims = {
+	session_id: string;
+	created_at: Timestamp;
+	updated_at: Timestamp;
+	authentication_method: string;
+	id: string;
+};
+export type mfa_challenges = {
+	id: string;
+	factor_id: string;
+	created_at: Timestamp;
+	verified_at: Timestamp | null;
+	ip_address: string;
+};
+export type mfa_factors = {
+	id: string;
+	user_id: string;
+	friendly_name: string | null;
+	factor_type: factor_type;
+	status: factor_status;
+	created_at: Timestamp;
+	updated_at: Timestamp;
+	secret: string | null;
+};
+export type refresh_tokens = {
+	instance_id: string | null;
+	id: Generated<string>;
+	token: string | null;
+	user_id: string | null;
+	revoked: boolean | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+	parent: string | null;
+	session_id: string | null;
+};
+export type saml_providers = {
+	id: string;
+	sso_provider_id: string;
+	entity_id: string;
+	metadata_xml: string;
+	metadata_url: string | null;
+	attribute_mapping: unknown | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+};
+export type saml_relay_states = {
+	id: string;
+	sso_provider_id: string;
+	request_id: string;
+	for_email: string | null;
+	redirect_to: string | null;
+	from_ip_address: string | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+};
+export type schema_migrations = {
+	version: string;
+};
+export type sessions = {
+	id: string;
+	user_id: string;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+	factor_id: string | null;
+	aal: aal_level | null;
+	not_after: Timestamp | null;
+};
+export type sso_domains = {
+	id: string;
+	sso_provider_id: string;
+	domain: string;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+};
+export type sso_providers = {
+	id: string;
+	resource_id: string | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+};
+export type UserCourse = {
+	id: Generated<number>;
+	userEmail: string;
+	courseId: number;
+};
+export type users = {
+	instance_id: string | null;
+	id: string;
+	aud: string | null;
+	role: string | null;
+	email: string | null;
+	encrypted_password: string | null;
+	email_confirmed_at: Timestamp | null;
+	invited_at: Timestamp | null;
+	confirmation_token: string | null;
+	confirmation_sent_at: Timestamp | null;
+	recovery_token: string | null;
+	recovery_sent_at: Timestamp | null;
+	email_change_token_new: string | null;
+	email_change: string | null;
+	email_change_sent_at: Timestamp | null;
+	last_sign_in_at: Timestamp | null;
+	raw_app_meta_data: unknown | null;
+	raw_user_meta_data: unknown | null;
+	is_super_admin: boolean | null;
+	created_at: Timestamp | null;
+	updated_at: Timestamp | null;
+	phone: string | null;
+	phone_confirmed_at: Timestamp | null;
+	phone_change: Generated<string | null>;
+	phone_change_token: Generated<string | null>;
+	phone_change_sent_at: Timestamp | null;
+	confirmed_at: Generated<Timestamp | null>;
+	email_change_token_current: Generated<string | null>;
+	email_change_confirm_status: Generated<number | null>;
+	banned_until: Timestamp | null;
+	reauthentication_token: Generated<string | null>;
+	reauthentication_sent_at: Timestamp | null;
+	is_sso_user: Generated<boolean>;
+	deleted_at: Timestamp | null;
+};
 export type DB = {
+	audit_log_entries: audit_log_entries;
 	Course: Course;
+	flow_state: flow_state;
+	identities: identities;
+	instances: instances;
+	mfa_amr_claims: mfa_amr_claims;
+	mfa_challenges: mfa_challenges;
+	mfa_factors: mfa_factors;
+	refresh_tokens: refresh_tokens;
+	saml_providers: saml_providers;
+	saml_relay_states: saml_relay_states;
+	schema_migrations: schema_migrations;
+	sessions: sessions;
+	sso_domains: sso_domains;
+	sso_providers: sso_providers;
+	UserCourse: UserCourse;
+	users: users;
 };
