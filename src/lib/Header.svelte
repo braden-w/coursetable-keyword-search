@@ -7,7 +7,13 @@
 	import { GithubLogo } from '@steeze-ui/radix-icons';
 	import { onDestroy, onMount } from 'svelte';
 
-	const titles = ['Course Reviews', 'JankTable &trade;', 'WorseTable &trade;', 'CourseLabel'];
+	const titles = [
+		'ReviewTable',
+		'Course Reviews',
+		'JankTable &trade;',
+		'WorseTable &trade;',
+		'CourseLabel'
+	];
 	// Cycle between titles every second
 	let titleIndex = 0;
 	let interval: NodeJS.Timer;
