@@ -1,6 +1,6 @@
+import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
-import { createClient } from '@supabase/supabase-js'
 
 dotenv.config();
 const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY } = process.env;
@@ -68,10 +68,10 @@ const fetchData = async () => {
 	try {
 		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
 		const data = await response.json();
-		// console.log(getUniqueKeys(data.data.computed_listing_info));
-		console.log(data.data.computed_listing_info.filter(obj => obj.course_id === null));
-		const { error } = await supabase.from('courses').upsert(data.data.computed_listing_info)
-		console.log(error)
+		console.log(getNullableKeys(data.data.computed_listing_info));
+		// console.log(data.data.computed_listing_info.filter((obj) => obj.course_id === null));
+		const { error } = await supabase.from('courses').upsert(data.data.computed_listing_info);
+		console.log(error);
 	} catch (err) {
 		console.error(err);
 	}
@@ -79,17 +79,16 @@ const fetchData = async () => {
 
 fetchData();
 
-function getUniqueKeys(arr) {
+function getNullableKeys(arr) {
   const keys = Object.keys(arr[0]);
-  const uniqueKeys = [];
+  const nullableKeys = [];
 
   for (const key of keys) {
-    const values = arr.map(obj => obj[key]);
-    const isUnique = values.every(value => values.indexOf(value) === values.lastIndexOf(value));
-    if (isUnique) {
-      uniqueKeys.push(key);
+    const hasNullValue = arr.some(obj => obj[key] === null);
+    if (hasNullValue) {
+      nullableKeys.push(key);
     }
   }
 
-  return uniqueKeys;
+  return nullableKeys;
 }
