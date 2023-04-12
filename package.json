@@ -34,7 +34,6 @@
 		"postcss": "^8.4.21",
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.7",
-		"prettier-plugin-organize-imports": "^3.2.2",
 		"prettier-plugin-svelte": "^2.10.0",
 		"prettier-plugin-tailwindcss": "^0.2.7",
 		"prisma": "^4.12.0",
