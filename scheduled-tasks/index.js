@@ -1,8 +1,13 @@
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+import { createClient } from '@supabase/supabase-js'
 
 dotenv.config();
-const { PUBLIC_COURSETABLE_COOKIE } = process.env;
+const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY } = process.env;
+
+const supabase = createClient(PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY)
+
+
 
 const options = {
 	method: 'POST',
@@ -63,10 +68,28 @@ const fetchData = async () => {
 	try {
 		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
 		const data = await response.json();
-		console.log(data);
+		// console.log(getUniqueKeys(data.data.computed_listing_info));
+		console.log(data.data.computed_listing_info.filter(obj => obj.course_id === null));
+		const { error } = await supabase.from('courses').upsert(data.data.computed_listing_info)
+		console.log(error)
 	} catch (err) {
 		console.error(err);
 	}
 };
 
 fetchData();
+
+function getUniqueKeys(arr) {
+  const keys = Object.keys(arr[0]);
+  const uniqueKeys = [];
+
+  for (const key of keys) {
+    const values = arr.map(obj => obj[key]);
+    const isUnique = values.every(value => values.indexOf(value) === values.lastIndexOf(value));
+    if (isUnique) {
+      uniqueKeys.push(key);
+    }
+  }
+
+  return uniqueKeys;
+}
