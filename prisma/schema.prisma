@@ -46,3 +46,12 @@ model Course {
   times_summary                    String?
   title                            String?
 }
+
+generator kysely {
+    provider = "prisma-kysely"
+
+    // Optionally provide a destination directory for the generated file
+    // and a filename of your choice
+    output = "../src/lib/db"
+    fileName = "schema.d.ts"
+}

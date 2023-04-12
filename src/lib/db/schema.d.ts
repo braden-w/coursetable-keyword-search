@@ -1,14 +1,51 @@
 import type { ColumnType } from 'kysely';
-
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 	? ColumnType<S, I | undefined, U>
 	: ColumnType<T, T | undefined, T>;
-
-export interface Example {
-	id: Generated<number>;
-	name: string;
-}
-
-export interface DB {
-	Example: Example;
-}
+export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+export type Course = {
+	course_id: number;
+	all_course_codes: unknown | null;
+	areas: unknown | null;
+	average_gut_rating: number | null;
+	average_professor: number | null;
+	average_rating: number | null;
+	average_workload: number | null;
+	average_rating_same_professors: number | null;
+	average_workload_same_professors: number | null;
+	classnotes: string | null;
+	course_code: string | null;
+	credits: number | null;
+	crn: number | null;
+	description: string | null;
+	enrolled: number | null;
+	extra_info: string | null;
+	final_exam: string | null;
+	flag_info: unknown | null;
+	fysem: boolean | null;
+	last_enrollment: number | null;
+	last_enrollment_same_professors: boolean | null;
+	listing_id: number | null;
+	locations_summary: string | null;
+	number: string | null;
+	professor_ids: unknown | null;
+	professor_names: unknown | null;
+	regnotes: string | null;
+	requirements: string | null;
+	rp_attr: string | null;
+	same_course_id: number | null;
+	same_course_and_profs_id: number | null;
+	last_offered_course_id: number | null;
+	school: string | null;
+	season_code: string | null;
+	section: string | null;
+	skills: unknown | null;
+	subject: string | null;
+	syllabus_url: string | null;
+	times_by_day: unknown | null;
+	times_summary: string | null;
+	title: string | null;
+};
+export type DB = {
+	Course: Course;
+};
