@@ -1,4 +1,4 @@
-import {trpc} from "$lib/trpc";
+import { trpc } from '$lib/trpc';
 
 export const load = async (event) => {
 	return {
