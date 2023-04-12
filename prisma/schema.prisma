@@ -3,7 +3,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Example {
-  id   Int    @id @default(autoincrement())
-  name String
+model Course {
+  course_id                        Int      @id
+  all_course_codes                 Json?
+  areas                            Json?
+  average_gut_rating               Float?
+  average_professor                Float?
+  average_rating                   Float?
+  average_workload                 Float?
+  average_rating_same_professors   Float?
+  average_workload_same_professors Float?
+  classnotes                       String?
+  course_code                      String?
+  credits                          Float?
+  crn                              Int?
+  description                      String?
+  enrolled                         Int?
+  extra_info                       String?
+  final_exam                       String?
+  flag_info                        Json?
+  fysem                            Boolean?
+  last_enrollment                  Int?
+  last_enrollment_same_professors  Boolean?
+  listing_id                       Int?
+  locations_summary                String?
+  number                           String?
+  professor_ids                    Json?
+  professor_names                  Json?
+  regnotes                         String?
+  requirements                     String?
+  rp_attr                          String?
+  same_course_id                   Int?
+  same_course_and_profs_id         Int?
+  last_offered_course_id           Int?
+  school                           String?
+  season_code                      String?
+  section                          String?
+  skills                           Json?
+  subject                          String?
+  syllabus_url                     String?
+  times_by_day                     Json?
+  times_summary                    String?
+  title                            String?
+}
+
+generator kysely {
+    provider = "prisma-kysely"
+
+    // Optionally provide a destination directory for the generated file
+    // and a filename of your choice
+    output = "../src/lib/db"
+    fileName = "schema.d.ts"
 }

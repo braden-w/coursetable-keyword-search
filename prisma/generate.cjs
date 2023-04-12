@@ -13,7 +13,7 @@ async function generate() {
 	const databasePath = join('prisma', url.pathname);
 
 	const dialectManager = new DialectManager();
-	const dialect = dialectManager.getDialect('sqlite');
+	const dialect = dialectManager.getDialect('postgres');
 
 	const db = await dialect.introspector.connect({
 		connectionString: databasePath,
