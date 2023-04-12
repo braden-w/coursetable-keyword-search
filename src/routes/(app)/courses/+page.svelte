@@ -20,27 +20,32 @@
 				{
 					accessorKey: 'course_id',
 					header: () => 'Course ID',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'course_code',
 					header: () => 'Course Code',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'title',
 					header: () => 'Title',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'subject',
 					header: () => 'Subject',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'credits',
 					header: () => 'Credits',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				}
 			]
 		},
@@ -51,22 +56,26 @@
 				{
 					accessorKey: 'average_gut_rating',
 					header: () => 'Avg Gut Rating',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'average_professor',
 					header: () => 'Avg Professor',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'average_rating',
 					header: () => 'Avg Rating',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'average_workload',
 					header: () => 'Avg Workload',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				}
 			]
 		},
@@ -77,27 +86,32 @@
 				{
 					accessorKey: 'description',
 					header: () => 'Description',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'final_exam',
 					header: () => 'Final Exam',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'locations_summary',
 					header: () => 'Locations',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'times_summary',
 					header: () => 'Times Summary',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				},
 				{
 					accessorKey: 'syllabus_url',
 					header: () => 'Syllabus URL',
-					footer: (props) => props.column.id
+					footer: (props) => props.column.id,
+					cell: (info) => info.getValue() ?? ''
 				}
 			]
 		}
