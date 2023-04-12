@@ -15,8 +15,7 @@
 
 	export let data;
 	const { seasonCourseIds, params, message } = data;
-	let { keyword, course_keyword, areas_skills_keyword } = params;
-	$: enteredParams = { keyword, course_keyword, areas_skills_keyword };
+	let searchBar: Params = params
 
 	let showFilters = true;
 	let filterCurrentSeason = true;
@@ -38,11 +37,12 @@
 
 	const onKeydown = (e: KeyboardEvent) => {
 		if (e.key !== 'Enter') return;
-		updateRoute(enteredParams);
+		updateRoute(searchBar);
 	};
 
 	const onQueriesRowClick = ({ detail }: { detail: Params }) => {
 		updateRoute(detail);
+		searchBar = detail;
 	};
 </script>
 
@@ -66,7 +66,7 @@
 				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 				placeholder="Search by review keyword...(use % to match anything)"
 				type="search"
-				bind:value={keyword}
+				bind:value={searchBar.keyword}
 				on:keydown={onKeydown}
 			/>
 			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
@@ -111,7 +111,7 @@
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
 					type="search"
-					bind:value={course_keyword}
+					bind:value={searchBar.course_keyword}
 					on:keydown={onKeydown}
 				/>
 			</div>
@@ -129,7 +129,7 @@
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 					placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
 					type="search"
-					bind:value={areas_skills_keyword}
+					bind:value={searchBar.areas_skills_keyword}
 					on:keydown={onKeydown}
 				/>
 			</div>
@@ -204,7 +204,7 @@
 
 			<ul class="divide-y divide-gray-200 rounded-md bg-white shadow">
 				<VirtualList items={coursesToDisplay(courses)} let:item height="54rem">
-					<ResultItem course={item} {keyword} />
+					<ResultItem course={item} keyword={searchBar.keyword} />
 					<li class="border-t border-gray-200" />
 				</VirtualList>
 			</ul>
