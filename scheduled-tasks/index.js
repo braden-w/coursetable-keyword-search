@@ -69,8 +69,7 @@ const fetchData = async () => {
 		const {
 			data: { computed_listing_info: courses }
 		} = await response.json();
-		const { data, error } = await supabase.from('Course').upsert(courses);
-		console.log(data, error);
+		const { error } = await supabase.from('Course').upsert(courses);
 	} catch (err) {
 		console.error(err);
 	}
