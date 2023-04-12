@@ -1,12 +1,14 @@
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+
 dotenv.config();
+const { PUBLIC_COURSETABLE_COOKIE } = process.env;
 
 const options = {
 	method: 'POST',
 	headers: {
 		'Content-Type': 'application/json',
-		Cookie: process.env.PUBLIC_COURSETABLE_COOKIE
+		Cookie: PUBLIC_COURSETABLE_COOKIE
 	},
 	body: JSON.stringify({
 		query: `query {
@@ -57,7 +59,7 @@ const options = {
 	})
 };
 
-const makeRequest = async () => {
+const fetchData = async () => {
 	try {
 		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
 		const data = await response.json();
@@ -67,4 +69,4 @@ const makeRequest = async () => {
 	}
 };
 
-makeRequest();
+fetchData();
