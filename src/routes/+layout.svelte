@@ -28,7 +28,6 @@
 		gtag('config', 'G-PEGFGBNW6V');
 	</script>
 </svelte:head>
-<Header />
 
 <QueryClientProvider client={queryClient}>
 	<main>
