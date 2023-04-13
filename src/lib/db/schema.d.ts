@@ -14,6 +14,17 @@ export type audit_log_entries = {
 	created_at: Timestamp | null;
 	ip_address: Generated<string>;
 };
+export type buckets = {
+	id: string;
+	name: string;
+	owner: string | null;
+	created_at: Generated<Timestamp | null>;
+	updated_at: Generated<Timestamp | null>;
+	public: Generated<boolean | null>;
+	avif_autodetection: Generated<boolean | null>;
+	file_size_limit: string | null;
+	allowed_mime_types: string[];
+};
 export type Course = {
 	course_id: number;
 	all_course_codes: unknown | null;
@@ -116,6 +127,24 @@ export type mfa_factors = {
 	updated_at: Timestamp;
 	secret: string | null;
 };
+export type migrations = {
+	id: number;
+	name: string;
+	hash: string;
+	executed_at: Generated<Timestamp | null>;
+};
+export type objects = {
+	id: Generated<string>;
+	bucket_id: string | null;
+	name: string | null;
+	owner: string | null;
+	created_at: Generated<Timestamp | null>;
+	updated_at: Generated<Timestamp | null>;
+	last_accessed_at: Generated<Timestamp | null>;
+	metadata: unknown | null;
+	path_tokens: Generated<string>[];
+	version: string | null;
+};
 export type refresh_tokens = {
 	instance_id: string | null;
 	id: Generated<string>;
@@ -215,6 +244,7 @@ export type users = {
 };
 export type DB = {
 	audit_log_entries: audit_log_entries;
+	buckets: buckets;
 	Course: Course;
 	EvaluationNarratives: EvaluationNarratives;
 	flow_state: flow_state;
@@ -223,6 +253,8 @@ export type DB = {
 	mfa_amr_claims: mfa_amr_claims;
 	mfa_challenges: mfa_challenges;
 	mfa_factors: mfa_factors;
+	migrations: migrations;
+	objects: objects;
 	refresh_tokens: refresh_tokens;
 	saml_providers: saml_providers;
 	saml_relay_states: saml_relay_states;
