@@ -57,6 +57,12 @@ export type Course = {
 	times_summary: string | null;
 	title: string | null;
 };
+export type EvaluationNarratives = {
+	id: number;
+	course_id: number;
+	comment: string;
+	comment_compound: number;
+};
 export type flow_state = {
 	id: string;
 	user_id: string | null;
@@ -210,6 +216,7 @@ export type users = {
 export type DB = {
 	audit_log_entries: audit_log_entries;
 	Course: Course;
+	EvaluationNarratives: EvaluationNarratives;
 	flow_state: flow_state;
 	identities: identities;
 	instances: instances;

@@ -11,8 +11,18 @@ datasource db {
   schemas  = ["auth", "public"]
 }
 
+model EvaluationNarratives {
+  id               Int    @id
+  course_id        Int
+  comment          String
+  comment_compound Float
+  course           Course @relation(fields: [course_id], references: [course_id])
+
+  @@schema("public")
+}
+
 model Course {
-  course_id                        Int          @id
+  course_id                        Int                    @id
   all_course_codes                 Json?
   areas                            Json?
   average_gut_rating               Float?
@@ -53,6 +63,7 @@ model Course {
   times_by_day                     Json?
   times_summary                    String?
   title                            String?
+  EvaluationNarratives             EvaluationNarratives[]
   UserCourse                       UserCourse[]
 
   @@schema("public")
