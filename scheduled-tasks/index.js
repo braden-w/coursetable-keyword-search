@@ -10,8 +10,8 @@ const supabase = createClient(PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY);
 const fetchData = async () => {
 	try {
 		const courses = await getCourses();
-		// const { error } = await supabase.from('Courses').upsert(courses);
-		// console.log('🚀 ~ file: index.js:14 ~ fetchData ~ error:', error);
+		const { error } = await supabase.from('Courses').upsert(courses);
+		console.log('🚀 ~ file: index.js:14 ~ fetchData ~ error:', error);
 		const evaluation_narratives = await getEvaluationNarratives();
 		const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
 			evaluation_narratives,
@@ -109,7 +109,7 @@ async function getEvaluationNarratives() {
 		},
 		body: JSON.stringify({
 			query: `query {
-	evaluation_narratives (limit: 10){
+	evaluation_narratives {
 		id
 		course_id
 		comment
