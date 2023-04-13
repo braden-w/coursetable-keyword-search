@@ -12,6 +12,7 @@ specifiers:
   '@tailwindcss/forms': ^0.5.3
   '@tailwindcss/line-clamp': ^0.4.4
   '@tanstack/svelte-query': ^4.29.1
+  '@tanstack/svelte-table': ^8.8.5
   '@trpc/client': ^10.19.1
   '@trpc/server': ^10.19.1
   '@types/pg': ^8.6.6
@@ -51,6 +52,7 @@ dependencies:
   '@sveltejs/svelte-virtual-list': 3.0.1
   '@tailwindcss/line-clamp': 0.4.4_tailwindcss@3.3.1
   '@tanstack/svelte-query': 4.29.1_svelte@3.58.0
+  '@tanstack/svelte-table': 8.8.5_svelte@3.58.0
   '@trpc/client': 10.19.1_@trpc+server@10.19.1
   '@trpc/server': 10.19.1
   daisyui: 2.51.5_j7yt3jd32cwenjqavrrga47yr4
@@ -742,6 +744,21 @@ packages:
     dependencies:
       '@tanstack/query-core': 4.29.1
       svelte: 3.58.0
+    dev: false
+
+  /@tanstack/svelte-table/8.8.5_svelte@3.58.0:
+    resolution: {integrity: sha512-d33JJwEe5AbwH6sBnRDfTL3gianA7if0fUTqxLNKK6P51IAIgMgAW+ahbCeg+5wJ9KcMSyTEOHs2Fg03oP6tvA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      svelte: ^3.49.0
+    dependencies:
+      '@tanstack/table-core': 8.8.5
+      svelte: 3.58.0
+    dev: false
+
+  /@tanstack/table-core/8.8.5:
+    resolution: {integrity: sha512-Xnwa1qxpgvSW7ozLiexmKp2PIYcLBiY/IizbdGriYCL6OOHuZ9baRhrrH51zjyz+61ly6K59rmt6AI/3RR+97Q==}
+    engines: {node: '>=12'}
     dev: false
 
   /@timsuchanek/copy/1.4.5:
