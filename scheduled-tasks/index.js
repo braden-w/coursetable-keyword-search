@@ -7,14 +7,41 @@ const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY } = proce
 
 const supabase = createClient(PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY);
 
-const options = {
-	method: 'POST',
-	headers: {
-		'Content-Type': 'application/json',
-		Cookie: PUBLIC_COURSETABLE_COOKIE
-	},
-	body: JSON.stringify({
-		query: `query {
+const fetchData = async () => {
+	try {
+		const courses = await getCourses();
+		// const { error } = await supabase.from('Courses').upsert(courses);
+		// console.log('🚀 ~ file: index.js:14 ~ fetchData ~ error:', error);
+		const evaluation_narratives = await getEvaluationNarratives();
+		const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
+			evaluation_narratives,
+			courses
+		});
+		const { error: error2 } = await supabase
+			.from('EvaluationNarratives')
+			.upsert(evaluation_narratives_matching_course_id);
+		console.log('🚀 ~ file: index.js:19 ~ fetchData ~ error2:', error2);
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+function filterEvaluationsByCourse({ evaluation_narratives, courses }) {
+	const courseIds = new Set(courses.map((course) => course.course_id));
+	return evaluation_narratives.filter((evaluation) => courseIds.has(evaluation.course_id));
+}
+
+fetchData();
+
+async function getCourses() {
+	const options = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Cookie: PUBLIC_COURSETABLE_COOKIE
+		},
+		body: JSON.stringify({
+			query: `query {
 	computed_listing_info(distinct_on: same_course_id) {
 		course_id
 		all_course_codes
@@ -59,20 +86,46 @@ const options = {
 		title
 	}
 	}`,
-		variables: {}
-	})
-};
-
-const fetchData = async () => {
+			variables: {}
+		})
+	};
 	try {
 		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
 		const {
 			data: { computed_listing_info: courses }
 		} = await response.json();
-		const { error } = await supabase.from('Course').upsert(courses);
+		return courses;
 	} catch (err) {
 		console.error(err);
 	}
-};
+}
 
-fetchData();
+async function getEvaluationNarratives() {
+	const options = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Cookie: PUBLIC_COURSETABLE_COOKIE
+		},
+		body: JSON.stringify({
+			query: `query {
+	evaluation_narratives (limit: 10){
+		id
+		course_id
+		comment
+		comment_compound
+	}
+}`,
+			variables: {}
+		})
+	};
+	try {
+		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
+		const {
+			data: { evaluation_narratives }
+		} = await response.json();
+		return evaluation_narratives;
+	} catch (err) {
+		console.error(err);
+	}
+}
