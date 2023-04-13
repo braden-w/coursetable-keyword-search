@@ -1,3 +1,10 @@
+generator kysely {
+  provider        = "prisma-kysely"
+  output          = "../src/lib/db"
+  previewFeatures = ["multiSchema"]
+  fileName        = "schema.d.ts"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -97,19 +104,12 @@ model users {
 
 model UserCourse {
   id        Int    @id @default(autoincrement())
-  user      users  @relation(fields: [userEmail], references: [email])
   userEmail String @db.VarChar(255)
-  course    Course @relation(fields: [courseId], references: [course_id])
   courseId  Int
+  course    Course @relation(fields: [courseId], references: [course_id])
+  user      users  @relation(fields: [userEmail], references: [email])
 
   @@schema("public")
-}
-
-generator kysely {
-  provider        = "prisma-kysely"
-  output          = "../src/lib/db"
-  previewFeatures = ["multiSchema"]
-  fileName        = "schema.d.ts"
 }
 
 model audit_log_entries {
