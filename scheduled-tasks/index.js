@@ -7,6 +7,15 @@ const {PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY} = process
 
 const supabase = createClient(PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY);
 
+function roundFloatsInCourse(course, floatKeys) {
+	floatKeys.forEach((floatKey) => {
+		if (typeof course[floatKey] === "number") {
+			course[floatKey] = parseFloat(course[floatKey].toFixed(3));
+		}
+	});
+	return course;
+}
+
 const fetchData = async () => {
 	try {
 		const courses = await getCourses();
@@ -19,14 +28,8 @@ const fetchData = async () => {
 			'average_workload_same_professors',
 			'credits'
 		];
-		courses.forEach((course) => {
-			floats.forEach((floatKey) => {
-				if (typeof course[floatKey] === 'number') {
-					course[floatKey] = parseFloat(course[floatKey].toFixed(3));
-				}
-			});
-		});
-		const {error} = await supabase.from('Courses').upsert(courses);
+		const roundedCourses = courses.map((course) => roundFloatsInCourse(course, floats));
+		const {error} = await supabase.from('Courses').upsert(roundedCourses);
 		console.log('🚀 ~ file: index.js:14 ~ fetchData ~ error:', error);
 		const evaluation_narratives = await getEvaluationNarratives();
 		const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
