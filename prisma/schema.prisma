@@ -12,16 +12,16 @@ datasource db {
 }
 
 model EvaluationNarratives {
-  id               Int    @id
+  id               Int     @id
   course_id        Int
   comment          String
   comment_compound Float
-  course           Course @relation(fields: [course_id], references: [course_id])
+  course           Courses @relation(fields: [course_id], references: [course_id])
 
   @@schema("public")
 }
 
-model Course {
+model Courses {
   course_id                        Int                    @id
   all_course_codes                 Json?
   areas                            Json?
@@ -114,11 +114,11 @@ model users {
 }
 
 model UserCourse {
-  id        Int    @id @default(autoincrement())
-  userEmail String @db.VarChar(255)
+  id        Int     @id @default(autoincrement())
+  userEmail String  @db.VarChar(255)
   courseId  Int
-  course    Course @relation(fields: [courseId], references: [course_id])
-  user      users  @relation(fields: [userEmail], references: [email])
+  course    Courses @relation(fields: [courseId], references: [course_id])
+  user      users   @relation(fields: [userEmail], references: [email])
 
   @@schema("public")
 }

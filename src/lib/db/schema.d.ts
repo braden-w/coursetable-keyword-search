@@ -14,7 +14,7 @@ export type audit_log_entries = {
 	created_at: Timestamp | null;
 	ip_address: Generated<string>;
 };
-export type Course = {
+export type Courses = {
 	course_id: number;
 	all_course_codes: unknown | null;
 	areas: unknown | null;
@@ -215,7 +215,7 @@ export type users = {
 };
 export type DB = {
 	audit_log_entries: audit_log_entries;
-	Course: Course;
+	Courses: Courses;
 	EvaluationNarratives: EvaluationNarratives;
 	flow_state: flow_state;
 	identities: identities;
