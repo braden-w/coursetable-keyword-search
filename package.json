@@ -50,6 +50,7 @@
 		"@sveltejs/svelte-virtual-list": "^3.0.1",
 		"@tailwindcss/line-clamp": "^0.4.4",
 		"@tanstack/svelte-query": "^4.29.1",
+		"@tanstack/svelte-table": "^8.8.5",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
 		"daisyui": "^2.51.5",

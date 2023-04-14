@@ -7,121 +7,37 @@
 		type ColumnDef,
 		type TableOptions,
 		flexRender,
-
 		type SortingState
-
 	} from '@tanstack/svelte-table';
-	import type { Course } from '$lib/db/schema';
+	import type { EvaluationNarratives } from '$lib/db/schema';
 
 	export let data;
-	let searchInput = ""
+	let searchInput = '';
 
-	const columns: ColumnDef<Course>[] = [
+	const columns: ColumnDef<EvaluationNarratives>[] = [
 		{
 			header: 'Course Info',
-			footer: (props) => props.column.id,
 			columns: [
 				{
 					accessorKey: 'course_id',
 					header: () => 'Course ID',
-					footer: (props) => props.column.id,
 					cell: (info) => info.getValue() ?? ''
 				},
 				{
-					accessorKey: 'course_code',
-					header: () => 'Course Code',
-					footer: (props) => props.column.id,
+					accessorKey: 'comment',
+					header: () => '',
 					cell: (info) => info.getValue() ?? ''
 				},
 				{
-					accessorKey: 'title',
-					header: () => 'Title',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'subject',
-					header: () => 'Subject',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'credits',
-					header: () => 'Credits',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				}
-			]
-		},
-		{
-			header: 'Ratings',
-			footer: (props) => props.column.id,
-			columns: [
-				{
-					accessorKey: 'average_gut_rating',
-					header: () => 'Avg Gut Rating',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'average_professor',
-					header: () => 'Avg Professor',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'average_rating',
-					header: () => 'Avg Rating',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'average_workload',
-					header: () => 'Avg Workload',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				}
-			]
-		},
-		{
-			header: 'Other Info',
-			footer: (props) => props.column.id,
-			columns: [
-				{
-					accessorKey: 'description',
-					header: () => 'Description',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'final_exam',
-					header: () => 'Final Exam',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'locations_summary',
-					header: () => 'Locations',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'times_summary',
-					header: () => 'Times Summary',
-					footer: (props) => props.column.id,
-					cell: (info) => info.getValue() ?? ''
-				},
-				{
-					accessorKey: 'syllabus_url',
-					header: () => 'Syllabus URL',
-					footer: (props) => props.column.id,
+					accessorKey: 'comment_compound',
+					header: () => 'Sentiment',
 					cell: (info) => info.getValue() ?? ''
 				}
 			]
 		}
 	];
 
-	let sorting: SortingState= [] ;
+	let sorting: SortingState = [];
 
 	const setSorting = (updater) => {
 		if (updater instanceof Function) {
@@ -138,8 +54,8 @@
 		}));
 	};
 
-	const options = writable<TableOptions<Course>>({
-		data: data.courses,
+	const options = writable<TableOptions<EvaluationNarratives>>({
+		data: data.reviews,
 		columns,
 		state: {
 			sorting
@@ -153,7 +69,7 @@
 	const rerender = () => {
 		options.update((options) => ({
 			...options,
-			data: data.courses
+			data: data.reviews
 		}));
 	};
 
