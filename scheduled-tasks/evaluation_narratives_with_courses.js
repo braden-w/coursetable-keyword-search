@@ -89,32 +89,33 @@ async function fetchBatchedResults({offset, limit}) {
 
 // Define a function to fetch all results using Promise.all
 async function fetchAllResults() {
-  const allResults = [];
-  let offset = 0;
-  let limit = 5000;
-  let batchSize = 8;
+  const limit = 5000;
+  const batchSize = 8;
 
-  while (true) {
-    const promises = [];
-    for (let i = 0; i < batchSize; i++) {
-      promises.push(fetchBatchedResults({offset: offset + i * limit, limit}));
-    }
-
-    const batchResults = await Promise.all(promises);
-    console.log("🚀 ~ file: evaluation_narratives_with_courses.js:104 ~ fetchAllResults ~ batchResults:", batchResults)
-
-    if (batchResults.every(results => results.length === 0)) {
-      break;
-    }
-
-    for (const results of batchResults) {
-      allResults.push(...results);
-    }
-
-    offset += batchSize * limit;
+  async function fetchBatchResults(offset) {
+    const batchPromises = Array.from({length: batchSize}, (_, i) => fetchBatchedResults({offset: offset + i * limit, limit})
+    );
+    return Promise.all(batchPromises);
   }
-  return allResults;
+
+  const flattenResults = (acc, results) => [...acc, ...results];
+
+  const isBatchEmpty = (batchResults) => batchResults.every((results) => results.length === 0);
+
+  async function fetchAndProcessBatches(offset, allResults) {
+    const batchResults = await fetchBatchResults(offset);
+
+    if (isBatchEmpty(batchResults)) {
+      return allResults;
+    }
+
+    const newAllResults = batchResults.reduce(flattenResults, allResults);
+    return fetchAndProcessBatches(offset + batchSize * limit, newAllResults);
+  }
+
+  return fetchAndProcessBatches(0, []);
 }
+
 
 // Call the fetchAllResults function and log the results
 fetchAllResults().then((results) => {
