@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 
 dotenv.config();
-const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY } = process.env;
+const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABASE_URL, PUBLIC_ANON_KEY } = process.env;
 
-const supabase = createClient(PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY);
+const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_ANON_KEY);
 
 function roundFloatsInCourse(course, floatKeys) {
 	floatKeys.forEach((floatKey) => {
@@ -133,7 +133,82 @@ async function getEvaluationNarratives() {
 	}
 }
 
-async function fetchCourseTable(query, variables) {
+async function getEvaluationNarrativesToCourses() {
+	const query = `
+query evaluation_narratives_with_courses_all {
+	evaluation_narratives {
+		id
+		course_id
+		comment
+		comment_compound
+		course {
+			computed_listing_infos {
+				all_course_codes
+				areas
+				average_gut_rating
+				average_professor
+				average_rating
+				average_workload
+				average_rating_same_professors
+				average_workload_same_professors
+# 				classnotes
+# 				course_code
+# 				credits
+# 				crn
+				description
+# 				enrolled
+# 				extra_info
+# 				final_exam
+# 				flag_info
+# 				fysem
+# 				last_enrollment
+# 				last_enrollment_same_professors
+# 				listing_id
+# 				locations_summary
+# 				number
+				professor_ids
+				professor_names
+# 				regnotes
+# 				requirements
+# 				rp_attr
+# 				same_course_id
+# 				same_course_and_profs_id
+# 				last_offered_course_id
+# 				school
+				season_code
+# 				section
+				skills
+				subject
+# 				syllabus_url
+# 				times_by_day
+# 				times_summary
+				title
+			}
+		}
+	}
+}
+	`;
+	const variables = {};
+
+	try {
+		const {
+			data: { evaluation_narratives }
+		} = await fetchCourseTable(query, variables);
+		const flattenedResults = evaluation_narratives.map(
+			({
+				course: {
+					computed_listing_infos: [course]
+				},
+				...rest
+			}) => ({ ...rest, ...course })
+		);
+		return flattenedResults;
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+export async function fetchCourseTable(query, variables) {
 	const url = 'https://api.coursetable.com/ferry/v1/graphql';
 
 	const options = {
