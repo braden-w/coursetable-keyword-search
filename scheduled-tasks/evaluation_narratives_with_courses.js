@@ -5,8 +5,8 @@ import fetch from 'node-fetch';
 dotenv.config();
 const {PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABSE_URL, PUBLIC_ANON_KEY} = process.env;
 
-const gqlQuery = `query evaluation_narratives_with_courses ($limit: Int){
-	evaluation_narratives (limit: $limit) {
+const gqlQuery = `query evaluation_narratives_with_courses ($limit: Int, $offset: Int){
+	evaluation_narratives (limit: $limit, offset: $offset) {
     id
     course_id
     comment
