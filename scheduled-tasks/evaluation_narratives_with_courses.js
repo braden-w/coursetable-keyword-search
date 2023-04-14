@@ -92,11 +92,26 @@ async function fetchAllResults() {
   const allResults = [];
   let offset = 0;
   let limit = 5000;
-  let results = await fetchBatchedResults({offset, limit});
-  while (results.length > 0) {
-    allResults.push(...results);
-    offset += limit;
-    results = await fetchBatchedResults({offset, limit});
+  let batchSize = 8;
+
+  while (true) {
+    const promises = [];
+    for (let i = 0; i < batchSize; i++) {
+      promises.push(fetchBatchedResults({offset: offset + i * limit, limit}));
+    }
+
+    const batchResults = await Promise.all(promises);
+    console.log("🚀 ~ file: evaluation_narratives_with_courses.js:104 ~ fetchAllResults ~ batchResults:", batchResults)
+
+    if (batchResults.every(results => results.length === 0)) {
+      break;
+    }
+
+    for (const results of batchResults) {
+      allResults.push(...results);
+    }
+
+    offset += batchSize * limit;
   }
   return allResults;
 }
