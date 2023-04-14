@@ -30,7 +30,6 @@ const fetchData = async () => {
 		];
 		const roundedCourses = courses.map((course) => roundFloatsInCourse(course, floats));
 		const { error } = await supabase.from('Courses').upsert(roundedCourses);
-		console.log('🚀 ~ file: index.js:14 ~ fetchData ~ error:', error);
 		const evaluation_narratives = await getEvaluationNarratives();
 		const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
 			evaluation_narratives,
@@ -39,7 +38,6 @@ const fetchData = async () => {
 		const { error: error2 } = await supabase
 			.from('EvaluationNarratives')
 			.upsert(evaluation_narratives_matching_course_id);
-		console.log('🚀 ~ file: index.js:19 ~ fetchData ~ error2:', error2);
 	} catch (err) {
 		console.error(err);
 	}
@@ -53,66 +51,59 @@ function filterEvaluationsByCourse({ evaluation_narratives, courses }) {
 fetchData();
 
 async function getCourses() {
-	const options = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Cookie: PUBLIC_COURSETABLE_COOKIE
-		},
-		body: JSON.stringify({
-			query: `query {
-	computed_listing_info(distinct_on: same_course_id) {
-		course_id
-		all_course_codes
-		areas
-		average_gut_rating
-		average_professor
-		average_rating
-		average_workload
-		average_rating_same_professors
-		average_workload_same_professors
-		classnotes
-		course_code
-		credits
-		crn
-		description
-		enrolled
-		extra_info
-		final_exam
-		flag_info
-		fysem
-		last_enrollment
-		last_enrollment_same_professors
-		listing_id
-		locations_summary
-		number
-		professor_ids
-		professor_names
-		regnotes
-		requirements
-		rp_attr
-		same_course_id
-		same_course_and_profs_id
-		last_offered_course_id
-		school
-		season_code
-		section
-		skills
-		subject
-		syllabus_url
-		times_by_day
-		times_summary
-		title
-	}
-	}`,
-			variables: {}
-		})
-	};
+	const query = `
+    query {
+      computed_listing_info(distinct_on: same_course_id) {
+        course_id
+        all_course_codes
+        areas
+        average_gut_rating
+        average_professor
+        average_rating
+        average_workload
+        average_rating_same_professors
+        average_workload_same_professors
+        classnotes
+        course_code
+        credits
+        crn
+        description
+        enrolled
+        extra_info
+        final_exam
+        flag_info
+        fysem
+        last_enrollment
+        last_enrollment_same_professors
+        listing_id
+        locations_summary
+        number
+        professor_ids
+        professor_names
+        regnotes
+        requirements
+        rp_attr
+        same_course_id
+        same_course_and_profs_id
+        last_offered_course_id
+        school
+        season_code
+        section
+        skills
+        subject
+        syllabus_url
+        times_by_day
+        times_summary
+        title
+      }
+    }
+  `;
+	const variables = {};
+
 	try {
-		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
 		const {
 			data: { computed_listing_info: courses }
-		} = await response.json();
+		} = await fetchCourseTable(query, variables);
 		return courses;
 	} catch (err) {
 		console.error(err);
@@ -120,31 +111,42 @@ async function getCourses() {
 }
 
 async function getEvaluationNarratives() {
+	const query = `
+	query {
+		evaluation_narratives {
+			id
+			course_id
+			comment
+			comment_compound
+		}
+	}
+	`;
+	const variables = {};
+
+	try {
+		const {
+			data: { evaluation_narratives }
+		} = await fetchCourseTable(query, variables);
+		return evaluation_narratives;
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+async function fetchCourseTable(query, variables) {
+	const url = 'https://api.coursetable.com/ferry/v1/graphql';
+
 	const options = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			Cookie: PUBLIC_COURSETABLE_COOKIE
 		},
-		body: JSON.stringify({
-			query: `query {
-	evaluation_narratives {
-		id
-		course_id
-		comment
-		comment_compound
-	}
-}`,
-			variables: {}
-		})
+		body: JSON.stringify({ query, variables })
 	};
-	try {
-		const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', options);
-		const {
-			data: { evaluation_narratives }
-		} = await response.json();
-		return evaluation_narratives;
-	} catch (err) {
-		console.error(err);
-	}
+
+	const response = await fetch(url, options);
+	const data = await response.json();
+
+	return data;
 }
