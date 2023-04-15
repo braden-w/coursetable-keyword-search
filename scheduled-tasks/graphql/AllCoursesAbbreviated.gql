@@ -1,0 +1,10 @@
+query AllCoursesAbbreviated {
+	computed_listing_info(distinct_on: same_course_id) {
+		same_course_id
+		course_code
+		title
+		description
+		season_code
+		description
+	}
+}
