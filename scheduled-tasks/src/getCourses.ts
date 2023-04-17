@@ -9,7 +9,7 @@ const coursesCount = `query CoursesCount {
 }`;
 
 const coursesSchemaMatchingApiStaticCatalog = `query CoursesSchemaMatchingApiStaticCatalog {
-	computetd_listing_info {
+	computed_listing_info {
 		course_id
 		all_course_codes
 		areas
