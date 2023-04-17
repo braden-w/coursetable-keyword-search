@@ -8,8 +8,8 @@ const coursesCount = `query CoursesCount {
 	}
 }`;
 
-const coursesSchemaMatchingApiStaticCatalog = `query CoursesSchemaMatchingApiStaticCatalog {
-	computed_listing_info {
+const coursesSchemaMatchingApiStaticCatalog = `query CoursesSchemaMatchingApiStaticCatalog ($limit: Int, $offset: Int) {
+	computed_listing_info (limit: $limit, offset: $offset) {
 		course_id
 		all_course_codes
 		areas
@@ -71,10 +71,18 @@ export async function getCoursesCount() {
 
 export async function getCoursesSchemaMatchingApiStaticCatalog() {
 	const count = await getCoursesCount();
+	const parallelRequests = 4;
+	const limit = Math.ceil(count / parallelRequests);
+
 	try {
-		const {
-			data: { computed_listing_info: courses }
-		} = await fetchCourseTable(coursesSchemaMatchingApiStaticCatalog);
+		const requests = [];
+		for (let i = 0; i < parallelRequests; i++) {
+			const offset = i * limit;
+			requests.push(fetchCourseTable(coursesSchemaMatchingApiStaticCatalog, { limit, offset }));
+		}
+
+		const results = await Promise.all(requests);
+		const courses = results.flatMap((result) => result.data.computed_listing_info);
 		return courses;
 	} catch (err) {
 		console.error(err);

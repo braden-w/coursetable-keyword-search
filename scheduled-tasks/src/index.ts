@@ -14,6 +14,7 @@ function roundFloatsInCourse(course, floatKeys) {
 async function main() {
 	try {
 		const courses = await getCoursesSchemaMatchingApiStaticCatalog();
+		console.log("🚀 ~ file: index.ts:17 ~ main ~ courses:", courses)
 		const floats = [
 			'average_gut_rating',
 			'average_professor',
@@ -24,6 +25,7 @@ async function main() {
 			'credits'
 		];
 		const roundedCourses = courses.map((course) => roundFloatsInCourse(course, floats));
+		console.log("🚀 ~ file: index.ts:27 ~ main ~ roundedCourses:", roundedCourses)
 		const { error } = await supabase.from('Courses').upsert(roundedCourses);
 		console.log('🚀 ~ file: index.js:33 ~ main ~ error:', error);
 		// const evaluation_narratives = await getEvaluationNarratives();
