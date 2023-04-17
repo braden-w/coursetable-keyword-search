@@ -75,12 +75,9 @@ export async function getCoursesSchemaMatchingApiStaticCatalog() {
 	const limit = Math.ceil(count / parallelRequests);
 
 	try {
-		const requests = [];
-		for (let i = 0; i < parallelRequests; i++) {
-			const offset = i * limit;
-			requests.push(fetchCourseTable(coursesSchemaMatchingApiStaticCatalog, { limit, offset }));
-		}
-
+		const requests = Array.from({ length: parallelRequests }, (_, i) => i * limit).map((offset) =>
+			fetchCourseTable(coursesSchemaMatchingApiStaticCatalog, { limit, offset })
+		);
 		const results = await Promise.all(requests);
 		const courses = results.flatMap((result) => result.data.computed_listing_info);
 		return courses;
