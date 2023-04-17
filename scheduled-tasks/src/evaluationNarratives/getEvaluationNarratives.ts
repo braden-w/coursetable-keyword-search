@@ -39,11 +39,11 @@ export async function getEvaluationNarratives() {
 
 	try {
 		const requests = Array.from({ length: parallelRequests }, (_, i) => i * limit).map((offset) =>
-			fetchCourseTable(getEvaluationNarratives, { limit, offset })
+			fetchCourseTable(evaluationNarratives, { limit, offset })
 		);
 		const results = await Promise.all(requests);
-		const evaluationNarratives = results.flatMap((result) => result.data.evaluation_narratives);
-		return evaluationNarratives;
+		const courses = results.flatMap((result) => result.data.evaluation_narratives);
+		return courses;
 	} catch (err) {
 		console.error(err);
 	}

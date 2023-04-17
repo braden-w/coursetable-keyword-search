@@ -1,6 +1,8 @@
 import { getCoursesSchemaMatchingApiStaticCatalog } from './courses/getCourses.js';
 import { upsertCoursesInBatches } from './courses/upsertCourses.js';
 import { fetchCourseTable } from './fetchCourseTable.js';
+import { getEvaluationNarratives } from './evaluationNarratives/getEvaluationNarratives.js';
+import { upsertEvaluationNarrativesInBatches } from './evaluationNarratives/upsertEvaluationNarratives.js';
 
 function roundFloatsInCourse(course, floatKeys) {
 	floatKeys.forEach((floatKey) => {
@@ -26,14 +28,12 @@ async function main() {
 		];
 		const roundedCourses = courses.map((course) => roundFloatsInCourse(course, floats));
 		upsertCoursesInBatches(roundedCourses);
-		// const evaluation_narratives = await getEvaluationNarratives();
-		// const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
-		// 	evaluation_narratives,
-		// 	courses
-		// });
-		// const { error: error2 } = await supabase
-		// 	.from('EvaluationNarratives')
-		// 	.upsert(evaluation_narratives_matching_course_id);
+		const evaluation_narratives = await getEvaluationNarratives();
+		const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
+			evaluation_narratives,
+			courses
+		});
+		upsertEvaluationNarrativesInBatches(evaluation_narratives_matching_course_id);
 		// const data = await getEvaluationNarrativesToCourses();
 		// console.log('🚀 ~ file: index.js:42 ~ main ~ data:', data);
 	} catch (err) {
