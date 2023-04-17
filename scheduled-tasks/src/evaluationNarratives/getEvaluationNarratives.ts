@@ -1,4 +1,4 @@
-import { fetchCourseTable } from './fetchCourseTable.js';
+import { fetchCourseTable } from '../fetchCourseTable.js';
 
 const evaluationNarrativesCount = `query EvaluationNarrativesCount {
 	evaluation_narratives_aggregate {
