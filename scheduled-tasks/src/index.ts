@@ -30,16 +30,17 @@ async function main() {
 		];
 		const roundedCourses = courses.map((course) => roundFloatsInCourse(course, floats));
 		const { error } = await supabase.from('Courses').upsert(roundedCourses);
-		const evaluation_narratives = await getEvaluationNarratives();
-		const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
-			evaluation_narratives,
-			courses
-		});
-		const { error: error2 } = await supabase
-			.from('EvaluationNarratives')
-			.upsert(evaluation_narratives_matching_course_id);
-		const data = await getEvaluationNarrativesToCourses();
-		console.log('🚀 ~ file: index.js:42 ~ main ~ data:', data);
+		console.log('🚀 ~ file: index.js:33 ~ main ~ error:', error);
+		// const evaluation_narratives = await getEvaluationNarratives();
+		// const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
+		// 	evaluation_narratives,
+		// 	courses
+		// });
+		// const { error: error2 } = await supabase
+		// 	.from('EvaluationNarratives')
+		// 	.upsert(evaluation_narratives_matching_course_id);
+		// const data = await getEvaluationNarrativesToCourses();
+		// console.log('🚀 ~ file: index.js:42 ~ main ~ data:', data);
 	} catch (err) {
 		console.error(err);
 	}
@@ -55,7 +56,7 @@ function filterEvaluationsByCourse({ evaluation_narratives, courses }) {
 async function getCourses() {
 	const query = `
     query {
-      computed_listing_info(distinct_on: same_course_id) {
+      computed_listing_info {
         course_id
         all_course_codes
         areas
