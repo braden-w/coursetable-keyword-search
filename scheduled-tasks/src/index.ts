@@ -1,4 +1,5 @@
-import { getCoursesSchemaMatchingApiStaticCatalog, upsertCoursesInBatches } from './getCourses.js';
+import { getCoursesSchemaMatchingApiStaticCatalog } from './getCourses.js';
+import { upsertCoursesInBatches } from './upsertCourses.js';
 import supabase from './supabaseClient.js';
 import { fetchCourseTable } from './fetchCourseTable.js';
 
