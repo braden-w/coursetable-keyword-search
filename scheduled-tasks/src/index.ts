@@ -1,12 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
 import fetch from 'node-fetch';
-import { getCourses } from './getCourses.js';
-
-dotenv.config();
-const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABASE_URL, PUBLIC_ANON_KEY } = process.env;
-
-const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_ANON_KEY);
+import { getCoursesSchemaMatchingApiStaticCatalog } from './getCourses.js';
+import supabase from './supabaseClient.js';
 
 function roundFloatsInCourse(course, floatKeys) {
 	floatKeys.forEach((floatKey) => {
@@ -19,7 +13,7 @@ function roundFloatsInCourse(course, floatKeys) {
 
 async function main() {
 	try {
-		const courses = await getCourses();
+		const courses = await getCoursesSchemaMatchingApiStaticCatalog();
 		const floats = [
 			'average_gut_rating',
 			'average_professor',
@@ -52,29 +46,6 @@ main();
 function filterEvaluationsByCourse({ evaluation_narratives, courses }) {
 	const courseIds = new Set(courses.map((course) => course.course_id));
 	return evaluation_narratives.filter((evaluation) => courseIds.has(evaluation.course_id));
-}
-
-async function getEvaluationNarratives() {
-	const query = `
-	query {
-		evaluation_narratives {
-			id
-			course_id
-			comment
-			comment_compound
-		}
-	}
-	`;
-	const variables = {};
-
-	try {
-		const {
-			data: { evaluation_narratives }
-		} = await fetchCourseTable(query, variables);
-		return evaluation_narratives;
-	} catch (err) {
-		console.error(err);
-	}
 }
 
 async function getEvaluationNarrativesToCourses() {
