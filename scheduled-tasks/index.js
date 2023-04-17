@@ -16,7 +16,7 @@ function roundFloatsInCourse(course, floatKeys) {
 	return course;
 }
 
-const fetchData = async () => {
+async function main() {
 	try {
 		const courses = await getCourses();
 		const floats = [
@@ -30,30 +30,33 @@ const fetchData = async () => {
 		];
 		const roundedCourses = courses.map((course) => roundFloatsInCourse(course, floats));
 		const { error } = await supabase.from('Courses').upsert(roundedCourses);
-		const evaluation_narratives = await getEvaluationNarratives();
-		const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
-			evaluation_narratives,
-			courses
-		});
-		const { error: error2 } = await supabase
-			.from('EvaluationNarratives')
-			.upsert(evaluation_narratives_matching_course_id);
+		console.log('🚀 ~ file: index.js:33 ~ main ~ error:', error);
+		// const evaluation_narratives = await getEvaluationNarratives();
+		// const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
+		// 	evaluation_narratives,
+		// 	courses
+		// });
+		// const { error: error2 } = await supabase
+		// 	.from('EvaluationNarratives')
+		// 	.upsert(evaluation_narratives_matching_course_id);
+		// const data = await getEvaluationNarrativesToCourses();
+		// console.log('🚀 ~ file: index.js:42 ~ main ~ data:', data);
 	} catch (err) {
 		console.error(err);
 	}
-};
+}
+
+main();
 
 function filterEvaluationsByCourse({ evaluation_narratives, courses }) {
 	const courseIds = new Set(courses.map((course) => course.course_id));
 	return evaluation_narratives.filter((evaluation) => courseIds.has(evaluation.course_id));
 }
 
-fetchData();
-
 async function getCourses() {
 	const query = `
     query {
-      computed_listing_info(distinct_on: same_course_id) {
+      computed_listing_info {
         course_id
         all_course_codes
         areas
@@ -145,12 +148,12 @@ query evaluation_narratives_with_courses_all {
 			computed_listing_infos {
 				all_course_codes
 				areas
-				average_gut_rating
-				average_professor
-				average_rating
-				average_workload
-				average_rating_same_professors
-				average_workload_same_professors
+#				average_gut_rating
+#				average_professor
+#				average_rating
+#				average_workload
+#				average_rating_same_professors
+#				average_workload_same_professors
 # 				classnotes
 # 				course_code
 # 				credits
@@ -166,7 +169,7 @@ query evaluation_narratives_with_courses_all {
 # 				listing_id
 # 				locations_summary
 # 				number
-				professor_ids
+#				professor_ids
 				professor_names
 # 				regnotes
 # 				requirements
@@ -174,14 +177,14 @@ query evaluation_narratives_with_courses_all {
 # 				same_course_id
 # 				same_course_and_profs_id
 # 				last_offered_course_id
-# 				school
+ 				school
 				season_code
 # 				section
 				skills
 				subject
-# 				syllabus_url
-# 				times_by_day
-# 				times_summary
+ 				syllabus_url
+ 				times_by_day
+ 				times_summary
 				title
 			}
 		}
@@ -208,7 +211,7 @@ query evaluation_narratives_with_courses_all {
 	}
 }
 
-export async function fetchCourseTable(query, variables) {
+async function fetchCourseTable(query, variables) {
 	const url = 'https://api.coursetable.com/ferry/v1/graphql';
 
 	const options = {
