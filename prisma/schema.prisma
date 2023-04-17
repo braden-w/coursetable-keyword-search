@@ -412,6 +412,32 @@ view EvaluationNarrativesToCourses {
   @@schema("public")
 }
 
+/// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+view EvaluationNarrativesWithSeasons {
+  id               Int?
+  course_id        Int?
+  comment          String?
+  comment_compound Float?
+  same_course_id   Int?
+  past_seasons     String[]
+
+  @@ignore
+  @@schema("public")
+}
+
+/// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+view EvaluationNarrativesToCourses202303 {
+  all_course_codes Json?
+  title            String?
+  comment          String?
+  comment_compound Float?
+  areas            Json?
+  skills           Json?
+
+  @@ignore
+  @@schema("public")
+}
+
 enum aal_level {
   aal1
   aal2
