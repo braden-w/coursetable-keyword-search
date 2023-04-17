@@ -20,7 +20,7 @@ const config = {
 					'neutral-focus': '#101317',
 					'neutral-content': '#A6ADBB',
 					'base-100': '#2C3548',
-					'base-200': '#1A1F2C',
+					'base-200': '#1E293B',
 					'base-300': '#20252E',
 					'base-content': '#A6ADBB'
 				}
