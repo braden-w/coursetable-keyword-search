@@ -1,8 +1,8 @@
-const VITE_SUPABASE_URL = 'https://mxfsblceatcvkcvakwvl.supabase.co';
-const VITE_SUPABASE_ANON_KEY =
+const SUPABASE_URL = 'https://mxfsblceatcvkcvakwvl.supabase.co';
+const SUPABASE_ANON_KEY =
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14ZnNibGNlYXRjdmtjdmFrd3ZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODEzNTAwODEsImV4cCI6MTk5NjkyNjA4MX0.6_F4Ey_eMyUEwiL96cfOrKD3O1sKAYEzwPz0exERfpk';
 
-const headers = [
+const SELECTED_HEADERS = [
 	'all_course_codes',
 	'skills',
 	'areas',
@@ -10,49 +10,49 @@ const headers = [
 	// 'comment',
 	// 'title'
 ];
-const writeHeadersOnThisRow = 1;
-const writeDataStartingOnThisRow = writeHeadersOnThisRow + 1;
+const HEADER_ROW = 1;
+const DATA_START_ROW = HEADER_ROW + 1;
 
-function myFunction() {
+function mainFunction() {
 	clearEntireSpreadsheet();
-	writeHeadersOnRow(writeHeadersOnThisRow);
-	const url = `${VITE_SUPABASE_URL}/rest/v1/EvaluationNarrativesToCourses202303?select=${headers.join(
+	writeHeadersOnRow(HEADER_ROW);
+	fetchDataAndWriteToSheet();
+}
+
+function fetchDataAndWriteToSheet() {
+	const url = `${SUPABASE_URL}/rest/v1/EvaluationNarrativesToCourses202303?select=${SELECTED_HEADERS.join(
 		','
 	)}`;
 	const options = {
 		headers: {
-			Apikey: VITE_SUPABASE_ANON_KEY,
-			Authorization: `Bearer ${VITE_SUPABASE_ANON_KEY}`,
+			Apikey: SUPABASE_ANON_KEY,
+			Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
 			'Content-Type': 'application/json'
 		},
 		method: 'get'
 	};
 	const response = UrlFetchApp.fetch(url, options);
-	const json = response.getContentText();
-	Logger.log(JSON.stringify(json));
-	const data = JSON.parse(json);
-	Logger.log(data);
+	const jsonData = JSON.parse(response.getContentText());
+	writeToSheet(jsonData);
+}
 
-	// The following code is modified from https://stackoverflow.com/questions/17982546/google-script-json-into-google-sheet
-	const ss = SpreadsheetApp.getActiveSpreadsheet();
-	const sheet = ss.getActiveSheet();
+function writeToSheet(data) {
+	const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
 	const rows = data.map((row) => {
-		return headers.map((column) => (row.hasOwnProperty(column) ? row[column] : ''));
+		return SELECTED_HEADERS.map((column) => (row.hasOwnProperty(column) ? row[column] : ''));
 	});
 
-	dataRange = sheet.getRange(writeDataStartingOnThisRow, 1, rows.length, rows[0].length);
+	const dataRange = sheet.getRange(DATA_START_ROW, 1, rows.length, rows[0].length);
 	dataRange.setValues(rows);
 }
 
 function clearEntireSpreadsheet() {
-	const ss = SpreadsheetApp.getActiveSpreadsheet();
-	const sheet = ss.getActiveSheet();
+	const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 	sheet.clear();
 }
 
 function writeHeadersOnRow(rowNumber) {
-	const ss = SpreadsheetApp.getActiveSpreadsheet();
-	const sheet = ss.getActiveSheet();
-	sheet.getRange(rowNumber, 1, 1, headers.length).setValues([headers]);
+	const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+	sheet.getRange(rowNumber, 1, 1, SELECTED_HEADERS.length).setValues([SELECTED_HEADERS]);
 }
