@@ -5,4 +5,3 @@ export const load = async (event) => {
 		courses: trpc.allCourses.ssr(event)
 	};
 };
-.
