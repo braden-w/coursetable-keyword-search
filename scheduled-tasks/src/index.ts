@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+import { getCourses } from './getCourses.js';
 
 dotenv.config();
 const { PUBLIC_COURSETABLE_COOKIE, PUBLIC_SUPABASE_URL, PUBLIC_ANON_KEY } = process.env;
@@ -51,66 +52,6 @@ main();
 function filterEvaluationsByCourse({ evaluation_narratives, courses }) {
 	const courseIds = new Set(courses.map((course) => course.course_id));
 	return evaluation_narratives.filter((evaluation) => courseIds.has(evaluation.course_id));
-}
-
-async function getCourses() {
-	const query = `
-    query {
-      computed_listing_info {
-        course_id
-        all_course_codes
-        areas
-        average_gut_rating
-        average_professor
-        average_rating
-        average_workload
-        average_rating_same_professors
-        average_workload_same_professors
-        classnotes
-        course_code
-        credits
-        crn
-        description
-        enrolled
-        extra_info
-        final_exam
-        flag_info
-        fysem
-        last_enrollment
-        last_enrollment_same_professors
-        listing_id
-        locations_summary
-        number
-        professor_ids
-        professor_names
-        regnotes
-        requirements
-        rp_attr
-        same_course_id
-        same_course_and_profs_id
-        last_offered_course_id
-        school
-        season_code
-        section
-        skills
-        subject
-        syllabus_url
-        times_by_day
-        times_summary
-        title
-      }
-    }
-  `;
-	const variables = {};
-
-	try {
-		const {
-			data: { computed_listing_info: courses }
-		} = await fetchCourseTable(query, variables);
-		return courses;
-	} catch (err) {
-		console.error(err);
-	}
 }
 
 async function getEvaluationNarratives() {
@@ -211,7 +152,7 @@ query evaluation_narratives_with_courses_all {
 	}
 }
 
-async function fetchCourseTable(query, variables) {
+export async function fetchCourseTable(query, variables = {}) {
 	const url = 'https://api.coursetable.com/ferry/v1/graphql';
 
 	const options = {
