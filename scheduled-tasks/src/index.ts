@@ -1,6 +1,6 @@
-import fetch from 'node-fetch';
 import { getCoursesSchemaMatchingApiStaticCatalog } from './getCourses.js';
 import supabase from './supabaseClient.js';
+import { fetchCourseTable } from './fetchCourseTable.js';
 
 function roundFloatsInCourse(course, floatKeys) {
 	floatKeys.forEach((floatKey) => {
@@ -121,22 +121,4 @@ query evaluation_narratives_with_courses_all {
 	} catch (err) {
 		console.error(err);
 	}
-}
-
-export async function fetchCourseTable(query, variables = {}) {
-	const url = 'https://api.coursetable.com/ferry/v1/graphql';
-
-	const options = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Cookie: PUBLIC_COURSETABLE_COOKIE
-		},
-		body: JSON.stringify({ query, variables })
-	};
-
-	const response = await fetch(url, options);
-	const data = await response.json();
-
-	return data;
 }

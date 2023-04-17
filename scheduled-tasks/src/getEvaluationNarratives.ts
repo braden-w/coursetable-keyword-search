@@ -1,4 +1,4 @@
-import { fetchCourseTable } from './index.js';
+import { fetchCourseTable } from './fetchCourseTable.js';
 
 async function getEvaluationNarratives() {
 	const query = `

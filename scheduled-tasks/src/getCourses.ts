@@ -1,4 +1,4 @@
-import { fetchCourseTable } from './index.js';
+import { fetchCourseTable } from './fetchCourseTable.js';
 
 const coursesCount = `query CoursesCount {
 	computed_listing_info_aggregate {
@@ -58,7 +58,9 @@ export async function getCoursesCount() {
 	try {
 		const {
 			data: {
-				computed_listing_info_aggregate: { aggregate: count }
+				computed_listing_info_aggregate: {
+					aggregate: { count }
+				}
 			}
 		} = await fetchCourseTable(coursesCount);
 		return count;
@@ -68,6 +70,7 @@ export async function getCoursesCount() {
 }
 
 export async function getCoursesSchemaMatchingApiStaticCatalog() {
+	const count = await getCoursesCount();
 	try {
 		const {
 			data: { computed_listing_info: courses }
