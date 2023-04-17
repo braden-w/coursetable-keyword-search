@@ -3,10 +3,10 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 const config: CodegenConfig = {
 	overwrite: true,
 	schema: 'graphql.schema.json',
-	documents: ['./graphql/**/*.gql'],
+	documents: ['./graphql/**/*.gql', './**/*.ts'],
 	generates: {
 		'./graphql/generated.ts': {
-			plugins: ['typescript', 'typescript-operations'],
+			plugins: ['typescript', 'typescript-operations']
 		}
 	}
 };
