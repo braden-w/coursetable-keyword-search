@@ -1,7 +1,0 @@
-query CoursesCount {
-	computed_listing_info_aggregate {
-		aggregate {
-			count
-		}
-	}
-}
