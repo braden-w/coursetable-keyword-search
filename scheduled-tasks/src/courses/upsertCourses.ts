@@ -1,4 +1,4 @@
-import supabase from './supabaseClient.js';
+import supabase from '../supabaseClient.js';
 
 async function upsertCourseBatch(coursesBatch) {
 	const { error } = await supabase.from('Courses').upsert(coursesBatch);
@@ -7,18 +7,17 @@ async function upsertCourseBatch(coursesBatch) {
 
 export async function upsertCoursesInBatches(courses) {
 	const count = courses.length;
-	const parallelRequests = 4;
+	const parallelRequests = 30;
 	const limit = Math.ceil(count / parallelRequests);
 
 	try {
-		const requests = Array.from({ length: parallelRequests }, (_, i) => {
+		const coursesBatches = Array.from({ length: parallelRequests }, (_, i) => {
 			const start = i * limit;
 			const end = start + limit;
 			const coursesBatch = courses.slice(start, end);
-			return upsertCourseBatch(coursesBatch);
+			return coursesBatch;
 		});
-		const results = await Promise.all(requests);
-		return results;
+		for (const coursesBatch of coursesBatches) await upsertCourseBatch(coursesBatch);
 	} catch (err) {
 		console.error(err);
 	}

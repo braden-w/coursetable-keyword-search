@@ -1,6 +1,5 @@
-import { getCoursesSchemaMatchingApiStaticCatalog } from './getCourses.js';
-import { upsertCoursesInBatches } from './upsertCourses.js';
-import supabase from './supabaseClient.js';
+import { getCoursesSchemaMatchingApiStaticCatalog } from './courses/getCourses.js';
+import { upsertCoursesInBatches } from './courses/upsertCourses.js';
 import { fetchCourseTable } from './fetchCourseTable.js';
 
 function roundFloatsInCourse(course, floatKeys) {

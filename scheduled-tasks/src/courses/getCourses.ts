@@ -1,7 +1,7 @@
-import { fetchCourseTable } from './fetchCourseTable.js';
+import { fetchCourseTable } from '../fetchCourseTable.js';
 
 const coursesCount = `query CoursesCount {
-	computed_listing_info_aggregate {
+	computed_listing_info_aggregate (distinct_on: course_id) {
 		aggregate {
 			count
 		}
@@ -9,7 +9,7 @@ const coursesCount = `query CoursesCount {
 }`;
 
 const coursesSchemaMatchingApiStaticCatalog = `query CoursesSchemaMatchingApiStaticCatalog ($limit: Int, $offset: Int) {
-	computed_listing_info (limit: $limit, offset: $offset) {
+	computed_listing_info (limit: $limit, offset: $offset, distinct_on: course_id) {
 		course_id
 		all_course_codes
 		areas
