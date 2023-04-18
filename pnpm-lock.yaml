@@ -28,9 +28,11 @@ specifiers:
   ioredis: ^5.3.1
   kysely: ^0.24.2
   kysely-codegen: ^0.10.0
+  kysely-postgres-js: ^1.0.0
   pg: ^8.10.0
   postcss: ^8.4.21
   postcss-load-config: ^4.0.1
+  postgres: ^3.3.4
   prettier: ^2.8.7
   prettier-plugin-svelte: ^2.10.0
   prettier-plugin-tailwindcss: ^0.2.7
@@ -60,7 +62,9 @@ dependencies:
   dotenv: 16.0.3
   ioredis: 5.3.1
   kysely: 0.24.2
+  kysely-postgres-js: 1.0.0_aoqar7zf3cyqlagkhwr4kcbm6a
   pg: 8.10.0
+  postgres: 3.3.4
   prisma-kysely: 1.1.0
   theme-change: 2.5.0
   trpc-svelte-query: 0.0.2_kmrilw6clpzsw34qpg6godzrt4
@@ -2179,6 +2183,16 @@ packages:
       pg: 8.10.0
     dev: true
 
+  /kysely-postgres-js/1.0.0_aoqar7zf3cyqlagkhwr4kcbm6a:
+    resolution: {integrity: sha512-Lg1hjYCQuOP79UuDIAencznsh33p1FZFjUJRvSknHMLuPGxL/fW20zq/YlufEQkK5jod7XdKOTj5RqxrUSJ6bQ==}
+    peerDependencies:
+      kysely: '>= 0.24.0 < 1'
+      postgres: '>= 3.0.0 < 4'
+    dependencies:
+      kysely: 0.24.2
+      postgres: 3.3.4
+    dev: false
+
   /kysely/0.24.2:
     resolution: {integrity: sha512-+7eaTJNUYm2yRq1x+lEOZc+78TO35dTZ9b0dh49+Z9CTt2byMSbMiOKpwPlOyCAaHD4kILkAYWYZNywFlmBwRA==}
     engines: {node: '>=14.0.0'}
@@ -2747,6 +2761,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       xtend: 4.0.2
+
+  /postgres/3.3.4:
+    resolution: {integrity: sha512-XVu0+d/Y56pl2lSaf0c7V19AhAEfpVrhID1IENWN8nf0xch6hFq6dAov5dtUX6ZD46wfr1TxvLhxLtV8WnNsOg==}
+    dev: false
 
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
