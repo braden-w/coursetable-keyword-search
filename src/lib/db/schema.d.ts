@@ -30,8 +30,6 @@ export type Courses = {
 	description: string | null;
 	final_exam: string | null;
 	flag_info: unknown | null;
-	last_enrollment: number | null;
-	last_enrollment_same_professors: boolean | null;
 	locations_summary: string | null;
 	number: string | null;
 	professor_names: unknown | null;
