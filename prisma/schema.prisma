@@ -22,7 +22,6 @@ model EvaluationNarratives {
 }
 
 model Courses {
-  course_id                        Int                    @id
   all_course_codes                 Json?
   areas                            Json?
   average_gut_rating               Float?
@@ -33,6 +32,7 @@ model Courses {
   average_workload_same_professors Float?
   classnotes                       String?
   course_code                      String?
+  course_id                        Int                    @unique
   credits                          Float?
   crn                              Int?
   description                      String?
@@ -43,7 +43,7 @@ model Courses {
   fysem                            Boolean?
   last_enrollment                  Int?
   last_enrollment_same_professors  Boolean?
-  listing_id                       Int?
+  listing_id                       Int                    @id
   locations_summary                String?
   number                           String?
   professor_ids                    Json?
