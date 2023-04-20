@@ -16,7 +16,6 @@ function roundFloatsInCourse(course, floatKeys) {
 async function main() {
 	try {
 		const courses = await getCoursesSchemaMatchingApiStaticCatalog();
-		console.log('🚀 ~ file: index.ts:17 ~ main ~ courses:', courses);
 		const floats = [
 			'average_gut_rating',
 			'average_professor',
