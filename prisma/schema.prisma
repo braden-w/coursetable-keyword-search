@@ -41,8 +41,8 @@ model Courses {
   final_exam                       String?
   flag_info                        Json?
   // fysem                            Boolean?
-  last_enrollment                  Int?
-  last_enrollment_same_professors  Boolean?
+  // last_enrollment                  Int?
+  // last_enrollment_same_professors  Boolean?
   // listing_id                       Int
   locations_summary                String?
   number                           String?
