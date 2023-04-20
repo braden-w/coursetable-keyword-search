@@ -32,35 +32,35 @@ model Courses {
   average_workload_same_professors Float?
   classnotes                       String?
   course_code                      String?
-  course_id                        Int                    @unique
+  course_id                        Int                    @id
   credits                          Float?
-  crn                              Int?
+  // crn                              Int?
   description                      String?
-  enrolled                         Int?
-  extra_info                       String?
+  // enrolled                         Int?
+  // extra_info                       String?
   final_exam                       String?
   flag_info                        Json?
-  fysem                            Boolean?
+  // fysem                            Boolean?
   last_enrollment                  Int?
   last_enrollment_same_professors  Boolean?
-  listing_id                       Int                    @id
+  // listing_id                       Int
   locations_summary                String?
   number                           String?
-  professor_ids                    Json?
+  // professor_ids                    Json?
   professor_names                  Json?
   regnotes                         String?
   requirements                     String?
-  rp_attr                          String?
+  // rp_attr                          String?
   same_course_id                   Int?
-  same_course_and_profs_id         Int?
-  last_offered_course_id           Int?
+  // same_course_and_profs_id         Int?
+  // last_offered_course_id           Int?
   school                           String?
   season_code                      String?
   section                          String?
   skills                           Json?
-  subject                          String?
-  syllabus_url                     String?
-  times_by_day                     Json?
+  // subject                          String?
+  // syllabus_url                     String?
+  // times_by_day                     Json?
   times_summary                    String?
   title                            String?
   EvaluationNarratives             EvaluationNarratives[]
