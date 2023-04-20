@@ -1,6 +1,8 @@
 import { getCoursesSchemaMatchingApiStaticCatalog } from './courses/getCourses.js';
+import { upsertCoursesInBatches } from './courses/upsertCourses.js';
 import { fetchCourseTable } from './fetchCourseTable.js';
 import { getEvaluationNarratives } from './evaluationNarratives/getEvaluationNarratives.js';
+import { upsertEvaluationNarrativesInBatches } from './evaluationNarratives/upsertEvaluationNarratives.js';
 function roundFloatsInCourse(course, floatKeys) {
     floatKeys.forEach((floatKey) => {
         if (typeof course[floatKey] === 'number') {
@@ -12,7 +14,6 @@ function roundFloatsInCourse(course, floatKeys) {
 async function main() {
     try {
         const courses = await getCoursesSchemaMatchingApiStaticCatalog();
-        console.log('🚀 ~ file: index.ts:17 ~ main ~ courses:', courses);
         const floats = [
             'average_gut_rating',
             'average_professor',
@@ -23,14 +24,13 @@ async function main() {
             'credits'
         ];
         const roundedCourses = courses.map((course) => roundFloatsInCourse(course, floats));
-        // upsertCoursesInBatches(roundedCourses);
+        upsertCoursesInBatches(roundedCourses);
         const evaluation_narratives = await getEvaluationNarratives();
         const evaluation_narratives_matching_course_id = filterEvaluationsByCourse({
             evaluation_narratives,
             courses
         });
-        console.log(evaluation_narratives.length - evaluation_narratives_matching_course_id.length);
-        // upsertEvaluationNarrativesInBatches(evaluation_narratives_matching_course_id);
+        upsertEvaluationNarrativesInBatches(evaluation_narratives_matching_course_id);
         // const data = await getEvaluationNarrativesToCourses();
         // console.log('🚀 ~ file: index.js:42 ~ main ~ data:', data);
     }

@@ -9,7 +9,7 @@ const evaluationNarrativesCount = `query EvaluationNarrativesCount {
 }`;
 
 const evaluationNarratives = `query EvaluationNarratives ($limit: Int, $offset: Int) {
-	evaluation_narratives (limit: $limit, offset: $offset) {
+	evaluation_narratives (limit: $limit, offset: $offset, where: { comment_compound: { _neq: 0 } }) {
 		id
 		course_id
 		comment
