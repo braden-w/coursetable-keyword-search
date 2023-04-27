@@ -98,13 +98,18 @@ model users {
 }
 
 model UserCourse {
-  id                  BigInt    @id @default(autoincrement())
-  created_at          DateTime? @default(now()) @db.Timestamptz(6)
-  email               String?
-  selected_courses    Json?
-  remarks             String?
-  favorite_courses    String?
-  favorite_professors String?
+  id                                       BigInt    @id @default(autoincrement())
+  created_at                               DateTime? @default(now()) @db.Timestamptz(6)
+  email                                    String?
+  major                                    Json?
+  selected_favorite_professors             Json?
+  selected_favorite_courses                Json?
+  selected_guttiest_courses                Json?
+  selected_favorite_major_courses          Json?
+  selected_favorite_distributional_courses Json?
+  selected_favorite_lecture_courses        Json?
+  selected_favorite_seminar_courses        Json?
+  remarks                                  String?
 
   @@schema("public")
 }

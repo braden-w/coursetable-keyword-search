@@ -43,47 +43,9 @@ export type Courses = {
 	times_summary: string | null;
 	title: string | null;
 };
-export type Courses_3_Decimals = {
-	course_id: number | null;
-	all_course_codes: unknown | null;
-	areas: unknown | null;
-	average_gut_rating: string | null;
-	average_professor: string | null;
-	average_rating: string | null;
-	average_workload: string | null;
-	average_rating_same_professors: string | null;
-	average_workload_same_professors: string | null;
-	classnotes: string | null;
-	course_code: string | null;
-	credits: string | null;
-	crn: number | null;
-	description: string | null;
-	enrolled: number | null;
-	extra_info: string | null;
-	final_exam: string | null;
-	flag_info: unknown | null;
-	fysem: boolean | null;
-	last_enrollment: number | null;
-	last_enrollment_same_professors: boolean | null;
-	listing_id: number | null;
-	locations_summary: string | null;
-	number: string | null;
-	professor_ids: unknown | null;
-	professor_names: unknown | null;
-	regnotes: string | null;
-	requirements: string | null;
-	rp_attr: string | null;
+export type CoursesDisplayDropdown = {
 	same_course_id: number | null;
-	same_course_and_profs_id: number | null;
-	last_offered_course_id: number | null;
-	school: string | null;
-	season_code: string | null;
-	section: string | null;
-	skills: unknown | null;
-	subject: string | null;
-	syllabus_url: string | null;
-	times_by_day: unknown | null;
-	times_summary: string | null;
+	all_course_codes: unknown | null;
 	title: string | null;
 };
 export type EvaluationNarratives = {
@@ -92,52 +54,7 @@ export type EvaluationNarratives = {
 	comment: string;
 	comment_compound: number;
 };
-export type EvaluationNarrativesToCourses = {
-	id: number | null;
-	comment: string | null;
-	comment_compound: number | null;
-	all_course_codes: unknown | null;
-	areas: unknown | null;
-	average_gut_rating: number | null;
-	average_professor: number | null;
-	average_rating: number | null;
-	average_workload: number | null;
-	average_rating_same_professors: number | null;
-	average_workload_same_professors: number | null;
-	classnotes: string | null;
-	course_code: string | null;
-	credits: number | null;
-	crn: number | null;
-	description: string | null;
-	enrolled: number | null;
-	extra_info: string | null;
-	final_exam: string | null;
-	flag_info: unknown | null;
-	fysem: boolean | null;
-	last_enrollment: number | null;
-	last_enrollment_same_professors: boolean | null;
-	listing_id: number | null;
-	locations_summary: string | null;
-	number: string | null;
-	professor_ids: unknown | null;
-	professor_names: unknown | null;
-	regnotes: string | null;
-	requirements: string | null;
-	rp_attr: string | null;
-	same_course_id: number | null;
-	same_course_and_profs_id: number | null;
-	last_offered_course_id: number | null;
-	school: string | null;
-	season_code: string | null;
-	section: string | null;
-	skills: unknown | null;
-	subject: string | null;
-	syllabus_url: string | null;
-	times_by_day: unknown | null;
-	times_summary: string | null;
-	title: string | null;
-};
-export type EvaluationNarrativesToCourses202303 = {
+export type evaluationnarrativestocourses202303 = {
 	all_course_codes: unknown | null;
 	title: string | null;
 	comment: string | null;
@@ -156,6 +73,7 @@ export type flow_state = {
 	provider_refresh_token: string | null;
 	created_at: Timestamp | null;
 	updated_at: Timestamp | null;
+	authentication_method: string;
 };
 export type identities = {
 	id: string;
@@ -255,9 +173,18 @@ export type sso_providers = {
 	updated_at: Timestamp | null;
 };
 export type UserCourse = {
-	id: Generated<number>;
-	userEmail: string;
-	courseId: number;
+	id: Generated<string>;
+	created_at: Generated<Timestamp | null>;
+	email: string | null;
+	major: unknown | null;
+	selected_favorite_professors: unknown | null;
+	selected_favorite_courses: unknown | null;
+	selected_guttiest_courses: unknown | null;
+	selected_favorite_major_courses: unknown | null;
+	selected_favorite_distributional_courses: unknown | null;
+	selected_favorite_lecture_courses: unknown | null;
+	selected_favorite_seminar_courses: unknown | null;
+	remarks: string | null;
 };
 export type users = {
 	instance_id: string | null;
@@ -298,10 +225,9 @@ export type users = {
 export type DB = {
 	audit_log_entries: audit_log_entries;
 	Courses: Courses;
-	Courses_3_Decimals: Courses_3_Decimals;
+	CoursesDisplayDropdown: CoursesDisplayDropdown;
 	EvaluationNarratives: EvaluationNarratives;
-	EvaluationNarrativesToCourses: EvaluationNarrativesToCourses;
-	EvaluationNarrativesToCourses202303: EvaluationNarrativesToCourses202303;
+	evaluationnarrativestocourses202303: evaluationnarrativestocourses202303;
 	flow_state: flow_state;
 	identities: identities;
 	instances: instances;
