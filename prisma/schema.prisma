@@ -34,37 +34,22 @@ model Courses {
   course_code                      String?
   course_id                        Int                    @id
   credits                          Float?
-  // crn                              Int?
   description                      String?
-  // enrolled                         Int?
-  // extra_info                       String?
   final_exam                       String?
   flag_info                        Json?
-  // fysem                            Boolean?
-  // last_enrollment                  Int?
-  // last_enrollment_same_professors  Boolean?
-  // listing_id                       Int
   locations_summary                String?
   number                           String?
-  // professor_ids                    Json?
   professor_names                  Json?
   regnotes                         String?
   requirements                     String?
-  // rp_attr                          String?
   same_course_id                   Int?
-  // same_course_and_profs_id         Int?
-  // last_offered_course_id           Int?
   school                           String?
   season_code                      String?
   section                          String?
   skills                           Json?
-  // subject                          String?
-  // syllabus_url                     String?
-  // times_by_day                     Json?
   times_summary                    String?
   title                            String?
   EvaluationNarratives             EvaluationNarratives[]
-  UserCourse                       UserCourse[]
 
   @@schema("public")
 }
@@ -107,18 +92,19 @@ model users {
   identities                  identities[]
   mfa_factors                 mfa_factors[]
   sessions                    sessions[]
-  UserCourse                  UserCourse[]
 
   @@index([instance_id])
   @@schema("auth")
 }
 
 model UserCourse {
-  id        Int     @id @default(autoincrement())
-  userEmail String  @db.VarChar(255)
-  courseId  Int
-  course    Courses @relation(fields: [courseId], references: [course_id])
-  user      users   @relation(fields: [userEmail], references: [email])
+  id                  BigInt    @id @default(autoincrement())
+  created_at          DateTime? @default(now()) @db.Timestamptz(6)
+  email               String?
+  selected_courses    Json?
+  remarks             String?
+  favorite_courses    String?
+  favorite_professors String?
 
   @@schema("public")
 }
@@ -145,8 +131,10 @@ model flow_state {
   provider_refresh_token String?
   created_at             DateTime?             @db.Timestamptz(6)
   updated_at             DateTime?             @db.Timestamptz(6)
+  authentication_method  String
 
   @@index([auth_code], map: "idx_auth_code")
+  @@index([user_id, authentication_method], map: "idx_user_id_auth_method")
   @@schema("auth")
 }
 
@@ -232,7 +220,6 @@ model refresh_tokens {
   @@index([instance_id, user_id])
   @@index([parent])
   @@index([session_id, revoked])
-  @@index([token])
   @@schema("auth")
 }
 
@@ -315,111 +302,23 @@ model sso_providers {
 }
 
 /// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-view Courses_3_Decimals {
-  course_id                        Int?
-  all_course_codes                 Json?
-  areas                            Json?
-  average_gut_rating               Decimal? @db.Decimal(10, 3)
-  average_professor                Decimal? @db.Decimal(10, 3)
-  average_rating                   Decimal? @db.Decimal(10, 3)
-  average_workload                 Decimal? @db.Decimal(10, 3)
-  average_rating_same_professors   Decimal? @db.Decimal(10, 3)
-  average_workload_same_professors Decimal? @db.Decimal(10, 3)
-  classnotes                       String?
-  course_code                      String?
-  credits                          Decimal? @db.Decimal(10, 3)
-  crn                              Int?
-  description                      String?
-  enrolled                         Int?
-  extra_info                       String?
-  final_exam                       String?
-  flag_info                        Json?
-  fysem                            Boolean?
-  last_enrollment                  Int?
-  last_enrollment_same_professors  Boolean?
-  listing_id                       Int?
-  locations_summary                String?
-  number                           String?
-  professor_ids                    Json?
-  professor_names                  Json?
-  regnotes                         String?
-  requirements                     String?
-  rp_attr                          String?
-  same_course_id                   Int?
-  same_course_and_profs_id         Int?
-  last_offered_course_id           Int?
-  school                           String?
-  season_code                      String?
-  section                          String?
-  skills                           Json?
-  subject                          String?
-  syllabus_url                     String?
-  times_by_day                     Json?
-  times_summary                    String?
-  title                            String?
-
-  @@ignore
-  @@schema("public")
-}
-
-/// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-view EvaluationNarrativesToCourses {
-  id                               Int?
-  comment                          String?
-  comment_compound                 Float?
-  all_course_codes                 Json?
-  areas                            Json?
-  average_gut_rating               Float?
-  average_professor                Float?
-  average_rating                   Float?
-  average_workload                 Float?
-  average_rating_same_professors   Float?
-  average_workload_same_professors Float?
-  classnotes                       String?
-  course_code                      String?
-  credits                          Float?
-  crn                              Int?
-  description                      String?
-  enrolled                         Int?
-  extra_info                       String?
-  final_exam                       String?
-  flag_info                        Json?
-  fysem                            Boolean?
-  last_enrollment                  Int?
-  last_enrollment_same_professors  Boolean?
-  listing_id                       Int?
-  locations_summary                String?
-  number                           String?
-  professor_ids                    Json?
-  professor_names                  Json?
-  regnotes                         String?
-  requirements                     String?
-  rp_attr                          String?
-  same_course_id                   Int?
-  same_course_and_profs_id         Int?
-  last_offered_course_id           Int?
-  school                           String?
-  season_code                      String?
-  section                          String?
-  skills                           Json?
-  subject                          String?
-  syllabus_url                     String?
-  times_by_day                     Json?
-  times_summary                    String?
-  title                            String?
-
-  @@ignore
-  @@schema("public")
-}
-
-/// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-view EvaluationNarrativesToCourses202303 {
+view evaluationnarrativestocourses202303 {
   all_course_codes Json?
   title            String?
   comment          String?
   comment_compound Float?
   areas            Json?
   skills           Json?
+
+  @@ignore
+  @@schema("public")
+}
+
+/// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+view CoursesDisplayDropdown {
+  same_course_id   Int?
+  all_course_codes Json?
+  title            String?
 
   @@ignore
   @@schema("public")
