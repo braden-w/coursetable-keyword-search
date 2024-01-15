@@ -203,6 +203,17 @@ const fetchGraphQL = (query: string) =>
 		body: JSON.stringify({ query })
 	});
 
+const getTableLength = (tableName: (typeof TABLES)[number]) => {
+	const query = `query {
+    ${tableName}_aggregate {
+			aggregate {
+				count
+			}
+		}
+	}`;
+	return fetchGraphQL(query);
+};
+
 export const GET = async () => {
 	const responses = await Promise.all(Object.values(queries).map(fetchGraphQL));
 	// Map over the responses, and for each one, if not okay, add it to the errors array
