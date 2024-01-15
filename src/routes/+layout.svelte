@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Footer from '$lib/Footer.svelte';
 	import '../app.postcss';
-	import { QueryClientProvider } from '@tanstack/svelte-query';
 
 	export let data;
 </script>
@@ -27,10 +26,8 @@
 	</script>
 </svelte:head>
 
-<QueryClientProvider client={queryClient}>
-	<main>
-		<slot />
-	</main>
-</QueryClientProvider>
+<main>
+	<slot />
+</main>
 
 <Footer />
