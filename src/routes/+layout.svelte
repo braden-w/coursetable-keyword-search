@@ -2,9 +2,8 @@
 	import Footer from '$lib/Footer.svelte';
 	import '../app.postcss';
 	import { QueryClientProvider } from '@tanstack/svelte-query';
-	import { trpc } from '$lib/trpc';
+
 	export let data;
-	const queryClient = trpc.hydrateQueryClient(data.trpc);
 </script>
 
 <!-- TODO: Update Head -->

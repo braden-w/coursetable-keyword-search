@@ -50,8 +50,6 @@
 		"@tailwindcss/line-clamp": "^0.4.4",
 		"@tanstack/svelte-query": "^4.29.1",
 		"@tanstack/svelte-table": "^8.8.5",
-		"@trpc/client": "^10.19.1",
-		"@trpc/server": "^10.19.1",
 		"daisyui": "^2.51.5",
 		"devalue": "^4.3.0",
 		"dotenv": "^16.0.3",
@@ -62,7 +60,6 @@
 		"postgres": "^3.3.4",
 		"prisma-kysely": "^1.1.0",
 		"theme-change": "^2.5.0",
-		"trpc-svelte-query": "^0.0.2",
 		"typewriter-effect": "^2.19.0",
 		"zod": "^3.21.4"
 	}
