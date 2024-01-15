@@ -1,7 +1,7 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
 import { error, json } from '@sveltejs/kit';
 
-const TABLES = [
+const TABLE_NAMES = [
 	'seasons',
 	'courses',
 	'listings',
@@ -20,7 +20,9 @@ const TABLES = [
 	'tfidf_similars'
 ] as const;
 
-const queries: Record<(typeof TABLES)[number], string> = {
+type TableName = (typeof TABLE_NAMES)[number];
+
+const queries: Record<TableName, string> = {
 	seasons: `query {
 		seasons {
 			season_code
@@ -203,7 +205,7 @@ const fetchGraphQL = (query: string) =>
 		body: JSON.stringify({ query })
 	});
 
-const getTableLength = (tableName: (typeof TABLES)[number]) => {
+const getTableLength = (tableName: TableName) => {
 	const query = `query {
     ${tableName}_aggregate {
 			aggregate {
