@@ -185,11 +185,18 @@ const fetchGraphQL = (query: string) =>
 	});
 
 export const GET = async () => {
-	const res = await fetchGraphQL(queries['Seasons']);
-	if (!res.ok) {
-		return error(res.status, res.statusText);
+	const responses = await Promise.all(Object.values(queries).map(fetchGraphQL));
+	// Map over the responses, and for each one, if not okay, add it to the errors array
+	const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
+		if (!res.ok) {
+			errors.push({ status: res.status, statusText: res.statusText });
+		}
+		return errors;
+	}, []);
+	if (errors.length !== 0) {
+		return error(500, JSON.stringify(errors));
 	}
-	const data = await res.json();
+	const data = responses.map((res) => res.json());
 	console.log(data);
 	return json(data);
 };
