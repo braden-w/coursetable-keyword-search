@@ -172,7 +172,7 @@ const queries = {
 			rank
 		}
 	}`
-};
+} as const;
 
 export const GET = async () => {
 	const fetchGraphQL = (query: string) =>
