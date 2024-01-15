@@ -1,15 +1,34 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
 import { error, json } from '@sveltejs/kit';
 
-const queries = {
-	Seasons: `query {
+const TABLES = [
+	'seasons',
+	'courses',
+	'listings',
+	'discussions',
+	'flags',
+	'demand_statistics',
+	'professors',
+	'evaluation_statistics',
+	'evaluation_questions',
+	'evaluation_narratives',
+	'evaluation_ratings',
+	'course_professors',
+	'course_discussions',
+	'course_flags',
+	'fasttext_similars',
+	'tfidf_similars'
+] as const;
+
+const queries: Record<(typeof TABLES)[number], string> = {
+	seasons: `query {
 		seasons {
 			season_code
 			term
 			year
 		}
 	}`,
-	Courses: `query {
+	courses: `query {
 		courses {
 			course_id
 			season_code
@@ -50,7 +69,7 @@ const queries = {
 			last_enrollment_season_code
 		}
 	}`,
-	Listings: `query {
+	listings: `query {
 				listings {
 						listing_id
 						course_id
@@ -63,7 +82,7 @@ const queries = {
 						crn
 				}
 		}`,
-	Discussions: `query {
+	discussions: `query {
 		discussions {
 			discussion_id
 			subject
@@ -75,13 +94,13 @@ const queries = {
 			times_by_day
 		}
 	}`,
-	Flags: `query {
+	flags: `query {
 		flags {
 			flag_id
 			flag_text
 		}
 	}`,
-	DemandStatistics: `query {
+	demand_statistics: `query {
 		demand_statistics {
 			course_id
 			latest_demand
@@ -89,7 +108,7 @@ const queries = {
 			demand
 		}
 	}`,
-	Professors: `query {
+	professors: `query {
 		professors {
 			professor_id
 			name
@@ -98,7 +117,7 @@ const queries = {
 			average_rating_n
 		}
 	}`,
-	EvaluationStatistics: `query {
+	evaluation_statistics: `query {
 		evaluation_statistics {
 			course_id
 			enrollment
@@ -111,7 +130,7 @@ const queries = {
 			avg_workload
 		}
 	}`,
-	EvaluationQuestions: `query {
+	evaluation_questions: `query {
 		evaluation_questions {
 			question_code
 			is_narrative
@@ -120,19 +139,19 @@ const queries = {
 			tag
 		}
 	}`,
-	EvaluationNarratives: `query {
+	evaluation_narratives: `query {
 		evaluation_narratives {
 			id
 			course_id
 			question_code
-			COMMENT
+			comment
 			comment_neg
 			comment_neu
 			comment_pos
 			comment_compound
 		}
 	}`,
-	EvaluationRatings: `query {
+	evaluation_ratings: `query {
 		evaluation_ratings {
 			id
 			course_id
@@ -140,32 +159,32 @@ const queries = {
 			rating
 		}
 	}`,
-	CourseProfessor: `query {
+	course_professors: `query {
 		course_professors {
 			course_id
 			professor_id
 		}
 	}`,
-	CourseDiscussion: `query {
+	course_discussions: `query {
 		course_discussions {
 			course_id
 			discussion_id
 		}
 	}`,
-	CourseFlag: `query {
+	course_flags: `query {
 		course_flags {
 			course_id
 			flag_id
 		}
 	}`,
-	FastTextSimilars: `query {
+	fasttext_similars: `query {
 		fasttext_similars {
 			source
 			target
 			rank
 		}
 	}`,
-	TFIDFSimilars: `query {
+	tfidf_similars: `query {
 		tfidf_similars {
 			source
 			target
