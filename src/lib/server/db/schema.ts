@@ -1,13 +1,13 @@
 import {
-  foreignKey,
-  index,
-  integer,
-  numeric,
-  primaryKey,
-  real,
-  sqliteTable,
-  text,
-  uniqueIndex
+	foreignKey,
+	index,
+	integer,
+	numeric,
+	primaryKey,
+	real,
+	sqliteTable,
+	text,
+	uniqueIndex
 } from 'drizzle-orm/sqlite-core';
 
 export const seasons = sqliteTable('seasons', {
@@ -63,16 +63,16 @@ export const courses = sqliteTable(
 	},
 	(table) => {
 		return {
-			coursesLastEnrollmentCourseIdCoursesCourseIdFk: foreignKey(() => ({
+			coursesLastEnrollmentCourseIdCoursesCourseIdFk: foreignKey({
 				columns: [table.lastEnrollmentCourseId],
 				foreignColumns: [table.courseId],
 				name: 'courses_last_enrollment_course_id_courses_course_id_fk'
-			})),
-			coursesLastOfferedCourseIdCoursesCourseIdFk: foreignKey(() => ({
+			}),
+			coursesLastOfferedCourseIdCoursesCourseIdFk: foreignKey({
 				columns: [table.lastOfferedCourseId],
 				foreignColumns: [table.courseId],
 				name: 'courses_last_offered_course_id_courses_course_id_fk'
-			}))
+			})
 		};
 	}
 );
