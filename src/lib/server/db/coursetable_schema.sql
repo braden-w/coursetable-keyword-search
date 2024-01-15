@@ -65,10 +65,6 @@ CREATE TABLE listings (
   FOREIGN KEY(season_code) REFERENCES seasons(season_code)
 );
 
-CREATE INDEX idx_season_course_section_unique ON listings(season_code, subject, number, section);
-
-CREATE UNIQUE INDEX idx_season_code_crn_unique ON listings(season_code, crn);
-
 -- Discussions table
 CREATE TABLE discussions (
   discussion_id INTEGER PRIMARY KEY,
@@ -198,3 +194,7 @@ CREATE TABLE tfidf_similars (
   FOREIGN KEY(source) REFERENCES courses(course_id),
   FOREIGN KEY(target) REFERENCES courses(course_id)
 );
+
+CREATE INDEX idx_season_course_section_unique ON listings(season_code, subject, number, section);
+
+CREATE UNIQUE INDEX idx_season_code_crn_unique ON listings(season_code, crn);
