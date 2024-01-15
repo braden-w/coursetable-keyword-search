@@ -63,15 +63,15 @@ export const courses = sqliteTable(
 	},
 	(table) => {
 		return {
-			coursesLastEnrollmentCourseIdCoursesCourseIdFk: foreignKey({
-				columns: [table.lastEnrollmentCourseId],
-				foreignColumns: [table.courseId],
-				name: 'courses_last_enrollment_course_id_courses_course_id_fk'
-			}),
 			coursesLastOfferedCourseIdCoursesCourseIdFk: foreignKey({
 				columns: [table.lastOfferedCourseId],
 				foreignColumns: [table.courseId],
 				name: 'courses_last_offered_course_id_courses_course_id_fk'
+			}),
+			coursesLastEnrollmentCourseIdCoursesCourseIdFk: foreignKey({
+				columns: [table.lastEnrollmentCourseId],
+				foreignColumns: [table.courseId],
+				name: 'courses_last_enrollment_course_id_courses_course_id_fk'
 			})
 		};
 	}
