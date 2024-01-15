@@ -3,53 +3,53 @@ import { error, json } from '@sveltejs/kit';
 
 const queries = {
 	Seasons: `query {
-				seasons {
-						season_code
-						term
-						year
-				}
-		}`,
+		seasons {
+			season_code
+			term
+			year
+		}
+	}`,
 	Courses: `query {
-				courses {
-						course_id
-						season_code
-						title
-						short_title
-						description
-						requirements
-						locations_summary
-						times_long_summary
-						times_summary
-						times_by_day
-						skills
-						areas
-						credits
-						syllabus_url
-						course_home_url
-						regnotes
-						extra_info
-						rp_attr
-						classnotes
-						final_exam
-						fysem
-						sysem
-						colsem
-						average_rating
-						average_rating_n
-						average_workload
-						average_workload_n
-						average_rating_same_professors
-						average_rating_same_professors_n
-						average_workload_same_professors
-						average_workload_same_professors_n
-						last_offered_course_id
-						same_course_id
-						same_course_and_profs_id
-						last_enrollment_course_id
-						last_enrollment
-						last_enrollment_season_code
-				}
-		}`,
+		courses {
+			course_id
+			season_code
+			title
+			short_title
+			description
+			requirements
+			locations_summary
+			times_long_summary
+			times_summary
+			times_by_day
+			skills
+			areas
+			credits
+			syllabus_url
+			course_home_url
+			regnotes
+			extra_info
+			rp_attr
+			classnotes
+			final_exam
+			fysem
+			sysem
+			colsem
+			average_rating
+			average_rating_n
+			average_workload
+			average_workload_n
+			average_rating_same_professors
+			average_rating_same_professors_n
+			average_workload_same_professors
+			average_workload_same_professors_n
+			last_offered_course_id
+			same_course_id
+			same_course_and_profs_id
+			last_enrollment_course_id
+			last_enrollment
+			last_enrollment_season_code
+		}
+	}`,
 	Listings: `query {
 				listings {
 						listing_id
