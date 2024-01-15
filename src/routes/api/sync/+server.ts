@@ -70,18 +70,18 @@ const queries: Record<(typeof TABLES)[number], string> = {
 		}
 	}`,
 	listings: `query {
-				listings {
-						listing_id
-						course_id
-						school
-						subject
-						number
-						course_code
-						section
-						season_code
-						crn
-				}
-		}`,
+		listings {
+			listing_id
+			course_id
+			school
+			subject
+			number
+			course_code
+			section
+			season_code
+			crn
+		}
+	}`,
 	discussions: `query {
 		discussions {
 			discussion_id
