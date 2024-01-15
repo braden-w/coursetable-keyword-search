@@ -1,5 +1,5 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
-import { error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 
 const queries = {
 	Seasons: `query {
@@ -191,5 +191,5 @@ export const GET = async () => {
 	}
 	const data = await res.json();
 	console.log(data);
-	return new Response();
+	return json(data);
 };
