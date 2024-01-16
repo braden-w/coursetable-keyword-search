@@ -88,40 +88,36 @@
 		</Button>
 	</div>
 	{#if showFilters}
-		<div class="my-2 w-full">
-			<label for="search" class="sr-only">Course Filter</label>
-			<div class="relative">
-				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
-				</div>
-				<Input
-					id="search"
-					name="search"
-					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
-					type="search"
-					bind:value={course_keyword}
-					on:keydown={onKeydown}
-				/>
+		<label for="search" class="sr-only">Course Filter</label>
+
+		<div class="relative">
+			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+				<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
 			</div>
+			<Input
+				id="search"
+				name="search"
+				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+				placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
+				type="search"
+				bind:value={course_keyword}
+				on:keydown={onKeydown}
+			/>
 		</div>
 
-		<div class="my-2 w-full">
-			<label for="search" class="sr-only">Areas Filter</label>
-			<div class="relative">
-				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
-				</div>
-				<Input
-					id="search"
-					name="search"
-					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-					placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
-					type="search"
-					bind:value={areas_skills_keyword}
-					on:keydown={onKeydown}
-				/>
+		<div class="relative">
+			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+				<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
 			</div>
+			<Input
+				id="search"
+				name="search"
+				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+				placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
+				type="search"
+				bind:value={areas_skills_keyword}
+				on:keydown={onKeydown}
+			/>
 		</div>
 	{/if}
 
