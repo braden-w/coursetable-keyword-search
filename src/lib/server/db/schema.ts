@@ -1,4 +1,3 @@
-import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import {
 	foreignKey,
 	index,
@@ -10,6 +9,7 @@ import {
 	text,
 	uniqueIndex,
 } from 'drizzle-orm/sqlite-core';
+import { createInsertSchema } from 'drizzle-zod';
 
 export const seasons = sqliteTable('seasons', {
 	season_code: text('season_code').primaryKey(),
