@@ -225,8 +225,8 @@ const TABLES = [
 
 type TableName = (typeof TABLES)[number]['name'];
 
-const fetchGraphQL = (query: string) =>
-	fetch('https://api.coursetable.com/ferry/v1/graphql', {
+function fetchGraphQL(query: string) {
+	return fetch('https://api.coursetable.com/ferry/v1/graphql', {
 		method: 'POST',
 		headers: {
 			cookie: COURSETABLE_COOKIE,
@@ -234,11 +234,12 @@ const fetchGraphQL = (query: string) =>
 		},
 		body: JSON.stringify({ query })
 	});
+}
 
 const getTableLength = async (tableName: TableName): Promise<number> => {
 	const tableNameAggregate = `${tableName}_aggregate` as const;
 	const tableCountQuery = `query {
-    ${tableNameAggregate} {
+				${tableNameAggregate} {
 			aggregate {
 				count
 			}
