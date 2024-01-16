@@ -372,23 +372,21 @@ export async function main() {
 			TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
 		);
 
-		const data = await Promise.all(
-			tablesWithLength.map(async ({ query, schema, table, totalRows }) => {
-				for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
-					const batchData = await fetchGraphQl({
-						query,
-						schema,
-						variables: { offset, limit: BATCH_SIZE },
-					});
-					if (!batchData) break;
-					try {
-						await db.insert(table).values(batchData).onConflictDoNothing();
-					} catch (e) {
-						console.error('Error inserting batchData', e, batchData);
-					}
+		for (const { query, schema, table, totalRows } of tablesWithLength) {
+			for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
+				const batchData = await fetchGraphQl({
+					query,
+					schema,
+					variables: { offset, limit: BATCH_SIZE },
+				});
+				if (!batchData) break;
+				try {
+					await db.insert(table).values(batchData).onConflictDoNothing();
+				} catch (e) {
+					console.error('Error inserting batchData', e, batchData);
 				}
-			}),
-		);
+			}
+		}
 		return json(data);
 	} catch (e) {
 		console.error(e);
