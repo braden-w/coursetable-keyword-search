@@ -42,6 +42,7 @@ export async function insertAveragesOfCommentSentimentsOfSameCourses() {
 }
 
 /**
+ * @deprecated Use insertAveragesOfCommentSentimentsOfSameCourses instead, we should be taking averages across all evaluations of all courses with same_course_id, not just the evaluations of the course itself.
  * For each course, gets all of the evaluations of that course, then takes the average of the sentiments of the evaluations.
  */
 export async function insertAveragesOfCommentSentimentsOfCourses() {
