@@ -27,7 +27,16 @@
 	<div bind:this={scrollDiv} class="flex snap-x gap-1.5 overflow-x-auto py-1 md:snap-none md:gap-2">
 		{#each premadeQueries as premadeQuery (premadeQuery.title)}
 			<div class="snap-start">
-				<QueryButton {premadeQuery} on:click />
+				<form>
+					<input type="hidden" name="keyword" value={premadeQuery.keyword} />
+					<input type="hidden" name="course_keyword" value={premadeQuery.course_keyword} />
+					<input
+						type="hidden"
+						name="areas_skills_keyword"
+						value={premadeQuery.areas_skills_keyword}
+					/>
+					<Button>{premadeQuery.title}</Button>
+				</form>
 			</div>
 		{/each}
 	</div>
