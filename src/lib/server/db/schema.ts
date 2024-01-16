@@ -11,6 +11,7 @@ import {
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { boolean } from 'yargs';
+import { z } from 'zod';
 
 export const seasons = sqliteTable('seasons', {
 	season_code: text('season_code').primaryKey(),
@@ -179,11 +180,13 @@ export const evaluation_questions = sqliteTable('evaluation_questions', {
 	question_code: text('question_code').primaryKey(),
 	is_narrative: integer('is_narrative', { mode: 'boolean' }),
 	question_text: text('question_text'),
-	options: text('options'),
+	options: text('options', { mode: 'json' }).$type<string[]>(),
 	tag: text('tag'),
 });
 
-export const insertEvaluationQuestionSchema = createInsertSchema(evaluation_questions);
+export const insertEvaluationQuestionSchema = createInsertSchema(evaluation_questions, {
+	options: z.string().array(),
+});
 
 export const evaluation_narratives = sqliteTable('evaluation_narratives', {
 	id: integer('id').primaryKey(),
