@@ -65,7 +65,7 @@
 				</Button>
 			</Collapsible.Trigger>
 		</div>
-		<Collapsible.Content class="flex flex-col gap-4">
+		<Collapsible.Content class="flex flex-col gap-2 pt-2">
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
