@@ -239,7 +239,7 @@ function fetchGraphQL(query: string) {
 const getTableLength = async (tableName: TableName): Promise<number> => {
 	const tableNameAggregate = `${tableName}_aggregate` as const;
 	const tableCountQuery = `query {
-				${tableNameAggregate} {
+		${tableNameAggregate} {
 			aggregate {
 				count
 			}
