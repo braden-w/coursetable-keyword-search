@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { db } from './src/lib/server/db';
+import { db } from '../src/lib/server/db';
 import {
 	course_discussions,
 	course_flags,
@@ -33,7 +33,7 @@ import {
 	professors,
 	seasons,
 	tfidf_similars,
-} from './src/lib/server/schema';
+} from '../src/lib/server/schema';
 
 const COURSETABLE_COOKIE = process.env.COURSETABLE_COOKIE as string;
 const BATCH_SIZE = 500;
