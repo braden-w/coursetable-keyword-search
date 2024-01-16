@@ -36,7 +36,7 @@
 	});
 </script>
 
-<div class="container max-w-6xl flex flex-col gap-4 h-full justify-center">
+<div class="container max-w-6xl flex flex-col gap-4 justify-center">
 	<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
 		Search Yale Course reviews by
 		<span bind:this={typewriter} class="font-extrabold text-primary-content" />
