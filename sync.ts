@@ -37,7 +37,7 @@ import { json } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const COURSETABLE_COOKIE = process.env.COURSETABLE_COOKIE as string;
-const BATCH_SIZE = 1;
+const BATCH_SIZE = 1000;
 const TABLES = [
 	{
 		name: 'seasons',
