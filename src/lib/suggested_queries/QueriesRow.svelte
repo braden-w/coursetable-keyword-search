@@ -5,15 +5,15 @@
 	import QueryButton from './QueryButton.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { cn } from '$lib/utils';
-	let scroll: HTMLDivElement;
+	let scrollDiv: HTMLDivElement;
 	let showLeftArrow = false;
 	function scrollLeft() {
 		// Scroll element left smoothly
-		scroll.scrollBy({ left: -scroll.offsetWidth, behavior: 'smooth' });
+		scrollDiv.scrollBy({ left: -scrollDiv.offsetWidth, behavior: 'smooth' });
 	}
 	function scrollRight() {
 		// Scroll element right smoothly
-		scroll.scrollBy({ left: scroll.offsetWidth, behavior: 'smooth' });
+		scrollDiv.scrollBy({ left: scrollDiv.offsetWidth, behavior: 'smooth' });
 		showLeftArrow = true;
 	}
 </script>
@@ -24,7 +24,7 @@
 			<ArrowLeft class="h-4 w-4" />
 		</Button>
 	{/if}
-	<div bind:this={scroll} class="flex snap-x gap-1.5 overflow-x-auto py-1 md:snap-none md:gap-2">
+	<div bind:this={scrollDiv} class="flex snap-x gap-1.5 overflow-x-auto py-1 md:snap-none md:gap-2">
 		{#each premadeQueries as premadeQuery (premadeQuery.title)}
 			<div class="snap-start">
 				<QueryButton {premadeQuery} on:click />
