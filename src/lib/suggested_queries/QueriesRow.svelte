@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { premadeQueries } from '$lib/suggested_queries/premadeQueries';
-	import { ArrowLeft, ArrowRight } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import ArrowLeft from '~icons/heroicons/arrow-left'
+	import ArrowRight from '~icons/heroicons/arrow-right'
 	import QueryButton from './QueryButton.svelte';
 	let scroll: HTMLDivElement;
 	let showLeftArrow = false;
@@ -19,7 +19,7 @@
 <div class="relative">
 	{#if showLeftArrow}
 		<button on:click={scrollLeft} class="absolute inset-y-0 left-0 -ml-6">
-			<Icon src={ArrowLeft} class="h-4 w-4" />
+			<ArrowLeft class="h-4 w-4" />
 		</button>
 	{/if}
 	<div bind:this={scroll} class="flex snap-x gap-1.5 overflow-x-auto py-1 md:snap-none md:gap-2">
@@ -34,7 +34,7 @@
 		class="absolute inset-y-0 right-0 z-10 -mr-6"
 		class:animate-bounce={!showLeftArrow}
 	>
-		<Icon src={ArrowRight} class="h-4 w-4" />
+		<ArrowRight class="h-4 w-4" />
 	</button>
 </div>
 

@@ -2,8 +2,10 @@
 	import Typewriter from 'typewriter-effect/dist/core';
 	import { goto } from '$app/navigation';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
-	import { AcademicCap, BookOpen, Funnel, MagnifyingGlass } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import AcademicCap from '~icons/heroicons/academic-cap';
+	import BookOpen from '~icons/heroicons/book-open';
+	import Funnel from '~icons/heroicons/funnel';
+	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 	import { onMount } from 'svelte';
 
 	let keyword = '';
@@ -54,7 +56,7 @@
 						<label for="search" class="sr-only">Search</label>
 						<div class="relative flex-1">
 							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-								<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+								<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
 							</div>
 							<input
 								id="search"
@@ -76,7 +78,7 @@
 								class="flex rounded-md border border-gray-300 bg-white px-3.5 py-2 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-2"
 								on:click={() => (showFilters = !showFilters)}
 							>
-								<Icon src={Funnel} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+								<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
 								<span class="sr-only">Filter</span>
 							</button>
 							{#if !showFilters}
@@ -94,7 +96,7 @@
 							<label for="search" class="sr-only">Course Filter</label>
 							<div class="relative">
 								<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-									<Icon src={BookOpen} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+									<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
 								</div>
 								<input
 									id="search"
@@ -112,7 +114,7 @@
 							<label for="search" class="sr-only">Areas Filter</label>
 							<div class="relative">
 								<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-									<Icon src={AcademicCap} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+									<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
 								</div>
 								<input
 									id="search"

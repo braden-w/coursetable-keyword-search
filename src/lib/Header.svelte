@@ -1,11 +1,9 @@
 <script lang="ts">
 	import ThemeChooser from './ThemeChooser.svelte';
-
-	import { fly } from 'svelte/transition';
-	import Logo from './Logo.svelte';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { GithubLogo } from '@steeze-ui/radix-icons';
 	import { onDestroy, onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import GithubLogo from '~icons/mdi/github';
+	import Logo from './Logo.svelte';
 
 	const titles = [
 		'ReviewTable',

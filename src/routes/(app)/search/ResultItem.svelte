@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { getPercent, interpretSeasonCode } from '$lib/helpers';
 	import type { Course } from '$lib/types/SearchResponse';
-	import { BookOpen, ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import BookOpen from "~icons/heroicons/book-open";
+	import ChevronDown from "~icons/heroicons/chevron-down";
+	import ChevronUp from "~icons/heroicons/chevron-up";
 	import { slide } from 'svelte/transition';
 
 	export let course: Course;
@@ -55,7 +56,7 @@
 									<span
 										class="inline-flex items-center rounded bg-primary px-2 py-0.5 text-xs font-medium text-white"
 									>
-										<Icon src={BookOpen} class="mr-1.5 h-4 w-4" />
+										<BookOpen class="mr-1.5 h-4 w-4" />
 										{code}
 									</span>
 									<!-- Spacer for my-2 -->
@@ -99,9 +100,9 @@
 			</div>
 			<div class="ml-5 flex-shrink-0">
 				{#if expanded}
-					<Icon src={ChevronUp} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					<ChevronUp class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				{:else}
-					<Icon src={ChevronDown} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					<ChevronDown class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				{/if}
 			</div>
 		</div>

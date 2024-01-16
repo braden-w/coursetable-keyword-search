@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { ChevronDown, ChevronUp } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import  ChevronDown from '~icons/heroicons/chevron-down';
+	import  ChevronUp from '~icons/heroicons/chevron-up';
 	import { slide } from 'svelte/transition';
 
 	export let expanded = false;
@@ -17,9 +17,9 @@
 			<div class="text-2xl font-bold"><slot name="title" /></div>
 			<div class="ml-5 flex-shrink-0">
 				{#if expanded}
-					<Icon src={ChevronUp} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					<ChevronUp class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				{:else}
-					<Icon src={ChevronDown} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					<ChevronDown class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				{/if}
 			</div>
 		</div>
