@@ -4,6 +4,7 @@
 	import ArrowRight from '~icons/heroicons/arrow-right';
 	import { Button } from '$lib/components/ui/button';
 	import { cn } from '$lib/utils';
+
 	let scrollDiv: HTMLDivElement;
 	let showLeftArrow = false;
 	function scrollLeft() {
@@ -17,13 +18,16 @@
 	}
 </script>
 
-<div class="relative">
+<div class="flex items-center">
 	{#if showLeftArrow}
-		<Button variant="ghost" size="icon" class="absolute left-0 -ml-6" on:click={scrollLeft}>
+		<Button variant="ghost" size="icon" class="-ml-6" on:click={scrollLeft}>
 			<ArrowLeft class="h-4 w-4" />
 		</Button>
 	{/if}
-	<div bind:this={scrollDiv} class="flex snap-x gap-1.5 overflow-x-auto py-1 md:snap-none md:gap-2">
+	<div
+		bind:this={scrollDiv}
+		class="flex flex-grow overflow-x-auto snap-x gap-1.5 py-1 md:snap-none md:gap-2"
+	>
 		{#each premadeQueries as premadeQuery (premadeQuery.title)}
 			<div class="snap-start">
 				<form>
@@ -39,12 +43,7 @@
 			</div>
 		{/each}
 	</div>
-	<Button
-		variant="ghost"
-		size="icon"
-		class={cn('absolute right-0 -mr-6', !showLeftArrow && 'animate-bounce')}
-		on:click={scrollRight}
-	>
+	<Button variant="ghost" size="icon" class="-mr-10" on:click={scrollRight}>
 		<ArrowRight class="h-4 w-4" />
 	</Button>
 </div>
