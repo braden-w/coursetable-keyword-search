@@ -10,21 +10,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
 
-	let keyword = '';
-	let course_keyword = '';
-	let areas_skills_keyword = '';
-	$: params = {
-		keyword,
-		course_keyword,
-		areas_skills_keyword,
-	};
-
 	let showFilters = false;
-
-	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key !== 'Enter') return;
-		goto(`/search?${new URLSearchParams(params)}`);
-	};
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -62,8 +48,6 @@
 				class="pl-10 pr-3"
 				placeholder="Search by review keyword...(use % to match anything)"
 				type="search"
-				bind:value={keyword}
-				on:keydown={onKeydown}
 			/>
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
@@ -98,8 +82,6 @@
 				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 				placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
 				type="search"
-				bind:value={course_keyword}
-				on:keydown={onKeydown}
 			/>
 		</div>
 
@@ -113,8 +95,6 @@
 				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 				placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
 				type="search"
-				bind:value={areas_skills_keyword}
-				on:keydown={onKeydown}
 			/>
 		</div>
 	{/if}
