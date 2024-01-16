@@ -63,7 +63,6 @@
 				>
 					<GithubLogo class="h-6 w-6" aria-hidden="true" />
 				</a>
-				<ThemeChooser />
 				<a href="/about" class="btn btn-ghost gap-1 normal-case"> About </a>
 
 				<a href="/search" class="btn btn-ghost gap-1 normal-case"> Search </a>
