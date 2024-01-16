@@ -71,9 +71,8 @@
 		<span class="relative inline-flex">
 			<Button
 				id="filters"
-				type="button"
 				name="filters"
-				class="flex rounded-md border border-gray-300 bg-white px-3.5 py-2 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-2"
+				variant="outline"
 				on:click={() => (showFilters = !showFilters)}
 			>
 				<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
