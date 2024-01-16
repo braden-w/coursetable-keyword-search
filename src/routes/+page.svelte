@@ -68,16 +68,15 @@
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
 		<span class="sr-only">Loading...</span>
-		<span class="relative inline-flex">
-			<Button
-				id="filters"
-				name="filters"
-				variant="outline"
-				on:click={() => (showFilters = !showFilters)}
-			>
-				<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
-				<span class="sr-only">Filter</span>
-			</Button>
+		<Button
+			id="filters"
+			name="filters"
+			variant="outline"
+			class="relative"
+			on:click={() => (showFilters = !showFilters)}
+		>
+			<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
+			<span class="sr-only">Filter</span>
 			{#if !showFilters}
 				<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
 					<span
@@ -86,7 +85,7 @@
 					<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
 				</span>
 			{/if}
-		</span>
+		</Button>
 	</div>
 	{#if showFilters}
 		<div class="my-2 w-full">
