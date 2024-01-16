@@ -1,5 +1,5 @@
 import 'unplugin-icons/types/svelte';
-import * as schema from './schema';
+import * as schema from '$lib/server/schema';
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
