@@ -259,8 +259,8 @@ const TABLES = [
 
 type TableName = (typeof TABLES)[number]['name'];
 
-function fetchGraphQL(query: string) {
-	return fetch('https://api.coursetable.com/ferry/v1/graphql', {
+async function fetchGraphQL<T>(query: string, schema: z.ZodSchema<T>) {
+	const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', {
 		method: 'POST',
 		headers: {
 			cookie: COURSETABLE_COOKIE,
@@ -268,6 +268,9 @@ function fetchGraphQL(query: string) {
 		},
 		body: JSON.stringify({ query }),
 	});
+	const json = await response.json();
+	const parsedResponse = z.object({ data: schema }).parse(json);
+	return parsedResponse.data;
 }
 
 const getTableLength = async (tableName: TableName): Promise<number> => {
@@ -279,17 +282,16 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 			}
 		}
 	}`;
-	const responseSchema = z.object({
-		data: z.object({
+	const data = await fetchGraphQL(
+		tableCountQuery,
+		z.object({
 			[tableNameAggregate]: z.object({
 				aggregate: z.object({
 					count: z.number(),
 				}),
 			}),
 		}),
-	});
-	const response = await fetchGraphQL(tableCountQuery);
-	const { data } = responseSchema.parse(await response.json());
+	);
 	return data[tableNameAggregate].aggregate.count;
 };
 
@@ -313,16 +315,18 @@ export const GET = async () => {
 		[[], []],
 	);
 
-	const responses = await Promise.all(tablesUnder1000.map(({ query }) => fetchGraphQL(query)));
-	const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
-		if (!res.ok) {
-			errors.push({ status: res.status, statusText: res.statusText });
-		}
-		return errors;
-	}, []);
-	if (errors.length !== 0) {
-		return error(500, JSON.stringify(errors));
-	}
-	const data = await Promise.all(responses.map((res) => res.json()));
+	const data = await Promise.all(
+		tablesUnder1000.map(({ query, schema }) => fetchGraphQL(query, schema)),
+	);
+	// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
+	// 	if (!res.ok) {
+	// 		errors.push({ status: res.status, statusText: res.statusText });
+	// 	}
+	// 	return errors;
+	// }, []);
+	// if (errors.length !== 0) {
+	// 	return error(500, JSON.stringify(errors));
+	// }
+	// const data = await Promise.all(responses.map((res) => res.json()));
 	return json(data);
 };
