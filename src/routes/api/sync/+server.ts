@@ -40,8 +40,8 @@ import { z } from 'zod';
 const TABLES = [
 	{
 		name: 'seasons',
-		query: `query {
-			seasons {
+		query: `query ($offset: Int, $limit: Int) {
+			seasons (offset: $offset, limit: $limit) {
 				season_code
 				term
 				year
@@ -52,8 +52,8 @@ const TABLES = [
 	},
 	{
 		name: 'courses',
-		query: `query {
-			courses {
+		query: `query ($offset: Int, $limit: Int) {
+			courses (offset: $offset, limit: $limit) {
 				course_id
 				season_code
 				title
@@ -98,8 +98,8 @@ const TABLES = [
 	},
 	{
 		name: 'listings',
-		query: `query {
-			listings {
+		query: `query ($offset: Int, $limit: Int) {
+			listings (offset: $offset, limit: $limit) {
 				listing_id
 				course_id
 				school
@@ -116,8 +116,8 @@ const TABLES = [
 	},
 	{
 		name: 'discussions',
-		query: `query {
-			discussions {
+		query: `query ($offset: Int, $limit: Int) {
+			discussions (offset: $offset, limit: $limit) {
 				discussion_id
 				subject
 				number
@@ -135,8 +135,8 @@ const TABLES = [
 	},
 	{
 		name: 'flags',
-		query: `query {
-			flags {
+		query: `query ($offset: Int, $limit: Int) {
+			flags (offset: $offset, limit: $limit) {
 				flag_id
 				flag_text
 			}
@@ -146,8 +146,8 @@ const TABLES = [
 	},
 	{
 		name: 'demand_statistics',
-		query: `query {
-			demand_statistics {
+		query: `query ($offset: Int, $limit: Int) {
+			demand_statistics (offset: $offset, limit: $limit) {
 				course_id
 				latest_demand
 				latest_demand_date
@@ -161,8 +161,8 @@ const TABLES = [
 	},
 	{
 		name: 'professors',
-		query: `query {
-			professors {
+		query: `query ($offset: Int, $limit: Int) {
+			professors (offset: $offset, limit: $limit) {
 				professor_id
 				name
 				email
@@ -177,8 +177,8 @@ const TABLES = [
 	},
 	{
 		name: 'evaluation_statistics',
-		query: `query {
-			evaluation_statistics {
+		query: `query ($offset: Int, $limit: Int) {
+			evaluation_statistics (offset: $offset, limit: $limit) {
 				course_id
 				enrollment
 				enrolled
@@ -197,8 +197,8 @@ const TABLES = [
 	},
 	{
 		name: 'evaluation_questions',
-		query: `query {
-			evaluation_questions {
+		query: `query ($offset: Int, $limit: Int) {
+			evaluation_questions (offset: $offset, limit: $limit) {
 				question_code
 				is_narrative
 				question_text
@@ -213,8 +213,8 @@ const TABLES = [
 	},
 	{
 		name: 'evaluation_narratives',
-		query: `query {
-			evaluation_narratives {
+		query: `query ($offset: Int, $limit: Int) {
+			evaluation_narratives (offset: $offset, limit: $limit) {
 				id
 				course_id
 				question_code
@@ -232,8 +232,8 @@ const TABLES = [
 	},
 	{
 		name: 'evaluation_ratings',
-		query: `query {
-			evaluation_ratings {
+		query: `query ($offset: Int, $limit: Int) {
+			evaluation_ratings (offset: $offset, limit: $limit) {
 				id
 				course_id
 				question_code
@@ -247,8 +247,8 @@ const TABLES = [
 	},
 	{
 		name: 'course_professors',
-		query: `query {
-			course_professors {
+		query: `query ($offset: Int, $limit: Int) {
+			course_professors (offset: $offset, limit: $limit) {
 				course_id
 				professor_id
 			}
@@ -260,8 +260,8 @@ const TABLES = [
 	},
 	{
 		name: 'course_discussions',
-		query: `query {
-			course_discussions {
+		query: `query ($offset: Int, $limit: Int) {
+			course_discussions (offset: $offset, limit: $limit) {
 				course_id
 				discussion_id
 			}
@@ -273,8 +273,8 @@ const TABLES = [
 	},
 	{
 		name: 'course_flags',
-		query: `query {
-			course_flags {
+		query: `query ($offset: Int, $limit: Int) {
+			course_flags (offset: $offset, limit: $limit) {
 				course_id
 				flag_id
 			}
@@ -286,8 +286,8 @@ const TABLES = [
 	},
 	{
 		name: 'fasttext_similars',
-		query: `query {
-			fasttext_similars {
+		query: `query ($offset: Int, $limit: Int) {
+			fasttext_similars (offset: $offset, limit: $limit) {
 				source
 				target
 				rank
@@ -300,8 +300,8 @@ const TABLES = [
 	},
 	{
 		name: 'tfidf_similars',
-		query: `query {
-			tfidf_similars {
+		query: `query ($offset: Int, $limit: Int) {
+			tfidf_similars (offset: $offset, limit: $limit) {
 				source
 				target
 				rank
@@ -316,7 +316,7 @@ const TABLES = [
 
 type TableName = (typeof TABLES)[number]['name'];
 
-async function fetchGraphQlPaginated<T>({ query, schema }: { query: string; schema: z.ZodSchema<T> }) {
+async function fetchGraphQl<T>({ query, schema }: { query: string; schema: z.ZodSchema<T> }) {
 	const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', {
 		method: 'POST',
 		headers: {
@@ -343,7 +343,7 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 			}
 		}
 	}`;
-	const data = await fetchGraphQlPaginated({
+	const data = await fetchGraphQl({
 		query: tableCountQuery,
 		schema: z.object({
 			[tableNameAggregate]: z.object({
@@ -378,7 +378,7 @@ export const GET = async () => {
 
 	const data = await Promise.all(
 		tablesUnder1000.map(async ({ query, schema, table }) => {
-			const payload = await fetchGraphQlPaginated({ query, schema });
+			const payload = await fetchGraphQl({ query, schema });
 			console.log('🚀 ~ tablesUnder1000.map ~ payload:', payload);
 			const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
 			return rs;
