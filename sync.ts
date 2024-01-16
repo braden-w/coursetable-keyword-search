@@ -1,5 +1,4 @@
-import { COURSETABLE_COOKIE } from '$env/static/private';
-import { db } from '$lib/server/db/db';
+import { db } from './src/lib/server/db/db';
 import {
 	course_discussions,
 	course_flags,
@@ -33,10 +32,11 @@ import {
 	professors,
 	seasons,
 	tfidf_similars,
-} from '$lib/server/db/schema';
+} from './src/lib/server/db/schema';
 import { json } from '@sveltejs/kit';
 import { z } from 'zod';
 
+const COURSETABLE_COOKIE = process.env.COURSETABLE_COOKIE as string;
 const BATCH_SIZE = 1;
 const TABLES = [
 	{
@@ -366,7 +366,7 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 	return data[tableNameAggregate].aggregate.count;
 };
 
-export const GET = async () => {
+export async function main() {
 	try {
 		const tablesWithLength = await Promise.all(
 			TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
@@ -399,4 +399,5 @@ export const GET = async () => {
 	} catch (e) {
 		console.error(e);
 	}
-};
+}
+main();
