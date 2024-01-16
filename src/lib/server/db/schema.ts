@@ -10,6 +10,7 @@ import {
 	uniqueIndex,
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-zod';
+import { boolean } from 'yargs';
 import { z } from 'zod';
 
 export const seasons = sqliteTable('seasons', {
@@ -36,8 +37,8 @@ export const courses = sqliteTable(
 		times_summary: text('times_summary'),
 		// times_by_day":{"Monday":[["14:30","15:45","WLH 113","https://map.yale.edu/place/building/WLH?"]],"Wednesday":[["14:30","15:45","WLH 113","https://map.yale.edu/place/building/WLH?"]]}
 		times_by_day: text('times_by_day', { mode: 'json' }).$type<Record<string, string[][]>>(),
-		skills: text('skills'),
-		areas: text('areas'),
+		skills: text('skills', { mode: 'json' }).$type<string[]>(),
+		areas: text('areas', { mode: 'json' }).$type<string[]>(),
 		credits: real('credits'),
 		syllabus_url: text('syllabus_url'),
 		course_home_url: text('course_home_url'),
@@ -46,9 +47,9 @@ export const courses = sqliteTable(
 		rp_attr: text('rp_attr'),
 		classnotes: text('classnotes'),
 		final_exam: text('final_exam'),
-		fysem: numeric('fysem'),
-		sysem: numeric('sysem'),
-		colsem: numeric('colsem'),
+		fysem: integer('fysem', { mode: 'boolean' }),
+		sysem: integer('sysem', { mode: 'boolean' }),
+		colsem: integer('colsem', { mode: 'boolean' }),
 		average_rating: real('average_rating'),
 		average_rating_n: integer('average_rating_n'),
 		average_workload: real('average_workload'),
@@ -84,6 +85,8 @@ export const courses = sqliteTable(
 
 export const insertCourseSchema = createInsertSchema(courses, {
 	times_by_day: z.record(z.string().array().array()),
+	skills: z.string().array(),
+	areas: z.string().array(),
 });
 
 export const listings = sqliteTable(
