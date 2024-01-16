@@ -1,0 +1,1258 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "id": "039b15de-6152-47ae-8458-ad66148e6f3f",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "course_discussions": {
+      "name": "course_discussions",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "discussion_id": {
+          "name": "discussion_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "course_discussions_course_id_courses_course_id_fk": {
+          "name": "course_discussions_course_id_courses_course_id_fk",
+          "tableFrom": "course_discussions",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "course_discussions_discussion_id_discussions_discussion_id_fk": {
+          "name": "course_discussions_discussion_id_discussions_discussion_id_fk",
+          "tableFrom": "course_discussions",
+          "tableTo": "discussions",
+          "columnsFrom": [
+            "discussion_id"
+          ],
+          "columnsTo": [
+            "discussion_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "course_discussions_course_id_discussion_id_pk": {
+          "columns": [
+            "course_id",
+            "discussion_id"
+          ],
+          "name": "course_discussions_course_id_discussion_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "course_flags": {
+      "name": "course_flags",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "flag_id": {
+          "name": "flag_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "course_flags_course_id_courses_course_id_fk": {
+          "name": "course_flags_course_id_courses_course_id_fk",
+          "tableFrom": "course_flags",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "course_flags_flag_id_flags_flag_id_fk": {
+          "name": "course_flags_flag_id_flags_flag_id_fk",
+          "tableFrom": "course_flags",
+          "tableTo": "flags",
+          "columnsFrom": [
+            "flag_id"
+          ],
+          "columnsTo": [
+            "flag_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "course_flags_course_id_flag_id_pk": {
+          "columns": [
+            "course_id",
+            "flag_id"
+          ],
+          "name": "course_flags_course_id_flag_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "course_professors": {
+      "name": "course_professors",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "professor_id": {
+          "name": "professor_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "course_professors_course_id_courses_course_id_fk": {
+          "name": "course_professors_course_id_courses_course_id_fk",
+          "tableFrom": "course_professors",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "course_professors_professor_id_professors_professor_id_fk": {
+          "name": "course_professors_professor_id_professors_professor_id_fk",
+          "tableFrom": "course_professors",
+          "tableTo": "professors",
+          "columnsFrom": [
+            "professor_id"
+          ],
+          "columnsTo": [
+            "professor_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "course_professors_course_id_professor_id_pk": {
+          "columns": [
+            "course_id",
+            "professor_id"
+          ],
+          "name": "course_professors_course_id_professor_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "courses": {
+      "name": "courses",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "season_code": {
+          "name": "season_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "short_title": {
+          "name": "short_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "requirements": {
+          "name": "requirements",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "locations_summary": {
+          "name": "locations_summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "times_long_summary": {
+          "name": "times_long_summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "times_summary": {
+          "name": "times_summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "times_by_day": {
+          "name": "times_by_day",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "skills": {
+          "name": "skills",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "areas": {
+          "name": "areas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "credits": {
+          "name": "credits",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "syllabus_url": {
+          "name": "syllabus_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "course_home_url": {
+          "name": "course_home_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "regnotes": {
+          "name": "regnotes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "extra_info": {
+          "name": "extra_info",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "rp_attr": {
+          "name": "rp_attr",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "classnotes": {
+          "name": "classnotes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "final_exam": {
+          "name": "final_exam",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fysem": {
+          "name": "fysem",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sysem": {
+          "name": "sysem",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "colsem": {
+          "name": "colsem",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_rating": {
+          "name": "average_rating",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_rating_n": {
+          "name": "average_rating_n",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_workload": {
+          "name": "average_workload",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_workload_n": {
+          "name": "average_workload_n",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_rating_same_professors": {
+          "name": "average_rating_same_professors",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_rating_same_professors_n": {
+          "name": "average_rating_same_professors_n",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_workload_same_professors": {
+          "name": "average_workload_same_professors",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_workload_same_professors_n": {
+          "name": "average_workload_same_professors_n",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_offered_course_id": {
+          "name": "last_offered_course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "same_course_id": {
+          "name": "same_course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "same_course_and_profs_id": {
+          "name": "same_course_and_profs_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "last_enrollment_course_id": {
+          "name": "last_enrollment_course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_enrollment": {
+          "name": "last_enrollment",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_enrollment_season_code": {
+          "name": "last_enrollment_season_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "courses_season_code_seasons_season_code_fk": {
+          "name": "courses_season_code_seasons_season_code_fk",
+          "tableFrom": "courses",
+          "tableTo": "seasons",
+          "columnsFrom": [
+            "season_code"
+          ],
+          "columnsTo": [
+            "season_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "courses_last_enrollment_season_code_seasons_season_code_fk": {
+          "name": "courses_last_enrollment_season_code_seasons_season_code_fk",
+          "tableFrom": "courses",
+          "tableTo": "seasons",
+          "columnsFrom": [
+            "last_enrollment_season_code"
+          ],
+          "columnsTo": [
+            "season_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "courses_last_enrollment_course_id_courses_course_id_fk": {
+          "name": "courses_last_enrollment_course_id_courses_course_id_fk",
+          "tableFrom": "courses",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "last_enrollment_course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "courses_last_offered_course_id_courses_course_id_fk": {
+          "name": "courses_last_offered_course_id_courses_course_id_fk",
+          "tableFrom": "courses",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "last_offered_course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "demand_statistics": {
+      "name": "demand_statistics",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "latest_demand": {
+          "name": "latest_demand",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "latest_demand_date": {
+          "name": "latest_demand_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "demand": {
+          "name": "demand",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "demand_statistics_course_id_courses_course_id_fk": {
+          "name": "demand_statistics_course_id_courses_course_id_fk",
+          "tableFrom": "demand_statistics",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "discussions": {
+      "name": "discussions",
+      "columns": {
+        "discussion_id": {
+          "name": "discussion_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "number": {
+          "name": "number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "info": {
+          "name": "info",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "locations_summary": {
+          "name": "locations_summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "times_long_summary": {
+          "name": "times_long_summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "times_summary": {
+          "name": "times_summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "times_by_day": {
+          "name": "times_by_day",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "evaluation_narratives": {
+      "name": "evaluation_narratives",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "question_code": {
+          "name": "question_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "comment": {
+          "name": "comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "comment_neg": {
+          "name": "comment_neg",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "comment_neu": {
+          "name": "comment_neu",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "comment_pos": {
+          "name": "comment_pos",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "comment_compound": {
+          "name": "comment_compound",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "evaluation_narratives_course_id_courses_course_id_fk": {
+          "name": "evaluation_narratives_course_id_courses_course_id_fk",
+          "tableFrom": "evaluation_narratives",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "evaluation_narratives_question_code_evaluation_questions_question_code_fk": {
+          "name": "evaluation_narratives_question_code_evaluation_questions_question_code_fk",
+          "tableFrom": "evaluation_narratives",
+          "tableTo": "evaluation_questions",
+          "columnsFrom": [
+            "question_code"
+          ],
+          "columnsTo": [
+            "question_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "evaluation_questions": {
+      "name": "evaluation_questions",
+      "columns": {
+        "question_code": {
+          "name": "question_code",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_narrative": {
+          "name": "is_narrative",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "question_text": {
+          "name": "question_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "options": {
+          "name": "options",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "tag": {
+          "name": "tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "evaluation_ratings": {
+      "name": "evaluation_ratings",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "question_code": {
+          "name": "question_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "rating": {
+          "name": "rating",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "evaluation_ratings_course_id_courses_course_id_fk": {
+          "name": "evaluation_ratings_course_id_courses_course_id_fk",
+          "tableFrom": "evaluation_ratings",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "evaluation_ratings_question_code_evaluation_questions_question_code_fk": {
+          "name": "evaluation_ratings_question_code_evaluation_questions_question_code_fk",
+          "tableFrom": "evaluation_ratings",
+          "tableTo": "evaluation_questions",
+          "columnsFrom": [
+            "question_code"
+          ],
+          "columnsTo": [
+            "question_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "evaluation_statistics": {
+      "name": "evaluation_statistics",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "enrollment": {
+          "name": "enrollment",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "enrolled": {
+          "name": "enrolled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "responses": {
+          "name": "responses",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "declined": {
+          "name": "declined",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "no_response": {
+          "name": "no_response",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "extras": {
+          "name": "extras",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "avg_rating": {
+          "name": "avg_rating",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "avg_workload": {
+          "name": "avg_workload",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "evaluation_statistics_course_id_courses_course_id_fk": {
+          "name": "evaluation_statistics_course_id_courses_course_id_fk",
+          "tableFrom": "evaluation_statistics",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "fasttext_similars": {
+      "name": "fasttext_similars",
+      "columns": {
+        "source": {
+          "name": "source",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "target": {
+          "name": "target",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "rank": {
+          "name": "rank",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fasttext_similars_source_courses_course_id_fk": {
+          "name": "fasttext_similars_source_courses_course_id_fk",
+          "tableFrom": "fasttext_similars",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "source"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fasttext_similars_target_courses_course_id_fk": {
+          "name": "fasttext_similars_target_courses_course_id_fk",
+          "tableFrom": "fasttext_similars",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "target"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "fasttext_similars_source_target_pk": {
+          "columns": [
+            "source",
+            "target"
+          ],
+          "name": "fasttext_similars_source_target_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "flags": {
+      "name": "flags",
+      "columns": {
+        "flag_id": {
+          "name": "flag_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "flag_text": {
+          "name": "flag_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "listings": {
+      "name": "listings",
+      "columns": {
+        "listing_id": {
+          "name": "listing_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "school": {
+          "name": "school",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "number": {
+          "name": "number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "course_code": {
+          "name": "course_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "section": {
+          "name": "section",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "season_code": {
+          "name": "season_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "crn": {
+          "name": "crn",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "idx_season_code_crn_unique": {
+          "name": "idx_season_code_crn_unique",
+          "columns": [
+            "season_code",
+            "crn"
+          ],
+          "isUnique": true
+        },
+        "idx_season_course_section_unique": {
+          "name": "idx_season_course_section_unique",
+          "columns": [
+            "season_code",
+            "subject",
+            "number",
+            "section"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "listings_course_id_courses_course_id_fk": {
+          "name": "listings_course_id_courses_course_id_fk",
+          "tableFrom": "listings",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "listings_season_code_seasons_season_code_fk": {
+          "name": "listings_season_code_seasons_season_code_fk",
+          "tableFrom": "listings",
+          "tableTo": "seasons",
+          "columnsFrom": [
+            "season_code"
+          ],
+          "columnsTo": [
+            "season_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "professors": {
+      "name": "professors",
+      "columns": {
+        "professor_id": {
+          "name": "professor_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_rating": {
+          "name": "average_rating",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "average_rating_n": {
+          "name": "average_rating_n",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "seasons": {
+      "name": "seasons",
+      "columns": {
+        "season_code": {
+          "name": "season_code",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "term": {
+          "name": "term",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "tfidf_similars": {
+      "name": "tfidf_similars",
+      "columns": {
+        "source": {
+          "name": "source",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "target": {
+          "name": "target",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "rank": {
+          "name": "rank",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tfidf_similars_source_courses_course_id_fk": {
+          "name": "tfidf_similars_source_courses_course_id_fk",
+          "tableFrom": "tfidf_similars",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "source"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "tfidf_similars_target_courses_course_id_fk": {
+          "name": "tfidf_similars_target_courses_course_id_fk",
+          "tableFrom": "tfidf_similars",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "target"
+          ],
+          "columnsTo": [
+            "course_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "tfidf_similars_source_target_pk": {
+          "columns": [
+            "source",
+            "target"
+          ],
+          "name": "tfidf_similars_source_target_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {
+      "\"evaluation_narratives\".\"COMMENT\"": "\"evaluation_narratives\".\"comment\""
+    }
+  }
+}
