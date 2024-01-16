@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import GithubLogo from '~icons/mdi/github';
-	import Logo from '$lib/Logo.svelte';
+	import logo from '$lib/assets/logo.png';
 
 	const titles = [
 		'ReviewTable',
@@ -29,8 +29,7 @@
 		<div class="flex px-2 lg:px-0">
 			<div class="flex-shrink-0">
 				<a href="/">
-					<Logo class="block h-10 w-auto rounded-md lg:hidden" />
-					<Logo class="hidden h-12 w-auto rounded-md lg:block" />
+					<img src={logo} alt="Logo" class="h-10 rounded-md" />
 				</a>
 			</div>
 			<a href="/" on:click={cycleTitles}>
