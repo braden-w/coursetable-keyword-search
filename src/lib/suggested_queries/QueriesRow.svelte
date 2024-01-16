@@ -2,7 +2,6 @@
 	import { premadeQueries } from '$lib/suggested_queries/premadeQueries';
 	import ArrowLeft from '~icons/heroicons/arrow-left';
 	import ArrowRight from '~icons/heroicons/arrow-right';
-	import QueryButton from './QueryButton.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { cn } from '$lib/utils';
 	let scrollDiv: HTMLDivElement;
