@@ -29,6 +29,7 @@ import {
 	insertSeasonSchema,
 	insertTfidfSimilarSchema,
 	listings,
+	professors,
 	seasons,
 	tfidf_similars,
 } from '$lib/server/db/schema';
