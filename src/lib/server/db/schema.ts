@@ -171,16 +171,14 @@ export const discussions = sqliteTable('discussions', {
 	locations_summary: text('locations_summary'),
 	times_long_summary: text('times_long_summary'),
 	times_summary: text('times_summary'),
-	times_by_day: text('times_by_day', { mode: 'json' }).$type<Record<string, string[][]>>(),
+	times_by_day: text('times_by_day'),
 });
 
 export const discussionsRelations = relations(discussions, ({ many }) => ({
 	courseDiscussions: many(course_discussions),
 }));
 
-export const insertDiscussionSchema = createInsertSchema(discussions, {
-	times_by_day: z.record(z.string().array().array()),
-});
+export const insertDiscussionSchema = createInsertSchema(discussions);
 
 export const flags = sqliteTable('flags', {
 	flag_id: integer('flag_id').primaryKey(),
@@ -291,7 +289,7 @@ export const evaluation_ratings = sqliteTable('evaluation_ratings', {
 	// .references(() => courses.course_id),
 	question_code: text('question_code').notNull(),
 	// .references(() => evaluation_questions.question_code),
-	rating: text('rating'),
+	rating: text('rating', { mode: 'json' }).$type<number[]>(),
 });
 
 export const evaluationRatingsRelations = relations(evaluation_ratings, ({ one }) => ({
@@ -305,7 +303,9 @@ export const evaluationRatingsRelations = relations(evaluation_ratings, ({ one }
 	}),
 }));
 
-export const insertEvaluationRatingSchema = createInsertSchema(evaluation_ratings);
+export const insertEvaluationRatingSchema = createInsertSchema(evaluation_ratings, {
+	rating: z.number().array(),
+});
 
 export const course_professors = sqliteTable(
 	'course_professors',
