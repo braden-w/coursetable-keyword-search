@@ -1,1 +1,13 @@
-{"version":"5","dialect":"sqlite","entries":[]}
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1705382508474,
+      "tag": "0000_flippant_terror",
+      "breakpoints": true
+    }
+  ]
+}
