@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { getPercent, interpretSeasonCode } from '$lib/helpers';
 	import type { Course } from '$lib/types/SearchResponse';
-	import BookOpen from "~icons/heroicons/book-open";
-	import ChevronDown from "~icons/heroicons/chevron-down";
-	import ChevronUp from "~icons/heroicons/chevron-up";
+	import BookOpen from '~icons/heroicons/book-open';
+	import ChevronDown from '~icons/heroicons/chevron-down';
+	import ChevronUp from '~icons/heroicons/chevron-up';
 	import { slide } from 'svelte/transition';
 
 	export let course: Course;
