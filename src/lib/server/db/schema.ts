@@ -10,6 +10,7 @@ import {
 	uniqueIndex,
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-zod';
+import { boolean } from 'yargs';
 
 export const seasons = sqliteTable('seasons', {
 	season_code: text('season_code').primaryKey(),
@@ -176,7 +177,7 @@ export const insertEvaluationStatisticsSchema = createInsertSchema(evaluation_st
 
 export const evaluation_questions = sqliteTable('evaluation_questions', {
 	question_code: text('question_code').primaryKey(),
-	is_narrative: numeric('is_narrative'),
+	is_narrative: integer('is_narrative', { mode: 'boolean' }),
 	question_text: text('question_text'),
 	options: text('options'),
 	tag: text('tag'),
