@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { db } from './src/lib/server/db/db';
 import {
 	course_discussions,
@@ -33,8 +34,6 @@ import {
 	seasons,
 	tfidf_similars,
 } from './src/lib/server/db/schema';
-import { json } from '@sveltejs/kit';
-import { z } from 'zod';
 
 const COURSETABLE_COOKIE = process.env.COURSETABLE_COOKIE as string;
 const BATCH_SIZE = 500;
@@ -337,11 +336,11 @@ async function fetchGraphQl<T>({
 		const parsedResponse = z.object({ data: schema }).parse(json);
 		return parsedResponse.data;
 	} catch (e) {
-		console.error(JSON.stringify(e), JSON.stringify(json));
+		console.error(JSON.stringify(e).slice(0, 1000), JSON.stringify(json).slice(0, 1000));
 	}
 }
 
-const getTableLength = async (tableName: (typeof TABLES)[number]['name']): Promise<number> => {
+async function getTableLength(tableName: (typeof TABLES)[number]['name']): Promise<number> {
 	const tableNameAggregate = `${tableName}_aggregate` as const;
 	const tableCountQuery = `query {
 		${tableNameAggregate} {
@@ -362,14 +361,13 @@ const getTableLength = async (tableName: (typeof TABLES)[number]['name']): Promi
 		variables: {},
 	});
 	return data[tableNameAggregate].aggregate.count;
-};
+}
 
 export async function main() {
 	try {
 		const tablesWithLength = await Promise.all(
 			TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
 		);
-
 		for (const { query, schema, table, totalRows } of tablesWithLength) {
 			for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
 				const batchData = await fetchGraphQl({
