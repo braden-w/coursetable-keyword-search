@@ -316,7 +316,7 @@ const TABLES = [
 
 type TableName = (typeof TABLES)[number]['name'];
 
-async function fetchGraphQL<T>({ query, schema }: { query: string; schema: z.ZodSchema<T> }) {
+async function fetchGraphQlPaginated<T>({ query, schema }: { query: string; schema: z.ZodSchema<T> }) {
 	const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', {
 		method: 'POST',
 		headers: {
@@ -343,7 +343,7 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 			}
 		}
 	}`;
-	const data = await fetchGraphQL({
+	const data = await fetchGraphQlPaginated({
 		query: tableCountQuery,
 		schema: z.object({
 			[tableNameAggregate]: z.object({
@@ -378,7 +378,7 @@ export const GET = async () => {
 
 	const data = await Promise.all(
 		tablesUnder1000.map(async ({ query, schema, table }) => {
-			const payload = await fetchGraphQL({ query, schema });
+			const payload = await fetchGraphQlPaginated({ query, schema });
 			console.log('🚀 ~ tablesUnder1000.map ~ payload:', payload);
 			const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
 			return rs;
