@@ -19,7 +19,13 @@
 			autoStart: true,
 		});
 	});
+
+	export let data;
 </script>
+
+<pre>
+	<code>{JSON.stringify(data, null, 2)}</code>
+</pre>
 
 <div class="container max-w-6xl flex flex-col gap-4 justify-center mt-6 lg:mt-16">
 	<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
