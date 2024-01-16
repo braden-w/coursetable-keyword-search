@@ -1,4 +1,5 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
+import { insertCourseSchema, insertListingSchema, insertSeasonSchema } from '$lib/server/db/schema';
 import { error, json } from '@sveltejs/kit';
 import { z } from 'zod';
 
@@ -11,7 +12,8 @@ const TABLES = [
 				term
 				year
 			}
-		}`
+		}`,
+		schema: insertSeasonSchema,
 	},
 	{
 		name: 'courses',
@@ -55,7 +57,8 @@ const TABLES = [
 				last_enrollment
 				last_enrollment_season_code
 			}
-		}`
+		}`,
+		schema: insertCourseSchema,
 	},
 	{
 		name: 'listings',
@@ -71,7 +74,8 @@ const TABLES = [
 				season_code
 				crn
 			}
-		}`
+		}`,
+		schema: insertListingSchema,
 	},
 	{
 		name: 'discussions',
@@ -86,7 +90,7 @@ const TABLES = [
 				times_summary
 				times_by_day
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'flags',
@@ -95,7 +99,7 @@ const TABLES = [
 				flag_id
 				flag_text
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'demand_statistics',
@@ -106,7 +110,7 @@ const TABLES = [
 				latest_demand_date
 				demand
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'professors',
@@ -118,7 +122,7 @@ const TABLES = [
 				average_rating
 				average_rating_n
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'evaluation_statistics',
@@ -134,7 +138,7 @@ const TABLES = [
 				avg_rating
 				avg_workload
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'evaluation_questions',
@@ -146,7 +150,7 @@ const TABLES = [
 				options
 				tag
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'evaluation_narratives',
@@ -161,7 +165,7 @@ const TABLES = [
 				comment_pos
 				comment_compound
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'evaluation_ratings',
@@ -172,7 +176,7 @@ const TABLES = [
 				question_code
 				rating
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'course_professors',
@@ -181,7 +185,7 @@ const TABLES = [
 				course_id
 				professor_id
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'course_discussions',
@@ -190,7 +194,7 @@ const TABLES = [
 				course_id
 				discussion_id
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'course_flags',
@@ -199,7 +203,7 @@ const TABLES = [
 				course_id
 				flag_id
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'fasttext_similars',
@@ -209,7 +213,7 @@ const TABLES = [
 				target
 				rank
 			}
-		}`
+		}`,
 	},
 	{
 		name: 'tfidf_similars',
@@ -219,8 +223,8 @@ const TABLES = [
 				target
 				rank
 			}
-		}`
-	}
+		}`,
+	},
 ] as const;
 
 type TableName = (typeof TABLES)[number]['name'];
@@ -230,9 +234,9 @@ function fetchGraphQL(query: string) {
 		method: 'POST',
 		headers: {
 			cookie: COURSETABLE_COOKIE,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ query })
+		body: JSON.stringify({ query }),
 	});
 }
 
@@ -249,10 +253,10 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 		data: z.object({
 			[tableNameAggregate]: z.object({
 				aggregate: z.object({
-					count: z.number()
-				})
-			})
-		})
+					count: z.number(),
+				}),
+			}),
+		}),
 	});
 	const response = await fetchGraphQL(tableCountQuery);
 	const { data } = responseSchema.parse(await response.json());
@@ -261,7 +265,7 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 
 export const GET = async () => {
 	const tablesWithLength = await Promise.all(
-		TABLES.map(async (table) => ({ ...table, length: await getTableLength(table.name) }))
+		TABLES.map(async (table) => ({ ...table, length: await getTableLength(table.name) })),
 	);
 
 	// Split tablesWithLength into two arrays: one with tables that have a length over 1000, and one with tables that don't
@@ -276,7 +280,7 @@ export const GET = async () => {
 			}
 			return [over1000, under1000];
 		},
-		[[], []]
+		[[], []],
 	);
 
 	const responses = await Promise.all(tablesUnder1000.map(({ query }) => fetchGraphQL(query)));
