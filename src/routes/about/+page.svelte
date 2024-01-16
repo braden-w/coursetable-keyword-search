@@ -1,33 +1,43 @@
 <script>
+	import * as Collapsible from '$lib/components/ui/collapsible';
+
 	import Collapse from './Collapse.svelte';
 	let expanded = true;
 </script>
 
 <div class="mx-auto my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
-	<Collapse {expanded}>
-		<h2 slot="title" class="text-4xl font-bold">What does it solve?</h2>
-		<div slot="content">
+	<Collapsible.Root>
+		<Collapsible.Trigger>
+			<h4 class="text-sm font-semibold">What does it solve?</h4>
+		</Collapsible.Trigger>
+		<Collapsible.Content>
 			<p>
 				This app is designed to help with one question: how can I browse <strong>all</strong> Yale course
 				reviews? It aggregates all reviews and allows you to filter them down by keyword, department,
 				etc.. It is especially useful for trying to find the best courses in a certain department.
 			</p>
 			<p>Choosing the right course can be lifechanging. Hopefully this helps with that.</p>
-		</div>
-	</Collapse>
-	<Collapse>
-		<h2 slot="title">Why not CourseTable?</h2>
-		<p slot="content">
-			I love <a href="https://www.coursetable.com/"> CourseTable</a>! This is designed to compliment
-			rather than compete with
-			<a href="https://www.coursetable.com/"> CourseTable </a>
-			—in fact, it is built on top of CourseTable's backend API. JankTable specifically targets course
-			<strong>reviews</strong> as opposed to other metrics. You are encouraged to use them side-by-side!
-		</p>
-	</Collapse>
-	<Collapse>
-		<h2 slot="title">How does it work?</h2>
-		<div slot="content">
+		</Collapsible.Content>
+	</Collapsible.Root>
+	<Collapsible.Root>
+		<Collapsible.Trigger>
+			<h4 class="text-sm font-semibold">Why not CourseTable</h4>
+		</Collapsible.Trigger>
+		<Collapsible.Content>
+			<p>
+				I love <a href="https://www.coursetable.com/"> CourseTable</a>! This is designed to
+				compliment rather than compete with
+				<a href="https://www.coursetable.com/"> CourseTable </a>
+				—in fact, it is built on top of CourseTable's backend API. JankTable specifically targets course
+				<strong>reviews</strong> as opposed to other metrics. You are encouraged to use them side-by-side!
+			</p>
+		</Collapsible.Content>
+	</Collapsible.Root>
+	<Collapsible.Root>
+		<Collapsible.Trigger>
+			<h4 class="text-sm font-semibold">How does it work?</h4>
+		</Collapsible.Trigger>
+		<Collapsible.Content>
 			<p>
 				The app makes a request under the "/api/search" route, which runs a graphql query to the
 				Yale CourseTable API:
@@ -90,11 +100,13 @@
 				that&#39;s easy to work with and displayed in a table. The results are then cached in Redis
 				for 24 hours.
 			</p>
-		</div>
-	</Collapse>
-	<Collapse>
-		<h2 slot="title">Why is it called JankTable?</h2>
-		<div slot="content">
+		</Collapsible.Content>
+	</Collapsible.Root>
+	<Collapsible.Root>
+		<Collapsible.Trigger>
+			<h4 class="text-sm font-semibold">Why is it called JankTable?</h4>
+		</Collapsible.Trigger>
+		<Collapsible.Content>
 			<p>
 				Numerous reasons/design decisions, one being how I was able to make the GraphQL requests to
 				work when CourseTable's GraphQL playground is down, and second how the Spring courses are
@@ -102,12 +114,14 @@
 				server side.
 			</p>
 			<p>Also, JankTable is just more memorable!</p>
-		</div>
-	</Collapse>
+		</Collapsible.Content>
+	</Collapsible.Root>
 
-	<Collapse>
-		<h2 slot="title">What's the tech stack, and aren't you a CS Major?</h2>
-		<div slot="content">
+	<Collapsible.Root>
+		<Collapsible.Trigger>
+			<h4 class="text-sm font-semibold">What's the tech stack, and aren't you a CS Major?</h4>
+		</Collapsible.Trigger>
+		<Collapsible.Content>
 			<p>
 				This is built with SvelteKit+TailwindCSS (with DaisyUI) deployed on Vercel, with the
 				external CourseTable GraphQL backend.
@@ -120,11 +134,14 @@
 					Ethics, Politics, and Economics
 				</a> major who happens to enjoy writing code.
 			</p>
-		</div>
-	</Collapse>
-	<Collapse {expanded}>
-		<h2 slot="title">How can I contact you?</h2>
-		<div slot="content">
+		</Collapsible.Content>
+	</Collapsible.Root>
+
+	<Collapsible.Root>
+		<Collapsible.Trigger>
+			<h4 class="text-sm font-semibold">What's next?</h4>
+		</Collapsible.Trigger>
+		<Collapsible.Content>
 			<p>
 				I’m echoing
 				<a href="https://devonzuegel.com/page/contact">Devon Zuegel’s</a>,
@@ -137,8 +154,8 @@
 			</p>
 			<p>I hope you find this useful!! :D</p>
 			<p>-Braden &#10084;</p>
-		</div>
-	</Collapse>
+		</Collapsible.Content>
+	</Collapsible.Root>
 </div>
 
 <style>
