@@ -9,6 +9,7 @@ export const load = async ({ locals: { db } }) => {
 		// 	// evaluationStatistics: true,
 		// },
 		orderBy: (courses, { desc }) => [desc(courses.average_comment_compound)],
+		where: (courses, { eq }) => eq(courses.season_code, '202401'),
 	});
 	return { allCourses };
 };
