@@ -367,39 +367,42 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 };
 
 export const GET = async () => {
-	const tablesWithLength = await Promise.all(
-		TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
-	);
-	console.log('🚀 ~ GET ~ tablesWithLength:', tablesWithLength);
+	try {
+		const tablesWithLength = await Promise.all(
+			TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
+		);
 
-	const data = await Promise.all(
-		tablesWithLength.map(async ({ query, schema, table, totalRows }) => {
-			const data: z.infer<typeof schema>[] = [];
-			for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
-				const variables = { offset, limit: BATCH_SIZE };
-				const batchData = await fetchGraphQl({
-					query,
-					schema,
-					variables,
-				});
-				data.push(...batchData);
-			}
-			console.log('🚀 ~ tablesUnder1000.map ~ data:', data);
-			for (let i = 0; i < data.length; i += BATCH_SIZE) {
-				const payload = data.slice(i, i + BATCH_SIZE);
-				const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
-			}
-			// return rs;
-		}),
-	);
-	// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
-	// 	if (!res.ok) {
-	// 		errors.push({ status: res.status, statusText: res.statusText });
-	// 	}
-	// 	return errors;
-	// }, []);
-	// if (errors.length !== 0) {
-	// 	return error(500, JSON.stringify(errors));
-	// }
-	return json(data);
+		const data = await Promise.all(
+			tablesWithLength.slice(1, 2).map(async ({ query, schema, table, totalRows }) => {
+				const data: z.infer<typeof schema>[] = [];
+				for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
+					const variables = { offset, limit: BATCH_SIZE };
+					const batchData = await fetchGraphQl({
+						query,
+						schema,
+						variables,
+					});
+					if (!batchData) break;
+					data.push(...batchData);
+				}
+				for (let i = 0; i < data.length; i += BATCH_SIZE) {
+					const payload = data.slice(i, i + BATCH_SIZE);
+					const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
+				}
+				// return rs;
+			}),
+		);
+		// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
+		// 	if (!res.ok) {
+		// 		errors.push({ status: res.status, statusText: res.statusText });
+		// 	}
+		// 	return errors;
+		// }, []);
+		// if (errors.length !== 0) {
+		// 	return error(500, JSON.stringify(errors));
+		// }
+		return json(data);
+	} catch (e) {
+		console.error(e);
+	}
 };
