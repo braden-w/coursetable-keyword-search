@@ -2,7 +2,10 @@ import { sql } from 'drizzle-orm';
 import { db } from '../src/lib/server/db';
 import { courses, evaluation_narratives } from '../src/lib/server/schema';
 
-export async function insertAveragesOfCourses() {
+/**
+ * For each course, takes the averages of the comment sentiments with matching course_id.
+ */
+export async function insertAveragesOfCommentSentimentsOfCourses() {
 	try {
 		await db.run(sql`WITH average_comments AS (
 			SELECT
