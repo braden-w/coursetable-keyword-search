@@ -10,7 +10,7 @@
 	$: params = {
 		keyword,
 		course_keyword,
-		areas_skills_keyword
+		areas_skills_keyword,
 	};
 
 	const onClick = () => {

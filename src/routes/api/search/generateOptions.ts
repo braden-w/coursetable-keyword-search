@@ -8,9 +8,9 @@ export const generateOptions = ({ keyword, course_keyword, areas_skills_keyword 
 		Cookie: env.PUBLIC_COURSETABLE_COOKIE ?? '',
 		origin: 'https://www.coursetable.com',
 		Referer: 'https://www.coursetable.com',
-		'Content-Type': 'application/json'
+		'Content-Type': 'application/json',
 	},
-	body: JSON.stringify(generateGraphQL({ keyword, course_keyword, areas_skills_keyword }))
+	body: JSON.stringify(generateGraphQL({ keyword, course_keyword, areas_skills_keyword })),
 });
 
 // All fields:
@@ -123,7 +123,7 @@ const generateQuery = (includeFilterAreas: boolean) => `query searchCoursesByKey
 const generateGraphQL = ({
 	keyword,
 	course_keyword,
-	areas_skills_keyword
+	areas_skills_keyword,
 }: {
 	keyword: string;
 	course_keyword: string;
@@ -138,7 +138,7 @@ const generateGraphQL = ({
 		variables: {
 			keyword,
 			course_keyword,
-			...(includeFilterAreas && { areas_skills_keyword })
-		}
+			...(includeFilterAreas && { areas_skills_keyword }),
+		},
 	};
 };

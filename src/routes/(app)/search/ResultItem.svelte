@@ -10,9 +10,9 @@
 		course: {
 			evaluation_narratives_aggregate_filtered: { nodes: reviews },
 			evaluation_narratives_aggregate: {
-				aggregate: { avg: { comment_compound: average_sentiment } = { comment_compound: null } }
-			}
-		}
+				aggregate: { avg: { comment_compound: average_sentiment } = { comment_compound: null } },
+			},
+		},
 	} = course);
 
 	let expanded = false;
@@ -34,7 +34,7 @@
 						<p class="ml-1 flex-shrink-0 font-normal text-gray-500">
 							in {course.course?.evaluation_narratives_aggregate_filtered?.aggregate?.count} out of {course
 								.course?.evaluation_narratives_aggregate?.aggregate?.count} reviews (~{getPercent(
-								course
+								course,
 							).toFixed(1)}%).
 							{#if average_sentiment}
 								<span>
@@ -115,7 +115,7 @@
 				<p class="text-sm text-gray-500">
 					{@html review.comment.replace(
 						new RegExp(keyword.replaceAll('%', '.*?'), 'gi'),
-						(match) => `<mark>${match}</mark>`
+						(match) => `<mark>${match}</mark>`,
 					)}
 				</p>
 			</div>

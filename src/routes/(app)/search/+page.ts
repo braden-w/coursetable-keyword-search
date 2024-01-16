@@ -13,14 +13,14 @@ export async function load({ fetch, url }) {
 			seasonCourseIds: getSeasonCourseIds({ fetch }),
 			params,
 			message: 'Enter a query to search for course reviews.',
-			streamed: { courses: [] as Course[] }
+			streamed: { courses: [] as Course[] },
 		};
 	}
 	return {
 		seasonCourseIds: getSeasonCourseIds({ fetch }),
 		params,
 		message: 'Please enter a query before searching for course reviews.',
-		streamed: { courses: getCourses({ fetch, params }) }
+		streamed: { courses: getCourses({ fetch, params }) },
 	};
 }
 

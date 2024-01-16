@@ -15,7 +15,7 @@
 
 	export let data;
 	const { seasonCourseIds, params, message } = data;
-	let searchBar: Params = params
+	let searchBar: Params = params;
 
 	let showFilters = true;
 	let filterCurrentSeason = true;

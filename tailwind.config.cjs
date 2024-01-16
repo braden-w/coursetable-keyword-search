@@ -2,7 +2,7 @@ const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {}
+		extend: {},
 	},
 
 	daisyui: {
@@ -22,8 +22,8 @@ const config = {
 					'base-100': '#2C3548',
 					'base-200': '#1E293B',
 					'base-300': '#20252E',
-					'base-content': '#A6ADBB'
-				}
+					'base-content': '#A6ADBB',
+				},
 			},
 			'dark',
 			'light',
@@ -53,10 +53,10 @@ const config = {
 			'lemonade',
 			'night',
 			'coffee',
-			'winter'
-		]
+			'winter',
+		],
 	},
-	plugins: [require('@tailwindcss/forms'), require('daisyui')]
+	plugins: [require('@tailwindcss/forms'), require('daisyui')],
 };
 
 module.exports = config;

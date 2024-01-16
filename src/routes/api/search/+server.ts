@@ -44,7 +44,7 @@ async function queryCourseTable({ keyword, course_keyword, areas_skills_keyword 
 	if (cachedResponse) return cachedResponse;
 	const res = await fetch(
 		'https://api.coursetable.com/ferry/v1/graphql?=',
-		generateOptions({ keyword, course_keyword, areas_skills_keyword })
+		generateOptions({ keyword, course_keyword, areas_skills_keyword }),
 	);
 	// console.timeEnd('fetch');
 	const response = (await res.json()) as SearchResponse;

@@ -12,7 +12,7 @@
 		'Course Reviews',
 		'JankTable &trade;',
 		'WorseTable &trade;',
-		'CourseLabel'
+		'CourseLabel',
 	];
 	// Cycle between titles every second
 	let titleIndex = 0;
@@ -59,16 +59,16 @@
 				<!-- GitHub Icon -->
 				<a
 					href="https://github.com/braden-w/coursetable-keyword-search"
-					class="btn-ghost btn normal-case"
+					class="btn btn-ghost normal-case"
 					target="_blank"
 					rel="noreferrer"
 				>
 					<Icon src={GithubLogo} class="h-6 w-6" aria-hidden="true" />
 				</a>
 				<ThemeChooser />
-				<a href="/about" class="btn-ghost btn gap-1 normal-case"> About </a>
+				<a href="/about" class="btn btn-ghost gap-1 normal-case"> About </a>
 
-				<a href="/search" class="btn-ghost btn gap-1 normal-case"> Search </a>
+				<a href="/search" class="btn btn-ghost gap-1 normal-case"> Search </a>
 			</div>
 		</div>
 	</div>

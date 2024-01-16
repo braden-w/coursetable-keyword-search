@@ -8,14 +8,14 @@ import {
 	numeric,
 	uniqueIndex,
 	index,
-	primaryKey
+	primaryKey,
 } from 'drizzle-orm/sqlite-core';
 import { sql } from 'drizzle-orm';
 
 export const seasons = sqliteTable('seasons', {
 	seasonCode: text('season_code').primaryKey(),
 	term: text('term'),
-	year: integer('year')
+	year: integer('year'),
 });
 
 export const courses = sqliteTable(
@@ -60,23 +60,23 @@ export const courses = sqliteTable(
 		lastEnrollmentCourseId: integer('last_enrollment_course_id'),
 		lastEnrollment: integer('last_enrollment'),
 		lastEnrollmentSeasonCode: text('last_enrollment_season_code').references(
-			() => seasons.seasonCode
-		)
+			() => seasons.seasonCode,
+		),
 	},
 	(table) => {
 		return {
 			coursesLastEnrollmentCourseIdCoursesCourseIdFk: foreignKey(() => ({
 				columns: [table.lastEnrollmentCourseId],
 				foreignColumns: [table.courseId],
-				name: 'courses_last_enrollment_course_id_courses_course_id_fk'
+				name: 'courses_last_enrollment_course_id_courses_course_id_fk',
 			})),
 			coursesLastOfferedCourseIdCoursesCourseIdFk: foreignKey(() => ({
 				columns: [table.lastOfferedCourseId],
 				foreignColumns: [table.courseId],
-				name: 'courses_last_offered_course_id_courses_course_id_fk'
-			}))
+				name: 'courses_last_offered_course_id_courses_course_id_fk',
+			})),
 		};
-	}
+	},
 );
 
 export const listings = sqliteTable(
@@ -94,22 +94,22 @@ export const listings = sqliteTable(
 		seasonCode: text('season_code')
 			.notNull()
 			.references(() => seasons.seasonCode),
-		crn: integer('crn').notNull()
+		crn: integer('crn').notNull(),
 	},
 	(table) => {
 		return {
 			idxSeasonCodeCrnUnique: uniqueIndex('idx_season_code_crn_unique').on(
 				table.seasonCode,
-				table.crn
+				table.crn,
 			),
 			idxSeasonCourseSectionUnique: index('idx_season_course_section_unique').on(
 				table.seasonCode,
 				table.subject,
 				table.number,
-				table.section
-			)
+				table.section,
+			),
 		};
-	}
+	},
 );
 
 export const discussions = sqliteTable('discussions', {
@@ -120,12 +120,12 @@ export const discussions = sqliteTable('discussions', {
 	locationsSummary: text('locations_summary'),
 	timesLongSummary: text('times_long_summary'),
 	timesSummary: text('times_summary'),
-	timesByDay: text('times_by_day')
+	timesByDay: text('times_by_day'),
 });
 
 export const flags = sqliteTable('flags', {
 	flagId: integer('flag_id').primaryKey(),
-	flagText: text('flag_text').notNull()
+	flagText: text('flag_text').notNull(),
 });
 
 export const demandStatistics = sqliteTable('demand_statistics', {
@@ -134,7 +134,7 @@ export const demandStatistics = sqliteTable('demand_statistics', {
 		.references(() => courses.courseId),
 	latestDemand: integer('latest_demand'),
 	latestDemandDate: text('latest_demand_date'),
-	demand: text('demand')
+	demand: text('demand'),
 });
 
 export const professors = sqliteTable('professors', {
@@ -142,7 +142,7 @@ export const professors = sqliteTable('professors', {
 	name: text('name').notNull(),
 	email: text('email'),
 	averageRating: real('average_rating'),
-	averageRatingN: integer('average_rating_n')
+	averageRatingN: integer('average_rating_n'),
 });
 
 export const evaluationStatistics = sqliteTable('evaluation_statistics', {
@@ -156,7 +156,7 @@ export const evaluationStatistics = sqliteTable('evaluation_statistics', {
 	noResponse: integer('no_response'),
 	extras: text('extras'),
 	avgRating: real('avg_rating'),
-	avgWorkload: real('avg_workload')
+	avgWorkload: real('avg_workload'),
 });
 
 export const evaluationQuestions = sqliteTable('evaluation_questions', {
@@ -164,7 +164,7 @@ export const evaluationQuestions = sqliteTable('evaluation_questions', {
 	isNarrative: numeric('is_narrative'),
 	questionText: text('question_text'),
 	options: text('options'),
-	tag: text('tag')
+	tag: text('tag'),
 });
 
 export const evaluationNarratives = sqliteTable('evaluation_narratives', {
@@ -179,7 +179,7 @@ export const evaluationNarratives = sqliteTable('evaluation_narratives', {
 	commentNeg: real('comment_neg'),
 	commentNeu: real('comment_neu'),
 	commentPos: real('comment_pos'),
-	commentCompound: real('comment_compound')
+	commentCompound: real('comment_compound'),
 });
 
 export const evaluationRatings = sqliteTable('evaluation_ratings', {
@@ -190,55 +190,55 @@ export const evaluationRatings = sqliteTable('evaluation_ratings', {
 	questionCode: text('question_code')
 		.notNull()
 		.references(() => evaluationQuestions.questionCode),
-	rating: text('rating')
+	rating: text('rating'),
 });
 
 export const courseProfessors = sqliteTable(
 	'course_professors',
 	{
 		courseId: integer('course_id').references(() => courses.courseId),
-		professorId: integer('professor_id').references(() => professors.professorId)
+		professorId: integer('professor_id').references(() => professors.professorId),
 	},
 	(table) => {
 		return {
 			pk0: primaryKey({
 				columns: [table.courseId, table.professorId],
-				name: 'course_professors_course_id_professor_id_pk'
-			})
+				name: 'course_professors_course_id_professor_id_pk',
+			}),
 		};
-	}
+	},
 );
 
 export const courseDiscussions = sqliteTable(
 	'course_discussions',
 	{
 		courseId: integer('course_id').references(() => courses.courseId),
-		discussionId: integer('discussion_id').references(() => discussions.discussionId)
+		discussionId: integer('discussion_id').references(() => discussions.discussionId),
 	},
 	(table) => {
 		return {
 			pk0: primaryKey({
 				columns: [table.courseId, table.discussionId],
-				name: 'course_discussions_course_id_discussion_id_pk'
-			})
+				name: 'course_discussions_course_id_discussion_id_pk',
+			}),
 		};
-	}
+	},
 );
 
 export const courseFlags = sqliteTable(
 	'course_flags',
 	{
 		courseId: integer('course_id').references(() => courses.courseId),
-		flagId: integer('flag_id').references(() => flags.flagId)
+		flagId: integer('flag_id').references(() => flags.flagId),
 	},
 	(table) => {
 		return {
 			pk0: primaryKey({
 				columns: [table.courseId, table.flagId],
-				name: 'course_flags_course_id_flag_id_pk'
-			})
+				name: 'course_flags_course_id_flag_id_pk',
+			}),
 		};
-	}
+	},
 );
 
 export const fasttextSimilars = sqliteTable(
@@ -246,16 +246,16 @@ export const fasttextSimilars = sqliteTable(
 	{
 		source: integer('source').references(() => courses.courseId),
 		target: integer('target').references(() => courses.courseId),
-		rank: integer('rank')
+		rank: integer('rank'),
 	},
 	(table) => {
 		return {
 			pk0: primaryKey({
 				columns: [table.source, table.target],
-				name: 'fasttext_similars_source_target_pk'
-			})
+				name: 'fasttext_similars_source_target_pk',
+			}),
 		};
-	}
+	},
 );
 
 export const tfidfSimilars = sqliteTable(
@@ -263,14 +263,14 @@ export const tfidfSimilars = sqliteTable(
 	{
 		source: integer('source').references(() => courses.courseId),
 		target: integer('target').references(() => courses.courseId),
-		rank: integer('rank')
+		rank: integer('rank'),
 	},
 	(table) => {
 		return {
 			pk0: primaryKey({
 				columns: [table.source, table.target],
-				name: 'tfidf_similars_source_target_pk'
-			})
+				name: 'tfidf_similars_source_target_pk',
+			}),
 		};
-	}
+	},
 );

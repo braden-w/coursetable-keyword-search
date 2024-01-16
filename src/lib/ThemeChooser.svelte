@@ -7,9 +7,9 @@
 	});
 </script>
 
-<div title="Change Theme" class="dropdown-end dropdown">
+<div title="Change Theme" class="dropdown dropdown-end">
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-	<div tabindex="0" class="btn-ghost btn gap-1 normal-case">
+	<div tabindex="0" class="btn btn-ghost gap-1 normal-case">
 		<svg
 			width="20"
 			height="20"
@@ -681,7 +681,7 @@
 				</div>
 			</div>
 			<div
-				class="overflow-hidden rounded-lg outline outline-2 outline-offset-2 outline-base-content"
+				class="outline overflow-hidden rounded-lg outline-2 outline-offset-2 outline-base-content"
 				data-set-theme="winter"
 				data-act-class="outline"
 			>

@@ -12,7 +12,7 @@
 	$: params = {
 		keyword,
 		course_keyword,
-		areas_skills_keyword
+		areas_skills_keyword,
 	};
 
 	let showFilters = false;
@@ -27,7 +27,7 @@
 		new Typewriter(typewriter, {
 			loop: true,
 			strings: ['keyword.', 'code.', 'area.'],
-			autoStart: true
+			autoStart: true,
 		});
 	});
 </script>

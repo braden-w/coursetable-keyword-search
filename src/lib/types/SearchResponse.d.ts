@@ -33,7 +33,7 @@ export interface Course {
 
 export enum Area {
 	Hu = 'Hu',
-	So = 'So'
+	So = 'So',
 }
 
 export interface CourseNested {

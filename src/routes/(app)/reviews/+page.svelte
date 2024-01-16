@@ -7,7 +7,7 @@
 		type ColumnDef,
 		type TableOptions,
 		flexRender,
-		type SortingState
+		type SortingState,
 	} from '@tanstack/svelte-table';
 	import type { EvaluationNarratives } from '$lib/db/schema';
 
@@ -21,20 +21,20 @@
 				{
 					accessorKey: 'course_id',
 					header: () => 'Course ID',
-					cell: (info) => info.getValue() ?? ''
+					cell: (info) => info.getValue() ?? '',
 				},
 				{
 					accessorKey: 'comment',
 					header: () => '',
-					cell: (info) => info.getValue() ?? ''
+					cell: (info) => info.getValue() ?? '',
 				},
 				{
 					accessorKey: 'comment_compound',
 					header: () => 'Sentiment',
-					cell: (info) => info.getValue() ?? ''
-				}
-			]
-		}
+					cell: (info) => info.getValue() ?? '',
+				},
+			],
+		},
 	];
 
 	let sorting: SortingState = [];
@@ -49,8 +49,8 @@
 			...old,
 			state: {
 				...old.state,
-				sorting
-			}
+				sorting,
+			},
 		}));
 	};
 
@@ -58,18 +58,18 @@
 		data: data.reviews,
 		columns,
 		state: {
-			sorting
+			sorting,
 		},
 		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		debugTable: true
+		debugTable: true,
 	});
 
 	const rerender = () => {
 		options.update((options) => ({
 			...options,
-			data: data.reviews
+			data: data.reviews,
 		}));
 	};
 
@@ -79,7 +79,7 @@
 <section class="flex h-screen items-center bg-gray-50 dark:bg-gray-900">
 	<div class="mx-auto w-full max-w-screen-xl px-4 lg:px-12">
 		<!-- Start coding here -->
-		<div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+		<div class="relative bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
 			<div
 				class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0"
 			>
