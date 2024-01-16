@@ -1,5 +1,6 @@
-import 'unplugin-icons/types/svelte';
 import * as schema from '$lib/server/schema';
+import type { LibSQLDatabase } from 'drizzle-orm/libsql';
+import 'unplugin-icons/types/svelte';
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
