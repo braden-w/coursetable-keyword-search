@@ -30,7 +30,7 @@ const TABLES = [
 				year
 			}
 		}`,
-		schema: insertSeasonSchema,
+		schema: z.object({ seasons: insertSeasonSchema.array() }),
 	},
 	{
 		name: 'courses',
@@ -75,7 +75,7 @@ const TABLES = [
 				last_enrollment_season_code
 			}
 		}`,
-		schema: insertCourseSchema,
+		schema: z.object({ seasons: insertCourseSchema.array() }),
 	},
 	{
 		name: 'listings',
@@ -92,7 +92,7 @@ const TABLES = [
 				crn
 			}
 		}`,
-		schema: insertListingSchema,
+		schema: z.object({ seasons: insertListingSchema.array() }),
 	},
 	{
 		name: 'discussions',
@@ -108,7 +108,7 @@ const TABLES = [
 				times_by_day
 			}
 		}`,
-		schema: insertDiscussionSchema,
+		schema: z.object({ seasons: insertDiscussionSchema.array() }),
 	},
 	{
 		name: 'flags',
@@ -118,7 +118,7 @@ const TABLES = [
 				flag_text
 			}
 		}`,
-		schema: insertFlagSchema,
+		schema: z.object({ seasons: insertFlagSchema.array() }),
 	},
 	{
 		name: 'demand_statistics',
@@ -130,7 +130,7 @@ const TABLES = [
 				demand
 			}
 		}`,
-		schema: insertDemandStatisticsSchema,
+		schema: z.object({ seasons: insertDemandStatisticsSchema.array() }),
 	},
 	{
 		name: 'professors',
@@ -160,7 +160,7 @@ const TABLES = [
 				avg_workload
 			}
 		}`,
-		schema: insertEvaluationStatisticsSchema,
+		schema: z.object({ seasons: insertEvaluationStatisticsSchema.array() }),
 	},
 	{
 		name: 'evaluation_questions',
@@ -173,7 +173,7 @@ const TABLES = [
 				tag
 			}
 		}`,
-		schema: insertEvaluationQuestionSchema,
+		schema: z.object({ seasons: insertEvaluationQuestionSchema.array() }),
 	},
 	{
 		name: 'evaluation_narratives',
@@ -189,7 +189,7 @@ const TABLES = [
 				comment_compound
 			}
 		}`,
-		schema: insertEvaluationNarrativeSchema,
+		schema: z.object({ seasons: insertEvaluationNarrativeSchema.array() }),
 	},
 	{
 		name: 'evaluation_ratings',
@@ -201,7 +201,7 @@ const TABLES = [
 				rating
 			}
 		}`,
-		schema: insertEvaluationRatingSchema,
+		schema: z.object({ seasons: insertEvaluationRatingSchema.array() }),
 	},
 	{
 		name: 'course_professors',
@@ -211,7 +211,7 @@ const TABLES = [
 				professor_id
 			}
 		}`,
-		schema: insertCourseProfessorSchema,
+		schema: z.object({ seasons: insertCourseProfessorSchema.array() }),
 	},
 	{
 		name: 'course_discussions',
@@ -221,7 +221,7 @@ const TABLES = [
 				discussion_id
 			}
 		}`,
-		schema: insertCourseDiscussionSchema,
+		schema: z.object({ seasons: insertCourseDiscussionSchema.array() }),
 	},
 	{
 		name: 'course_flags',
@@ -231,7 +231,7 @@ const TABLES = [
 				flag_id
 			}
 		}`,
-		schema: insertCourseFlagSchema,
+		schema: z.object({ seasons: insertCourseFlagSchema.array() }),
 	},
 	{
 		name: 'fasttext_similars',
@@ -242,7 +242,7 @@ const TABLES = [
 				rank
 			}
 		}`,
-		schema: insertFasttextSimilarSchema,
+		schema: z.object({ seasons: insertFasttextSimilarSchema.array() }),
 	},
 	{
 		name: 'tfidf_similars',
@@ -253,7 +253,7 @@ const TABLES = [
 				rank
 			}
 		}`,
-		schema: insertTfidfSimilarSchema,
+		schema: z.object({ seasons: insertTfidfSimilarSchema.array() }),
 	},
 ] as const;
 
@@ -269,7 +269,13 @@ async function fetchGraphQL<T>({ query, schema }: { query: string; schema: z.Zod
 		body: JSON.stringify({ query }),
 	});
 	const json = await response.json();
-	const parsedResponse = z.object({ data: schema }).parse(json);
+	// const parsedResponse = json;
+	const parsedResponseResult = z.object({ data: schema }).safeParse(json);
+	if (!parsedResponseResult.success) {
+		console.error(json, JSON.stringify(parsedResponseResult.error));
+		return;
+	}
+	const parsedResponse = parsedResponseResult.data;
 	return parsedResponse.data;
 }
 
