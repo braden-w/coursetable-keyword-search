@@ -1,4 +1,5 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
+import { db } from '$lib/server/db/db';
 import {
 	course_discussions,
 	course_flags,
@@ -33,7 +34,7 @@ import {
 	seasons,
 	tfidf_similars,
 } from '$lib/server/db/schema';
-import { error, json } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const TABLES = [
@@ -93,7 +94,7 @@ const TABLES = [
 			}
 		}`,
 		table: courses,
-		schema: z.object({ seasons: insertCourseSchema.array() }),
+		schema: z.object({ courses: insertCourseSchema.array() }),
 	},
 	{
 		name: 'listings',
@@ -111,7 +112,7 @@ const TABLES = [
 			}
 		}`,
 		table: listings,
-		schema: z.object({ seasons: insertListingSchema.array() }),
+		schema: z.object({ listings: insertListingSchema.array() }),
 	},
 	{
 		name: 'discussions',
@@ -128,7 +129,7 @@ const TABLES = [
 			}
 		}`,
 		table: discussions,
-		schema: z.object({ seasons: insertDiscussionSchema.array() }),
+		schema: z.object({ discussions: insertDiscussionSchema.array() }),
 	},
 	{
 		name: 'flags',
@@ -139,7 +140,7 @@ const TABLES = [
 			}
 		}`,
 		table: flags,
-		schema: z.object({ seasons: insertFlagSchema.array() }),
+		schema: z.object({ flags: insertFlagSchema.array() }),
 	},
 	{
 		name: 'demand_statistics',
@@ -152,7 +153,7 @@ const TABLES = [
 			}
 		}`,
 		table: demand_statistics,
-		schema: z.object({ seasons: insertDemandStatisticsSchema.array() }),
+		schema: z.object({ demand_statistics: insertDemandStatisticsSchema.array() }),
 	},
 	{
 		name: 'professors',
@@ -166,7 +167,7 @@ const TABLES = [
 			}
 		}`,
 		table: professors,
-		schema: insertProfessorSchema,
+		schema: z.object({ professors: insertProfessorSchema.array() }),
 	},
 	{
 		name: 'evaluation_statistics',
@@ -184,7 +185,7 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_statistics,
-		schema: z.object({ seasons: insertEvaluationStatisticsSchema.array() }),
+		schema: z.object({ evaluation_statistics: insertEvaluationStatisticsSchema.array() }),
 	},
 	{
 		name: 'evaluation_questions',
@@ -198,7 +199,7 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_questions,
-		schema: z.object({ seasons: insertEvaluationQuestionSchema.array() }),
+		schema: z.object({ evaluation_questions: insertEvaluationQuestionSchema.array() }),
 	},
 	{
 		name: 'evaluation_narratives',
@@ -215,7 +216,7 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_narratives,
-		schema: z.object({ seasons: insertEvaluationNarrativeSchema.array() }),
+		schema: z.object({ evaluation_narratives: insertEvaluationNarrativeSchema.array() }),
 	},
 	{
 		name: 'evaluation_ratings',
@@ -228,7 +229,7 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_ratings,
-		schema: z.object({ seasons: insertEvaluationRatingSchema.array() }),
+		schema: z.object({ evaluation_ratings: insertEvaluationRatingSchema.array() }),
 	},
 	{
 		name: 'course_professors',
@@ -239,7 +240,7 @@ const TABLES = [
 			}
 		}`,
 		table: course_professors,
-		schema: z.object({ seasons: insertCourseProfessorSchema.array() }),
+		schema: z.object({ course_professors: insertCourseProfessorSchema.array() }),
 	},
 	{
 		name: 'course_discussions',
@@ -250,7 +251,7 @@ const TABLES = [
 			}
 		}`,
 		table: course_discussions,
-		schema: z.object({ seasons: insertCourseDiscussionSchema.array() }),
+		schema: z.object({ course_discussions: insertCourseDiscussionSchema.array() }),
 	},
 	{
 		name: 'course_flags',
@@ -261,7 +262,7 @@ const TABLES = [
 			}
 		}`,
 		table: course_flags,
-		schema: z.object({ seasons: insertCourseFlagSchema.array() }),
+		schema: z.object({ course_flags: insertCourseFlagSchema.array() }),
 	},
 	{
 		name: 'fasttext_similars',
@@ -273,7 +274,7 @@ const TABLES = [
 			}
 		}`,
 		table: fasttext_similars,
-		schema: z.object({ seasons: insertFasttextSimilarSchema.array() }),
+		schema: z.object({ fasttext_similars: insertFasttextSimilarSchema.array() }),
 	},
 	{
 		name: 'tfidf_similars',
@@ -285,7 +286,7 @@ const TABLES = [
 			}
 		}`,
 		table: tfidf_similars,
-		schema: z.object({ seasons: insertTfidfSimilarSchema.array() }),
+		schema: z.object({ tfidf_similars: insertTfidfSimilarSchema.array() }),
 	},
 ] as const;
 
@@ -301,8 +302,12 @@ async function fetchGraphQL<T>({ query, schema }: { query: string; schema: z.Zod
 		body: JSON.stringify({ query }),
 	});
 	const json = await response.json();
-	const parsedResponse = z.object({ data: schema }).parse(json);
-	return parsedResponse.data;
+	try {
+		const parsedResponse = z.object({ data: schema }).parse(json);
+		return parsedResponse.data;
+	} catch (e) {
+		console.error(e, json);
+	}
 }
 
 const getTableLength = async (tableName: TableName): Promise<number> => {
@@ -348,7 +353,10 @@ export const GET = async () => {
 	);
 
 	const data = await Promise.all(
-		tablesUnder1000.map(({ query, schema }) => fetchGraphQL({ query, schema })),
+		tablesUnder1000.map(async ({ query, schema, table }) => {
+			const payload = await fetchGraphQL({ query, schema });
+			// await db.insert(table).values(payload);
+		}),
 	);
 	// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
 	// 	if (!res.ok) {
