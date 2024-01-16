@@ -2,7 +2,7 @@
 	import * as Collapsible from '$lib/components/ui/collapsible';
 </script>
 
-<div class="mx-auto my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
+<div class="container max-w-7xl flex flex-col gap-4 mt-6 lg:mt-16">
 	<Collapsible.Root>
 		<Collapsible.Trigger class="w-full text-left">
 			<h2
