@@ -198,14 +198,16 @@ export const demand_statistics = sqliteTable('demand_statistics', {
 	// .references(() => courses.course_id),
 	latest_demand: integer('latest_demand'),
 	latest_demand_date: text('latest_demand_date'),
-	demand: text('demand'),
+	demand: text('demand', { mode: 'json' }),
 });
 
 export const demandStatisticsRelations = relations(demand_statistics, ({ one }) => ({
 	course: one(courses),
 }));
 
-export const insertDemandStatisticsSchema = createInsertSchema(demand_statistics);
+export const insertDemandStatisticsSchema = createInsertSchema(demand_statistics, {
+	demand: z.record(z.string()),
+});
 
 export const professors = sqliteTable('professors', {
 	professor_id: integer('professor_id').primaryKey(),
