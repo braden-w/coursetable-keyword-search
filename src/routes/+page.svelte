@@ -35,34 +35,36 @@
 			<strong>CourseTable</strong>
 		</a>. Try now:
 	</h2>
-	<Collapsible.Root class="flex w-full">
-		<label for="search" class="sr-only">Search</label>
-		<div class="relative flex-1">
-			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-				<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
+	<Collapsible.Root>
+		<div class="flex">
+			<label for="search" class="sr-only">Search</label>
+			<div class="relative flex-1">
+				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+					<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				</div>
+				<Input
+					id="search"
+					name="search"
+					class="pl-10 pr-3"
+					placeholder="Search by review keyword...(use % to match anything)"
+					type="search"
+				/>
 			</div>
-			<Input
-				id="search"
-				name="search"
-				class="pl-10 pr-3"
-				placeholder="Search by review keyword...(use % to match anything)"
-				type="search"
-			/>
+			<label for="filters" class="sr-only">Show filters</label>
+			<span class="sr-only">Loading...</span>
+			<Collapsible.Trigger asChild let:builder>
+				<Button builders={[builder]} id="filters" name="filters" variant="outline" class="relative">
+					<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					<span class="sr-only">Filter</span>
+					<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
+						<span
+							class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
+						/>
+						<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+					</span>
+				</Button>
+			</Collapsible.Trigger>
 		</div>
-		<label for="filters" class="sr-only">Show filters</label>
-		<span class="sr-only">Loading...</span>
-		<Collapsible.Trigger asChild let:builder>
-			<Button builders={[builder]} id="filters" name="filters" variant="outline" class="relative">
-				<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
-				<span class="sr-only">Filter</span>
-				<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
-					<span
-						class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
-					/>
-					<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
-				</span>
-			</Button>
-		</Collapsible.Trigger>
 		<Collapsible.Content>
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
