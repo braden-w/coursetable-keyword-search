@@ -164,6 +164,7 @@ const TABLES = [
 				average_rating_n
 			}
 		}`,
+		table: professors,
 		schema: insertProfessorSchema,
 	},
 	{
