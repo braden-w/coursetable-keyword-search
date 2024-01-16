@@ -315,8 +315,6 @@ const TABLES = [
 	},
 ] as const;
 
-type TableName = (typeof TABLES)[number]['name'];
-
 async function fetchGraphQl<T>({
 	query,
 	schema,
@@ -343,7 +341,7 @@ async function fetchGraphQl<T>({
 	}
 }
 
-const getTableLength = async (tableName: TableName): Promise<number> => {
+const getTableLength = async (tableName: (typeof TABLES)[number]['name']): Promise<number> => {
 	const tableNameAggregate = `${tableName}_aggregate` as const;
 	const tableCountQuery = `query {
 		${tableNameAggregate} {
