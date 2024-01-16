@@ -389,15 +389,6 @@ export async function main() {
 				}
 			}),
 		);
-		// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
-		// 	if (!res.ok) {
-		// 		errors.push({ status: res.status, statusText: res.statusText });
-		// 	}
-		// 	return errors;
-		// }, []);
-		// if (errors.length !== 0) {
-		// 	return error(500, JSON.stringify(errors));
-		// }
 		return json(data);
 	} catch (e) {
 		console.error(e);
