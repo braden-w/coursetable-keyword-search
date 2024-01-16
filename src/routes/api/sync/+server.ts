@@ -37,6 +37,7 @@ import {
 import { json } from '@sveltejs/kit';
 import { z } from 'zod';
 
+const BATCH_SIZE = 1000;
 const TABLES = [
 	{
 		name: 'seasons',
@@ -316,14 +317,22 @@ const TABLES = [
 
 type TableName = (typeof TABLES)[number]['name'];
 
-async function fetchGraphQl<T>({ query, schema }: { query: string; schema: z.ZodSchema<T> }) {
+async function fetchGraphQl<T>({
+	query,
+	schema,
+	variables,
+}: {
+	query: string;
+	schema: z.ZodSchema<T>;
+	variables: Record<string, number>;
+}) {
 	const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', {
 		method: 'POST',
 		headers: {
 			cookie: COURSETABLE_COOKIE,
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ query }),
+		body: JSON.stringify({ query, variables }),
 	});
 	const json = await response.json();
 	try {
@@ -352,6 +361,10 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 				}),
 			}),
 		}),
+		variables: {
+			offset: 0,
+			limit: BATCH_SIZE,
+		},
 	});
 	return data[tableNameAggregate].aggregate.count;
 };
