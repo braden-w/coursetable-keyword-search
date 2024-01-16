@@ -48,7 +48,7 @@ const TABLES = [
 			}
 		}`,
 		table: seasons,
-		schema: z.object({ seasons: insertSeasonSchema.array() }),
+		schema: z.object({ seasons: insertSeasonSchema.array() }).transform((data) => data.seasons),
 	},
 	{
 		name: 'courses',
@@ -94,7 +94,7 @@ const TABLES = [
 			}
 		}`,
 		table: courses,
-		schema: z.object({ courses: insertCourseSchema.array() }),
+		schema: z.object({ courses: insertCourseSchema.array() }).transform((data) => data.courses),
 	},
 	{
 		name: 'listings',
@@ -112,7 +112,7 @@ const TABLES = [
 			}
 		}`,
 		table: listings,
-		schema: z.object({ listings: insertListingSchema.array() }),
+		schema: z.object({ listings: insertListingSchema.array() }).transform((data) => data.listings),
 	},
 	{
 		name: 'discussions',
@@ -129,7 +129,9 @@ const TABLES = [
 			}
 		}`,
 		table: discussions,
-		schema: z.object({ discussions: insertDiscussionSchema.array() }),
+		schema: z
+			.object({ discussions: insertDiscussionSchema.array() })
+			.transform((data) => data.discussions),
 	},
 	{
 		name: 'flags',
@@ -140,7 +142,7 @@ const TABLES = [
 			}
 		}`,
 		table: flags,
-		schema: z.object({ flags: insertFlagSchema.array() }),
+		schema: z.object({ flags: insertFlagSchema.array() }).transform((data) => data.flags),
 	},
 	{
 		name: 'demand_statistics',
@@ -153,7 +155,9 @@ const TABLES = [
 			}
 		}`,
 		table: demand_statistics,
-		schema: z.object({ demand_statistics: insertDemandStatisticsSchema.array() }),
+		schema: z
+			.object({ demand_statistics: insertDemandStatisticsSchema.array() })
+			.transform((data) => data.demand_statistics),
 	},
 	{
 		name: 'professors',
@@ -167,7 +171,9 @@ const TABLES = [
 			}
 		}`,
 		table: professors,
-		schema: z.object({ professors: insertProfessorSchema.array() }),
+		schema: z
+			.object({ professors: insertProfessorSchema.array() })
+			.transform((data) => data.professors),
 	},
 	{
 		name: 'evaluation_statistics',
@@ -185,7 +191,9 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_statistics,
-		schema: z.object({ evaluation_statistics: insertEvaluationStatisticsSchema.array() }),
+		schema: z
+			.object({ evaluation_statistics: insertEvaluationStatisticsSchema.array() })
+			.transform((data) => data.evaluation_statistics),
 	},
 	{
 		name: 'evaluation_questions',
@@ -199,7 +207,9 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_questions,
-		schema: z.object({ evaluation_questions: insertEvaluationQuestionSchema.array() }),
+		schema: z
+			.object({ evaluation_questions: insertEvaluationQuestionSchema.array() })
+			.transform((data) => data.evaluation_questions),
 	},
 	{
 		name: 'evaluation_narratives',
@@ -216,7 +226,9 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_narratives,
-		schema: z.object({ evaluation_narratives: insertEvaluationNarrativeSchema.array() }),
+		schema: z
+			.object({ evaluation_narratives: insertEvaluationNarrativeSchema.array() })
+			.transform((data) => data.evaluation_narratives),
 	},
 	{
 		name: 'evaluation_ratings',
@@ -229,7 +241,9 @@ const TABLES = [
 			}
 		}`,
 		table: evaluation_ratings,
-		schema: z.object({ evaluation_ratings: insertEvaluationRatingSchema.array() }),
+		schema: z
+			.object({ evaluation_ratings: insertEvaluationRatingSchema.array() })
+			.transform((data) => data.evaluation_ratings),
 	},
 	{
 		name: 'course_professors',
@@ -240,7 +254,9 @@ const TABLES = [
 			}
 		}`,
 		table: course_professors,
-		schema: z.object({ course_professors: insertCourseProfessorSchema.array() }),
+		schema: z
+			.object({ course_professors: insertCourseProfessorSchema.array() })
+			.transform((data) => data.course_professors),
 	},
 	{
 		name: 'course_discussions',
@@ -251,7 +267,9 @@ const TABLES = [
 			}
 		}`,
 		table: course_discussions,
-		schema: z.object({ course_discussions: insertCourseDiscussionSchema.array() }),
+		schema: z
+			.object({ course_discussions: insertCourseDiscussionSchema.array() })
+			.transform((data) => data.course_discussions),
 	},
 	{
 		name: 'course_flags',
@@ -262,7 +280,9 @@ const TABLES = [
 			}
 		}`,
 		table: course_flags,
-		schema: z.object({ course_flags: insertCourseFlagSchema.array() }),
+		schema: z
+			.object({ course_flags: insertCourseFlagSchema.array() })
+			.transform((data) => data.course_flags),
 	},
 	{
 		name: 'fasttext_similars',
@@ -274,7 +294,9 @@ const TABLES = [
 			}
 		}`,
 		table: fasttext_similars,
-		schema: z.object({ fasttext_similars: insertFasttextSimilarSchema.array() }),
+		schema: z
+			.object({ fasttext_similars: insertFasttextSimilarSchema.array() })
+			.transform((data) => data.fasttext_similars),
 	},
 	{
 		name: 'tfidf_similars',
@@ -286,7 +308,9 @@ const TABLES = [
 			}
 		}`,
 		table: tfidf_similars,
-		schema: z.object({ tfidf_similars: insertTfidfSimilarSchema.array() }),
+		schema: z
+			.object({ tfidf_similars: insertTfidfSimilarSchema.array() })
+			.transform((data) => data.tfidf_similars),
 	},
 ] as const;
 
@@ -355,7 +379,9 @@ export const GET = async () => {
 	const data = await Promise.all(
 		tablesUnder1000.map(async ({ query, schema, table }) => {
 			const payload = await fetchGraphQL({ query, schema });
-			// await db.insert(table).values(payload);
+			console.log('🚀 ~ tablesUnder1000.map ~ payload:', payload);
+			const rs = await db.insert(seasons).values(payload).returning().onConflictDoNothing();
+			return rs;
 		}),
 	);
 	// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
