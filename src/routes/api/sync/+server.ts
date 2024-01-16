@@ -361,10 +361,7 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 				}),
 			}),
 		}),
-		variables: {
-			offset: 0,
-			limit: BATCH_SIZE,
-		},
+		variables: {},
 	});
 	return data[tableNameAggregate].aggregate.count;
 };
@@ -391,7 +388,11 @@ export const GET = async () => {
 
 	const data = await Promise.all(
 		tablesUnder1000.map(async ({ query, schema, table }) => {
-			const payload = await fetchGraphQl({ query, schema });
+			const payload = await fetchGraphQl({
+				query,
+				schema,
+				variables: { offset: 0, limit: BATCH_SIZE },
+			});
 			console.log('🚀 ~ tablesUnder1000.map ~ payload:', payload);
 			const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
 			return rs;
