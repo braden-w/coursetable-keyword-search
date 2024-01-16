@@ -9,6 +9,7 @@
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 	import { onMount } from 'svelte';
 	import { Input } from '$lib/components/ui/input';
+	import screenshotCropped from './screenshot_cropped.jpg';
 	import { Button } from '$lib/components/ui/button';
 
 	let typewriter: HTMLSpanElement;
@@ -96,7 +97,7 @@
 	<QueriesRow />
 	<!-- Add screenshot with rounded corners -->
 	<div class="relative">
-		<img src="/screenshot_cropped.jpg" class="rounded-xl" alt="Screenshot" />
+		<img src={screenshotCropped} class="rounded-xl" alt="Screenshot" />
 		<div class="absolute inset-0 bg-gradient-to-t from-base-100" />
 	</div>
 </div>
