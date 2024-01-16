@@ -10,7 +10,6 @@ import {
 	uniqueIndex,
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-zod';
-import { boolean } from 'yargs';
 import { z } from 'zod';
 
 export const seasons = sqliteTable('seasons', {
