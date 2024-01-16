@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
-import { db } from './src/lib/server/db/db';
-import { courses, evaluation_narratives } from './src/lib/server/db/schema';
+import { db } from './src/lib/server/db';
+import { courses, evaluation_narratives } from './src/lib/server/schema';
 
 export async function insertAveragesOfCourses() {
 	try {
