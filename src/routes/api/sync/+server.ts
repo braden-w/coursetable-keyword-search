@@ -306,7 +306,7 @@ async function fetchGraphQL<T>({ query, schema }: { query: string; schema: z.Zod
 		const parsedResponse = z.object({ data: schema }).parse(json);
 		return parsedResponse.data;
 	} catch (e) {
-		console.error(e, json);
+		console.error(JSON.stringify(e), JSON.stringify(json));
 	}
 }
 
