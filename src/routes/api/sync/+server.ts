@@ -393,6 +393,5 @@ export const GET = async () => {
 	// if (errors.length !== 0) {
 	// 	return error(500, JSON.stringify(errors));
 	// }
-	// const data = await Promise.all(responses.map((res) => res.json()));
 	return json(data);
 };
