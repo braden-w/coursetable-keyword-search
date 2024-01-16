@@ -1,5 +1,17 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
 import {
+	course_discussions,
+	course_flags,
+	course_professors,
+	courses,
+	demand_statistics,
+	discussions,
+	evaluation_narratives,
+	evaluation_questions,
+	evaluation_ratings,
+	evaluation_statistics,
+	fasttext_similars,
+	flags,
 	insertCourseDiscussionSchema,
 	insertCourseFlagSchema,
 	insertCourseProfessorSchema,
@@ -16,6 +28,9 @@ import {
 	insertProfessorSchema,
 	insertSeasonSchema,
 	insertTfidfSimilarSchema,
+	listings,
+	seasons,
+	tfidf_similars,
 } from '$lib/server/db/schema';
 import { error, json } from '@sveltejs/kit';
 import { z } from 'zod';
@@ -30,6 +45,7 @@ const TABLES = [
 				year
 			}
 		}`,
+		table: seasons,
 		schema: z.object({ seasons: insertSeasonSchema.array() }),
 	},
 	{
@@ -75,6 +91,7 @@ const TABLES = [
 				last_enrollment_season_code
 			}
 		}`,
+		table: courses,
 		schema: z.object({ seasons: insertCourseSchema.array() }),
 	},
 	{
@@ -92,6 +109,7 @@ const TABLES = [
 				crn
 			}
 		}`,
+		table: listings,
 		schema: z.object({ seasons: insertListingSchema.array() }),
 	},
 	{
@@ -108,6 +126,7 @@ const TABLES = [
 				times_by_day
 			}
 		}`,
+		table: discussions,
 		schema: z.object({ seasons: insertDiscussionSchema.array() }),
 	},
 	{
@@ -118,6 +137,7 @@ const TABLES = [
 				flag_text
 			}
 		}`,
+		table: flags,
 		schema: z.object({ seasons: insertFlagSchema.array() }),
 	},
 	{
@@ -130,6 +150,7 @@ const TABLES = [
 				demand
 			}
 		}`,
+		table: demand_statistics,
 		schema: z.object({ seasons: insertDemandStatisticsSchema.array() }),
 	},
 	{
@@ -160,6 +181,7 @@ const TABLES = [
 				avg_workload
 			}
 		}`,
+		table: evaluation_statistics,
 		schema: z.object({ seasons: insertEvaluationStatisticsSchema.array() }),
 	},
 	{
@@ -173,6 +195,7 @@ const TABLES = [
 				tag
 			}
 		}`,
+		table: evaluation_questions,
 		schema: z.object({ seasons: insertEvaluationQuestionSchema.array() }),
 	},
 	{
@@ -189,6 +212,7 @@ const TABLES = [
 				comment_compound
 			}
 		}`,
+		table: evaluation_narratives,
 		schema: z.object({ seasons: insertEvaluationNarrativeSchema.array() }),
 	},
 	{
@@ -201,6 +225,7 @@ const TABLES = [
 				rating
 			}
 		}`,
+		table: evaluation_ratings,
 		schema: z.object({ seasons: insertEvaluationRatingSchema.array() }),
 	},
 	{
@@ -211,6 +236,7 @@ const TABLES = [
 				professor_id
 			}
 		}`,
+		table: course_professors,
 		schema: z.object({ seasons: insertCourseProfessorSchema.array() }),
 	},
 	{
@@ -221,6 +247,7 @@ const TABLES = [
 				discussion_id
 			}
 		}`,
+		table: course_discussions,
 		schema: z.object({ seasons: insertCourseDiscussionSchema.array() }),
 	},
 	{
@@ -231,6 +258,7 @@ const TABLES = [
 				flag_id
 			}
 		}`,
+		table: course_flags,
 		schema: z.object({ seasons: insertCourseFlagSchema.array() }),
 	},
 	{
@@ -242,6 +270,7 @@ const TABLES = [
 				rank
 			}
 		}`,
+		table: fasttext_similars,
 		schema: z.object({ seasons: insertFasttextSimilarSchema.array() }),
 	},
 	{
@@ -253,6 +282,7 @@ const TABLES = [
 				rank
 			}
 		}`,
+		table: tfidf_similars,
 		schema: z.object({ seasons: insertTfidfSimilarSchema.array() }),
 	},
 ] as const;

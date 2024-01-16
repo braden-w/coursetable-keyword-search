@@ -137,7 +137,7 @@ export const flags = sqliteTable('flags', {
 
 export const insertFlagSchema = createInsertSchema(flags);
 
-export const demandStatistics = sqliteTable('demand_statistics', {
+export const demand_statistics = sqliteTable('demand_statistics', {
 	course_id: integer('course_id')
 		.primaryKey()
 		.references(() => courses.course_id),
@@ -146,7 +146,7 @@ export const demandStatistics = sqliteTable('demand_statistics', {
 	demand: text('demand'),
 });
 
-export const insertDemandStatisticsSchema = createInsertSchema(demandStatistics);
+export const insertDemandStatisticsSchema = createInsertSchema(demand_statistics);
 
 export const professors = sqliteTable('professors', {
 	professor_id: integer('professor_id').primaryKey(),
@@ -158,7 +158,7 @@ export const professors = sqliteTable('professors', {
 
 export const insertProfessorSchema = createInsertSchema(professors);
 
-export const evaluationStatistics = sqliteTable('evaluation_statistics', {
+export const evaluation_statistics = sqliteTable('evaluation_statistics', {
 	course_id: integer('course_id')
 		.primaryKey()
 		.references(() => courses.course_id),
@@ -172,9 +172,9 @@ export const evaluationStatistics = sqliteTable('evaluation_statistics', {
 	avg_workload: real('avg_workload'),
 });
 
-export const insertEvaluationStatisticsSchema = createInsertSchema(evaluationStatistics);
+export const insertEvaluationStatisticsSchema = createInsertSchema(evaluation_statistics);
 
-export const evaluationQuestions = sqliteTable('evaluation_questions', {
+export const evaluation_questions = sqliteTable('evaluation_questions', {
 	question_code: text('question_code').primaryKey(),
 	is_narrative: numeric('is_narrative'),
 	question_text: text('question_text'),
@@ -182,16 +182,16 @@ export const evaluationQuestions = sqliteTable('evaluation_questions', {
 	tag: text('tag'),
 });
 
-export const insertEvaluationQuestionSchema = createInsertSchema(evaluationQuestions);
+export const insertEvaluationQuestionSchema = createInsertSchema(evaluation_questions);
 
-export const evaluationNarratives = sqliteTable('evaluation_narratives', {
+export const evaluation_narratives = sqliteTable('evaluation_narratives', {
 	id: integer('id').primaryKey(),
 	course_id: integer('course_id')
 		.notNull()
 		.references(() => courses.course_id),
 	question_code: text('question_code')
 		.notNull()
-		.references(() => evaluationQuestions.question_code),
+		.references(() => evaluation_questions.question_code),
 	comment: text('comment'),
 	comment_neg: real('comment_neg'),
 	comment_neu: real('comment_neu'),
@@ -199,22 +199,22 @@ export const evaluationNarratives = sqliteTable('evaluation_narratives', {
 	comment_compound: real('comment_compound'),
 });
 
-export const insertEvaluationNarrativeSchema = createInsertSchema(evaluationNarratives);
+export const insertEvaluationNarrativeSchema = createInsertSchema(evaluation_narratives);
 
-export const evaluationRatings = sqliteTable('evaluation_ratings', {
+export const evaluation_ratings = sqliteTable('evaluation_ratings', {
 	id: integer('id').primaryKey(),
 	course_id: integer('course_id')
 		.notNull()
 		.references(() => courses.course_id),
 	question_code: text('question_code')
 		.notNull()
-		.references(() => evaluationQuestions.question_code),
+		.references(() => evaluation_questions.question_code),
 	rating: text('rating'),
 });
 
-export const insertEvaluationRatingSchema = createInsertSchema(evaluationRatings);
+export const insertEvaluationRatingSchema = createInsertSchema(evaluation_ratings);
 
-export const courseProfessors = sqliteTable(
+export const course_professors = sqliteTable(
 	'course_professors',
 	{
 		course_id: integer('course_id').references(() => courses.course_id),
@@ -230,9 +230,9 @@ export const courseProfessors = sqliteTable(
 	},
 );
 
-export const insertCourseProfessorSchema = createInsertSchema(courseProfessors);
+export const insertCourseProfessorSchema = createInsertSchema(course_professors);
 
-export const courseDiscussions = sqliteTable(
+export const course_discussions = sqliteTable(
 	'course_discussions',
 	{
 		course_id: integer('course_id').references(() => courses.course_id),
@@ -247,9 +247,10 @@ export const courseDiscussions = sqliteTable(
 		};
 	},
 );
-export const insertCourseDiscussionSchema = createInsertSchema(courseDiscussions);
 
-export const courseFlags = sqliteTable(
+export const insertCourseDiscussionSchema = createInsertSchema(course_discussions);
+
+export const course_flags = sqliteTable(
 	'course_flags',
 	{
 		course_id: integer('course_id').references(() => courses.course_id),
@@ -264,9 +265,9 @@ export const courseFlags = sqliteTable(
 		};
 	},
 );
-export const insertCourseFlagSchema = createInsertSchema(courseFlags);
+export const insertCourseFlagSchema = createInsertSchema(course_flags);
 
-export const fasttextSimilars = sqliteTable(
+export const fasttext_similars = sqliteTable(
 	'fasttext_similars',
 	{
 		source: integer('source').references(() => courses.course_id),
@@ -283,9 +284,9 @@ export const fasttextSimilars = sqliteTable(
 	},
 );
 
-export const insertFasttextSimilarSchema = createInsertSchema(fasttextSimilars);
+export const insertFasttextSimilarSchema = createInsertSchema(fasttext_similars);
 
-export const tfidfSimilars = sqliteTable(
+export const tfidf_similars = sqliteTable(
 	'tfidf_similars',
 	{
 		source: integer('source').references(() => courses.course_id),
@@ -302,4 +303,4 @@ export const tfidfSimilars = sqliteTable(
 	},
 );
 
-export const insertTfidfSimilarSchema = createInsertSchema(tfidfSimilars);
+export const insertTfidfSimilarSchema = createInsertSchema(tfidf_similars);
