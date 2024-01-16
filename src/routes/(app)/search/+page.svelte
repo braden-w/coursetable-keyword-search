@@ -14,6 +14,7 @@
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import ResultItem from './ResultItem.svelte';
 	import { sort_average_sentiment_desc, sort_count, sort_percent } from './sortCourses';
+	import { Input } from '$lib/components/ui/input';
 
 	export let data;
 	const { seasonCourseIds, params, message } = data;
@@ -32,20 +33,6 @@
 		courses.sort(sort_average_sentiment_desc);
 		return courses;
 	};
-
-	const updateRoute = (newParams: Params) => {
-		goto(`/search?${new URLSearchParams(newParams)}`, { invalidateAll: true });
-	};
-
-	const onKeydown = (e: KeyboardEvent) => {
-		if (e.key !== 'Enter') return;
-		updateRoute(searchBar);
-	};
-
-	const onQueriesRowClick = ({ detail }: { detail: Params }) => {
-		updateRoute(detail);
-		searchBar = detail;
-	};
 </script>
 
 <svelte:head>
@@ -62,14 +49,11 @@
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 				<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
 			</div>
-			<input
+			<Input
 				id="search"
 				name="search"
-				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 				placeholder="Search by review keyword...(use % to match anything)"
 				type="search"
-				bind:value={searchBar.keyword}
-				on:keydown={onKeydown}
 			/>
 			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
 				{#await data.streamed.courses}
@@ -104,18 +88,18 @@
 		<div class="my-2 w-full">
 			<label for="search" class="sr-only">Course Filter</label>
 			<div class="relative">
-				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+				<div class="pointer-events-none absolute left-0 flex items-center pl-3">
 					<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				</div>
-				<input
-					id="search"
-					name="search"
-					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
-					type="search"
-					bind:value={searchBar.course_keyword}
-					on:keydown={onKeydown}
-				/>
+				<form>
+					<Input
+						id="search"
+						name="search"
+						placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
+						type="search"
+						bind:value={searchBar.course_keyword}
+					/>
+				</form>
 			</div>
 		</div>
 
@@ -125,14 +109,13 @@
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				</div>
-				<input
+				<Input
 					id="search"
 					name="search"
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
 					placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
 					type="search"
 					bind:value={searchBar.areas_skills_keyword}
-					on:keydown={onKeydown}
 				/>
 			</div>
 		</div>
