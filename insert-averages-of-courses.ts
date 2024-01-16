@@ -7,10 +7,10 @@ export async function insertAveragesOfCourses() {
 		await db.run(sql`WITH avg_comments AS (
 			SELECT
 				${evaluation_narratives.course_id},
-				${sql`AVG(${evaluation_narratives.comment_neg})`.as('avg_comment_neg')},
-				${sql`AVG(${evaluation_narratives.comment_neu})`.as('avg_comment_neu')},
-				${sql`AVG(${evaluation_narratives.comment_pos})`.as('avg_comment_pos')},
-				${sql`AVG(${evaluation_narratives.comment_compound})`.as('avg_comment_compound')}
+				AVG(comment_neg) as avg_comment_neg,
+				AVG(comment_neu) as avg_comment_neu,
+				AVG(comment_pos) as avg_comment_pos,
+				AVG(comment_compound) as avg_comment_compound
 			FROM ${evaluation_narratives}
 			GROUP BY ${evaluation_narratives.course_id}
 		)
