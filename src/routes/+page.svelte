@@ -1,16 +1,15 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
-	import Typewriter from 'typewriter-effect/dist/core';
-	import { goto } from '$app/navigation';
+	import { Input } from '$lib/components/ui/input';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
+	import { onMount } from 'svelte';
+	import Typewriter from 'typewriter-effect/dist/core';
 	import AcademicCap from '~icons/heroicons/academic-cap';
 	import BookOpen from '~icons/heroicons/book-open';
 	import Funnel from '~icons/heroicons/funnel';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
-	import { onMount } from 'svelte';
-	import { Input } from '$lib/components/ui/input';
-	import screenshotCropped from './screenshot_cropped.jpg';
-	import { Button } from '$lib/components/ui/button';
+	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
