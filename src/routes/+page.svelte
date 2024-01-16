@@ -88,8 +88,6 @@
 		</Button>
 	</div>
 	{#if showFilters}
-		<label for="search" class="sr-only">Course Filter</label>
-
 		<div class="relative">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 				<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
