@@ -108,6 +108,9 @@ const config = {
 			'night',
 			'coffee',
 			'winter',
+			'dim',
+			'nord', 
+			'sunset'
 		],
 	},
 	plugins: [require('@tailwindcss/forms'), require('daisyui')],
