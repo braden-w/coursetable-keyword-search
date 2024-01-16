@@ -3,7 +3,46 @@ import { db } from '../src/lib/server/db';
 import { courses, evaluation_narratives } from '../src/lib/server/schema';
 
 /**
- * For each course, takes the averages of the comment sentiments with matching course_id.
+ * For each course, gets all the courses with matching same_course_id, then takes all the evaluations of these courses, then takes the averages of the sentiments of all evaluations.
+ */
+export async function insertAveragesOfCommentSentimentsOfSameCourses() {
+	try {
+		await db.run(sql`WITH average_comments AS (
+			SELECT
+				${courses.same_course_id},
+				AVG(${evaluation_narratives.comment_neg}) as average_comment_neg,
+				COUNT(${evaluation_narratives.comment_neg}) as average_comment_neg_n,
+				AVG(${evaluation_narratives.comment_neu}) as average_comment_neu,
+				COUNT(${evaluation_narratives.comment_neu}) as average_comment_neu_n,
+				AVG(${evaluation_narratives.comment_pos}) as average_comment_pos,
+				COUNT(${evaluation_narratives.comment_pos}) as average_comment_pos_n,
+				AVG(${evaluation_narratives.comment_compound}) as average_comment_compound,
+				COUNT(${evaluation_narratives.comment_compound}) as average_comment_compound_n
+			FROM ${evaluation_narratives}
+			INNER JOIN ${courses} ON ${evaluation_narratives.course_id} = ${courses.course_id}
+			GROUP BY ${courses.same_course_id}
+		)
+		UPDATE ${courses}
+			SET
+				average_comment_neg = average_comments.average_comment_neg,
+				average_comment_neg_n = average_comments.average_comment_neg_n,
+				average_comment_neu = average_comments.average_comment_neu,
+				average_comment_neu_n = average_comments.average_comment_neu_n,
+				average_comment_pos = average_comments.average_comment_pos,
+				average_comment_pos_n = average_comments.average_comment_pos_n,
+				average_comment_compound = average_comments.average_comment_compound,
+				average_comment_compound_n = average_comments.average_comment_compound_n
+			FROM average_comments
+			WHERE courses.same_course_id = average_comments.same_course_id;
+
+		`);
+	} catch (e) {
+		console.error(e);
+	}
+}
+
+/**
+ * For each course, gets all of the evaluations of that course, then takes the average of the sentiments of the evaluations.
  */
 export async function insertAveragesOfCommentSentimentsOfCourses() {
 	try {
@@ -36,3 +75,5 @@ export async function insertAveragesOfCommentSentimentsOfCourses() {
 		console.error(e);
 	}
 }
+
+insertAveragesOfCommentSentimentsOfSameCourses();
