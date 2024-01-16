@@ -1,3 +1,4 @@
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import {
 	foreignKey,
 	index,
@@ -15,6 +16,8 @@ export const seasons = sqliteTable('seasons', {
 	term: text('term'),
 	year: integer('year')
 });
+
+export const insertSeasonSchema = createInsertSchema(seasons);
 
 export const courses = sqliteTable(
 	'courses',
@@ -77,6 +80,8 @@ export const courses = sqliteTable(
 	}
 );
 
+export const insertCourseSchema = createInsertSchema(courses);
+
 export const listings = sqliteTable(
 	'listings',
 	{
@@ -110,6 +115,8 @@ export const listings = sqliteTable(
 	}
 );
 
+export const insertListingSchema = createInsertSchema(listings);
+
 export const discussions = sqliteTable('discussions', {
 	discussionId: integer('discussion_id').primaryKey(),
 	subject: text('subject').notNull(),
@@ -121,10 +128,14 @@ export const discussions = sqliteTable('discussions', {
 	timesByDay: text('times_by_day')
 });
 
+export const insertDiscussionSchema = createInsertSchema(discussions);
+
 export const flags = sqliteTable('flags', {
 	flagId: integer('flag_id').primaryKey(),
 	flagText: text('flag_text').notNull()
 });
+
+export const insertFlagSchema = createInsertSchema(flags);
 
 export const demandStatistics = sqliteTable('demand_statistics', {
 	courseId: integer('course_id')
@@ -135,6 +146,8 @@ export const demandStatistics = sqliteTable('demand_statistics', {
 	demand: text('demand')
 });
 
+export const insertDemandStatisticsSchema = createInsertSchema(demandStatistics);
+
 export const professors = sqliteTable('professors', {
 	professorId: integer('professor_id').primaryKey(),
 	name: text('name').notNull(),
@@ -142,6 +155,8 @@ export const professors = sqliteTable('professors', {
 	averageRating: real('average_rating'),
 	averageRatingN: integer('average_rating_n')
 });
+
+export const insertProfessorSchema = createInsertSchema(professors);
 
 export const evaluationStatistics = sqliteTable('evaluation_statistics', {
 	courseId: integer('course_id')
@@ -157,6 +172,8 @@ export const evaluationStatistics = sqliteTable('evaluation_statistics', {
 	avgWorkload: real('avg_workload')
 });
 
+export const insertEvaluationStatisticsSchema = createInsertSchema(evaluationStatistics);
+
 export const evaluationQuestions = sqliteTable('evaluation_questions', {
 	questionCode: text('question_code').primaryKey(),
 	isNarrative: numeric('is_narrative'),
@@ -164,6 +181,8 @@ export const evaluationQuestions = sqliteTable('evaluation_questions', {
 	options: text('options'),
 	tag: text('tag')
 });
+
+export const insertEvaluationQuestionSchema = createInsertSchema(evaluationQuestions);
 
 export const evaluationNarratives = sqliteTable('evaluation_narratives', {
 	id: integer('id').primaryKey(),
@@ -180,6 +199,8 @@ export const evaluationNarratives = sqliteTable('evaluation_narratives', {
 	commentCompound: real('comment_compound')
 });
 
+export const insertEvaluationNarrativeSchema = createInsertSchema(evaluationNarratives);
+
 export const evaluationRatings = sqliteTable('evaluation_ratings', {
 	id: integer('id').primaryKey(),
 	courseId: integer('course_id')
@@ -190,6 +211,8 @@ export const evaluationRatings = sqliteTable('evaluation_ratings', {
 		.references(() => evaluationQuestions.questionCode),
 	rating: text('rating')
 });
+
+export const insertEvaluationRatingSchema = createInsertSchema(evaluationRatings);
 
 export const courseProfessors = sqliteTable(
 	'course_professors',
@@ -207,6 +230,8 @@ export const courseProfessors = sqliteTable(
 	}
 );
 
+export const insertCourseProfessorSchema = createInsertSchema(courseProfessors);
+
 export const courseDiscussions = sqliteTable(
 	'course_discussions',
 	{
@@ -223,6 +248,8 @@ export const courseDiscussions = sqliteTable(
 	}
 );
 
+export const insertCourseDiscussionSchema = createInsertSchema(courseDiscussions);
+
 export const courseFlags = sqliteTable(
 	'course_flags',
 	{
@@ -238,6 +265,8 @@ export const courseFlags = sqliteTable(
 		};
 	}
 );
+
+export const insertCourseFlagSchema = createInsertSchema(courseFlags);
 
 export const fasttextSimilars = sqliteTable(
 	'fasttext_similars',
@@ -256,6 +285,8 @@ export const fasttextSimilars = sqliteTable(
 	}
 );
 
+export const insertFasttextSimilarSchema = createInsertSchema(fasttextSimilars);
+
 export const tfidfSimilars = sqliteTable(
 	'tfidf_similars',
 	{
@@ -272,3 +303,5 @@ export const tfidfSimilars = sqliteTable(
 		};
 	}
 );
+
+export const insertTfidfSimilarSchema = createInsertSchema(tfidfSimilars);
