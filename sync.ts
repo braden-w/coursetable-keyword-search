@@ -314,6 +314,55 @@ const TABLES = [
 	},
 ] as const;
 
+export async function syncCourseTableToSqlite() {
+	try {
+		const tablesWithLength = await Promise.all(
+			TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
+		);
+		for (const { query, schema, table, totalRows } of tablesWithLength) {
+			for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
+				const batchData = await fetchGraphQl({
+					query,
+					schema,
+					variables: { offset, limit: BATCH_SIZE },
+				});
+				if (!batchData) break;
+				try {
+					await db.insert(table).values(batchData).onConflictDoNothing();
+				} catch (e) {
+					console.error('Error inserting batchData', e, batchData);
+				}
+			}
+		}
+	} catch (e) {
+		console.error(e);
+	}
+}
+
+async function getTableLength(tableName: (typeof TABLES)[number]['name']): Promise<number> {
+	const tableNameAggregate = `${tableName}_aggregate` as const;
+	const tableCountQuery = `query {
+		${tableNameAggregate} {
+			aggregate {
+				count
+			}
+		}
+	}`;
+	const data = await fetchGraphQl({
+		query: tableCountQuery,
+		schema: z.object({
+			[tableNameAggregate]: z.object({
+				aggregate: z.object({
+					count: z.number(),
+				}),
+			}),
+		}),
+		variables: {},
+	});
+	if (!data) throw new Error(`getTableLength: count query returns undefined for ${tableName}`);
+	return data[tableNameAggregate].aggregate.count;
+}
+
 async function fetchGraphQl<T>({
 	query,
 	schema,
@@ -340,51 +389,4 @@ async function fetchGraphQl<T>({
 	}
 }
 
-async function getTableLength(tableName: (typeof TABLES)[number]['name']): Promise<number> {
-	const tableNameAggregate = `${tableName}_aggregate` as const;
-	const tableCountQuery = `query {
-		${tableNameAggregate} {
-			aggregate {
-				count
-			}
-		}
-	}`;
-	const data = await fetchGraphQl({
-		query: tableCountQuery,
-		schema: z.object({
-			[tableNameAggregate]: z.object({
-				aggregate: z.object({
-					count: z.number(),
-				}),
-			}),
-		}),
-		variables: {},
-	});
-	return data[tableNameAggregate].aggregate.count;
-}
-
-export async function main() {
-	try {
-		const tablesWithLength = await Promise.all(
-			TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
-		);
-		for (const { query, schema, table, totalRows } of tablesWithLength) {
-			for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
-				const batchData = await fetchGraphQl({
-					query,
-					schema,
-					variables: { offset, limit: BATCH_SIZE },
-				});
-				if (!batchData) break;
-				try {
-					await db.insert(table).values(batchData).onConflictDoNothing();
-				} catch (e) {
-					console.error('Error inserting batchData', e, batchData);
-				}
-			}
-		}
-	} catch (e) {
-		console.error(e);
-	}
-}
-main();
+syncCourseTableToSqlite();
