@@ -1,36 +1,21 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
 import { error, json } from '@sveltejs/kit';
+import { z } from 'zod';
 
-const TABLE_NAMES = [
-	'seasons',
-	'courses',
-	'listings',
-	'discussions',
-	'flags',
-	'demand_statistics',
-	'professors',
-	'evaluation_statistics',
-	'evaluation_questions',
-	'evaluation_narratives',
-	'evaluation_ratings',
-	'course_professors',
-	'course_discussions',
-	'course_flags',
-	'fasttext_similars',
-	'tfidf_similars'
-] as const;
-
-type TableName = (typeof TABLE_NAMES)[number];
-
-const queries: Record<TableName, string> = {
-	seasons: `query {
+const TABLES = [
+	{
+		name: 'seasons',
+		query: `query {
 		seasons {
 			season_code
 			term
 			year
 		}
-	}`,
-	courses: `query {
+	}`
+	},
+	{
+		name: 'courses',
+		query: `query {
 		courses {
 			course_id
 			season_code
@@ -70,8 +55,11 @@ const queries: Record<TableName, string> = {
 			last_enrollment
 			last_enrollment_season_code
 		}
-	}`,
-	listings: `query {
+	}`
+	},
+	{
+		name: 'listings',
+		query: `query {
 		listings {
 			listing_id
 			course_id
@@ -83,8 +71,11 @@ const queries: Record<TableName, string> = {
 			season_code
 			crn
 		}
-	}`,
-	discussions: `query {
+	}`
+	},
+	{
+		name: 'discussions',
+		query: `query {
 		discussions {
 			discussion_id
 			subject
@@ -95,22 +86,31 @@ const queries: Record<TableName, string> = {
 			times_summary
 			times_by_day
 		}
-	}`,
-	flags: `query {
+	}`
+	},
+	{
+		name: 'flags',
+		query: `query {
 		flags {
 			flag_id
 			flag_text
 		}
-	}`,
-	demand_statistics: `query {
+	}`
+	},
+	{
+		name: 'demand_statistics',
+		query: `query {
 		demand_statistics {
 			course_id
 			latest_demand
 			latest_demand_date
 			demand
 		}
-	}`,
-	professors: `query {
+	}`
+	},
+	{
+		name: 'professors',
+		query: `query {
 		professors {
 			professor_id
 			name
@@ -118,8 +118,11 @@ const queries: Record<TableName, string> = {
 			average_rating
 			average_rating_n
 		}
-	}`,
-	evaluation_statistics: `query {
+	}`
+	},
+	{
+		name: 'evaluation_statistics',
+		query: `query {
 		evaluation_statistics {
 			course_id
 			enrollment
@@ -131,8 +134,11 @@ const queries: Record<TableName, string> = {
 			avg_rating
 			avg_workload
 		}
-	}`,
-	evaluation_questions: `query {
+	}`
+	},
+	{
+		name: 'evaluation_questions',
+		query: `query {
 		evaluation_questions {
 			question_code
 			is_narrative
@@ -140,8 +146,11 @@ const queries: Record<TableName, string> = {
 			options
 			tag
 		}
-	}`,
-	evaluation_narratives: `query {
+	}`
+	},
+	{
+		name: 'evaluation_narratives',
+		query: `query {
 		evaluation_narratives {
 			id
 			course_id
@@ -152,48 +161,69 @@ const queries: Record<TableName, string> = {
 			comment_pos
 			comment_compound
 		}
-	}`,
-	evaluation_ratings: `query {
+	}`
+	},
+	{
+		name: 'evaluation_ratings',
+		query: `query {
 		evaluation_ratings {
 			id
 			course_id
 			question_code
 			rating
 		}
-	}`,
-	course_professors: `query {
+	}`
+	},
+	{
+		name: 'course_professors',
+		query: `query {
 		course_professors {
 			course_id
 			professor_id
 		}
-	}`,
-	course_discussions: `query {
+	}`
+	},
+	{
+		name: 'course_discussions',
+		query: `query {
 		course_discussions {
 			course_id
 			discussion_id
 		}
-	}`,
-	course_flags: `query {
+	}`
+	},
+	{
+		name: 'course_flags',
+		query: `query {
 		course_flags {
 			course_id
 			flag_id
 		}
-	}`,
-	fasttext_similars: `query {
+	}`
+	},
+	{
+		name: 'fasttext_similars',
+		query: `query {
 		fasttext_similars {
 			source
 			target
 			rank
 		}
-	}`,
-	tfidf_similars: `query {
+	}`
+	},
+	{
+		name: 'tfidf_similars',
+		query: `query {
 		tfidf_similars {
 			source
 			target
 			rank
 		}
 	}`
-} as const;
+	}
+] as const;
+
+type TableName = (typeof TABLES)[number]['name'];
 
 const fetchGraphQL = (query: string) =>
 	fetch('https://api.coursetable.com/ferry/v1/graphql', {
@@ -205,20 +235,50 @@ const fetchGraphQL = (query: string) =>
 		body: JSON.stringify({ query })
 	});
 
-const getTableLength = (tableName: TableName) => {
-	const query = `query {
-    ${tableName}_aggregate {
+const getTableLength = async (tableName: TableName): Promise<number> => {
+	const tableNameAggregate = `${tableName}_aggregate` as const;
+	const tableCountQuery = `query {
+    ${tableNameAggregate} {
 			aggregate {
 				count
 			}
 		}
 	}`;
-	return fetchGraphQL(query);
+	const responseSchema = z.object({
+		data: z.object({
+			[tableNameAggregate]: z.object({
+				aggregate: z.object({
+					count: z.number()
+				})
+			})
+		})
+	});
+	const response = await fetchGraphQL(tableCountQuery);
+	const { data } = responseSchema.parse(await response.json());
+	return data[tableNameAggregate].aggregate.count;
 };
 
 export const GET = async () => {
-	const responses = await Promise.all(Object.values(queries).map(fetchGraphQL));
-	// Map over the responses, and for each one, if not okay, add it to the errors array
+	const tablesWithLength = await Promise.all(
+		TABLES.map(async (table) => ({ ...table, length: await getTableLength(table.name) }))
+	);
+
+	// Split tablesWithLength into two arrays: one with tables that have a length over 1000, and one with tables that don't
+	const [tablesOver1000, tablesUnder1000] = tablesWithLength.reduce<
+		[typeof tablesWithLength, typeof tablesWithLength]
+	>(
+		([over1000, under1000], table) => {
+			if (table.length > 1000) {
+				over1000.push(table);
+			} else {
+				under1000.push(table);
+			}
+			return [over1000, under1000];
+		},
+		[[], []]
+	);
+
+	const responses = await Promise.all(tablesUnder1000.map(({ query }) => fetchGraphQL(query)));
 	const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
 		if (!res.ok) {
 			errors.push({ status: res.status, statusText: res.statusText });
@@ -228,7 +288,6 @@ export const GET = async () => {
 	if (errors.length !== 0) {
 		return error(500, JSON.stringify(errors));
 	}
-	const data = responses.map((res) => res.json());
-	console.log(data);
+	const data = await Promise.all(responses.map((res) => res.json()));
 	return json(data);
 };
