@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as Collapsible from '$lib/components/ui/collapsible';
 	import Typewriter from 'typewriter-effect/dist/core';
 	import { goto } from '$app/navigation';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
@@ -9,8 +10,6 @@
 	import { onMount } from 'svelte';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
-
-	let showFilters = false;
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -36,7 +35,7 @@
 			<strong>CourseTable</strong>
 		</a>. Try now:
 	</h2>
-	<div class="flex w-full">
+	<Collapsible.Root class="flex w-full">
 		<label for="search" class="sr-only">Search</label>
 		<div class="relative flex-1">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -52,53 +51,46 @@
 		</div>
 		<label for="filters" class="sr-only">Show filters</label>
 		<span class="sr-only">Loading...</span>
-		<Button
-			id="filters"
-			name="filters"
-			variant="outline"
-			class="relative"
-			on:click={() => (showFilters = !showFilters)}
-		>
-			<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
-			<span class="sr-only">Filter</span>
-			{#if !showFilters}
+		<Collapsible.Trigger asChild let:builder>
+			<Button builders={[builder]} id="filters" name="filters" variant="outline" class="relative">
+				<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				<span class="sr-only">Filter</span>
 				<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
 					<span
 						class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
 					/>
 					<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
 				</span>
-			{/if}
-		</Button>
-	</div>
-	{#if showFilters}
-		<div class="relative">
-			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-				<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
+			</Button>
+		</Collapsible.Trigger>
+		<Collapsible.Content>
+			<div class="relative">
+				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+					<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				</div>
+				<Input
+					id="search"
+					name="search"
+					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
+					type="search"
+				/>
 			</div>
-			<Input
-				id="search"
-				name="search"
-				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-				placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
-				type="search"
-			/>
-		</div>
 
-		<div class="relative">
-			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-				<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
+			<div class="relative">
+				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+					<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				</div>
+				<Input
+					id="search"
+					name="search"
+					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+					placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
+					type="search"
+				/>
 			</div>
-			<Input
-				id="search"
-				name="search"
-				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-				placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
-				type="search"
-			/>
-		</div>
-	{/if}
-
+		</Collapsible.Content>
+	</Collapsible.Root>
 	<QueriesRow />
 	<!-- Add screenshot with rounded corners -->
 	<div class="relative">
