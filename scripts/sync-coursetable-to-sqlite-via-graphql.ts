@@ -388,5 +388,3 @@ async function fetchGraphQl<T>({
 		console.error(JSON.stringify(e).slice(0, 1000), JSON.stringify(json).slice(0, 1000));
 	}
 }
-
-syncCourseTableToSqlite();
