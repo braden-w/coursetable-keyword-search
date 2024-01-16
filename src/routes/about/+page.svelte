@@ -1,14 +1,15 @@
 <script>
 	import * as Collapsible from '$lib/components/ui/collapsible';
-
-	import Collapse from './Collapse.svelte';
-	let expanded = true;
 </script>
 
 <div class="mx-auto my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
 	<Collapsible.Root>
 		<Collapsible.Trigger>
-			<h4 class="text-sm font-semibold">What does it solve?</h4>
+			<h2
+				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+			>
+				What does it solve?
+			</h2>
 		</Collapsible.Trigger>
 		<Collapsible.Content>
 			<p>
@@ -21,7 +22,11 @@
 	</Collapsible.Root>
 	<Collapsible.Root>
 		<Collapsible.Trigger>
-			<h4 class="text-sm font-semibold">Why not CourseTable</h4>
+			<h2
+				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+			>
+				Why not CourseTable
+			</h2>
 		</Collapsible.Trigger>
 		<Collapsible.Content>
 			<p>
@@ -35,7 +40,11 @@
 	</Collapsible.Root>
 	<Collapsible.Root>
 		<Collapsible.Trigger>
-			<h4 class="text-sm font-semibold">How does it work?</h4>
+			<h2
+				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+			>
+				How does it work?
+			</h2>
 		</Collapsible.Trigger>
 		<Collapsible.Content>
 			<p>
@@ -104,7 +113,11 @@
 	</Collapsible.Root>
 	<Collapsible.Root>
 		<Collapsible.Trigger>
-			<h4 class="text-sm font-semibold">Why is it called JankTable?</h4>
+			<h2
+				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+			>
+				Why is it called JankTable?
+			</h2>
 		</Collapsible.Trigger>
 		<Collapsible.Content>
 			<p>
@@ -119,7 +132,11 @@
 
 	<Collapsible.Root>
 		<Collapsible.Trigger>
-			<h4 class="text-sm font-semibold">What's the tech stack, and aren't you a CS Major?</h4>
+			<h2
+				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+			>
+				What's the tech stack, and aren't you a CS Major?
+			</h2>
 		</Collapsible.Trigger>
 		<Collapsible.Content>
 			<p>
@@ -139,7 +156,11 @@
 
 	<Collapsible.Root>
 		<Collapsible.Trigger>
-			<h4 class="text-sm font-semibold">What's next?</h4>
+			<h2
+				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+			>
+				What's next?
+			</h2>
 		</Collapsible.Trigger>
 		<Collapsible.Content>
 			<p>
