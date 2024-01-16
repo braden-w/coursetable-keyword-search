@@ -380,7 +380,7 @@ export const GET = async () => {
 		tablesUnder1000.map(async ({ query, schema, table }) => {
 			const payload = await fetchGraphQL({ query, schema });
 			console.log('🚀 ~ tablesUnder1000.map ~ payload:', payload);
-			const rs = await db.insert(seasons).values(payload).returning().onConflictDoNothing();
+			const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
 			return rs;
 		}),
 	);
