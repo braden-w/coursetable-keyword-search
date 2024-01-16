@@ -61,7 +61,7 @@
 					target="_blank"
 					rel="noreferrer"
 				>
-					<Icon src={GithubLogo} class="h-6 w-6" aria-hidden="true" />
+					<GithubLogo class="h-6 w-6" aria-hidden="true" />
 				</a>
 				<ThemeChooser />
 				<a href="/about" class="btn btn-ghost gap-1 normal-case"> About </a>
