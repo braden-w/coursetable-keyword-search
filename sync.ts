@@ -381,7 +381,11 @@ export async function main() {
 						variables: { offset, limit: BATCH_SIZE },
 					});
 					if (!batchData) break;
-					const rs = await db.insert(table).values(batchData).returning().onConflictDoNothing();
+					try {
+						await db.insert(table).values(batchData).onConflictDoNothing();
+					} catch (e) {
+						console.error('Error inserting batchData', e, batchData);
+					}
 				}
 			}),
 		);
