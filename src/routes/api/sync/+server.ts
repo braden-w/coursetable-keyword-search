@@ -259,7 +259,7 @@ const TABLES = [
 
 type TableName = (typeof TABLES)[number]['name'];
 
-async function fetchGraphQL<T>(query: string, schema: z.ZodSchema<T>) {
+async function fetchGraphQL<T>({ query, schema }: { query: string; schema: z.ZodSchema<T> }) {
 	const response = await fetch('https://api.coursetable.com/ferry/v1/graphql', {
 		method: 'POST',
 		headers: {
@@ -282,16 +282,16 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 			}
 		}
 	}`;
-	const data = await fetchGraphQL(
-		tableCountQuery,
-		z.object({
+	const data = await fetchGraphQL({
+		query: tableCountQuery,
+		schema: z.object({
 			[tableNameAggregate]: z.object({
 				aggregate: z.object({
 					count: z.number(),
 				}),
 			}),
 		}),
-	);
+	});
 	return data[tableNameAggregate].aggregate.count;
 };
 
@@ -316,7 +316,7 @@ export const GET = async () => {
 	);
 
 	const data = await Promise.all(
-		tablesUnder1000.map(({ query, schema }) => fetchGraphQL(query, schema)),
+		tablesUnder1000.map(({ query, schema }) => fetchGraphQL({ query, schema })),
 	);
 	// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
 	// 	if (!res.ok) {
