@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ThemeChooser from './ThemeChooser.svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import GithubLogo from '~icons/mdi/github';
@@ -63,7 +62,6 @@
 				>
 					<GithubLogo class="h-6 w-6" aria-hidden="true" />
 				</a>
-				<ThemeChooser />
 				<a href="/about" class="btn btn-ghost gap-1 normal-case"> About </a>
 
 				<a href="/search" class="btn btn-ghost gap-1 normal-case"> Search </a>
