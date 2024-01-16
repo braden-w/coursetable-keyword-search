@@ -375,11 +375,10 @@ export async function main() {
 		const data = await Promise.all(
 			tablesWithLength.slice(1, 2).map(async ({ query, schema, table, totalRows }) => {
 				for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
-					const variables = { offset, limit: BATCH_SIZE };
 					const batchData = await fetchGraphQl({
 						query,
 						schema,
-						variables,
+						variables: { offset, limit: BATCH_SIZE },
 					});
 					if (!batchData) break;
 					const rs = await db.insert(table).values(batchData).returning().onConflictDoNothing();
