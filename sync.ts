@@ -37,7 +37,7 @@ import { json } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const COURSETABLE_COOKIE = process.env.COURSETABLE_COOKIE as string;
-const BATCH_SIZE = 1000;
+const BATCH_SIZE = 500;
 const TABLES = [
 	{
 		name: 'seasons',
@@ -373,7 +373,7 @@ export async function main() {
 		);
 
 		const data = await Promise.all(
-			tablesWithLength.slice(1, 2).map(async ({ query, schema, table, totalRows }) => {
+			tablesWithLength.map(async ({ query, schema, table, totalRows }) => {
 				for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
 					const batchData = await fetchGraphQl({
 						query,
