@@ -370,24 +370,10 @@ export const GET = async () => {
 	const tablesWithLength = await Promise.all(
 		TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
 	);
-
-	// Split tablesWithLength into two arrays: one with tables that have a length over 1000, and one with tables that don't
-	const [tablesOver1000, tablesUnder1000] = tablesWithLength.reduce<
-		[typeof tablesWithLength, typeof tablesWithLength]
-	>(
-		([over1000, under1000], table) => {
-			if (table.totalRows > 1000) {
-				over1000.push(table);
-			} else {
-				under1000.push(table);
-			}
-			return [over1000, under1000];
-		},
-		[[], []],
-	);
+	console.log('🚀 ~ GET ~ tablesWithLength:', tablesWithLength);
 
 	const data = await Promise.all(
-		tablesUnder1000.map(async ({ query, schema, table, totalRows }) => {
+		tablesWithLength.map(async ({ query, schema, table, totalRows }) => {
 			const data: z.infer<typeof schema>[] = [];
 			for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
 				const variables = { offset, limit: BATCH_SIZE };
