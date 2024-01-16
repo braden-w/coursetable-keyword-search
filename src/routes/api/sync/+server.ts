@@ -368,7 +368,7 @@ const getTableLength = async (tableName: TableName): Promise<number> => {
 
 export const GET = async () => {
 	const tablesWithLength = await Promise.all(
-		TABLES.map(async (table) => ({ ...table, length: await getTableLength(table.name) })),
+		TABLES.map(async (table) => ({ ...table, totalRows: await getTableLength(table.name) })),
 	);
 
 	// Split tablesWithLength into two arrays: one with tables that have a length over 1000, and one with tables that don't
@@ -376,7 +376,7 @@ export const GET = async () => {
 		[typeof tablesWithLength, typeof tablesWithLength]
 	>(
 		([over1000, under1000], table) => {
-			if (table.length > 1000) {
+			if (table.totalRows > 1000) {
 				over1000.push(table);
 			} else {
 				under1000.push(table);
@@ -387,15 +387,23 @@ export const GET = async () => {
 	);
 
 	const data = await Promise.all(
-		tablesUnder1000.map(async ({ query, schema, table }) => {
-			const payload = await fetchGraphQl({
-				query,
-				schema,
-				variables: { offset: 0, limit: BATCH_SIZE },
-			});
-			console.log('🚀 ~ tablesUnder1000.map ~ payload:', payload);
-			const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
-			return rs;
+		tablesUnder1000.map(async ({ query, schema, table, totalRows }) => {
+			const data: z.infer<typeof schema>[] = [];
+			for (let offset = 0; offset < totalRows; offset += BATCH_SIZE) {
+				const variables = { offset, limit: BATCH_SIZE };
+				const batchData = await fetchGraphQl({
+					query,
+					schema,
+					variables,
+				});
+				data.push(...batchData);
+			}
+			console.log('🚀 ~ tablesUnder1000.map ~ data:', data);
+			for (let i = 0; i < data.length; i += BATCH_SIZE) {
+				const payload = data.slice(i, i + BATCH_SIZE);
+				const rs = await db.insert(table).values(payload).returning().onConflictDoNothing();
+			}
+			// return rs;
 		}),
 	);
 	// const errors = responses.reduce<{ status: number; statusText: string }[]>((errors, res) => {
