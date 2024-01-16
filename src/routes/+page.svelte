@@ -50,12 +50,10 @@
 					type="search"
 				/>
 			</div>
-			<label for="filters" class="sr-only">Show filters</label>
-			<span class="sr-only">Loading...</span>
 			<Collapsible.Trigger asChild let:builder>
-				<Button builders={[builder]} id="filters" name="filters" variant="outline" class="relative">
+				<Button builders={[builder]} variant="outline" class="relative">
 					<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
-					<span class="sr-only">Filter</span>
+					<span class="sr-only">Show filters</span>
 					<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
 						<span
 							class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
