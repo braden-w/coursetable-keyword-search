@@ -4,7 +4,7 @@
 
 <div class="mx-auto my-4 flex max-w-7xl flex-col sm:my-10 sm:px-6 lg:px-8">
 	<Collapsible.Root>
-		<Collapsible.Trigger>
+		<Collapsible.Trigger class="w-full text-left">
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
 			>
@@ -21,7 +21,7 @@
 		</Collapsible.Content>
 	</Collapsible.Root>
 	<Collapsible.Root>
-		<Collapsible.Trigger>
+		<Collapsible.Trigger class="w-full text-left">
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
 			>
@@ -39,7 +39,7 @@
 		</Collapsible.Content>
 	</Collapsible.Root>
 	<Collapsible.Root>
-		<Collapsible.Trigger>
+		<Collapsible.Trigger class="w-full text-left">
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
 			>
@@ -112,7 +112,7 @@
 		</Collapsible.Content>
 	</Collapsible.Root>
 	<Collapsible.Root>
-		<Collapsible.Trigger>
+		<Collapsible.Trigger class="w-full text-left">
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
 			>
@@ -131,7 +131,7 @@
 	</Collapsible.Root>
 
 	<Collapsible.Root>
-		<Collapsible.Trigger>
+		<Collapsible.Trigger class="w-full text-left">
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
 			>
@@ -155,7 +155,7 @@
 	</Collapsible.Root>
 
 	<Collapsible.Root>
-		<Collapsible.Trigger>
+		<Collapsible.Trigger class="w-full text-left">
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
 			>
