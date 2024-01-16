@@ -1,20 +1,27 @@
 {
-	"version": "5",
-	"dialect": "sqlite",
-	"entries": [
-		{
-			"idx": 0,
-			"version": "5",
-			"when": 1705382508474,
-			"tag": "0000_flippant_terror",
-			"breakpoints": true
-		},
-		{
-			"idx": 1,
-			"version": "5",
-			"when": 1705417863888,
-			"tag": "0001_ancient_mandroid",
-			"breakpoints": true
-		}
-	]
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1705382508474,
+      "tag": "0000_flippant_terror",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1705417863888,
+      "tag": "0001_ancient_mandroid",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705421416768,
+      "tag": "0002_many_brother_voodoo",
+      "breakpoints": true
+    }
+  ]
 }

@@ -69,9 +69,13 @@ export const courses = sqliteTable('courses', {
 	last_enrollment_season_code: text('last_enrollment_season_code'),
 	// .references(() => seasons.season_code),
 	average_comment_neg: real('average_comment_neg'),
+	average_comment_neg_n: integer('average_comment_neg_n'),
 	average_comment_neu: real('average_comment_neu'),
+	average_comment_neu_n: integer('average_comment_neu_n'),
 	average_comment_pos: real('average_comment_pos'),
+	average_comment_pos_n: integer('average_comment_pos_n'),
 	average_comment_compound: real('average_comment_compound'),
+	average_comment_compound_n: integer('average_comment_compound_n'),
 });
 
 export const coursesRelations = relations(courses, ({ one, many }) => ({
