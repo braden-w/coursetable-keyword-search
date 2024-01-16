@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Footer from '$lib/Footer.svelte';
-	import '../app.postcss';
+	import '../app.pcss';
 
 	export let data;
 </script>
