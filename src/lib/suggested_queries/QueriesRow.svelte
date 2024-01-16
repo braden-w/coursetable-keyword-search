@@ -1,9 +1,8 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button';
 	import { premadeQueries } from '$lib/suggested_queries/premadeQueries';
 	import ArrowLeft from '~icons/heroicons/arrow-left';
 	import ArrowRight from '~icons/heroicons/arrow-right';
-	import { Button } from '$lib/components/ui/button';
-	import { cn } from '$lib/utils';
 
 	let scrollDiv: HTMLDivElement;
 	let showLeftArrow = false;
@@ -20,7 +19,7 @@
 
 <div class="flex items-center">
 	{#if showLeftArrow}
-		<Button variant="ghost" size="icon" class="-ml-6" on:click={scrollLeft}>
+		<Button variant="ghost" size="icon" class="-ml-4" on:click={scrollLeft}>
 			<ArrowLeft class="h-4 w-4" />
 		</Button>
 	{/if}
@@ -43,7 +42,7 @@
 			</div>
 		{/each}
 	</div>
-	<Button variant="ghost" size="icon" class="-mr-10" on:click={scrollRight}>
+	<Button variant="ghost" size="icon" class="-mr-4" on:click={scrollRight}>
 		<ArrowRight class="h-4 w-4" />
 	</Button>
 </div>
