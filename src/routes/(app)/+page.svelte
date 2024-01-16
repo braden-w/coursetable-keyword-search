@@ -7,6 +7,8 @@
 	import Funnel from '~icons/heroicons/funnel';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 	import { onMount } from 'svelte';
+	import { Input } from '$lib/components/ui/input';
+	import { Button } from '$lib/components/ui/button';
 
 	let keyword = '';
 	let course_keyword = '';
@@ -54,10 +56,10 @@
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 				<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
 			</div>
-			<input
+			<Input
 				id="search"
 				name="search"
-				class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+				class="pl-10 pr-3"
 				placeholder="Search by review keyword...(use % to match anything)"
 				type="search"
 				bind:value={keyword}
@@ -67,7 +69,7 @@
 		<label for="filters" class="sr-only">Show filters</label>
 		<span class="sr-only">Loading...</span>
 		<span class="relative inline-flex">
-			<button
+			<Button
 				id="filters"
 				type="button"
 				name="filters"
@@ -76,7 +78,7 @@
 			>
 				<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				<span class="sr-only">Filter</span>
-			</button>
+			</Button>
 			{#if !showFilters}
 				<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
 					<span
@@ -94,7 +96,7 @@
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				</div>
-				<input
+				<Input
 					id="search"
 					name="search"
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
@@ -112,7 +114,7 @@
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
 				</div>
-				<input
+				<Input
 					id="search"
 					name="search"
 					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
