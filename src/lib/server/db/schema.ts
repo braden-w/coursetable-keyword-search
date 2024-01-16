@@ -34,7 +34,8 @@ export const courses = sqliteTable(
 		locations_summary: text('locations_summary'),
 		times_long_summary: text('times_long_summary'),
 		times_summary: text('times_summary'),
-		times_by_day: text('times_by_day'),
+		// times_by_day":{"Monday":[["14:30","15:45","WLH 113","https://map.yale.edu/place/building/WLH?"]],"Wednesday":[["14:30","15:45","WLH 113","https://map.yale.edu/place/building/WLH?"]]}
+		times_by_day: text('times_by_day', { mode: 'json' }).$type<Record<string, string[][]>>(),
 		skills: text('skills'),
 		areas: text('areas'),
 		credits: real('credits'),
@@ -81,7 +82,9 @@ export const courses = sqliteTable(
 	},
 );
 
-export const insertCourseSchema = createInsertSchema(courses);
+export const insertCourseSchema = createInsertSchema(courses, {
+	times_by_day: z.record(z.string().array().array()),
+});
 
 export const listings = sqliteTable(
 	'listings',
@@ -126,10 +129,12 @@ export const discussions = sqliteTable('discussions', {
 	locations_summary: text('locations_summary'),
 	times_long_summary: text('times_long_summary'),
 	times_summary: text('times_summary'),
-	times_by_day: text('times_by_day'),
+	times_by_day: text('times_by_day', { mode: 'json' }).$type<Record<string, string[][]>>(),
 });
 
-export const insertDiscussionSchema = createInsertSchema(discussions);
+export const insertDiscussionSchema = createInsertSchema(discussions, {
+	times_by_day: z.record(z.string().array().array()),
+});
 
 export const flags = sqliteTable('flags', {
 	flag_id: integer('flag_id').primaryKey(),
