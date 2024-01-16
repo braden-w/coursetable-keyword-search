@@ -1,5 +1,22 @@
 import { COURSETABLE_COOKIE } from '$env/static/private';
-import { insertCourseSchema, insertListingSchema, insertSeasonSchema } from '$lib/server/db/schema';
+import {
+	insertCourseDiscussionSchema,
+	insertCourseFlagSchema,
+	insertCourseProfessorSchema,
+	insertCourseSchema,
+	insertDemandStatisticsSchema,
+	insertDiscussionSchema,
+	insertEvaluationNarrativeSchema,
+	insertEvaluationQuestionSchema,
+	insertEvaluationRatingSchema,
+	insertEvaluationStatisticsSchema,
+	insertFasttextSimilarSchema,
+	insertFlagSchema,
+	insertListingSchema,
+	insertProfessorSchema,
+	insertSeasonSchema,
+	insertTfidfSimilarSchema,
+} from '$lib/server/db/schema';
 import { error, json } from '@sveltejs/kit';
 import { z } from 'zod';
 
@@ -91,6 +108,7 @@ const TABLES = [
 				times_by_day
 			}
 		}`,
+		schema: insertDiscussionSchema,
 	},
 	{
 		name: 'flags',
@@ -100,6 +118,7 @@ const TABLES = [
 				flag_text
 			}
 		}`,
+		schema: insertFlagSchema,
 	},
 	{
 		name: 'demand_statistics',
@@ -111,6 +130,7 @@ const TABLES = [
 				demand
 			}
 		}`,
+		schema: insertDemandStatisticsSchema,
 	},
 	{
 		name: 'professors',
@@ -123,6 +143,7 @@ const TABLES = [
 				average_rating_n
 			}
 		}`,
+		schema: insertProfessorSchema,
 	},
 	{
 		name: 'evaluation_statistics',
@@ -139,6 +160,7 @@ const TABLES = [
 				avg_workload
 			}
 		}`,
+		schema: insertEvaluationStatisticsSchema,
 	},
 	{
 		name: 'evaluation_questions',
@@ -151,6 +173,7 @@ const TABLES = [
 				tag
 			}
 		}`,
+		schema: insertEvaluationQuestionSchema,
 	},
 	{
 		name: 'evaluation_narratives',
@@ -166,6 +189,7 @@ const TABLES = [
 				comment_compound
 			}
 		}`,
+		schema: insertEvaluationNarrativeSchema,
 	},
 	{
 		name: 'evaluation_ratings',
@@ -177,6 +201,7 @@ const TABLES = [
 				rating
 			}
 		}`,
+		schema: insertEvaluationRatingSchema,
 	},
 	{
 		name: 'course_professors',
@@ -186,6 +211,7 @@ const TABLES = [
 				professor_id
 			}
 		}`,
+		schema: insertCourseProfessorSchema,
 	},
 	{
 		name: 'course_discussions',
@@ -195,6 +221,7 @@ const TABLES = [
 				discussion_id
 			}
 		}`,
+		schema: insertCourseDiscussionSchema,
 	},
 	{
 		name: 'course_flags',
@@ -204,6 +231,7 @@ const TABLES = [
 				flag_id
 			}
 		}`,
+		schema: insertCourseFlagSchema,
 	},
 	{
 		name: 'fasttext_similars',
@@ -214,6 +242,7 @@ const TABLES = [
 				rank
 			}
 		}`,
+		schema: insertFasttextSimilarSchema,
 	},
 	{
 		name: 'tfidf_similars',
@@ -224,6 +253,7 @@ const TABLES = [
 				rank
 			}
 		}`,
+		schema: insertTfidfSimilarSchema,
 	},
 ] as const;
 
