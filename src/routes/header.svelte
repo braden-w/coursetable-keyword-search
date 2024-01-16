@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import GithubLogo from '~icons/mdi/github';
 	import logo from '$lib/assets/logo.png';
 
@@ -39,8 +39,8 @@
 							<!-- Hidden, lg:block -->
 							<h2
 								class="absolute ml-4 block text-4xl font-bold md:text-5xl"
-								in:fly={{ y: -20, duration: 800, easing: (t) => t * (2 - t) }}
-								out:fly={{ y: 30, duration: 800, easing: (t) => t * (2 - t) }}
+								in:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
+								out:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
 							>
 								{@html title}
 							</h2>
