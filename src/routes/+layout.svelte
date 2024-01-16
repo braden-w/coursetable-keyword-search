@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Footer from '$lib/Footer.svelte';
+	import Header from './header.svelte';
 	import '../app.pcss';
 
 	export let data;
@@ -27,9 +27,8 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
+	<Header />
 	<main class="flex-1">
 		<slot />
 	</main>
 </div>
-
-<Footer />
