@@ -385,7 +385,6 @@ export async function main() {
 				}
 			}
 		}
-		return json(data);
 	} catch (e) {
 		console.error(e);
 	}
