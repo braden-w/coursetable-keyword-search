@@ -73,6 +73,9 @@
 						</span>
 					</Button>
 				</Collapsible.Trigger>
+				<Button type="submit" class="ml-2">Search</Button>
+			</div>
+			<Collapsible.Content class="flex flex-col gap-2 pt-2">
 				<Select.Root
 					multiple
 					{selected}
@@ -87,7 +90,7 @@
 						selected = newSelected;
 					}}
 				>
-					<Select.Trigger class="w-[180px]">
+					<Select.Trigger class="w-full">
 						<Select.Value class="truncate" placeholder="Select columns" />
 					</Select.Trigger>
 					<Select.Content>
@@ -99,9 +102,6 @@
 					</Select.Content>
 					<Select.Input name="selectedColumns" />
 				</Select.Root>
-				<Button type="submit" class="ml-2">Search</Button>
-			</div>
-			<Collapsible.Content class="flex flex-col gap-2 pt-2">
 				<div class="relative">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 						<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
