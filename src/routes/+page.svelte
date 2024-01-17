@@ -14,6 +14,7 @@
 	import Funnel from '~icons/heroicons/funnel';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 	import { cn } from '$lib/utils';
+	import type { Selected } from 'bits-ui';
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -25,7 +26,7 @@
 	});
 
 	export let data;
-	let selected: { label?: string; value: string }[] = data.selectedColumns.map((column) => ({
+	let selected: Selected<string>[] = data.selectedColumns.map((column) => ({
 		label: column,
 		value: column,
 	}));
