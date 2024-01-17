@@ -96,7 +96,7 @@
 						}}
 					>
 						<Select.Trigger class="w-full">
-							<Select.Value class="pl-8 truncate" placeholder="Select columns" />
+							<Select.Value class="pl-7 truncate" placeholder="Select columns" />
 						</Select.Trigger>
 						<Select.Content>
 							{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
