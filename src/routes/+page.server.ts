@@ -1,6 +1,10 @@
 import { allCourseColumnNames } from '$lib/server/schema';
 import { z } from 'zod';
 
+type Writable<T> = {
+	-readonly [K in keyof T]: T[K];
+};
+
 export const load = async ({ url, locals: { db } }) => {
 	const queryParams = new URL(url).searchParams;
 
@@ -20,7 +24,7 @@ export const load = async ({ url, locals: { db } }) => {
 
 	// Construct dynamic columns selection
 	const dynamicColumns = allCourseColumnNames.reduce<
-		Record<z.infer<typeof selectedColumnsSchema>[number], boolean>
+		Record<Writable<(typeof allCourseColumnNames)[number]>, boolean>
 	>((acc, columnName) => {
 		if (selectedColumns.includes(columnName)) acc[columnName] = true;
 		else acc[columnName] = false;
