@@ -32,7 +32,8 @@
 	<div class="container flex h-14 max-w-screen-2xl items-center justify-between">
 		<a class="flex gap-4 items-center" href="/">
 			<img src={logo} alt="Logo" class="h-8 rounded-md" />
-			<Carousel.Root
+			<span class="font-bold text-xl">yaleapps / reviews</span>
+			<!-- <Carousel.Root
 				class="w-full max-w-[160px]"
 				opts={{ loop: true, align: 'start' }}
 				plugins={[
@@ -46,7 +47,7 @@
 						<Carousel.Item><span class="font-bold">{@html title}</span></Carousel.Item>
 					{/each}
 				</Carousel.Content>
-			</Carousel.Root>
+			</Carousel.Root> -->
 		</a>
 		<div class="flex gap-2">
 			<Button
