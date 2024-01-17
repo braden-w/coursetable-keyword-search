@@ -18,9 +18,13 @@ export const load = async ({ url, locals: { db } }) => {
 		.array(z.enum(allCourseColumnNames))
 		.transform((value) => [...new Set(value)].sort());
 	const selectedColumnsParam = queryParams.get('selectedColumns');
+	const DEFAULT_SELECTED_COLUMNS: z.infer<typeof selectedColumnsSchema> = [
+		'course_id',
+		'average_comment_compound',
+	];
 	const selectedColumns = selectedColumnsParam
 		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
-		: allCourseColumnNames;
+		: DEFAULT_SELECTED_COLUMNS;
 
 	// Construct dynamic columns selection
 	const dynamicColumns = allCourseColumnNames.reduce<
