@@ -12,7 +12,7 @@
 	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 	import * as Table from '$lib/components/ui/table';
 
-	const invoices = [
+	const tableColumns = [
 		{
 			invoice: 'INV001',
 			paymentStatus: 'Paid',
@@ -142,7 +142,7 @@
 	<QueriesRow />
 	<!-- Add screenshot with rounded corners -->
 	<Table.Root>
-		<Table.Caption>A list of your recent invoices.</Table.Caption>
+		<Table.Caption>A list of your recent tableColumns.</Table.Caption>
 		<Table.Header>
 			<Table.Row>
 				<Table.Head class="w-[100px]">Invoice</Table.Head>
@@ -152,7 +152,7 @@
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
-			{#each invoices as invoice, i (i)}
+			{#each tableColumns as invoice, i (i)}
 				<Table.Row>
 					<Table.Cell class="font-medium">{invoice.invoice}</Table.Cell>
 					<Table.Cell>{invoice.paymentStatus}</Table.Cell>
