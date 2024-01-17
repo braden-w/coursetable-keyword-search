@@ -39,60 +39,59 @@
 		</a>. Try now:
 	</h2>
 	<Collapsible.Root>
-		<div class="flex">
-			<label for="search" class="sr-only">Search</label>
-			<div class="relative flex-1">
-				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
+		<form action="/">
+			<div class="flex">
+				<label for="search" class="sr-only">Search</label>
+				<div class="relative flex-1">
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+						<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					</div>
+					<Input
+						name="search"
+						class="pl-10 pr-3"
+						placeholder="Search by review keyword...(use % to match anything)"
+						type="search"
+					/>
 				</div>
-				<Input
-					id="search"
-					name="search"
-					class="pl-10 pr-3"
-					placeholder="Search by review keyword...(use % to match anything)"
-					type="search"
-				/>
+				<Collapsible.Trigger asChild let:builder>
+					<Button builders={[builder]} variant="outline" class="relative">
+						<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
+						<span class="sr-only">Show filters</span>
+						<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
+							<span
+								class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
+							/>
+							<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+						</span>
+					</Button>
+				</Collapsible.Trigger>
 			</div>
-			<Collapsible.Trigger asChild let:builder>
-				<Button builders={[builder]} variant="outline" class="relative">
-					<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
-					<span class="sr-only">Show filters</span>
-					<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
-						<span
-							class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
-						/>
-						<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
-					</span>
-				</Button>
-			</Collapsible.Trigger>
-		</div>
-		<Collapsible.Content class="flex flex-col gap-2 pt-2">
-			<div class="relative">
-				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
+			<Collapsible.Content class="flex flex-col gap-2 pt-2">
+				<div class="relative">
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+						<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					</div>
+					<Input
+						name="search"
+						class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+						placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
+						type="search"
+					/>
 				</div>
-				<Input
-					id="search"
-					name="search"
-					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-					placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
-					type="search"
-				/>
-			</div>
 
-			<div class="relative">
-				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				<div class="relative">
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+						<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
+					</div>
+					<Input
+						name="search"
+						class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+						placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
+						type="search"
+					/>
 				</div>
-				<Input
-					id="search"
-					name="search"
-					class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-					placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
-					type="search"
-				/>
-			</div>
-		</Collapsible.Content>
+			</Collapsible.Content>
+		</form>
 	</Collapsible.Root>
 	<QueriesRow />
 	<!-- Add screenshot with rounded corners -->
