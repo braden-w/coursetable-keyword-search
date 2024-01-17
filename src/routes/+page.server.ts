@@ -57,7 +57,14 @@ export const load = async ({ url, locals: { db } }) => {
 	const DEFAULT_SORTING: z.infer<typeof sortingSchema> = [
 		{ column: 'course_id', direction: 'asc' },
 	];
-	const sorting = sortingParam ? sortingSchema.parse(JSON.parse(sortingParam)) : DEFAULT_SORTING;
+	const sorting = (function () {
+		if (!sortingParam) return DEFAULT_SORTING;
+		try {
+			return sortingSchema.parse(JSON.parse(sortingParam));
+		} catch (error) {
+			return DEFAULT_SORTING;
+		}
+	})();
 
 	// Construct orderBy clause
 	const orderByClause = sorting.map((sortItem) => ({
