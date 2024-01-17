@@ -118,7 +118,10 @@
 							<div class="flex items-center">
 								<Select.Root
 									selected={{ label: orderByItem.column, value: orderByItem.column }}
-									onSelectedChange={(selected) => (orderByConfig[i].column = selected.value)}
+									onSelectedChange={(selected) => {
+										if (!selected) return;
+										orderByConfig[i].column = selected.value;
+									}}
 								>
 									<Select.Trigger class="w-full">
 										<Select.Value class="pl-7 truncate" placeholder="Select column" />
@@ -127,8 +130,10 @@
 										{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
 											<Select.Item
 												selected={{ label: orderByItem.direction, value: courseColumnName }}
-												onSelectedChange={(selected) =>
-													(orderByConfig[i].direction = selected.value)}
+												onSelectedChange={(selected) => {
+													if (!selected) return;
+													orderByConfig[i].direction = selected.value;
+												}}
 											>
 												{courseColumnName}
 											</Select.Item>
