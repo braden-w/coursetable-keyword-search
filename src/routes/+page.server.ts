@@ -14,12 +14,9 @@ export const load = async ({ url, locals: { db } }) => {
 		.array(z.enum(allCourseColumnNames))
 		.transform((value) => [...new Set(value)].sort());
 	const selectedColumnsParam = queryParams.get('selectedColumns');
-	const processSelectedColumnsParam = (selectedColumnsParam: string | null) => {
-		if (selectedColumnsParam === null) return allCourseColumnNames;
-		// Default to all columns if none specified
-		return selectedColumnsSchema.parse(selectedColumnsParam.split(','));
-	};
-	const selectedColumns = processSelectedColumnsParam(selectedColumnsParam);
+	const selectedColumns = selectedColumnsParam
+		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
+		: allCourseColumnNames;
 
 	// Construct dynamic columns selection
 	const dynamicColumns = allCourseColumnNames.reduce<
