@@ -78,6 +78,12 @@
 					{selected}
 					onSelectedChange={(newSelected) => {
 						if (!newSelected) return;
+						// Sort in the order of data.allCourseColumnNames
+						newSelected.sort((a, b) => {
+							const aIndex = data.allCourseColumnNames.indexOf(a.value);
+							const bIndex = data.allCourseColumnNames.indexOf(b.value);
+							return aIndex - bIndex;
+						});
 						selected = newSelected;
 					}}
 				>
