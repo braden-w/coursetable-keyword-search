@@ -26,17 +26,14 @@
 
 <div class="w-full shadow-md px-2 sm:px-4 lg:px-8">
 	<div class="flex h-16 items-center justify-between">
-		<div class="flex px-2 lg:px-0">
-			<div class="flex-shrink-0">
-				<a href="/">
-					<img src={logo} alt="Logo" class="h-10 rounded-md" />
-				</a>
-			</div>
+		<div class="flex gap-1">
+			<a href="/">
+				<img src={logo} alt="Logo" class="h-10 rounded-md" />
+			</a>
 			<a href="/" on:click={cycleTitles}>
 				<div class="hidden sm:block">
 					{#each titles as title, index}
 						{#if titleIndex === index}
-							<!-- Hidden, lg:block -->
 							<h2
 								class="absolute ml-4 block text-4xl font-bold md:text-5xl"
 								in:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
