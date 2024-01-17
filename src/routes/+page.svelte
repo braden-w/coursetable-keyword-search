@@ -149,7 +149,7 @@
 										<Select.Item value="asc">Ascending</Select.Item>
 										<Select.Item value="desc">Descending</Select.Item>
 									</Select.Content>
-									<Select.Input name="orderByConfig[{i}].d" />
+									<Select.Input name="orderByConfig[{i}].direction" />
 								</Select.Root>
 							</div>
 						{/each}
