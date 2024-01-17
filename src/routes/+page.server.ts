@@ -1,4 +1,4 @@
-import { allCourseColumnNames, courses } from '$lib/server/schema';
+import { allCourseColumnNames, type CourseColumnName } from '$lib/server/schema';
 import { z } from 'zod';
 
 export const load = async ({ url, locals: { db } }) => {
@@ -8,27 +8,29 @@ export const load = async ({ url, locals: { db } }) => {
 	const pageSize = parseInt(queryParams.get('pageSize') ?? '10');
 	const currentPage = parseInt(queryParams.get('currentPage') ?? '1');
 
-	// Column toggling
-	// Zod schema that validates an array of column names
-	const selectedColumnsSchema = z
-		.array(z.enum(allCourseColumnNames))
-		.transform((value) => [...new Set(value)].sort());
-	const selectedColumnsParam = queryParams.get('selectedColumns');
-	const selectedColumns = selectedColumnsParam
-		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
-		: allCourseColumnNames; // Default to all columns if none specified
-
-	// Construct dynamic columns selection
-	const dynamicColumns = selectedColumns.reduce<Record<keyof typeof courses, boolean>>(
-		(acc, columnName) => {
-			acc[columnName] = true;
-			return acc;
-		},
-		{},
-	);
-
 	// Pagination calculation
 	const offset = (currentPage - 1) * pageSize;
+
+	// Column toggling
+	const selectedColumnsSchema = z.array(z.enum(allCourseColumnNames));
+	// .transform((value) => [...new Set(value)].sort());
+	const selectedColumnsParam = queryParams.get('selectedColumns');
+	const processSelectedColumnsParam = (selectedColumnsParam: string | null) => {
+		if (selectedColumnsParam === null) return allCourseColumnNames;
+		// Default to all columns if none specified
+		return selectedColumnsSchema.parse(selectedColumnsParam.split(','));
+	};
+	const selectedColumns = processSelectedColumnsParam(selectedColumnsParam);
+
+	// Construct dynamic columns selection
+	const dynamicColumns = allCourseColumnNames.reduce<
+		Record<z.infer<typeof selectedColumnsSchema>[number], boolean>
+	>((acc, columnName) => {
+		if (selectedColumns.includes(columnName)) acc[columnName] = true;
+		else acc[columnName] = false;
+		return acc;
+	}, {});
+	console.log('🚀 ~ load ~ dynamicColumns:', dynamicColumns);
 
 	// z.union of all column names
 	const allCourses = await db.query.courses.findMany({
