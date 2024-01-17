@@ -5,8 +5,8 @@ export const load = async ({ url, locals: { db } }) => {
 	const queryParams = new URL(url).searchParams;
 
 	// Pagination parameters
-	const pageSize = parseInt(queryParams.get('pageSize') ?? '10');
-	const currentPage = parseInt(queryParams.get('currentPage') ?? '1');
+	const pageSize = Number(queryParams.get('pageSize') ?? '10');
+	const currentPage = Number(queryParams.get('currentPage') ?? '1');
 
 	// Pagination calculation
 	const offset = (currentPage - 1) * pageSize;
