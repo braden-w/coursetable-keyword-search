@@ -50,18 +50,18 @@ export const load = async ({ url, locals: { db } }) => {
 		return acc;
 	}, {});
 
-	// Extract and parse sorting parameters
-	const sortingParam = queryParams.get('sorting');
-	const DEFAULT_SORTING: OrderByConfig= [
+	// Extract and parse orderBy parameters
+	const orderByConfigParam = queryParams.get('sorting');
+	const DEFAULT_ORDER_BY_CONFIG: OrderByConfig = [
 		{ column: 'average_comment_compound', direction: 'desc' },
 		{ column: 'average_rating', direction: 'desc' },
 	];
-	const sorting: OrderByConfig = (function () {
-		if (!sortingParam) return DEFAULT_SORTING;
+	const orderByConfig: OrderByConfig = (function () {
+		if (!orderByConfigParam) return DEFAULT_ORDER_BY_CONFIG;
 		try {
-			return orderByConfigSchema.parse(JSON.parse(sortingParam));
+			return orderByConfigSchema.parse(JSON.parse(orderByConfigParam));
 		} catch (error) {
-			return DEFAULT_SORTING;
+			return DEFAULT_ORDER_BY_CONFIG;
 		}
 	})();
 
@@ -78,10 +78,10 @@ export const load = async ({ url, locals: { db } }) => {
 		// 	// evaluationStatistics: true,
 		// },
 		orderBy: (courses, { asc, desc }) =>
-			sorting.map(({ column, direction }) =>
+			orderByConfig.map(({ column, direction }) =>
 				direction === 'asc' ? asc(courses[column]) : desc(courses[column]),
 			),
 		where: (courses, { eq }) => eq(courses.season_code, '202401'),
 	});
-	return { allCourseColumnNames, selectedColumns, rows };
+	return { allCourseColumnNames, selectedColumns, rows, orderByConfig };
 };
