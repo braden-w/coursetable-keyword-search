@@ -115,7 +115,7 @@
 				<Popover.Root>
 					<Popover.Trigger>Order By</Popover.Trigger>
 					<Popover.Content class="w-full max-w-xl">
-						{#each data.orderByConfig as orderByItem, i (i)}
+						{#each orderByConfig as orderByItem, i}
 							<div class="flex items-center">
 								<Select.Root
 									selected={{ label: orderByItem.column, value: orderByItem.column }}
