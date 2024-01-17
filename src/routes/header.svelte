@@ -1,9 +1,9 @@
 <script lang="ts">
+	import logo from '$lib/assets/logo.png';
+	import { Button } from '$lib/components/ui/button';
 	import { onDestroy, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import GithubLogo from '~icons/mdi/github';
-	import logo from '$lib/assets/logo.png';
-	import { Button } from '$lib/components/ui/button';
 
 	const titles = [
 		'ReviewTable',
@@ -34,11 +34,7 @@
 			<button on:click={cycleTitles}>
 				{#each titles as title, index}
 					{#if titleIndex === index}
-						<span
-							class="font-bold"
-							in:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
-							out:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
-						>
+						<span class="font-bold" transition:fade={{ duration: 800, easing: (t) => t * (2 - t) }}>
 							{@html title}
 						</span>
 					{/if}
