@@ -1,21 +1,21 @@
 <script lang="ts">
-	import * as Popover from '$lib/components/ui/popover';
 	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Input } from '$lib/components/ui/input';
+	import * as Popover from '$lib/components/ui/popover';
 	import * as Select from '$lib/components/ui/select';
 	import * as Table from '$lib/components/ui/table';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
+	import { cn } from '$lib/utils';
+	import type { Selected } from 'bits-ui';
 	import { onMount } from 'svelte';
 	import Typewriter from 'typewriter-effect/dist/core';
 	import AcademicCap from '~icons/heroicons/academic-cap';
 	import BookOpen from '~icons/heroicons/book-open';
 	import Funnel from '~icons/heroicons/funnel';
-	import List from '~icons/lucide/list';
+	import List from '~icons/heroicons/list-bullet';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
-	import { cn } from '$lib/utils';
-	import type { Selected } from 'bits-ui';
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -53,7 +53,7 @@
 				<label for="search" class="sr-only">Search</label>
 				<div class="relative flex-1">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<MagnifyingGlass class="h-5 w-5 text-gray-400" aria-hidden="true" />
+						<MagnifyingGlass class="text-muted-foreground" aria-hidden="true" />
 					</div>
 					<Input
 						name="search"
@@ -64,7 +64,7 @@
 				</div>
 				<Collapsible.Trigger asChild let:builder>
 					<Button builders={[builder]} variant="outline" class="relative">
-						<Funnel class="h-5 w-5 text-gray-400" aria-hidden="true" />
+						<Funnel class="text-muted-foreground" aria-hidden="true" />
 						<span class="sr-only">Show filters</span>
 						<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
 							<span
@@ -79,7 +79,7 @@
 			<Collapsible.Content class="flex flex-col gap-2 pt-2">
 				<div class="relative">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<List />
+						<List class="text-muted-foreground" />
 					</div>
 					<Select.Root
 						multiple
@@ -96,7 +96,7 @@
 						}}
 					>
 						<Select.Trigger class="w-full">
-							<Select.Value class="truncate" placeholder="Select columns" />
+							<Select.Value class="pl-8 truncate" placeholder="Select columns" />
 						</Select.Trigger>
 						<Select.Content>
 							{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
@@ -110,11 +110,11 @@
 				</div>
 				<div class="relative">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
+						<BookOpen class="text-muted-foreground" aria-hidden="true" />
 					</div>
 					<Input
 						name="search"
-						class="pl-10 pr-3"
+						class="pl-10"
 						placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
 						type="search"
 					/>
@@ -122,11 +122,11 @@
 
 				<div class="relative">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<AcademicCap class="h-5 w-5 text-gray-400" aria-hidden="true" />
+						<AcademicCap class="text-muted-foreground" aria-hidden="true" />
 					</div>
 					<Input
 						name="search"
-						class="pl-10 pr-3"
+						class="pl-10"
 						placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
 						type="search"
 					/>
