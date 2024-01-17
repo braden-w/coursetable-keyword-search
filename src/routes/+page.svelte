@@ -15,6 +15,7 @@
 	import BookOpen from '~icons/heroicons/book-open';
 	import Funnel from '~icons/heroicons/funnel';
 	import List from '~icons/heroicons/list-bullet';
+	import Trash from '~icons/heroicons/trash';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 	import type { OrderByConfig } from './schema';
 
@@ -151,6 +152,10 @@
 									</Select.Content>
 									<Select.Input name="orderByConfig[{i}].direction" />
 								</Select.Root>
+								<!-- Trash Button -->
+								<Button variant="ghost" size="icon">
+									<Trash />
+								</Button>
 							</div>
 						{/each}
 					</Popover.Content>
