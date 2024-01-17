@@ -100,7 +100,7 @@
 		<Table.Caption>A list of your recent tableColumns.</Table.Caption>
 		<Table.Header>
 			<Table.Row>
-				{#each data.selectedColumns as column, i (i)}
+				{#each data.selectedColumns as column (column)}
 					<Table.Head>{column}</Table.Head>
 				{/each}
 			</Table.Row>
@@ -108,7 +108,7 @@
 		<Table.Body>
 			{#each data.rows as row (row.course_id)}
 				<Table.Row>
-					{#each data.selectedColumns as column, i (i)}
+					{#each data.selectedColumns as column (column)}
 						<Table.Cell>
 							{row[column]}
 						</Table.Cell>
