@@ -25,7 +25,7 @@
 	});
 
 	export let data;
-	let selected: { label: string; value: string }[] = data.selectedColumns.map((column) => ({
+	let selected: { label?: string; value: string }[] = data.selectedColumns.map((column) => ({
 		label: column,
 		value: column,
 	}));
