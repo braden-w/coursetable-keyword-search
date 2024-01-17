@@ -25,41 +25,38 @@
 	onDestroy(() => clearInterval(interval));
 </script>
 
-<div class="w-full shadow-md px-2 sm:px-4 lg:px-8">
-	<div class="flex h-16 items-center justify-between">
-		<div class="flex gap-1">
-			<a href="/">
-				<img src={logo} alt="Logo" class="h-10 rounded-md" />
-			</a>
-			<a href="/" on:click={cycleTitles}>
-				<div class="hidden sm:block">
-					{#each titles as title, index}
-						{#if titleIndex === index}
-							<h2
-								class="absolute ml-4 block text-4xl font-bold md:text-5xl"
-								in:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
-								out:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
-							>
-								{@html title}
-							</h2>
-						{/if}
-					{/each}
-				</div>
-			</a>
-		</div>
-
-		<div class="flex gap-2">
-			<Button
-				variant="ghost"
-				size="icon"
-				href="https://github.com/braden-w/coursetable-keyword-search"
-				target="_blank"
-				rel="noreferrer"
-			>
-				<GithubLogo class="h-6 w-6" aria-hidden="true" />
-			</Button>
-			<Button variant="ghost" href="/about">About</Button>
-			<Button variant="ghost" href="/search">Search</Button>
-		</div>
+<div class="w-full shadow-md px-2 sm:px-4 lg:px-8 flex h-16 justify-between items-center">
+	<div class="flex gap-1">
+		<a href="/">
+			<img src={logo} alt="Logo" class="h-10 rounded-md" />
+		</a>
+		<a href="/" on:click={cycleTitles}>
+			<div class="hidden sm:block">
+				{#each titles as title, index}
+					{#if titleIndex === index}
+						<h2
+							class="absolute ml-4 block text-4xl font-bold md:text-5xl"
+							in:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
+							out:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
+						>
+							{@html title}
+						</h2>
+					{/if}
+				{/each}
+			</div>
+		</a>
+	</div>
+	<div class="flex gap-2">
+		<Button
+			variant="ghost"
+			size="icon"
+			href="https://github.com/braden-w/coursetable-keyword-search"
+			target="_blank"
+			rel="noreferrer"
+		>
+			<GithubLogo class="h-6 w-6" aria-hidden="true" />
+		</Button>
+		<Button variant="ghost" href="/about">About</Button>
+		<Button variant="ghost" href="/search">Search</Button>
 	</div>
 </div>
