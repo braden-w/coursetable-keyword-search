@@ -153,7 +153,13 @@
 									<Select.Input name="orderByConfig[{i}].direction" />
 								</Select.Root>
 								<!-- Trash Button -->
-								<Button variant="ghost" size="icon">
+								<Button
+									variant="ghost"
+									size="icon"
+									on:click={() => {
+										orderByConfig = [...orderByConfig.slice(0, i), ...orderByConfig.slice(i + 1)];
+									}}
+								>
 									<Trash />
 								</Button>
 							</div>
