@@ -1,9 +1,10 @@
 <script lang="ts">
-	import * as Select from '$lib/components/ui/select';
+	import * as Popover from '$lib/components/ui/popover';
 	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Input } from '$lib/components/ui/input';
+	import * as Select from '$lib/components/ui/select';
 	import * as Table from '$lib/components/ui/table';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
 	import { onMount } from 'svelte';
@@ -12,6 +13,7 @@
 	import BookOpen from '~icons/heroicons/book-open';
 	import Funnel from '~icons/heroicons/funnel';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
+	import { cn } from '$lib/utils';
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -127,9 +129,20 @@
 			{#each data.rows as row (row.course_id)}
 				<Table.Row>
 					{#each data.selectedColumns as column (column)}
-						<Table.Cell class="truncate max-w-16">
-							{row[column]}
-						</Table.Cell>
+						<Popover.Root>
+							<Popover.Trigger asChild let:builder>
+								<td
+									class={cn('p-4 align-middle [&:has([role=checkbox])]:pr-0', 'truncate max-w-16')}
+									on:click
+									on:keydown
+									use:builder.action
+									{...builder}
+								>
+									{row[column]}
+								</td>
+							</Popover.Trigger>
+							<Popover.Content>{row[column]}</Popover.Content>
+						</Popover.Root>
 					{/each}
 				</Table.Row>
 			{/each}
