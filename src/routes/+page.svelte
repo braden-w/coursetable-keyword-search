@@ -72,7 +72,7 @@
 				</Collapsible.Trigger>
 				<Select.Root multiple bind:selected>
 					<Select.Trigger class="w-[180px]">
-						<Select.Value placeholder="Select columns" />
+						<Select.Value class="truncate" placeholder="Select columns" />
 					</Select.Trigger>
 					<Select.Content>
 						{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
