@@ -127,7 +127,7 @@
 			{#each data.rows as row (row.course_id)}
 				<Table.Row>
 					{#each data.selectedColumns as column (column)}
-						<Table.Cell>
+						<Table.Cell class="truncate max-w-16">
 							{row[column]}
 						</Table.Cell>
 					{/each}
