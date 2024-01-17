@@ -3,6 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import GithubLogo from '~icons/mdi/github';
 	import logo from '$lib/assets/logo.png';
+	import { Button } from '$lib/components/ui/button';
 
 	const titles = [
 		'ReviewTable',
@@ -47,21 +48,18 @@
 			</a>
 		</div>
 
-		<div class="block">
-			<div class="flex space-x-4">
-				<!-- GitHub Icon -->
-				<a
-					href="https://github.com/braden-w/coursetable-keyword-search"
-					class="btn btn-ghost normal-case"
-					target="_blank"
-					rel="noreferrer"
-				>
-					<GithubLogo class="h-6 w-6" aria-hidden="true" />
-				</a>
-				<a href="/about" class="btn btn-ghost gap-1 normal-case"> About </a>
-
-				<a href="/search" class="btn btn-ghost gap-1 normal-case"> Search </a>
-			</div>
+		<div class="flex gap-2">
+			<Button
+				variant="ghost"
+				size="icon"
+				href="https://github.com/braden-w/coursetable-keyword-search"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<GithubLogo class="h-6 w-6" aria-hidden="true" />
+			</Button>
+			<Button variant="ghost" href="/about">About</Button>
+			<Button variant="ghost" href="/search">Search</Button>
 		</div>
 	</div>
 </div>
