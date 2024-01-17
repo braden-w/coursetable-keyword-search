@@ -10,10 +10,12 @@ export const load = async ({ url, locals: { db } }) => {
 
 	// Column toggling
 	// Zod schema that validates an array of column names
-	const selectedColumnsSchema = z.array(z.enum(allCourseColumnNames));
+	const selectedColumnsSchema = z
+		.array(z.enum(allCourseColumnNames))
+		.transform((value) => [...new Set(value)].sort());
 	const selectedColumnsParam = queryParams.get('selectedColumns');
 	const selectedColumns = selectedColumnsParam
-		? selectedColumnsParam.split(',')
+		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
 		: allCourseColumnNames; // Default to all columns if none specified
 
 	// Construct dynamic columns selection
