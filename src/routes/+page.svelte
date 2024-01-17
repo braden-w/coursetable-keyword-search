@@ -100,19 +100,19 @@
 		<Table.Caption>A list of your recent tableColumns.</Table.Caption>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head class="w-[100px]">Invoice</Table.Head>
-				<Table.Head>Status</Table.Head>
-				<Table.Head>Method</Table.Head>
-				<Table.Head class="text-right">Amount</Table.Head>
+				{#each data.selectedColumns as column, i (i)}
+					<Table.Head>{column}</Table.Head>
+				{/each}
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
-			{#each data.selectedColumns as column, i (i)}
+			{#each data.rows as row (row.course_id)}
 				<Table.Row>
-					<Table.Cell class="font-medium">{column}</Table.Cell>
-					<Table.Cell>{column}</Table.Cell>
-					<Table.Cell>{column}</Table.Cell>
-					<Table.Cell class="text-right">{column}</Table.Cell>
+					{#each data.selectedColumns as column, i (i)}
+						<Table.Cell>
+							{row[column]}
+						</Table.Cell>
+					{/each}
 				</Table.Row>
 			{/each}
 		</Table.Body>
