@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as Select from '$lib/components/ui/select';
 	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
@@ -65,11 +66,19 @@
 						</span>
 					</Button>
 				</Collapsible.Trigger>
-				<select name="selectedColumns" multiple>
-					{#each data.allCourseColumnNames as column (column)}
-						<option value={column}>{column}</option>
-					{/each}
-				</select>
+				<Select.Root multiple>
+					<Select.Trigger class="w-[180px]">
+						<Select.Value placeholder="Select a fruit" />
+					</Select.Trigger>
+					<Select.Content>
+						{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
+							<Select.Item value={courseColumnName}>
+								{courseColumnName}
+							</Select.Item>
+						{/each}
+					</Select.Content>
+					<Select.Input name="selectedColumns" />
+				</Select.Root>
 				<Button type="submit" class="ml-2">Search</Button>
 			</div>
 			<Collapsible.Content class="flex flex-col gap-2 pt-2">
