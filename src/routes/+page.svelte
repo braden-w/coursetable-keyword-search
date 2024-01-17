@@ -127,12 +127,16 @@
 		</Table.Header>
 		<Table.Body>
 			{#each data.rows as row (row.course_id)}
-				<Table.Row>
+				<Table.Row class="hover:bg-muted/25">
 					{#each data.selectedColumns as column (column)}
 						<Popover.Root>
 							<Popover.Trigger asChild let:builder>
 								<td
-									class={cn('p-4 align-middle [&:has([role=checkbox])]:pr-0', 'truncate max-w-16')}
+									class={cn(
+										'p-4 align-middle [&:has([role=checkbox])]:pr-0',
+										'truncate max-w-16',
+										'hover:bg-muted/75',
+									)}
 									on:click
 									on:keydown
 									use:builder.action
