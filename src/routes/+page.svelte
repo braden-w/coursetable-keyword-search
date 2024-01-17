@@ -23,6 +23,14 @@
 	});
 
 	export let data;
+	let selected: { label: string; value: string }[] = data.selectedColumns.map((column) => ({
+		label: column,
+		value: column,
+	}));
+	$: selected = data.selectedColumns.map((column) => ({
+		label: column,
+		value: column,
+	}));
 </script>
 
 <div class="container max-w-6xl flex flex-col gap-4 justify-center mt-6 lg:mt-16">
@@ -66,7 +74,7 @@
 						</span>
 					</Button>
 				</Collapsible.Trigger>
-				<Select.Root multiple>
+				<Select.Root multiple bind:selected>
 					<Select.Trigger class="w-[180px]">
 						<Select.Value placeholder="Select columns" />
 					</Select.Trigger>
