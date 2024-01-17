@@ -78,13 +78,10 @@ export const load = async ({ url, locals: { db } }) => {
 		// 	evaluationRatings: { limit: 100 },
 		// 	// evaluationStatistics: true,
 		// },
-		orderBy: (courses, { asc, desc }) => {
-			const orderByClause = sorting.map(({ column, direction }) => {
-				if (direction === 'asc') return asc(courses[column]);
-				else return desc(courses[column]);
-			});
-			return orderByClause;
-		},
+		orderBy: (courses, { asc, desc }) =>
+			sorting.map(({ column, direction }) =>
+				direction === 'asc' ? asc(courses[column]) : desc(courses[column]),
+			),
 		where: (courses, { eq }) => eq(courses.season_code, '202401'),
 	});
 	return { allCourseColumnNames, selectedColumns, rows };
