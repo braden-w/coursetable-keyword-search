@@ -68,7 +68,7 @@
 				</Collapsible.Trigger>
 				<Select.Root multiple>
 					<Select.Trigger class="w-[180px]">
-						<Select.Value placeholder="Select a fruit" />
+						<Select.Value placeholder="Select columns" />
 					</Select.Trigger>
 					<Select.Content>
 						{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
