@@ -51,7 +51,7 @@ export const load = async ({ url, locals: { db } }) => {
 	}, {});
 
 	// Extract and parse orderBy parameters
-	const orderByConfigParam = queryParams.get('sorting');
+	const orderByConfigParam = queryParams.get('orderByConfig');
 	const DEFAULT_ORDER_BY_CONFIG: OrderByConfig = [
 		{ column: 'average_comment_compound', direction: 'desc' },
 		{ column: 'average_rating', direction: 'desc' },
