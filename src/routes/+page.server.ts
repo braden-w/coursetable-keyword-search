@@ -54,9 +54,10 @@ export const load = async ({ url, locals: { db } }) => {
 		.array();
 	// Extract and parse sorting parameters
 	const sortingParam = queryParams.get('sorting');
-	const sorting = sortingParam
-		? sortingSchema.parse(JSON.parse(sortingParam))
-		: [{ column: 'course_id', direction: 'asc' }]; // Default sorting
+	const DEFAULT_SORTING: z.infer<typeof sortingSchema> = [
+		{ column: 'course_id', direction: 'asc' },
+	];
+	const sorting = sortingParam ? sortingSchema.parse(JSON.parse(sortingParam)) : DEFAULT_SORTING;
 
 	// Construct orderBy clause
 	const orderByClause = sorting.map((sortItem) => ({
