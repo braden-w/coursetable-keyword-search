@@ -66,11 +66,6 @@ export const load = async ({ url, locals: { db } }) => {
 		}
 	})();
 
-	// Construct orderBy clause
-	const orderByClause = sorting.map((sortItem) => ({
-		[sortItem.column]: sortItem.direction,
-	}));
-
 	// z.union of all column names
 	const rows = await db.query.courses.findMany({
 		columns: dynamicColumns,
@@ -83,7 +78,13 @@ export const load = async ({ url, locals: { db } }) => {
 		// 	evaluationRatings: { limit: 100 },
 		// 	// evaluationStatistics: true,
 		// },
-		orderBy: (courses, { desc }) => [desc(courses.average_comment_compound)],
+		orderBy: (courses, { asc, desc }) => {
+			const orderByClause = sorting.map(({ column, direction }) => {
+				if (direction === 'asc') return asc(courses[column]);
+				else return desc(courses[column]);
+			});
+			return orderByClause;
+		},
 		where: (courses, { eq }) => eq(courses.season_code, '202401'),
 	});
 	return { allCourseColumnNames, selectedColumns, rows };
