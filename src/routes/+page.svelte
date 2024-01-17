@@ -108,7 +108,7 @@
 					</div>
 					<Input
 						name="search"
-						class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+						class="pl-10 pr-3"
 						placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
 						type="search"
 					/>
@@ -120,7 +120,7 @@
 					</div>
 					<Input
 						name="search"
-						class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:border-primary focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
+						class="pl-10 pr-3"
 						placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
 						type="search"
 					/>
