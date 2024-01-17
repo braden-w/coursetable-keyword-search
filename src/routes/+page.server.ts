@@ -1,7 +1,33 @@
-import { courses } from '$lib/server/schema';
+import { allCourseColumnNames, courses } from '$lib/server/schema';
+import { z } from 'zod';
 
-export const load = async ({ locals: { db } }) => {
-	const allColumnNames = Object.keys(courses);
+export const load = async ({ url, locals: { db } }) => {
+	const queryParams = new URL(url).searchParams;
+
+	// Pagination parameters
+	const pageSize = parseInt(queryParams.get('pageSize') ?? '10');
+	const currentPage = parseInt(queryParams.get('currentPage') ?? '1');
+
+	// Column toggling
+	// Zod schema that validates an array of column names
+	const selectedColumnsSchema = z.array(z.enum(allCourseColumnNames));
+	const selectedColumnsParam = queryParams.get('selectedColumns');
+	const selectedColumns = selectedColumnsParam
+		? selectedColumnsParam.split(',')
+		: allCourseColumnNames; // Default to all columns if none specified
+
+	// Construct dynamic columns selection
+	const dynamicColumns = selectedColumns.reduce<Record<keyof typeof courses, boolean>>(
+		(acc, columnName) => {
+			acc[columnName] = true;
+			return acc;
+		},
+		{},
+	);
+
+	// Pagination calculation
+	const offset = (currentPage - 1) * pageSize;
+
 	// z.union of all column names
 	const allCourses = await db.query.courses.findMany({
 		limit: 100,
@@ -64,5 +90,5 @@ export const load = async ({ locals: { db } }) => {
 		orderBy: (courses, { desc }) => [desc(courses.average_comment_compound)],
 		where: (courses, { eq }) => eq(courses.season_code, '202401'),
 	});
-	return { allColumnNames, allCourses };
+	return { allCourseColumnNames, allCourses };
 };
