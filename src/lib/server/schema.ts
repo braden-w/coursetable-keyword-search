@@ -6,7 +6,7 @@ import {
 	real,
 	sqliteTable,
 	text,
-	uniqueIndex
+	uniqueIndex,
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
@@ -23,6 +23,54 @@ export const seasonsRelations = relations(seasons, ({ many }) => ({
 }));
 
 export const insertSeasonSchema = createInsertSchema(seasons);
+
+export const allCourseColumnNames = [
+	'course_id',
+	'season_code',
+	'title',
+	'short_title',
+	'description',
+	'requirements',
+	'locations_summary',
+	'times_long_summary',
+	'times_summary',
+	'times_by_day',
+	'skills',
+	'areas',
+	'credits',
+	'syllabus_url',
+	'course_home_url',
+	'regnotes',
+	'extra_info',
+	'rp_attr',
+	'classnotes',
+	'final_exam',
+	'fysem',
+	'sysem',
+	'colsem',
+	'average_rating',
+	'average_rating_n',
+	'average_workload',
+	'average_workload_n',
+	'average_rating_same_professors',
+	'average_rating_same_professors_n',
+	'average_workload_same_professors',
+	'average_workload_same_professors_n',
+	'last_offered_course_id',
+	'same_course_id',
+	'same_course_and_profs_id',
+	'last_enrollment_course_id',
+	'last_enrollment',
+	'last_enrollment_season_code',
+	'average_comment_neg',
+	'average_comment_neg_n',
+	'average_comment_neu',
+	'average_comment_neu_n',
+	'average_comment_pos',
+	'average_comment_pos_n',
+	'average_comment_compound',
+	'average_comment_compound_n',
+] as const;
 
 export const courses = sqliteTable('courses', {
 	course_id: integer('course_id').primaryKey(),
@@ -75,7 +123,7 @@ export const courses = sqliteTable('courses', {
 	average_comment_pos_n: integer('average_comment_pos_n'),
 	average_comment_compound: real('average_comment_compound'),
 	average_comment_compound_n: integer('average_comment_compound_n'),
-});
+} satisfies Record<(typeof allCourseColumnNames)[number], SQLiteRealBuilderInitial>);
 
 export const coursesRelations = relations(courses, ({ one, many }) => ({
 	season: one(seasons, {
