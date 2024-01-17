@@ -65,6 +65,12 @@
 						</span>
 					</Button>
 				</Collapsible.Trigger>
+				<select name="selectedColumns" multiple>
+					{#each data.allCourseColumnNames as column (column)}
+						<option value={column}>{column}</option>
+					{/each}
+				</select>
+				<Button type="submit" class="ml-2">Search</Button>
 			</div>
 			<Collapsible.Content class="flex flex-col gap-2 pt-2">
 				<div class="relative">
