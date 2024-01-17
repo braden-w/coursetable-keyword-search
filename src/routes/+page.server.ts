@@ -28,7 +28,7 @@ export const load = async ({ url, locals: { db } }) => {
 	}, {});
 
 	// z.union of all column names
-	const allCourses = await db.query.courses.findMany({
+	const rows = await db.query.courses.findMany({
 		columns: dynamicColumns,
 		limit: pageSize,
 		offset,
@@ -42,5 +42,5 @@ export const load = async ({ url, locals: { db } }) => {
 		orderBy: (courses, { desc }) => [desc(courses.average_comment_compound)],
 		where: (courses, { eq }) => eq(courses.season_code, '202401'),
 	});
-	return { allCourseColumnNames, allCourses };
+	return { allCourseColumnNames, selectedColumns, rows };
 };
