@@ -10,7 +10,7 @@ import {
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
-import { allCourseColumnNames } from './all-course-column-names';
+import { allCourseColumnNames } from '../all-course-column-names';
 
 export const seasons = sqliteTable('seasons', {
 	season_code: text('season_code').primaryKey(),
