@@ -21,13 +21,9 @@ const DEFAULT_SELECTED_COLUMNS: z.infer<typeof selectedColumnsSchema> = [
 	'average_rating_same_professors',
 	'average_workload_same_professors',
 	'average_comment_neg',
-	'average_comment_neg_n',
 	'average_comment_neu',
-	'average_comment_neu_n',
 	'average_comment_pos',
-	'average_comment_pos_n',
 	'average_comment_compound',
-	'average_comment_compound_n',
 ] as const;
 
 export const load = async ({ url, locals: { db } }) => {
