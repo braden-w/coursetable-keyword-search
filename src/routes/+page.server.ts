@@ -1,4 +1,4 @@
-import { allCourseColumnNames, type CourseColumnName } from '$lib/server/schema';
+import { allCourseColumnNames } from '$lib/server/schema';
 import { z } from 'zod';
 
 export const load = async ({ url, locals: { db } }) => {
