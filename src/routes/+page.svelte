@@ -12,6 +12,7 @@
 	import AcademicCap from '~icons/heroicons/academic-cap';
 	import BookOpen from '~icons/heroicons/book-open';
 	import Funnel from '~icons/heroicons/funnel';
+	import List from '~icons/lucide/list';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 	import { cn } from '$lib/utils';
 	import type { Selected } from 'bits-ui';
@@ -76,32 +77,37 @@
 				<Button type="submit" class="ml-2">Search</Button>
 			</div>
 			<Collapsible.Content class="flex flex-col gap-2 pt-2">
-				<Select.Root
-					multiple
-					{selected}
-					onSelectedChange={(newSelected) => {
-						if (!newSelected) return;
-						// Sort in the order of data.allCourseColumnNames
-						newSelected.sort((a, b) => {
-							const aIndex = data.allCourseColumnNames.indexOf(a.value);
-							const bIndex = data.allCourseColumnNames.indexOf(b.value);
-							return aIndex - bIndex;
-						});
-						selected = newSelected;
-					}}
-				>
-					<Select.Trigger class="w-full">
-						<Select.Value class="truncate" placeholder="Select columns" />
-					</Select.Trigger>
-					<Select.Content>
-						{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
-							<Select.Item value={courseColumnName}>
-								{courseColumnName}
-							</Select.Item>
-						{/each}
-					</Select.Content>
-					<Select.Input name="selectedColumns" />
-				</Select.Root>
+				<div class="relative">
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+						<List />
+					</div>
+					<Select.Root
+						multiple
+						{selected}
+						onSelectedChange={(newSelected) => {
+							if (!newSelected) return;
+							// Sort in the order of data.allCourseColumnNames
+							newSelected.sort((a, b) => {
+								const aIndex = data.allCourseColumnNames.indexOf(a.value);
+								const bIndex = data.allCourseColumnNames.indexOf(b.value);
+								return aIndex - bIndex;
+							});
+							selected = newSelected;
+						}}
+					>
+						<Select.Trigger class="w-full">
+							<Select.Value class="truncate" placeholder="Select columns" />
+						</Select.Trigger>
+						<Select.Content>
+							{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
+								<Select.Item value={courseColumnName}>
+									{courseColumnName}
+								</Select.Item>
+							{/each}
+						</Select.Content>
+						<Select.Input name="selectedColumns" />
+					</Select.Root>
+				</div>
 				<div class="relative">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 						<BookOpen class="h-5 w-5 text-gray-400" aria-hidden="true" />
