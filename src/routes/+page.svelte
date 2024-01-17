@@ -128,20 +128,19 @@
 									</Select.Trigger>
 									<Select.Content>
 										{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
-											<Select.Item
-												selected={{ label: orderByItem.direction, value: courseColumnName }}
-												onSelectedChange={(selected) => {
-													if (!selected) return;
-													orderByConfig[i].direction = selected.value;
-												}}
-											>
+											<Select.Item value={courseColumnName}>
 												{courseColumnName}
 											</Select.Item>
 										{/each}
 									</Select.Content>
 								</Select.Root>
-
-								<Select.Root bind:value={orderByItem.direction}>
+								<Select.Root
+									selected={{ label: orderByItem.direction, value: orderByItem.direction }}
+									onSelectedChange={(selected) => {
+										if (!selected) return;
+										orderByConfig[i].direction = selected.value;
+									}}
+								>
 									<Select.Trigger class="w-full">
 										<Select.Value class="pl-7 truncate" placeholder="Select direction" />
 									</Select.Trigger>
