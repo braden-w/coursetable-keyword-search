@@ -10,8 +10,9 @@ export const load = async ({ url, locals: { db } }) => {
 	const offset = (currentPage - 1) * pageSize;
 
 	// Column toggling
-	const selectedColumnsSchema = z.array(z.enum(allCourseColumnNames));
-	// .transform((value) => [...new Set(value)].sort());
+	const selectedColumnsSchema = z
+		.array(z.enum(allCourseColumnNames))
+		.transform((value) => [...new Set(value)].sort());
 	const selectedColumnsParam = queryParams.get('selectedColumns');
 	const processSelectedColumnsParam = (selectedColumnsParam: string | null) => {
 		if (selectedColumnsParam === null) return allCourseColumnNames;
