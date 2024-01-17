@@ -1,7 +1,9 @@
 <script lang="ts">
+	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Input } from '$lib/components/ui/input';
+	import * as Table from '$lib/components/ui/table';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
 	import { onMount } from 'svelte';
 	import Typewriter from 'typewriter-effect/dist/core';
@@ -9,13 +11,6 @@
 	import BookOpen from '~icons/heroicons/book-open';
 	import Funnel from '~icons/heroicons/funnel';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
-	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
-	import * as Table from '$lib/components/ui/table';
-	import { courses } from '$lib/server/schema';
-
-	const tableColumns = Object.entries(courses._.columns).map(([key, value]) => ({
-		name: key,
-	}));
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -112,12 +107,12 @@
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
-			{#each tableColumns as { name }, i (i)}
+			{#each data.selectedColumns as column, i (i)}
 				<Table.Row>
-					<Table.Cell class="font-medium">{name}</Table.Cell>
-					<Table.Cell>{name}</Table.Cell>
-					<Table.Cell>{name}</Table.Cell>
-					<Table.Cell class="text-right">{name}</Table.Cell>
+					<Table.Cell class="font-medium">{column}</Table.Cell>
+					<Table.Cell>{column}</Table.Cell>
+					<Table.Cell>{column}</Table.Cell>
+					<Table.Cell class="text-right">{column}</Table.Cell>
 				</Table.Row>
 			{/each}
 		</Table.Body>
