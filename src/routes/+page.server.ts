@@ -49,6 +49,20 @@ export const load = async ({ url, locals: { db } }) => {
 		return acc;
 	}, {});
 
+	const sortingSchema = z
+		.object({ column: z.enum(allCourseColumnNames), direction: z.enum(['asc', 'desc']) })
+		.array();
+	// Extract and parse sorting parameters
+	const sortingParam = queryParams.get('sorting');
+	const sorting = sortingParam
+		? sortingSchema.parse(JSON.parse(sortingParam))
+		: [{ column: 'course_id', direction: 'asc' }]; // Default sorting
+
+	// Construct orderBy clause
+	const orderByClause = sorting.map((sortItem) => ({
+		[sortItem.column]: sortItem.direction,
+	}));
+
 	// z.union of all column names
 	const rows = await db.query.courses.findMany({
 		columns: dynamicColumns,
