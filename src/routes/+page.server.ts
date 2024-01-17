@@ -5,6 +5,14 @@ type Writable<T> = {
 	-readonly [K in keyof T]: T[K];
 };
 
+const selectedColumnsSchema = z
+	.array(z.enum(allCourseColumnNames))
+	.transform((value) => [...new Set(value)].sort());
+const DEFAULT_SELECTED_COLUMNS: z.infer<typeof selectedColumnsSchema> = [
+	'course_id',
+	'average_comment_compound',
+];
+
 export const load = async ({ url, locals: { db } }) => {
 	const queryParams = new URL(url).searchParams;
 
@@ -14,14 +22,7 @@ export const load = async ({ url, locals: { db } }) => {
 	const offset = (currentPage - 1) * pageSize;
 
 	// Column toggling
-	const selectedColumnsSchema = z
-		.array(z.enum(allCourseColumnNames))
-		.transform((value) => [...new Set(value)].sort());
 	const selectedColumnsParam = queryParams.get('selectedColumns');
-	const DEFAULT_SELECTED_COLUMNS: z.infer<typeof selectedColumnsSchema> = [
-		'course_id',
-		'average_comment_compound',
-	];
 	const selectedColumns = selectedColumnsParam
 		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
 		: DEFAULT_SELECTED_COLUMNS;
