@@ -1,5 +1,6 @@
-import { allCourseColumnNames } from '$lib/server/schema';
+import { allCourseColumnNames } from '$lib/all-course-column-names';
 import { z } from 'zod';
+import { orderByConfigSchema, type OrderByConfig } from './schema';
 
 type Writable<T> = {
 	-readonly [K in keyof T]: T[K];
@@ -49,18 +50,16 @@ export const load = async ({ url, locals: { db } }) => {
 		return acc;
 	}, {});
 
-	const sortingSchema = z
-		.object({ column: z.enum(allCourseColumnNames), direction: z.enum(['asc', 'desc']) })
-		.array();
 	// Extract and parse sorting parameters
 	const sortingParam = queryParams.get('sorting');
-	const DEFAULT_SORTING: z.infer<typeof sortingSchema> = [
-		{ column: 'course_id', direction: 'asc' },
+	const DEFAULT_SORTING: OrderByConfig= [
+		{ column: 'average_comment_compound', direction: 'desc' },
+		{ column: 'average_rating', direction: 'desc' },
 	];
-	const sorting = (function () {
+	const sorting: OrderByConfig = (function () {
 		if (!sortingParam) return DEFAULT_SORTING;
 		try {
-			return sortingSchema.parse(JSON.parse(sortingParam));
+			return orderByConfigSchema.parse(JSON.parse(sortingParam));
 		} catch (error) {
 			return DEFAULT_SORTING;
 		}
