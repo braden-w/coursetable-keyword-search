@@ -72,7 +72,14 @@
 						</span>
 					</Button>
 				</Collapsible.Trigger>
-				<Select.Root multiple bind:selected>
+				<Select.Root
+					multiple
+					{selected}
+					onSelectedChange={(newSelected) => {
+						if (!newSelected) return;
+						selected = newSelected;
+					}}
+				>
 					<Select.Trigger class="w-[180px]">
 						<Select.Value class="truncate" placeholder="Select columns" />
 					</Select.Trigger>
