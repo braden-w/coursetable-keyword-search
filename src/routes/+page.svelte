@@ -113,7 +113,7 @@
 				</div>
 				<Popover.Root>
 					<Popover.Trigger>Order By</Popover.Trigger>
-					<Popover.Content>
+					<Popover.Content class="w-full max-w-xl">
 						{#each data.orderByConfig as orderByItem, i (i)}
 							<div class="flex items-center">
 								<Select.Root
