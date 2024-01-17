@@ -29,11 +29,9 @@
 	class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
 >
 	<div class="container flex h-14 max-w-screen-2xl items-center justify-between">
-		<div class="flex gap-4">
-			<a href="/">
-				<img src={logo} alt="Logo" class="h-10 rounded-md" />
-			</a>
-			<a href="/" on:click={cycleTitles}>
+		<a class="flex gap-4" href="/">
+			<img src={logo} alt="Logo" class="h-8 rounded-md" />
+			<button on:click={cycleTitles}>
 				{#each titles as title, index}
 					{#if titleIndex === index}
 						<span
@@ -45,8 +43,8 @@
 						</span>
 					{/if}
 				{/each}
-			</a>
-		</div>
+			</button>
+		</a>
 		<div class="flex gap-2">
 			<Button
 				variant="ghost"
