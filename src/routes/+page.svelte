@@ -133,6 +133,7 @@
 											</Select.Item>
 										{/each}
 									</Select.Content>
+									<Select.Input name="orderByConfig[{i}].column" />
 								</Select.Root>
 								<Select.Root
 									selected={{ label: orderByItem.direction, value: orderByItem.direction }}
@@ -148,6 +149,7 @@
 										<Select.Item value="asc">Ascending</Select.Item>
 										<Select.Item value="desc">Descending</Select.Item>
 									</Select.Content>
+									<Select.Input name="orderByConfig[{i}].d" />
 								</Select.Root>
 							</div>
 						{/each}
