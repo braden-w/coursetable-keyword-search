@@ -16,6 +16,7 @@
 	import Funnel from '~icons/heroicons/funnel';
 	import List from '~icons/heroicons/list-bullet';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
+	import type { OrderByConfig } from './schema';
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -31,6 +32,8 @@
 		label: column,
 		value: column,
 	}));
+
+	let orderByConfig: OrderByConfig = data.orderByConfig;
 </script>
 
 <div class="container max-w-6xl flex flex-col gap-4 justify-center mt-6 lg:mt-16">
@@ -108,6 +111,44 @@
 						<Select.Input name="selectedColumns" />
 					</Select.Root>
 				</div>
+				<Popover.Root>
+					<Popover.Trigger>Order By</Popover.Trigger>
+					<Popover.Content>
+						{#each data.orderByConfig as orderByItem, i (i)}
+							<div class="flex items-center">
+								<Select.Root
+									selected={{ label: orderByItem.column, value: orderByItem.column }}
+									onSelectedChange={(selected) => (orderByConfig[i].column = selected.value)}
+								>
+									<Select.Trigger class="w-full">
+										<Select.Value class="pl-7 truncate" placeholder="Select column" />
+									</Select.Trigger>
+									<Select.Content>
+										{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
+											<Select.Item
+												selected={{ label: orderByItem.direction, value: courseColumnName }}
+												onSelectedChange={(selected) =>
+													(orderByConfig[i].direction = selected.value)}
+											>
+												{courseColumnName}
+											</Select.Item>
+										{/each}
+									</Select.Content>
+								</Select.Root>
+
+								<Select.Root bind:value={orderByItem.direction}>
+									<Select.Trigger class="w-full">
+										<Select.Value class="pl-7 truncate" placeholder="Select direction" />
+									</Select.Trigger>
+									<Select.Content>
+										<Select.Item value="asc">Ascending</Select.Item>
+										<Select.Item value="desc">Descending</Select.Item>
+									</Select.Content>
+								</Select.Root>
+							</div>
+						{/each}
+					</Popover.Content>
+				</Popover.Root>
 				<div class="relative">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 						<BookOpen class="text-muted-foreground" aria-hidden="true" />
