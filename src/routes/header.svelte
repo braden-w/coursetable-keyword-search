@@ -28,7 +28,7 @@
 <header
 	class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
 >
-	<div class="container max-w-screen-2xl flex h-16 justify-between items-center">
+	<div class="container flex h-14 max-w-screen-2xl items-center justify-between">
 		<div class="flex gap-4">
 			<a href="/">
 				<img src={logo} alt="Logo" class="h-10 rounded-md" />
@@ -36,13 +36,13 @@
 			<a href="/" on:click={cycleTitles}>
 				{#each titles as title, index}
 					{#if titleIndex === index}
-						<h1
-							class="font-bold text-xl sm:text-5xl lg:text-4xl"
+						<span
+							class="font-bold"
 							in:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
 							out:fade={{ duration: 800, easing: (t) => t * (2 - t) }}
 						>
 							{@html title}
-						</h1>
+						</span>
 					{/if}
 				{/each}
 			</a>
