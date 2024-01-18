@@ -1,31 +1,10 @@
 import { allCourseColumnNames } from '$lib/schema';
-import { z } from 'zod';
+import { DEFAULT_SELECTED_COLUMNS, selectedColumnsSchema } from '$lib/search-config';
 import { orderByConfigSchema, type OrderByConfig } from './schema';
 
 type Writable<T> = {
 	-readonly [K in keyof T]: T[K];
 };
-
-const selectedColumnsSchema = z
-	.array(z.enum(allCourseColumnNames))
-	.transform((value) => [...new Set(value)]);
-const DEFAULT_SELECTED_COLUMNS: z.infer<typeof selectedColumnsSchema> = [
-	'course_id',
-	'title',
-	'description',
-	'skills',
-	'areas',
-	'credits',
-	'syllabus_url',
-	'average_rating',
-	'average_workload',
-	'average_rating_same_professors',
-	'average_workload_same_professors',
-	'average_comment_neg',
-	'average_comment_neu',
-	'average_comment_pos',
-	'average_comment_compound',
-] as const;
 
 export const load = async ({ url, locals: { db } }) => {
 	const queryParams = new URL(url).searchParams;
