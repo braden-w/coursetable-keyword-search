@@ -1,4 +1,5 @@
-import { DEFAULT_SELECTED_COLUMNS } from '$lib/search-config';
+import { allCourseColumnNames } from '$lib/schema';
+import { DEFAULT_SELECTED_COLUMNS, selectedColumnsSchema } from '$lib/search-config';
 import { sql } from 'drizzle-orm';
 
 export const load = async ({ url, locals: { db } }) => {
@@ -9,11 +10,10 @@ export const load = async ({ url, locals: { db } }) => {
 	const offset = Math.max(0, Number(queryParams.get('offset') ?? '0'));
 
 	// // Column toggling
-	// const selectedColumnsParam = queryParams.get('selectedColumns');
-	// const selectedColumns = selectedColumnsParam
-	// 	? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
-	// 	: DEFAULT_SELECTED_COLUMNS;
-	const selectedColumns = DEFAULT_SELECTED_COLUMNS;
+	const selectedColumnsParam = queryParams.get('columns');
+	const selectedColumns = selectedColumnsParam
+		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
+		: DEFAULT_SELECTED_COLUMNS;
 
 	const query = queryParams.get('q') ?? 'Computer Science';
 
@@ -34,7 +34,7 @@ export const load = async ({ url, locals: { db } }) => {
 
 	// z.union of all column names
 	const { rows } = await db.run(
-		sql`SELECT courses.* FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT ${limit} OFFSET ${offset};`,
+		sql`SELECT ${sql.raw(selectedColumns.map((column) => `courses.${column}`).join(', '))} FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT ${limit} OFFSET ${offset};`,
 	);
 	return {
 		allCourseColumnNames,
