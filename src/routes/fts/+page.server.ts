@@ -27,9 +27,8 @@ export const load = async ({ url, locals: { db } }) => {
 	const queryParams = new URL(url).searchParams;
 
 	// // Pagination parameters
-	// const pageSize = Math.max(1, Number(queryParams.get('pageSize') ?? '10'));
-	// const currentPage = Math.max(1, Number(queryParams.get('currentPage') ?? '1'));
-	// const offset = (currentPage - 1) * pageSize;
+	const limit = Math.max(1, Number(queryParams.get('limit') ?? '10'));
+	const offset = Math.max(0, Number(queryParams.get('offset') ?? '0'));
 
 	// // Column toggling
 	// const selectedColumnsParam = queryParams.get('selectedColumns');
@@ -57,7 +56,7 @@ export const load = async ({ url, locals: { db } }) => {
 
 	// z.union of all column names
 	const { rows } = await db.run(
-		sql`SELECT courses.* FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT 10;`,
+		sql`SELECT courses.* FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT ${limit} OFFSET ${offset};`,
 	);
 	return {
 		allCourseColumnNames,
