@@ -14,7 +14,7 @@ export const load = async ({ url, locals: { db } }) => {
 	const limit = Math.max(1, Number(queryParams.get('limit') ?? '10'));
 	const offset = Math.max(0, Number(queryParams.get('offset') ?? '0'));
 
-	// // Column toggling
+	// Column toggling
 	const selectedColumnsParam = queryParams.get('columns');
 	const selectedColumns = selectedColumnsParam
 		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
