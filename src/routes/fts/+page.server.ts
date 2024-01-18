@@ -39,14 +39,17 @@ export const load = async ({ url, locals: { db } }) => {
 		};
 	}
 
+	const {
+		rows: [{ 'COUNT (*)': count }],
+	} = await db.run(sql`SELECT COUNT(*) FROM courses_fts WHERE courses_fts MATCH ${query};`);
 	const { rows } = await db.run(
-		sql`SELECT ${sql.raw(selectedColumns.map((column) => `courses.${column}`).join(', '))} FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT ${limit} OFFSET ${offset} ORDER BY ${sql.raw(
+		sql`SELECT ${sql.raw(selectedColumns.map((column) => `courses.${column}`).join(', '))} FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} ORDER BY ${sql.raw(
 			orderByConfig
 				.map(({ column, direction }) => `${column} ${direction === 'asc' ? 'ASC' : 'DESC'}`)
 				.join(', '),
-		)};`,
+		)} LIMIT ${limit} OFFSET ${offset};`,
 	);
-
+	// console.log('🚀 ~ load ~ count:', count);
 	return {
 		allCourseColumnNames,
 		rows,
