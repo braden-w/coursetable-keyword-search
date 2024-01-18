@@ -1,10 +1,9 @@
 import { allCourseColumnNames } from '$lib/schema';
 import {
+	DEFAULT_ORDER_BY_CONFIG,
 	DEFAULT_SELECTED_COLUMNS,
 	orderByConfigSchema,
-	selectedColumnsSchema,
-	type OrderByConfig,
-	DEFAULT_ORDER_BY_CONFIG,
+	selectedColumnsSchema
 } from '$lib/search-config';
 import { sql } from 'drizzle-orm';
 
@@ -25,7 +24,7 @@ export const load = async ({ url, locals: { db } }) => {
 
 	// // Extract and parse orderBy parameters
 	const orderByConfigParam = queryParams.get('orderByConfig');
-	const orderByConfig: OrderByConfig = (function () {
+	const orderByConfig = (function () {
 		if (!orderByConfigParam) return DEFAULT_ORDER_BY_CONFIG;
 		try {
 			return orderByConfigSchema.parse(JSON.parse(orderByConfigParam));

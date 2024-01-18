@@ -27,4 +27,9 @@ export const orderByConfigSchema = z
 	.object({ column: z.enum(allCourseColumnNames), direction: z.enum(['asc', 'desc']) })
 	.array();
 
-export type OrderByConfig = z.infer<typeof orderByConfigSchema>;
+type OrderByConfig = z.infer<typeof orderByConfigSchema>;
+
+export const DEFAULT_ORDER_BY_CONFIG = [
+	{ column: 'average_comment_compound', direction: 'desc' },
+	{ column: 'average_rating', direction: 'desc' },
+] satisfies OrderByConfig;
