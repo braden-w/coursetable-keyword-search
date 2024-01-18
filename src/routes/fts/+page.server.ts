@@ -3,7 +3,7 @@ import {
 	DEFAULT_ORDER_BY_CONFIG,
 	DEFAULT_SELECTED_COLUMNS,
 	orderByConfigSchema,
-	selectedColumnsSchema
+	selectedColumnsSchema,
 } from '$lib/search-config';
 import { sql } from 'drizzle-orm';
 
@@ -20,7 +20,16 @@ export const load = async ({ url, locals: { db } }) => {
 		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
 		: DEFAULT_SELECTED_COLUMNS;
 
-	const query = queryParams.get('q') ?? 'Computer Science';
+	const query = queryParams.get('q');
+
+	if (!query) {
+		return {
+			allCourseColumnNames,
+			rows: [],
+			selectedColumns,
+			// orderByConfig
+		};
+	}
 
 	// // Extract and parse orderBy parameters
 	const orderByConfigParam = queryParams.get('orderByConfig');
