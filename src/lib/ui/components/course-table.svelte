@@ -57,7 +57,13 @@
 						</Pagination.Item>
 					{:else}
 						<Pagination.Item isVisible={currentPage == page.value}>
-							<Pagination.Link {page} isActive={currentPage == page.value}>
+							<Pagination.Link
+								type="submit"
+								name="offset"
+								value={page.value - 1}
+								{page}
+								isActive={currentPage == page.value}
+							>
 								{page.value}
 							</Pagination.Link>
 						</Pagination.Item>
