@@ -10,28 +10,14 @@ import { sql } from 'drizzle-orm';
 export const load = async ({ url, locals: { db } }) => {
 	const queryParams = new URL(url).searchParams;
 
-	// // Pagination parameters
 	const limit = Math.max(1, Number(queryParams.get('limit') ?? '10'));
 	const offset = Math.max(0, Number(queryParams.get('offset') ?? '0'));
 
-	// Column toggling
 	const selectedColumnsParam = queryParams.get('columns');
 	const selectedColumns = selectedColumnsParam
 		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
 		: DEFAULT_SELECTED_COLUMNS;
 
-	const query = queryParams.get('q');
-
-	if (!query) {
-		return {
-			allCourseColumnNames,
-			rows: [],
-			selectedColumns,
-			// orderByConfig
-		};
-	}
-
-	// // Extract and parse orderBy parameters
 	const orderByConfigParam = queryParams.get('orderByConfig');
 	const orderByConfig = (function () {
 		if (!orderByConfigParam) return DEFAULT_ORDER_BY_CONFIG;
@@ -42,7 +28,17 @@ export const load = async ({ url, locals: { db } }) => {
 		}
 	})();
 
-	// z.union of all column names
+	const query = queryParams.get('q');
+
+	if (!query) {
+		return {
+			allCourseColumnNames,
+			rows: [],
+			selectedColumns,
+			orderByConfig,
+		};
+	}
+
 	const { rows } = await db.run(
 		sql`SELECT ${sql.raw(selectedColumns.map((column) => `courses.${column}`).join(', '))} FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT ${limit} OFFSET ${offset} ORDER BY ${sql.raw(
 			orderByConfig
@@ -54,6 +50,6 @@ export const load = async ({ url, locals: { db } }) => {
 		allCourseColumnNames,
 		rows,
 		selectedColumns,
-		// orderByConfig
+		orderByConfig,
 	};
 };
