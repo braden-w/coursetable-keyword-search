@@ -46,6 +46,7 @@ export const load = async ({ url, locals: { db } }) => {
 				.join(', '),
 		)};`,
 	);
+
 	return {
 		allCourseColumnNames,
 		rows,
