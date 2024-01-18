@@ -1,8 +1,6 @@
 <script lang="ts">
 	import logo from '$lib/assets/logo.png';
 	import { Button } from '$lib/components/ui/button';
-	import * as Carousel from '$lib/components/ui/carousel/index';
-	import Autoplay from 'embla-carousel-autoplay';
 	import { onDestroy, onMount } from 'svelte';
 	import GithubLogo from '~icons/mdi/github';
 
