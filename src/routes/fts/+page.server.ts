@@ -44,7 +44,11 @@ export const load = async ({ url, locals: { db } }) => {
 
 	// z.union of all column names
 	const { rows } = await db.run(
-		sql`SELECT ${sql.raw(selectedColumns.map((column) => `courses.${column}`).join(', '))} FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT ${limit} OFFSET ${offset};`,
+		sql`SELECT ${sql.raw(selectedColumns.map((column) => `courses.${column}`).join(', '))} FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT ${limit} OFFSET ${offset} ORDER BY ${sql.raw(
+			orderByConfig
+				.map(({ column, direction }) => `${column} ${direction === 'asc' ? 'ASC' : 'DESC'}`)
+				.join(', '),
+		)};`,
 	);
 	return {
 		allCourseColumnNames,
