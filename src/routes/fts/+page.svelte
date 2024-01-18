@@ -131,29 +131,6 @@
 						{/each}
 					</Popover.Content>
 				</Popover.Root>
-				<div class="relative">
-					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<BookOpen class="text-muted-foreground" aria-hidden="true" />
-					</div>
-					<Input
-						name="search"
-						class="pl-10"
-						placeholder="Filter by course code ...(ECON, PLSC, HIST, etc.)"
-						type="search"
-					/>
-				</div>
-
-				<div class="relative">
-					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<AcademicCap class="text-muted-foreground" aria-hidden="true" />
-					</div>
-					<Input
-						name="search"
-						class="pl-10"
-						placeholder="Filter by areas ...(Hu, Qr, So, etc., case sensitive)"
-						type="search"
-					/>
-				</div>
 			</Collapsible.Content> -->
 		</form>
 	</Collapsible.Root>
