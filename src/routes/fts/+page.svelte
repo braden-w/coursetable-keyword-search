@@ -11,6 +11,7 @@
 	import List from '~icons/heroicons/list-bullet';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 	import Trash from '~icons/heroicons/trash';
+	import ChevronUpDown from '~icons/heroicons/chevron-up-down';
 
 	export let data;
 	let query = data.query;
@@ -54,10 +55,7 @@
 				<Button type="submit" class="ml-2">Search</Button>
 			</div>
 
-			<div class="relative">
-				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-					<List class="text-muted-foreground" />
-				</div>
+			<div class="flex gap-2">
 				<Label for="columns" class="sr-only">Columns</Label>
 				<Select.Root
 					multiple
@@ -73,8 +71,11 @@
 						selected = newSelected;
 					}}
 				>
-					<Select.Trigger class="w-full">
-						<p class="pl-7 truncate">Select columns</p>
+					<Select.Trigger>
+						<div class="flex gap-2">
+							<List class="text-muted-foreground" />
+							<p>Select columns</p>
+						</div>
 					</Select.Trigger>
 					<Select.Content class="max-h-96 overflow-y-auto">
 						{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
@@ -85,70 +86,73 @@
 					</Select.Content>
 					<Select.Input id="columns" name="selectedColumns" />
 				</Select.Root>
-			</div>
 
-			<Label for="orderBy" class="sr-only">Order By</Label>
-			<Input
-				id="orderBy"
-				type="hidden"
-				name="orderByConfig"
-				value={JSON.stringify(orderByConfig)}
-			/>
-			<Popover.Root>
-				<Popover.Trigger asChild let:builder>
-					<Button builders={[builder]} variant="outline">Order By</Button>
-				</Popover.Trigger>
-				<Popover.Content class="w-full max-w-md">
-					{#each orderByConfig as orderByItem, i}
-						<div class="flex items-center">
-							<Select.Root
-								selected={{ label: orderByItem.column, value: orderByItem.column }}
-								onSelectedChange={(selected) => {
-									if (!selected) return;
-									orderByConfig[i].column = selected.value;
-								}}
-							>
-								<Select.Trigger class="w-full">
-									<Select.Value class="pl-7 truncate" placeholder="Select column" />
-								</Select.Trigger>
-								<Select.Content>
-									{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
-										<Select.Item value={courseColumnName}>
-											{courseColumnName}
-										</Select.Item>
-									{/each}
-								</Select.Content>
-								<Select.Input name="orderByConfig[{i}].column" />
-							</Select.Root>
-							<Select.Root
-								selected={{ label: orderByItem.direction, value: orderByItem.direction }}
-								onSelectedChange={(selected) => {
-									if (!selected) return;
-									orderByConfig[i].direction = selected.value;
-								}}
-							>
-								<Select.Trigger class="w-full">
-									<Select.Value class="pl-7 truncate" placeholder="Select direction" />
-								</Select.Trigger>
-								<Select.Content>
-									<Select.Item value="asc">Ascending</Select.Item>
-									<Select.Item value="desc">Descending</Select.Item>
-								</Select.Content>
-								<Select.Input name="orderByConfig[{i}].direction" />
-							</Select.Root>
-							<Button
-								variant="ghost"
-								size="icon"
-								on:click={() => {
-									orderByConfig = [...orderByConfig.slice(0, i), ...orderByConfig.slice(i + 1)];
-								}}
-							>
-								<Trash />
-							</Button>
-						</div>
-					{/each}
-				</Popover.Content>
-			</Popover.Root>
+				<Label for="orderBy" class="sr-only">Order By</Label>
+				<Input
+					id="orderBy"
+					type="hidden"
+					name="orderByConfig"
+					value={JSON.stringify(orderByConfig)}
+				/>
+				<Popover.Root>
+					<Popover.Trigger asChild let:builder>
+						<Button builders={[builder]} variant="outline" class="font-normal">
+							<ChevronUpDown class="text-muted-foreground mr-2" aria-hidden="true" />
+							Order By
+						</Button>
+					</Popover.Trigger>
+					<Popover.Content class="w-full max-w-md">
+						{#each orderByConfig as orderByItem, i}
+							<div class="flex items-center">
+								<Select.Root
+									selected={{ label: orderByItem.column, value: orderByItem.column }}
+									onSelectedChange={(selected) => {
+										if (!selected) return;
+										orderByConfig[i].column = selected.value;
+									}}
+								>
+									<Select.Trigger class="w-full">
+										<Select.Value class="pl-7 truncate" placeholder="Select column" />
+									</Select.Trigger>
+									<Select.Content>
+										{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
+											<Select.Item value={courseColumnName}>
+												{courseColumnName}
+											</Select.Item>
+										{/each}
+									</Select.Content>
+									<Select.Input name="orderByConfig[{i}].column" />
+								</Select.Root>
+								<Select.Root
+									selected={{ label: orderByItem.direction, value: orderByItem.direction }}
+									onSelectedChange={(selected) => {
+										if (!selected) return;
+										orderByConfig[i].direction = selected.value;
+									}}
+								>
+									<Select.Trigger class="w-full">
+										<Select.Value class="pl-7 truncate" placeholder="Select direction" />
+									</Select.Trigger>
+									<Select.Content>
+										<Select.Item value="asc">Ascending</Select.Item>
+										<Select.Item value="desc">Descending</Select.Item>
+									</Select.Content>
+									<Select.Input name="orderByConfig[{i}].direction" />
+								</Select.Root>
+								<Button
+									variant="ghost"
+									size="icon"
+									on:click={() => {
+										orderByConfig = [...orderByConfig.slice(0, i), ...orderByConfig.slice(i + 1)];
+									}}
+								>
+									<Trash />
+								</Button>
+							</div>
+						{/each}
+					</Popover.Content>
+				</Popover.Root>
+			</div>
 		</Collapsible.Root>
 		<!-- Add screenshot with rounded corners -->
 		<CourseTable {...data}></CourseTable>
