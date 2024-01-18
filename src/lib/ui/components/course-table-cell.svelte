@@ -16,8 +16,9 @@
 			return false;
 		}
 	};
-	const isNumber = (value: unknown): value is number => z.number().safeParse(value).success;
 	const isString = (value: unknown): value is string => z.string().safeParse(value).success;
+	const isNumber = (value: unknown): value is number => z.number().safeParse(value).success;
+	const isBoolean = (value: unknown): value is boolean => z.boolean().safeParse(value).success;
 	const isStringArray = (value: unknown): value is string[] =>
 		z.string().array().safeParse(value).success;
 	const isUrl = (value: string) => z.string().url().safeParse(value).success;
@@ -48,4 +49,12 @@
 	{:else}
 		<Badge>{value.toFixed(3)}</Badge>
 	{/if}
+{:else if isBoolean(value)}
+	{value ? 'Yes' : 'No'}
+{:else if value === null}
+	{''}
+{:else if isStringArray(value)}
+	{#each value as v}
+		<Badge>{v}</Badge>
+	{/each}
 {/if}
