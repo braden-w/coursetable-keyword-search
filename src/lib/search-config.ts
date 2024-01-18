@@ -22,3 +22,9 @@ export const DEFAULT_SELECTED_COLUMNS: z.infer<typeof selectedColumnsSchema> = [
 	'average_comment_pos',
 	'average_comment_compound',
 ] as const;
+
+export const orderByConfigSchema = z
+	.object({ column: z.enum(allCourseColumnNames), direction: z.enum(['asc', 'desc']) })
+	.array();
+
+export type OrderByConfig = z.infer<typeof orderByConfigSchema>;

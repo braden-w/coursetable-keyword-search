@@ -1,5 +1,11 @@
 import { allCourseColumnNames } from '$lib/schema';
-import { DEFAULT_SELECTED_COLUMNS, selectedColumnsSchema } from '$lib/search-config';
+import {
+	DEFAULT_SELECTED_COLUMNS,
+	orderByConfigSchema,
+	selectedColumnsSchema,
+	type OrderByConfig,
+	DEFAULT_ORDER_BY_CONFIG,
+} from '$lib/search-config';
 import { sql } from 'drizzle-orm';
 
 export const load = async ({ url, locals: { db } }) => {
@@ -18,19 +24,15 @@ export const load = async ({ url, locals: { db } }) => {
 	const query = queryParams.get('q') ?? 'Computer Science';
 
 	// // Extract and parse orderBy parameters
-	// const orderByConfigParam = queryParams.get('orderByConfig');
-	// const DEFAULT_ORDER_BY_CONFIG: OrderByConfig = [
-	// 	{ column: 'average_comment_compound', direction: 'desc' },
-	// 	{ column: 'average_rating', direction: 'desc' },
-	// ];
-	// const orderByConfig: OrderByConfig = (function () {
-	// 	if (!orderByConfigParam) return DEFAULT_ORDER_BY_CONFIG;
-	// 	try {
-	// 		return orderByConfigSchema.parse(JSON.parse(orderByConfigParam));
-	// 	} catch (error) {
-	// 		return DEFAULT_ORDER_BY_CONFIG;
-	// 	}
-	// })();
+	const orderByConfigParam = queryParams.get('orderByConfig');
+	const orderByConfig: OrderByConfig = (function () {
+		if (!orderByConfigParam) return DEFAULT_ORDER_BY_CONFIG;
+		try {
+			return orderByConfigSchema.parse(JSON.parse(orderByConfigParam));
+		} catch (error) {
+			return DEFAULT_ORDER_BY_CONFIG;
+		}
+	})();
 
 	// z.union of all column names
 	const { rows } = await db.run(
