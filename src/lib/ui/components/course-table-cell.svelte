@@ -5,9 +5,9 @@
 	import { cn } from '$lib/utils';
 	import { z } from 'zod';
 
-	export let value: string;
+	export let value: string | number | boolean | string[] | Record<string, string[][]> | null;
 
-	const isNull = value === 'null';
+	const isNullString = (value: string) => value === 'null';
 	const isJsonParseable = (value: string) => {
 		try {
 			JSON.parse(value);
@@ -16,33 +16,36 @@
 			return false;
 		}
 	};
-	const isNumber = (value: string) => {
-		const parsed = Number(value);
-		return !isNaN(parsed);
-	};
+	const isNumber = (value: unknown): value is number => z.number().safeParse(value).success;
+	const isString = (value: unknown): value is string => z.string().safeParse(value).success;
 	const isStringArray = (value: unknown): value is string[] =>
 		z.string().array().safeParse(value).success;
 	const isUrl = (value: string) => z.string().url().safeParse(value).success;
 </script>
 
-{#if isJsonParseable(value)}
-	{@const jsonValue = JSON.parse(value)}
-	{#if isStringArray(jsonValue)}
-		{#each jsonValue as v}
-			<Badge>{v}</Badge>
-		{/each}
+{#if isString(value)}
+	{#if isJsonParseable(value)}
+		{@const jsonValue = JSON.parse(value)}
+		{#if isStringArray(jsonValue)}
+			{#each jsonValue as v}
+				<Badge>{v}</Badge>
+			{/each}
+		{:else}
+			{jsonValue}
+		{/if}
+	{:else if isUrl(value)}
+		<Button variant="link" href={value} target="_blank" rel="noopener noreferrer">Link</Button>
+	{:else if isNullString(value)}
+		{''}
 	{:else}
-		{jsonValue}
+		{value}
 	{/if}
 {:else if isNumber(value)}
-	{@const numberValue = Number(value)}
-	{#if numberValue > 0}
-		{numberValue}
+	{#if Number.isInteger(value)}
+		{value}
+	{:else if value > 0}
+		{value.toFixed(2)}
 	{:else}
-		<Badge>{numberValue}</Badge>
+		<Badge>{value.toFixed(2)}</Badge>
 	{/if}
-{:else if isUrl(value)}
-	<Button variant="link" href={value} target="_blank" rel="noopener noreferrer">Link</Button>
-{:else}
-	{value}
 {/if}
