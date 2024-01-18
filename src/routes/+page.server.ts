@@ -1,6 +1,9 @@
 import { allCourseColumnNames } from '$lib/schema';
-import { DEFAULT_SELECTED_COLUMNS, selectedColumnsSchema } from '$lib/search-config';
-import { orderByConfigSchema, type OrderByConfig } from './schema';
+import {
+	DEFAULT_SELECTED_COLUMNS,
+	orderByConfigSchema,
+	selectedColumnsSchema,
+} from '$lib/search-config';
 
 type Writable<T> = {
 	-readonly [K in keyof T]: T[K];
@@ -35,7 +38,7 @@ export const load = async ({ url, locals: { db } }) => {
 		{ column: 'average_comment_compound', direction: 'desc' },
 		{ column: 'average_rating', direction: 'desc' },
 	];
-	const orderByConfig: OrderByConfig = (function () {
+	const orderByConfig = (function () {
 		if (!orderByConfigParam) return DEFAULT_ORDER_BY_CONFIG;
 		try {
 			return orderByConfigSchema.parse(JSON.parse(orderByConfigParam));
