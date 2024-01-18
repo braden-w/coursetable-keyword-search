@@ -30,7 +30,7 @@
 						<MagnifyingGlass class="text-muted-foreground" aria-hidden="true" />
 					</div>
 					<Input
-						name="search"
+						name="q"
 						class="pl-10 pr-3"
 						placeholder="Search by course keyword..."
 						type="search"
