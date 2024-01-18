@@ -1,14 +1,12 @@
 <script lang="ts">
-	import CourseTable from '$lib/ui/components/course-table.svelte';
 	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Input } from '$lib/components/ui/input';
 	import * as Popover from '$lib/components/ui/popover';
 	import * as Select from '$lib/components/ui/select';
-	import * as Table from '$lib/components/ui/table';
 	import QueriesRow from '$lib/suggested_queries/QueriesRow.svelte';
-	import { cn } from '$lib/utils';
+	import CourseTable from '$lib/ui/components/course-table.svelte';
 	import type { Selected } from 'bits-ui';
 	import { onMount } from 'svelte';
 	import Typewriter from 'typewriter-effect/dist/core';
@@ -16,9 +14,8 @@
 	import BookOpen from '~icons/heroicons/book-open';
 	import Funnel from '~icons/heroicons/funnel';
 	import List from '~icons/heroicons/list-bullet';
-	import Trash from '~icons/heroicons/trash';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
-	import type { OrderByConfig } from './schema';
+	import Trash from '~icons/heroicons/trash';
 
 	let typewriter: HTMLSpanElement;
 	onMount(() => {
@@ -35,7 +32,7 @@
 		value: column,
 	}));
 
-	let orderByConfig: OrderByConfig = data.orderByConfig;
+	let orderByConfig = data.orderByConfig;
 </script>
 
 <div class="container max-w-6xl flex flex-col gap-4 justify-center mt-6 lg:mt-16">

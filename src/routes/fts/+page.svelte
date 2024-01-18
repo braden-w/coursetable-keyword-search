@@ -2,10 +2,14 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Input } from '$lib/components/ui/input';
+	import * as Popover from '$lib/components/ui/popover';
+	import * as Select from '$lib/components/ui/select';
 	import CourseTable from '$lib/ui/components/course-table.svelte';
 	import type { Selected } from 'bits-ui';
 	import Funnel from '~icons/heroicons/funnel';
+	import List from '~icons/heroicons/list-bullet';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
+	import Trash from '~icons/heroicons/trash';
 
 	export let data;
 	let selected: Selected<string>[] = data.selectedColumns.map((column) => ({
@@ -46,92 +50,91 @@
 				</Collapsible.Trigger>
 				<Button type="submit" class="ml-2">Search</Button>
 			</div>
-			<!-- <Collapsible.Content class="flex flex-col gap-2 pt-2">
-				<div class="relative">
-					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<List class="text-muted-foreground" />
-					</div>
-					<Select.Root
-						multiple
-						{selected}
-						onSelectedChange={(newSelected) => {
-							if (!newSelected) return;
-							// Sort in the order of data.allCourseColumnNames
-							newSelected.sort((a, b) => {
-								const aIndex = data.allCourseColumnNames.indexOf(a.value);
-								const bIndex = data.allCourseColumnNames.indexOf(b.value);
-								return aIndex - bIndex;
-							});
-							selected = newSelected;
-						}}
-					>
-						<Select.Trigger class="w-full">
-							<Select.Value class="pl-7 truncate" placeholder="Select columns" />
-						</Select.Trigger>
-						<Select.Content>
-							{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
-								<Select.Item value={courseColumnName}>
-									{courseColumnName}
-								</Select.Item>
-							{/each}
-						</Select.Content>
-						<Select.Input name="selectedColumns" />
-					</Select.Root>
+
+			<div class="relative">
+				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+					<List class="text-muted-foreground" />
 				</div>
-				<Popover.Root>
-					<Popover.Trigger>Order By</Popover.Trigger>
-					<Popover.Content class="w-full max-w-xl">
-						{#each orderByConfig as orderByItem, i}
-							<div class="flex items-center">
-								<Select.Root
-									selected={{ label: orderByItem.column, value: orderByItem.column }}
-									onSelectedChange={(selected) => {
-										if (!selected) return;
-										orderByConfig[i].column = selected.value;
-									}}
-								>
-									<Select.Trigger class="w-full">
-										<Select.Value class="pl-7 truncate" placeholder="Select column" />
-									</Select.Trigger>
-									<Select.Content>
-										{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
-											<Select.Item value={courseColumnName}>
-												{courseColumnName}
-											</Select.Item>
-										{/each}
-									</Select.Content>
-									<Select.Input name="orderByConfig[{i}].column" />
-								</Select.Root>
-								<Select.Root
-									selected={{ label: orderByItem.direction, value: orderByItem.direction }}
-									onSelectedChange={(selected) => {
-										if (!selected) return;
-										orderByConfig[i].direction = selected.value;
-									}}
-								>
-									<Select.Trigger class="w-full">
-										<Select.Value class="pl-7 truncate" placeholder="Select direction" />
-									</Select.Trigger>
-									<Select.Content>
-										<Select.Item value="asc">Ascending</Select.Item>
-										<Select.Item value="desc">Descending</Select.Item>
-									</Select.Content>
-									<Select.Input name="orderByConfig[{i}].direction" />
-								</Select.Root>
-								<Button
-									variant="ghost"
-									size="icon"
-									on:click={() => {
-										orderByConfig = [...orderByConfig.slice(0, i), ...orderByConfig.slice(i + 1)];
-									}}
-								>
-									<Trash />
-								</Button>
-							</div>
+				<Select.Root
+					multiple
+					{selected}
+					onSelectedChange={(newSelected) => {
+						if (!newSelected) return;
+						// Sort in the order of data.allCourseColumnNames
+						newSelected.sort((a, b) => {
+							const aIndex = data.allCourseColumnNames.indexOf(a.value);
+							const bIndex = data.allCourseColumnNames.indexOf(b.value);
+							return aIndex - bIndex;
+						});
+						selected = newSelected;
+					}}
+				>
+					<Select.Trigger class="w-full">
+						<Select.Value class="pl-7 truncate" placeholder="Select columns" />
+					</Select.Trigger>
+					<Select.Content>
+						{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
+							<Select.Item value={courseColumnName}>
+								{courseColumnName}
+							</Select.Item>
 						{/each}
-					</Popover.Content>
-				</Popover.Root>
-			</Collapsible.Content> -->
+					</Select.Content>
+					<Select.Input name="selectedColumns" />
+				</Select.Root>
+			</div>
+			<Popover.Root>
+				<Popover.Trigger>Order By</Popover.Trigger>
+				<Popover.Content class="w-full max-w-xl">
+					{#each orderByConfig as orderByItem, i}
+						<div class="flex items-center">
+							<Select.Root
+								selected={{ label: orderByItem.column, value: orderByItem.column }}
+								onSelectedChange={(selected) => {
+									if (!selected) return;
+									orderByConfig[i].column = selected.value;
+								}}
+							>
+								<Select.Trigger class="w-full">
+									<Select.Value class="pl-7 truncate" placeholder="Select column" />
+								</Select.Trigger>
+								<Select.Content>
+									{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
+										<Select.Item value={courseColumnName}>
+											{courseColumnName}
+										</Select.Item>
+									{/each}
+								</Select.Content>
+								<Select.Input name="orderByConfig[{i}].column" />
+							</Select.Root>
+							<Select.Root
+								selected={{ label: orderByItem.direction, value: orderByItem.direction }}
+								onSelectedChange={(selected) => {
+									if (!selected) return;
+									orderByConfig[i].direction = selected.value;
+								}}
+							>
+								<Select.Trigger class="w-full">
+									<Select.Value class="pl-7 truncate" placeholder="Select direction" />
+								</Select.Trigger>
+								<Select.Content>
+									<Select.Item value="asc">Ascending</Select.Item>
+									<Select.Item value="desc">Descending</Select.Item>
+								</Select.Content>
+								<Select.Input name="orderByConfig[{i}].direction" />
+							</Select.Root>
+							<Button
+								variant="ghost"
+								size="icon"
+								on:click={() => {
+									orderByConfig = [...orderByConfig.slice(0, i), ...orderByConfig.slice(i + 1)];
+								}}
+							>
+								<Trash />
+							</Button>
+						</div>
+					{/each}
+				</Popover.Content>
+			</Popover.Root>
 		</form>
 	</Collapsible.Root>
 	<!-- Add screenshot with rounded corners -->
