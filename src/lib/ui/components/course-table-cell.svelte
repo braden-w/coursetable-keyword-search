@@ -46,6 +46,6 @@
 	{:else if value > 0}
 		{value.toFixed(2)}
 	{:else}
-		<Badge>{value.toFixed(2)}</Badge>
+		<Badge>{value.toFixed(3)}</Badge>
 	{/if}
 {/if}
