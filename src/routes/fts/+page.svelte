@@ -154,7 +154,6 @@
 				</Popover.Root>
 			</div>
 		</Collapsible.Root>
-		<!-- Add screenshot with rounded corners -->
 		<CourseTable {...data}></CourseTable>
 	</form>
 </div>
