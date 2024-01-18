@@ -3,16 +3,17 @@
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Input } from '$lib/components/ui/input';
 	import CourseTable from '$lib/ui/components/course-table.svelte';
+	import type { Selected } from 'bits-ui';
 	import Funnel from '~icons/heroicons/funnel';
 	import MagnifyingGlass from '~icons/heroicons/magnifying-glass';
 
 	export let data;
-	// let selected: Selected<string>[] = data.selectedColumns.map((column) => ({
-	// 	label: column,
-	// 	value: column,
-	// }));
+	let selected: Selected<string>[] = data.selectedColumns.map((column) => ({
+		label: column,
+		value: column,
+	}));
 
-	// let orderByConfig: OrderByConfig = data.orderByConfig;
+	let orderByConfig = data.orderByConfig;
 </script>
 
 <div class="container max-w-6xl flex flex-col gap-4 justify-center mt-6 lg:mt-16">
