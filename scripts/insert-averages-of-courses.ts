@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { db } from '../src/lib/server/db';
-import { courses, evaluation_narratives } from '../src/lib/server/schema';
+import { courses, evaluation_narratives } from '../src/lib/schema';
 
 /**
  * For each course, gets all the courses with matching same_course_id, then takes all the evaluations of these courses, then takes the averages of the sentiments of all evaluations.

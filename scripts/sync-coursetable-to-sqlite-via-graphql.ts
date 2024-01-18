@@ -33,7 +33,7 @@ import {
 	professors,
 	seasons,
 	tfidf_similars,
-} from '../src/lib/server/schema';
+} from '../src/lib/schema';
 
 const COURSETABLE_COOKIE = process.env.COURSETABLE_COOKIE as string;
 const BATCH_SIZE = 500;
