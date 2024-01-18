@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Badge } from '$lib/components/ui/badge';
 	import * as Popover from '$lib/components/ui/popover';
 	import { cn } from '$lib/utils';
 	import { z } from 'zod';
@@ -41,7 +42,7 @@
 				{@const jsonValue = JSON.parse(value)}
 				{#if isStringArray(jsonValue)}
 					{#each jsonValue as v}
-						<span class="block">{v}</span>
+						<Badge>{v}</Badge>
 					{/each}
 				{:else}
 					{jsonValue}
