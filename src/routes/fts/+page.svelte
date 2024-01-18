@@ -13,6 +13,7 @@
 	import Trash from '~icons/heroicons/trash';
 
 	export let data;
+	let query = data.query;
 	let selected: Selected<string>[] = data.selectedColumns.map((column) => ({
 		label: column,
 		value: column,
@@ -32,6 +33,7 @@
 					</div>
 					<Input
 						name="q"
+						value={query}
 						class="pl-10 pr-3"
 						placeholder="Search by course keyword..."
 						type="search"
