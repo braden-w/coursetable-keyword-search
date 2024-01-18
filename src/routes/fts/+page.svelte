@@ -74,7 +74,7 @@
 					}}
 				>
 					<Select.Trigger class="w-full">
-						<Select.Value class="pl-7 truncate" placeholder="Select columns" />
+						<p class="pl-7 truncate">Select columns</p>
 					</Select.Trigger>
 					<Select.Content class="max-h-96 overflow-y-auto">
 						{#each data.allCourseColumnNames as courseColumnName (courseColumnName)}
