@@ -46,9 +46,9 @@
 						<span class="sr-only">Show filters</span>
 						<span class="absolute right-0 top-0 -mr-1 -mt-1 flex h-2 w-2">
 							<span
-								class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"
+								class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/40 opacity-75"
 							/>
-							<span class="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+							<span class="relative inline-flex h-2 w-2 rounded-full bg-primary/40" />
 						</span>
 					</Button>
 				</Collapsible.Trigger>
