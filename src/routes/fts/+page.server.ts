@@ -38,7 +38,7 @@ export const load = async ({ url, locals: { db } }) => {
 	// 	: DEFAULT_SELECTED_COLUMNS;
 	const selectedColumns = DEFAULT_SELECTED_COLUMNS;
 
-	const query = queryParams.get('q') ?? 'Of Course';
+	const query = queryParams.get('q') ?? 'Computer Science';
 
 	// // Extract and parse orderBy parameters
 	// const orderByConfigParam = queryParams.get('orderByConfig');
@@ -56,8 +56,8 @@ export const load = async ({ url, locals: { db } }) => {
 	// })();
 
 	// z.union of all column names
-	const rows = await db.run(
-		sql`SELECT courses.* FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query};`,
+	const { rows } = await db.run(
+		sql`SELECT courses.* FROM courses_fts JOIN courses ON courses_fts.rowid = courses.course_id WHERE courses_fts MATCH ${query} LIMIT 10;`,
 	);
 	return {
 		allCourseColumnNames,
