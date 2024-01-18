@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
 	import * as Popover from '$lib/components/ui/popover';
 	import { cn } from '$lib/utils';
 	import { z } from 'zod';
@@ -25,21 +26,21 @@
 		z.string().array().safeParse(value).success;
 </script>
 
-			{#if isJsonParseable(value)}
-				{@const jsonValue = JSON.parse(value)}
-				{#if isStringArray(jsonValue)}
-					{#each jsonValue as v}
-						<Badge>{v}</Badge>
-					{/each}
-				{:else}
-					{jsonValue}
-				{/if}
-			{:else if isDecimal(value)}
-				{value}
-			{:else if isUrl(value)}
-				<a href={value} target="_blank" rel="noopener noreferrer">
-					{value}
-				</a>
-			{:else}
-				{value}
-			{/if}
+{#if isJsonParseable(value)}
+	{@const jsonValue = JSON.parse(value)}
+	{#if isStringArray(jsonValue)}
+		{#each jsonValue as v}
+			<Badge>{v}</Badge>
+		{/each}
+	{:else}
+		{jsonValue}
+	{/if}
+{:else if isDecimal(value)}
+	{value}
+{:else if isUrl(value)}
+	<Button variant="link" href={value} target="_blank" rel="noopener noreferrer">
+		{value}
+	</Button>
+{:else}
+	{value}
+{/if}
