@@ -54,11 +54,11 @@
 				<Button type="submit" class="ml-2">Search</Button>
 			</div>
 
-			<Label for="columns">Columns</Label>
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<List class="text-muted-foreground" />
 				</div>
+				<Label for="columns" class="sr-only">Columns</Label>
 				<Select.Root
 					multiple
 					{selected}
@@ -87,7 +87,7 @@
 				</Select.Root>
 			</div>
 
-			<Label for="orderBy">Order By</Label>
+			<Label for="orderBy" >Order By</Label>
 			<Input
 				id="orderBy"
 				type="hidden"
