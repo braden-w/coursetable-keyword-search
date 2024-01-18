@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CourseTableCell from './course-table-cell.svelte';
+	import CourseTableCell from './course-table-cell.svelte';
 
 	import * as Pagination from '$lib/components/ui/pagination';
 	import * as Popover from '$lib/components/ui/popover';
@@ -26,7 +26,26 @@
 		{#each rows as row (row.course_id)}
 			<Table.Row class="hover:bg-muted/25">
 				{#each selectedColumns as column (column)}
-					<CourseTableCell value={row[column]}></CourseTableCell>
+					<Popover.Root>
+						<Popover.Trigger asChild let:builder>
+							<td
+								class={cn(
+									'p-4 align-middle [&:has([role=checkbox])]:pr-0',
+									'truncate max-w-16',
+									'hover:bg-muted/75',
+								)}
+								on:click
+								on:keydown
+								use:builder.action
+								{...builder}
+							>
+								<CourseTableCell value={row[column]}></CourseTableCell>
+							</td>
+						</Popover.Trigger>
+						<Popover.Content>
+							<CourseTableCell value={row[column]}></CourseTableCell></Popover.Content
+						>
+					</Popover.Root>
 				{/each}
 			</Table.Row>
 		{/each}

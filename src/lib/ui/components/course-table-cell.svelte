@@ -25,19 +25,6 @@
 		z.string().array().safeParse(value).success;
 </script>
 
-<Popover.Root>
-	<Popover.Trigger asChild let:builder>
-		<td
-			class={cn(
-				'p-4 align-middle [&:has([role=checkbox])]:pr-0',
-				'truncate max-w-16',
-				'hover:bg-muted/75',
-			)}
-			on:click
-			on:keydown
-			use:builder.action
-			{...builder}
-		>
 			{#if isJsonParseable(value)}
 				{@const jsonValue = JSON.parse(value)}
 				{#if isStringArray(jsonValue)}
@@ -56,7 +43,3 @@
 			{:else}
 				{value}
 			{/if}
-		</td>
-	</Popover.Trigger>
-	<Popover.Content>{value}</Popover.Content>
-</Popover.Root>
