@@ -7,6 +7,8 @@
 
 	export let selectedColumns: (typeof allCourseColumnNames)[number][];
 	export let rows: SelectCourse[];
+	export let count: number;
+	export let perPage: number;
 </script>
 
 <Table.Root>
@@ -43,7 +45,7 @@
 				{/each}
 			</Table.Row>
 		{/each}
-		<Pagination.Root count={100} perPage={10} let:pages let:currentPage>
+		<Pagination.Root {count} {perPage} let:pages let:currentPage>
 			<Pagination.Content>
 				<Pagination.Item>
 					<Pagination.PrevButton />

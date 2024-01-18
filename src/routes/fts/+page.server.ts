@@ -60,5 +60,7 @@ export const load = async ({ url, locals: { db } }) => {
 		rows,
 		selectedColumns,
 		orderByConfig,
+		count,
+		perPage: limit,
 	};
 };
