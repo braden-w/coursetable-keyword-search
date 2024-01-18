@@ -87,7 +87,7 @@
 				</Select.Root>
 			</div>
 
-			<Label for="orderBy" >Order By</Label>
+			<Label for="orderBy" class="sr-only">Order By</Label>
 			<Input
 				id="orderBy"
 				type="hidden"
