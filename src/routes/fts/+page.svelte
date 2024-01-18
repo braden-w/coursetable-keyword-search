@@ -55,7 +55,7 @@
 				<Button type="submit" class="ml-2">Search</Button>
 			</div>
 
-			<div class="flex gap-2">
+			<div class="flex items-center gap-2">
 				<Label for="columns" class="sr-only">Columns</Label>
 				<Select.Root
 					multiple
@@ -72,7 +72,7 @@
 					}}
 				>
 					<Select.Trigger>
-						<div class="flex gap-2">
+						<div class="flex items-center gap-2">
 							<List class="text-muted-foreground" />
 							<p>Select columns</p>
 						</div>
