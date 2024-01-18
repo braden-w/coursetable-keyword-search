@@ -2,6 +2,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Input } from '$lib/components/ui/input';
+	import { Label } from '$lib/components/ui/label';
 	import * as Popover from '$lib/components/ui/popover';
 	import * as Select from '$lib/components/ui/select';
 	import CourseTable from '$lib/ui/components/course-table.svelte';
@@ -24,8 +25,8 @@
 	<form>
 		<Collapsible.Root>
 			<div class="flex">
-				<label for="search" class="sr-only">Search</label>
 				<div class="relative flex-1">
+					<Label for="search" class="sr-only">Search</Label>
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 						<MagnifyingGlass class="text-muted-foreground" aria-hidden="true" />
 					</div>
@@ -51,12 +52,7 @@
 				<Button type="submit" class="ml-2">Search</Button>
 			</div>
 
-			<h2
-				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
-			>
-				Columns
-			</h2>
-
+			<Label for="columns">Columns</Label>
 			<div class="relative">
 				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 					<List class="text-muted-foreground" />
@@ -85,7 +81,7 @@
 							</Select.Item>
 						{/each}
 					</Select.Content>
-					<Select.Input name="selectedColumns" />
+					<Select.Input id="columns" name="selectedColumns" />
 				</Select.Root>
 			</div>
 
