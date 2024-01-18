@@ -8,7 +8,7 @@ type Writable<T> = {
 
 const selectedColumnsSchema = z
 	.array(z.enum(allCourseColumnNames))
-	.transform((value) => [...new Set(value)].sort());
+	.transform((value) => [...new Set(value)]);
 const DEFAULT_SELECTED_COLUMNS: z.infer<typeof selectedColumnsSchema> = [
 	'course_id',
 	'title',
