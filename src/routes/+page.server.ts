@@ -1,4 +1,4 @@
-import { allCourseColumnNames } from '$lib/all-course-column-names';
+import { allCourseColumnNames } from '$lib/schema';
 import { z } from 'zod';
 import { orderByConfigSchema, type OrderByConfig } from './schema';
 

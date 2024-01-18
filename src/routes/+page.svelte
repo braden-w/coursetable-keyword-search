@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CourseTable from '$lib/ui/components/course-table.svelte';
 	import screenshotCropped from '$lib/assets/screenshot_cropped.jpg';
 	import { Button } from '$lib/components/ui/button';
 	import * as Collapsible from '$lib/components/ui/collapsible';
@@ -194,42 +195,7 @@
 	</Collapsible.Root>
 	<QueriesRow />
 	<!-- Add screenshot with rounded corners -->
-	<Table.Root>
-		<Table.Caption>A list of your recent tableColumns.</Table.Caption>
-		<Table.Header>
-			<Table.Row>
-				{#each data.selectedColumns as column (column)}
-					<Table.Head>{column}</Table.Head>
-				{/each}
-			</Table.Row>
-		</Table.Header>
-		<Table.Body>
-			{#each data.rows as row (row.course_id)}
-				<Table.Row class="hover:bg-muted/25">
-					{#each data.selectedColumns as column (column)}
-						<Popover.Root>
-							<Popover.Trigger asChild let:builder>
-								<td
-									class={cn(
-										'p-4 align-middle [&:has([role=checkbox])]:pr-0',
-										'truncate max-w-16',
-										'hover:bg-muted/75',
-									)}
-									on:click
-									on:keydown
-									use:builder.action
-									{...builder}
-								>
-									{row[column]}
-								</td>
-							</Popover.Trigger>
-							<Popover.Content>{row[column]}</Popover.Content>
-						</Popover.Root>
-					{/each}
-				</Table.Row>
-			{/each}
-		</Table.Body>
-	</Table.Root>
+	<CourseTable {...data}></CourseTable>
 	<div class="relative">
 		<img src={screenshotCropped} class="rounded-xl" alt="Screenshot" />
 		<div class="absolute inset-0 bg-gradient-to-t from-base-100" />

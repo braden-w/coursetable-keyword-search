@@ -1,7 +1,7 @@
 // import { TURSO_READONLY_TOKEN, TURSO_SYNC_URL } from '$env/static/private';
 import { createClient } from '@libsql/client';
 import { drizzle } from 'drizzle-orm/libsql';
-import * as schema from './schema';
+import * as schema from '../schema';
 
 export const client = createClient({
 	// url: TURSO_SYNC_URL as string,
