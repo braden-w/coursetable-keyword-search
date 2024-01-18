@@ -26,7 +26,7 @@
 <div class="container max-w-6xl flex flex-col gap-4 justify-center mt-6 lg:mt-16">
 	<form>
 		<Collapsible.Root>
-			<div class="flex">
+			<div class="flex items-center gap-2">
 				<div class="relative flex-1">
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 						<MagnifyingGlass class="text-muted-foreground" aria-hidden="true" />
@@ -52,7 +52,7 @@
 						</span>
 					</Button>
 				</Collapsible.Trigger>
-				<Button type="submit" class="ml-2">Search</Button>
+				<Button type="submit">Search</Button>
 			</div>
 
 			<div class="flex items-center gap-2">
