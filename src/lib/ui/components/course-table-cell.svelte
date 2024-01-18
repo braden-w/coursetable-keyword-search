@@ -38,9 +38,7 @@
 {:else if isDecimal(value)}
 	{value}
 {:else if isUrl(value)}
-	<Button variant="link" href={value} target="_blank" rel="noopener noreferrer">
-		{value}
-	</Button>
+	<Button variant="link" href={value} target="_blank" rel="noopener noreferrer">Link</Button>
 {:else}
 	{value}
 {/if}
