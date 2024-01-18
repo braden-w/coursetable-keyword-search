@@ -28,10 +28,10 @@
 		<Collapsible.Root>
 			<div class="flex">
 				<div class="relative flex-1">
-					<Label for="search" class="sr-only">Search</Label>
 					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 						<MagnifyingGlass class="text-muted-foreground" aria-hidden="true" />
 					</div>
+					<Label for="search" class="sr-only">Search</Label>
 					<Input
 						name="q"
 						value={query}
