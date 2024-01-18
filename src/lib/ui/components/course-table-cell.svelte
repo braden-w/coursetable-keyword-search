@@ -2,7 +2,7 @@
 	import * as Popover from '$lib/components/ui/popover';
 	import { cn } from '$lib/utils';
 
-	export let value;
+	export let value: string;
 </script>
 
 <Popover.Root>
