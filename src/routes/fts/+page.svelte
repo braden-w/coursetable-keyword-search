@@ -21,8 +21,8 @@
 </script>
 
 <div class="container max-w-6xl flex flex-col gap-4 justify-center mt-6 lg:mt-16">
-	<Collapsible.Root>
-		<form action="/">
+	<form>
+		<Collapsible.Root>
 			<div class="flex">
 				<label for="search" class="sr-only">Search</label>
 				<div class="relative flex-1">
@@ -142,8 +142,8 @@
 					</Button>
 				</div>
 			{/each}
-		</form>
-	</Collapsible.Root>
-	<!-- Add screenshot with rounded corners -->
-	<CourseTable {...data}></CourseTable>
+		</Collapsible.Root>
+		<!-- Add screenshot with rounded corners -->
+		<CourseTable {...data}></CourseTable>
+	</form>
 </div>
