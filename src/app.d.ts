@@ -1,4 +1,4 @@
-import * as schema from '$lib/server/schema';
+import * as schema from '$lib/schema';
 import type { LibSQLDatabase } from 'drizzle-orm/libsql';
 import 'unplugin-icons/types/svelte';
 
