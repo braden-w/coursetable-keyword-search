@@ -85,11 +85,13 @@
 				</Select.Root>
 			</div>
 
-			<h2
-				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
-			>
-				Order By
-			</h2>
+			<Label for="orderBy">Order By</Label>
+			<Input
+				id="orderBy"
+				type="hidden"
+				name="orderByConfig"
+				value={JSON.stringify(orderByConfig)}
+			/>
 			{#each orderByConfig as orderByItem, i}
 				<div class="flex items-center">
 					<Select.Root
