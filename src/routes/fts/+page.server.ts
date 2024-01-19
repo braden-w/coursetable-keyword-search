@@ -13,7 +13,7 @@ export const load = async ({ url, locals: { db } }) => {
 	const limit = Math.max(1, Number(queryParams.get('limit') ?? '10'));
 	const offset = Math.max(0, Number(queryParams.get('offset') ?? '0'));
 
-	const selectedColumnsParam = queryParams.get('columns');
+	const selectedColumnsParam = queryParams.get('selectedColumns');
 	const selectedColumns = selectedColumnsParam
 		? selectedColumnsSchema.parse(selectedColumnsParam.split(','))
 		: DEFAULT_SELECTED_COLUMNS;
