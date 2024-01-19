@@ -20,7 +20,23 @@
 	<Table.Header>
 		<Table.Row>
 			{#each selectedColumns as column (column)}
-				<Table.Head class="truncate max-w-32">{column}</Table.Head>
+				<Popover.Root>
+					<Popover.Trigger asChild let:builder>
+						<th
+							class={cn(
+								'h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0',
+								'truncate max-w-32',
+							)}
+							use:builder.action
+							{...builder}
+						>
+							{column}
+						</th>
+					</Popover.Trigger>
+					<Popover.Content>
+						{column}
+					</Popover.Content>
+				</Popover.Root>
 			{/each}
 		</Table.Row>
 	</Table.Header>
