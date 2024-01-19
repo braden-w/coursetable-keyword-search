@@ -20,7 +20,7 @@
 	<Table.Header>
 		<Table.Row>
 			{#each selectedColumns as column (column)}
-				<Table.Head>{column}</Table.Head>
+				<Table.Head class="truncate max-w-32">{column}</Table.Head>
 			{/each}
 		</Table.Row>
 	</Table.Header>
@@ -33,7 +33,7 @@
 							<td
 								class={cn(
 									'p-4 align-middle [&:has([role=checkbox])]:pr-0',
-									'truncate max-w-16',
+									'truncate max-w-32',
 									'hover:bg-muted/75',
 								)}
 								on:click
