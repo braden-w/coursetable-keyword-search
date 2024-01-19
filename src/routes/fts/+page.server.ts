@@ -56,6 +56,7 @@ export const load = async ({ url, locals: { db } }) => {
 	]);
 	console.log('🚀 ~ load ~ count:', count);
 	return {
+		query,
 		allCourseColumnNames,
 		rows,
 		selectedColumns,
