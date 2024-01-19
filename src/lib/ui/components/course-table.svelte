@@ -14,7 +14,9 @@
 </script>
 
 <Table.Root>
-	<Table.Caption>A list of your recent tableColumns.</Table.Caption>
+	<Table.Caption>
+		Showing {Math.min(count, perPage)} of {count} courses
+	</Table.Caption>
 	<Table.Header>
 		<Table.Row>
 			{#each selectedColumns as column (column)}
