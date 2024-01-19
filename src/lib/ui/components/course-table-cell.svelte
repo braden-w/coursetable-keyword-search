@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
-	import * as Popover from '$lib/components/ui/popover';
-	import { cn } from '$lib/utils';
+	import { Progress } from '$lib/components/ui/progress';
 	import { z } from 'zod';
 
 	export let value: string | number | boolean | string[] | Record<string, string[][]> | null;
@@ -45,9 +44,15 @@
 	{#if Number.isInteger(value)}
 		{value}
 	{:else if value > 1}
-		<Badge>{value.toFixed(2)}</Badge>
+		<div class="flex flex-col gap-1">
+			{value.toFixed(2)}
+			<Progress class="w-full max-w-16 h-1" {value} max={5}></Progress>
+		</div>
 	{:else}
-		<Badge>{value.toFixed(3)}</Badge>
+		<div class="flex flex-col gap-1">
+			{value.toFixed(3)}
+			<Progress class="w-full max-w-16 h-1" {value} max={1}></Progress>
+		</div>
 	{/if}
 {:else if isBoolean(value)}
 	{value ? 'Yes' : 'No'}
