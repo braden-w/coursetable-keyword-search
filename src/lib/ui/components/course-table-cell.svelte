@@ -44,8 +44,8 @@
 {:else if isNumber(value)}
 	{#if Number.isInteger(value)}
 		{value}
-	{:else if value > 0}
-		{value.toFixed(2)}
+	{:else if value > 1}
+		<Badge>{value.toFixed(2)}</Badge>
 	{:else}
 		<Badge>{value.toFixed(3)}</Badge>
 	{/if}
