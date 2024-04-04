@@ -1,6 +1,6 @@
 # JankTable (coursetable-keyword-search)
 
-Search Yale Courses by keyword.
+This repository has been merged into the [yaleapps](https://github.com/braden-w/yaleapps) repository under `/apps/reviewtable`.
 
 ## About
 
