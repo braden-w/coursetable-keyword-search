@@ -1,6 +1,6 @@
 # JankTable (coursetable-keyword-search)
 
-This repository has been merged into the [yaleapps](https://github.com/braden-w/yaleapps) repository under `/apps/reviewtable`.
+This repository lives on in the [yaleapps](https://github.com/braden-w/yaleapps) repository under `/apps/reviewtable`. The successor lives on in `reviews.yaleapps.com`.
 
 ## About
 
